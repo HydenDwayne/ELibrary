@@ -6,8 +6,12 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
+import view.FilePath;
+import view.fonts.Fonts;
 
 public class Dashboard extends JFrame {
+	
+	static String imgFilePath = FilePath.getImgFilePath();
 
     JPanel mainContent;
     OverviewTab ovTab;
@@ -18,6 +22,7 @@ public class Dashboard extends JFrame {
     IMSTab imsTab;
 
     public Dashboard() {
+    	
         // Use BorderLayout for the frame
         setLayout(new BorderLayout());
 
@@ -43,7 +48,7 @@ public class Dashboard extends JFrame {
         leftHeader.setLayout(new BorderLayout());
         leftHeader.setOpaque(false);
 
-        ImageIcon elibIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\elib_logo.png");
+        ImageIcon elibIcon = new ImageIcon(imgFilePath + "elib_logo.png");
         Image elibImage = elibIcon.getImage();
         Image scaledImageElib = elibImage.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
         elibIcon = new ImageIcon(scaledImageElib);
@@ -63,7 +68,7 @@ public class Dashboard extends JFrame {
         account.setLayout(new BorderLayout());
         account.setOpaque(false);
 
-        ImageIcon profileIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\acct_icon.png");
+        ImageIcon profileIcon = new ImageIcon(imgFilePath + "acct_icon.png");
         Image profileImage = profileIcon.getImage();
         Image scaledImageProfile = profileImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         profileIcon = new ImageIcon(scaledImageProfile);
@@ -79,20 +84,14 @@ public class Dashboard extends JFrame {
         // account name info thing
         JPanel accountInfo = new JPanel();
 
-        Font Poppins = getFont();
+        Fonts poppins = new Fonts("Poppins", 14f);
+        Font poppinStyle10 = poppins.getAppliedFont();
 
-        try {
-            Font baseFont = Font.createFont(Font.TRUETYPE_FONT,
-                    new File("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\fonts\\Poppins-Regular.ttf"));
-
-            Poppins = baseFont.deriveFont(Font.PLAIN, 14f);
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading Intro Rust font. Font set to fallback");
-        }
 
         JLabel accountName = new JLabel("Hyden Dwayne C. Sapasap");
         JLabel accountEmail = new JLabel("2024105301@ms.bulsu.edu.ph");
-        accountEmail.setFont(new Font("Poppins", Font.PLAIN, 10));
+        accountName.setFont(poppinStyle10);
+        accountEmail.setFont(poppinStyle10);
         accountName.setForeground(Color.WHITE);
         accountEmail.setForeground(Color.LIGHT_GRAY);
 
@@ -107,15 +106,7 @@ public class Dashboard extends JFrame {
 
         account.add(accountInfo, BorderLayout.WEST);
 
-        rightHeader.add(account, BorderLayout.WEST); // -------------------
-
-        // ImageIcon settingsIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\UI\\img\\settings_icon.png");
-        // Image settingImage = settingsIcon.getImage();
-        // Image scaledImageSetting = settingImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
-        // settingsIcon = new ImageIcon(scaledImageSetting);
-        // JLabel settingLogo = new JLabel(settingsIcon);
-        // settingLogo.setHorizontalAlignment(SwingConstants.CENTER);
-        // rightHeader.add(settingLogo, BorderLayout.EAST);
+        rightHeader.add(account, BorderLayout.WEST);
 
         header.add(rightHeader, BorderLayout.EAST);
 

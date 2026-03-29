@@ -4,9 +4,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+import view.FilePath;
+
 public class Fonts {
 
     private Font appliedFont;
+    
+    static String fontFilePath = FilePath.getFontFilePath();
 
     public Fonts(String font_family, float size) {
 
@@ -47,7 +51,7 @@ public class Fonts {
         
         try {
             Font poppins;
-            poppins = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\fonts\\Poppins-Regular.ttf")).deriveFont(size);
+            poppins = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "Poppins-Regular.ttf")).deriveFont(size);
             return poppins;
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -60,7 +64,7 @@ public class Fonts {
         
         try {
             Font poppins;
-            poppins = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\fonts\\Poppins-Bold.ttf")).deriveFont(size);
+            poppins = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "Poppins-Bold.ttf")).deriveFont(size);
             return poppins;
         } catch (FontFormatException | IOException e) {
             System.out.println("Error loading PoppinsBold font. Font set to fallback: Sans Serif");
@@ -72,7 +76,7 @@ public class Fonts {
         
         try {
             Font introRust;
-            introRust = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\fonts\\IntroRust.otf")).deriveFont(size);
+            introRust = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "IntroRust.otf")).deriveFont(size);
             return introRust;
         } catch (FontFormatException | IOException e) {
             System.out.println("Error loading IntroRust font. Font set to fallback: Sans Serif");
@@ -84,7 +88,7 @@ public class Fonts {
         
         try {
             Font aBeeZee;
-            aBeeZee = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\fonts\\ABeeZee-Regular")).deriveFont(size);
+            aBeeZee = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "ABeeZee-Regular")).deriveFont(size);
             return aBeeZee;
         } catch (FontFormatException | IOException e) {
             System.out.println("Error loading ABeeZee font. Font set to fallback: Sans Serif");

@@ -6,13 +6,12 @@ import view.analytics.*;
 import view.fonts.Fonts;
 import java.time.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.*;
-
+import view.FilePath;
 
 public class OverviewTab extends JPanel{
+	static String imgFilePath = FilePath.getImgFilePath();
+	
     public JLabel activeBooksData = new JLabel();
     public JLabel overdueBooksData = new JLabel();
     public JLabel borrowedBooksData = new JLabel();
@@ -88,27 +87,22 @@ public class OverviewTab extends JPanel{
         activePatronsLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         activePatronsData.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-    // adding fonts
-        try {
-            Font baseFont = Font.createFont(Font.TRUETYPE_FONT,
-                    new File("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\fonts\\IntroRust.otf"));
+        Fonts introRust18 = new Fonts("IntroRust", 18f);
+        Fonts introRust32 = new Fonts("IntroRust", 32f);
+        
+        Font introRust18Style = introRust18.getAppliedFont();
+        Font introRust32Style = introRust32.getAppliedFont();
+        
+        
+            activeBooksLabel.setFont(introRust18Style);
+            borrowedBooksLabel.setFont(introRust18Style);
+            overdueBooksLabel.setFont(introRust18Style);
+            activePatronsLabel.setFont(introRust18Style);
 
-            Font labelFont = baseFont.deriveFont(Font.PLAIN, 18f);
-            Font dataFont = baseFont.deriveFont(Font.BOLD, 32f);
-
-            activeBooksLabel.setFont(labelFont);
-            borrowedBooksLabel.setFont(labelFont);
-            overdueBooksLabel.setFont(labelFont);
-            activePatronsLabel.setFont(labelFont);
-
-            activeBooksData.setFont(dataFont);
-            borrowedBooksData.setFont(dataFont);
-            overdueBooksData.setFont(dataFont);
-            activePatronsData.setFont(dataFont);
-
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading Intro Rust font. Font set to fallback");
-        }
+            activeBooksData.setFont(introRust32Style);
+            borrowedBooksData.setFont(introRust32Style);
+            overdueBooksData.setFont(introRust32Style);
+            activePatronsData.setFont(introRust32Style);
 
         activeBooks.add(activeBooksLabel);
         activeBooks.add(Box.createVerticalStrut(8));
@@ -205,15 +199,10 @@ public class OverviewTab extends JPanel{
         overviewTab.add(analyticsBottom, gbcContainer);
         gbcContainer.gridheight = 2;
         overviewTab.add(analyticsBottom, gbcContainer);
-
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\fonts\\IntroRust.otf"))
-                    .deriveFont(Font.PLAIN, 18f);
-            analyticsOne.setFont(customFont);
-            analyticsTwo.setFont(customFont);
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading Intro Rust font. Font set to fallback");
-        }
+            
+        analyticsOne.setFont(introRust18Style);
+        analyticsTwo.setFont(introRust18Style);
+            
         analyticsOne.setForeground(Color.decode("#6d2321"));
         analyticsTwo.setForeground(Color.decode("#6d2321"));
 
@@ -229,18 +218,8 @@ public class OverviewTab extends JPanel{
 
         JLabel qckLabel = new JLabel("Quick Actions");
         qckLabel.setForeground(Color.decode("#6d2321"));
-
-        try {
-            Font baseFont = Font.createFont(Font.TRUETYPE_FONT,
-                    new File("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\fonts\\IntroRust.otf"));
-
-            Font labelFont = baseFont.deriveFont(Font.PLAIN, 18f);
-
-            qckLabel.setFont(labelFont);
-
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading Intro Rust font. Font set to fallback");
-        }
+        
+        qckLabel.setFont(introRust18Style);
 
         quickActions.add(qckLabel);
 
@@ -274,18 +253,8 @@ public class OverviewTab extends JPanel{
         calendar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JLabel calLabel = new JLabel("Calendar");
         calLabel.setForeground(Color.decode("#6d2321"));
-
-        try {
-            Font baseFont = Font.createFont(Font.TRUETYPE_FONT,
-                    new File("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\fonts\\IntroRust.otf"));
-
-            Font labelFont = baseFont.deriveFont(Font.PLAIN, 18f);
-
-            calLabel.setFont(labelFont);
-
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading Intro Rust font. Font set to fallback");
-        }
+        
+        calLabel.setFont(introRust18Style);
 
         calendar.add(calLabel, BorderLayout.NORTH);
         
