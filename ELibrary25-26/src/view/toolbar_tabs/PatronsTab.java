@@ -6,9 +6,12 @@ import view.RoundedComponents.*;
 import view.fonts.Fonts;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
+import view.modal.*;
 
 public class PatronsTab extends JPanel {
 
@@ -123,6 +126,16 @@ public class PatronsTab extends JPanel {
         addLostItem.setBackground(Color.decode("#842b28"));
         addLostItem.setForeground(Color.WHITE);
         addLostItem.setPreferredSize(new Dimension(110, 30) );
+        
+        registerPatron1 modal = new registerPatron1();
+        addLostItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, modal, "Add Patron", JOptionPane.PLAIN_MESSAGE);
+				
+			}
+		});
 
         outerBtnCont.add(addLostItem, BorderLayout.EAST);
         outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));

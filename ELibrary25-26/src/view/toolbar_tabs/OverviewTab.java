@@ -39,13 +39,13 @@ public class OverviewTab extends JPanel{
         int smallWidgetWidth = 250;
         int smallWidgetHeight = 130;
 
-        // active books
-        RoundedPanel activeBooks = new RoundedPanel(panelRadius);
-        JLabel activeBooksLabel = new JLabel("Active Books");
-        activeBooks.setPreferredSize(new Dimension(smallWidgetWidth, smallWidgetHeight));
-        activeBooks.setBackground(Color.WHITE);
-        activeBooks.setLayout(new BoxLayout(activeBooks, BoxLayout.Y_AXIS));
-        activeBooks.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // available books
+        RoundedPanel availableBooks = new RoundedPanel(panelRadius);
+        JLabel availableBooksLabel = new JLabel("Available Books");
+        availableBooks.setPreferredSize(new Dimension(smallWidgetWidth, smallWidgetHeight));
+        availableBooks.setBackground(Color.WHITE);
+        availableBooks.setLayout(new BoxLayout(availableBooks, BoxLayout.Y_AXIS));
+        availableBooks.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // borrowed books
         RoundedPanel borrowedBooks = new RoundedPanel(panelRadius);
@@ -75,7 +75,7 @@ public class OverviewTab extends JPanel{
         activePatrons.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // content of the widgets
-        activeBooksLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        availableBooksLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         activeBooksData.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         borrowedBooksLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -94,19 +94,19 @@ public class OverviewTab extends JPanel{
         Font introRust32Style = introRust32.getAppliedFont();
         
         
-            activeBooksLabel.setFont(introRust18Style);
-            borrowedBooksLabel.setFont(introRust18Style);
-            overdueBooksLabel.setFont(introRust18Style);
-            activePatronsLabel.setFont(introRust18Style);
+    	availableBooksLabel.setFont(introRust18Style);
+        borrowedBooksLabel.setFont(introRust18Style);
+        overdueBooksLabel.setFont(introRust18Style);
+        activePatronsLabel.setFont(introRust18Style);
 
-            activeBooksData.setFont(introRust32Style);
-            borrowedBooksData.setFont(introRust32Style);
-            overdueBooksData.setFont(introRust32Style);
-            activePatronsData.setFont(introRust32Style);
+        activeBooksData.setFont(introRust32Style);
+        borrowedBooksData.setFont(introRust32Style);
+        overdueBooksData.setFont(introRust32Style);
+        activePatronsData.setFont(introRust32Style);
 
-        activeBooks.add(activeBooksLabel);
-        activeBooks.add(Box.createVerticalStrut(8));
-        activeBooks.add(activeBooksData);
+        availableBooks.add(availableBooksLabel);
+        availableBooks.add(Box.createVerticalStrut(8));
+        availableBooks.add(activeBooksData);
 
         borrowedBooks.add(borrowedBooksLabel);
         borrowedBooks.add(Box.createVerticalStrut(8));
@@ -121,7 +121,7 @@ public class OverviewTab extends JPanel{
         activePatrons.add(activePatronsData);
 
         // colors
-        activeBooksLabel.setForeground(Color.decode("#6d2321"));
+        availableBooksLabel.setForeground(Color.decode("#6d2321"));
         borrowedBooksLabel.setForeground(Color.decode("#6d2321"));
         overdueBooksLabel.setForeground(Color.decode("#6d2321"));
         activePatronsLabel.setForeground(Color.decode("#6d2321"));
@@ -133,7 +133,7 @@ public class OverviewTab extends JPanel{
 
         // add to container
         gbcContainer.gridy++;
-        overviewTab.add(activeBooks, gbcContainer);
+        overviewTab.add(availableBooks, gbcContainer);
         gbcContainer.gridy++;
         overviewTab.add(borrowedBooks, gbcContainer);
         gbcContainer.gridy++;
