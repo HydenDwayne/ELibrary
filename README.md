@@ -1,4 +1,4 @@
-#Steps to run in your lappys
+# Steps to run in your lappys
 
 ## Fresh install
 
