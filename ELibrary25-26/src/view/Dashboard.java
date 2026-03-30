@@ -84,7 +84,7 @@ public class Dashboard extends JFrame {
         // account name info thing
         JPanel accountInfo = new JPanel();
 
-        Fonts poppins = new Fonts("Poppins", 14f);
+        Fonts poppins = new Fonts("Poppins", 10f);
         Font poppinStyle10 = poppins.getAppliedFont();
 
 

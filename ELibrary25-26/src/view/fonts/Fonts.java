@@ -88,7 +88,7 @@ public class Fonts {
         
         try {
             Font aBeeZee;
-            aBeeZee = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "ABeeZee-Regular")).deriveFont(size);
+            aBeeZee = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "ABeeZee-Regular.ttf")).deriveFont(size);
             return aBeeZee;
         } catch (FontFormatException | IOException e) {
             System.out.println("Error loading ABeeZee font. Font set to fallback: Sans Serif");

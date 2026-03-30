@@ -4,9 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
-public class registerPatron1 extends JFrame {
-
-    JPanel registerPanel;
+public class registerPatron1 extends JPanel {
 
     static final Color MAROON       = new Color(106, 27, 27);
     static final Color LIGHT_PINK   = new Color(250, 235, 235);
@@ -17,15 +15,10 @@ public class registerPatron1 extends JFrame {
     static final int FIELD_HEIGHT = 22;
 
     public registerPatron1() {
-        setTitle("Add Patron");
-        setSize(1920, 1080);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        registerPanel = new JPanel();
-        registerPanel.setPreferredSize(new Dimension(400, 450));
-        registerPanel.setBackground(LIGHT_PINK);
-        registerPanel.setBorder(BorderFactory.createEtchedBorder());
-        registerPanel.setLayout(new BorderLayout());
+    	setPreferredSize(new Dimension(400, 450));
+        setBackground(LIGHT_PINK);
+        setBorder(BorderFactory.createEtchedBorder());
+        setLayout(new BorderLayout());
 
         // Logo banner 
         JPanel logoPanel = new JPanel();
@@ -35,7 +28,7 @@ public class registerPatron1 extends JFrame {
         JLabel logoLabel = new JLabel("📚 Library");
         logoLabel.setForeground(WHITE);
         logoPanel.add(logoLabel);
-        registerPanel.add(logoPanel, BorderLayout.NORTH);
+        add(logoPanel, BorderLayout.NORTH);
 
         // Body 
         JPanel bodyPanel = new JPanel();
@@ -201,16 +194,7 @@ public class registerPatron1 extends JFrame {
         btnPanel.add(nextBtn);
         bodyPanel.add(btnPanel);
 
-        registerPanel.add(bodyPanel, BorderLayout.CENTER);
-
-        // Wrapper
-        JPanel wrapper = new JPanel(new GridBagLayout());
-        wrapper.setBackground(new Color(210, 180, 180));
-        wrapper.add(registerPanel);
-
-        add(wrapper, BorderLayout.CENTER);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        add(bodyPanel, BorderLayout.CENTER);
     }
 
   

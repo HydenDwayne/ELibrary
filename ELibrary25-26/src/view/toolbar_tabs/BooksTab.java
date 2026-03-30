@@ -52,9 +52,9 @@ public class BooksTab extends JPanel implements ActionListener {
         gbcRed.gridx = 1;
         gbcRed.insets = new Insets(10, 30, 10, 10);
         slctBooks.setBackground(Color.decode("#842b28"));
-        slctBooks.setPreferredSize(new Dimension(550, 80));
+        slctBooks.setPreferredSize(new Dimension(500, 80));
 
-        JLabel selectCollection = new JLabel("SELECT BOOK COLLECTION");
+        JLabel selectCollection = new JLabel("SELECT COLLECTION");
         selectCollection.setForeground(Color.WHITE);
 
 
@@ -93,7 +93,7 @@ public class BooksTab extends JPanel implements ActionListener {
         topWrapper.add(slctBooks, BorderLayout.WEST);
 
         // no red part
-        tabLabel.setText("Bulacaniana");
+        tabLabel.setText("4th | Bulacaniana");
         tabLabel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         tabLabel.setForeground(Color.decode("#6d2321"));
 
@@ -303,37 +303,37 @@ public class BooksTab extends JPanel implements ActionListener {
 
         switch (selectedBookCol) {
             case "Bulacaniana Collection":
-                tabLabel.setText("Bulacaniana");
+                tabLabel.setText("4th | Bulacaniana");
                 bulacaniana.setVisible(true);
                 bulacaniana.reloadData();
                 break;
             case "Fiction Collection":
-                tabLabel.setText("Fiction Collection");
+                tabLabel.setText("4th | Fiction Collection");
                 fiction.setVisible(true);
                 fiction.reloadData();
                 break;
             case "Filipiniana Collection":
-                tabLabel.setText("Filipiniana Collection");
+                tabLabel.setText("4th | Filipiniana Collection");
                 filipiniana.setVisible(true);
                 filipiniana.reloadData();
                 break;
             case "General Circulation Section":
-                tabLabel.setText("General Circulation");
+                tabLabel.setText("2nd | General Circulation");
                 gencirc.setVisible(true);
                 gencirc.reloadData();
                 break;
             case "Reference Collection":
-                tabLabel.setText("Reference Collection");
+                tabLabel.setText("4th | Reference Collection");
                 reference.setVisible(true);
                 reference.reloadData();
                 break;
             case "Reserve Collection":
-                tabLabel.setText("Reserve Collection");
+                tabLabel.setText("4th | Reserve Collection");
                 reserve.setVisible(true);
                 reserve.reloadData();
                 break;
             case "Theses and Dissertations":
-                tabLabel.setText("Theses & Dissertation");
+                tabLabel.setText("3rd | Theses & Dissertation");
                 tad.setVisible(true);
                 tad.reloadData();
                 break;

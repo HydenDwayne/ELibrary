@@ -100,7 +100,7 @@ public class FacilitiesTab extends JPanel implements ActionListener {
         topWrapper.add(slctFacility);
 
         // no red part
-        tabLabel.setText("Amphitheather Schedule");
+        tabLabel.setText("7th | Amphitheather");
         tabLabel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         tabLabel.setForeground(Color.decode("#6d2321"));
 
@@ -185,51 +185,51 @@ public class FacilitiesTab extends JPanel implements ActionListener {
 
         switch (selectedFac) {
             case "Amphitheater":
-                tabLabel.setText("Amphitheater");
+                tabLabel.setText("7th | Amphitheater");
                 amp.setVisible(true);
                 break;
             case "Discussion Room 1":
-                tabLabel.setText("Discussion Room 1");
+                tabLabel.setText("5th | Discussion Room 1");
                 dr1.setVisible(true);
                 break;
             case "Discussion Room 2":
-                tabLabel.setText("Discussion Room 2");
+                tabLabel.setText("5th | Discussion Room 2");
                 dr2.setVisible(true);
                 break;
             case "iPad Area":
-                tabLabel.setText("iPad Area");
+                tabLabel.setText("1st | iPad Area");
                 ia.setVisible(true);
                 break;
             case "Individual Study Room":
-                tabLabel.setText("Individual Study Room");
+                tabLabel.setText("3rd | Individual Study Room");
                 isr.setVisible(true);
                 break;
             case "Multipurpose Hall 1":
-                tabLabel.setText("Multipurpose Hall 1");
+                tabLabel.setText("5th | Multipurpose Hall 1");
                 mh1.setVisible(true);
                 break;
             case "Multipurpose Hall 2":
-                tabLabel.setText("Multipurpose Hall 2");
+                tabLabel.setText("7th | Multipurpose Hall 2");
                 mh2.setVisible(true);
                 break;
             case "Relaxation Room":
-                tabLabel.setText("Relaxation Room");
+                tabLabel.setText("3rd | Relaxation Room");
                 rr.setVisible(true);
                 break;
             case "Smart Device Zone":
-                tabLabel.setText("Smart Device Zone");
+                tabLabel.setText("6th | Smart Device Zone");
                 sdz.setVisible(true);
                 break;
             case "Smart Learning Room 1":
-                tabLabel.setText("Smart Learning Room 1");
+                tabLabel.setText("5th | Smart Learning Room 1");
                 slr1.setVisible(true);
                 break;
             case "Smart Learning Room 2":
-                tabLabel.setText("Smart Learning Room 2");
+                tabLabel.setText("5th |Smart Learning Room 2");
                 slr2.setVisible(true);
                 break;
             case "Teleconferencing Room":
-                tabLabel.setText("Teleconferencing Room");
+                tabLabel.setText("5th | Teleconferencing Room");
                 tcr.setVisible(true);
                 break;
             default:
