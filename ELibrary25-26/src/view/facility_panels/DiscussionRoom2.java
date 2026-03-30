@@ -5,7 +5,7 @@ import java.awt.*;
 import java.time.*;
 import javax.swing.*;
 
-import controller.FacilityController;
+import controller.FunctionHallController;
 
 public class DiscussionRoom2 extends JPanel {
 
@@ -131,7 +131,7 @@ public class DiscussionRoom2 extends JPanel {
         }
 
         // days 
-        FacilityController comp = new FacilityController(this, calendarGrid);
+        FunctionHallController comp = new FunctionHallController(this, calendarGrid);
         
         int cellsFilled = startColumn + daysInMonth;
 
