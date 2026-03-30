@@ -1623,7 +1623,6 @@ public class MainFunctions extends JPanel {
     }
 
     public static void main(String[] args) {
-    	
     	Dashboard frame = new Dashboard();
     	frame.setVisible(false);
     	LoginWindow login = new LoginWindow(frame);

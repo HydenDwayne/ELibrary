@@ -9,11 +9,11 @@ import javax.swing.border.Border;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 
-public class facilityLogin extends JFrame {
+public class FacilityLogin extends JFrame {
 	
 	static String imgFilePath = FilePath.getImgFilePath();
 
-    public facilityLogin() {
+    public FacilityLogin(Dashboard frame) {
         JPanel panel = new JPanel() {
             Image backgroundImage = new ImageIcon(imgFilePath + "blurred_bg.jpg").getImage();
 
@@ -79,9 +79,9 @@ public class facilityLogin extends JFrame {
                 // unfinished ------------------------------------ insert logic for inserting login/logout here
                 // need to display user info or display user not found error
                 if (username.getText().equalsIgnoreCase("exit")) {
-                    LoginWindow lw = new LoginWindow();
+                    LoginWindow lw = new LoginWindow(frame);
                     lw.setVisible(true);
-                    SwingUtilities.getWindowAncestor(submitBtn).setVisible(false);
+                    dispose();
                 } else {
                     username.setText("");
                 }
@@ -117,9 +117,5 @@ public class facilityLogin extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new facilityLogin();
     }
 }

@@ -111,9 +111,9 @@ public class LoginWindow extends JFrame {
         loginFacility.setCursor(new Cursor(Cursor.HAND_CURSOR));
         loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
         loginFacility.addActionListener(e -> {
-            facilityLogin fl = new facilityLogin();
+            FacilityLogin fl = new FacilityLogin(frame);
             fl.setVisible(true);
-            SwingUtilities.getWindowAncestor(loginFacility).setVisible(false);
+            dispose();
         });
         loginContainer.add(loginFacility, gbc);
 
