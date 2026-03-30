@@ -7,17 +7,15 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import controller.LoginController;
 import view.fonts.*;
 
-public class loginWindow extends JFrame {
+public class LoginWindow extends JFrame {
 	
 	static String imgFilePath = FilePath.getImgFilePath();
 
-    public static void main(String[] args) {
-        new loginWindow();
-    }
-
-    public loginWindow() {
+    public LoginWindow(Dashboard frame) {
         setTitle("E-Library Management System");
 
         // Background panel with image
@@ -87,9 +85,18 @@ public class loginWindow extends JFrame {
         submitBtn.setForeground(Color.WHITE);
         submitBtn.setFocusPainted(false);
         submitBtn.addActionListener((ActionEvent e) -> {
-            Dashboard dash = new Dashboard();
-            dash.setVisible(true);
-            SwingUtilities.getWindowAncestor(submitBtn).setVisible(false);
+//            Dashboard dash = new Dashboard();
+//            dash.setVisible(true);
+//            SwingUtilities.getWindowAncestor(submitBtn).setVisible(false);
+        	
+        	LoginController comp = new LoginController(username.getText(), password.getText());
+        	
+        	if (comp.isLoggedIn()) {
+        		frame.setVisible(true);
+        		dispose();
+        	} else {
+        		JOptionPane.showMessageDialog(null, "Invalid login credentials");
+        	}
         });
         loginContainer.add(submitBtn, gbc);
 

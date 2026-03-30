@@ -79,7 +79,7 @@ public class facilityLogin extends JFrame {
                 // unfinished ------------------------------------ insert logic for inserting login/logout here
                 // need to display user info or display user not found error
                 if (username.getText().equalsIgnoreCase("exit")) {
-                    loginWindow lw = new loginWindow();
+                    LoginWindow lw = new LoginWindow();
                     lw.setVisible(true);
                     SwingUtilities.getWindowAncestor(submitBtn).setVisible(false);
                 } else {
