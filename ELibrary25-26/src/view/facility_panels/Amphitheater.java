@@ -5,11 +5,17 @@ import java.awt.*;
 import java.time.*;
 import javax.swing.*;
 
+import controller.FacilityController;
+
 public class Amphitheater extends JPanel {
 
     private JPanel calendarGrid;
     private JLabel monthText;
     private YearMonth currentMonth;
+    
+    public YearMonth getCurrentMonth() {
+    	return currentMonth;
+    }
 
     JButton dateCont = new JButton();
 
@@ -124,22 +130,9 @@ public class Amphitheater extends JPanel {
             calendarGrid.add(new JLabel(""));
         }
 
-        // days
-        for (int day = 1; day <= daysInMonth; day++) {
-
-            JPanel cell = new JPanel(new BorderLayout());
-
-            cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-            JLabel dateLabel = new JLabel(String.valueOf(day));
-            dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-            dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-            cell.add(dateLabel, BorderLayout.NORTH);
-
-            calendarGrid.add(cell);
-        }
-
+        // days 
+        FacilityController comp = new FacilityController(this, calendarGrid);
+        
         int cellsFilled = startColumn + daysInMonth;
 
         // end days buffer
