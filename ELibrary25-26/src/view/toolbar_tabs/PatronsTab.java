@@ -1,6 +1,7 @@
 package view.toolbar_tabs;
 
 import controller.MainFunctions;
+import view.FilePath;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 
@@ -11,6 +12,8 @@ import javax.swing.*;
 
 public class PatronsTab extends JPanel {
 
+	static String imgFilePath = FilePath.getImgFilePath();
+	
     int minColumnWidth = 55;
     int minColumnHeight = 25;
     
@@ -65,7 +68,7 @@ public class PatronsTab extends JPanel {
         searchContainer.add(searchItem);
 
         // sort by
-        ImageIcon sortByIcon = new ImageIcon("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\img\\sort_by_icon.png");
+        ImageIcon sortByIcon = new ImageIcon(imgFilePath + "sort_by_icon.png");
         Image sortByImage = sortByIcon.getImage();
         Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         sortByIcon = new ImageIcon(scaledImageSortBy);
@@ -76,7 +79,7 @@ public class PatronsTab extends JPanel {
         sortByLogo.setFocusPainted(false);
         sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-        ImageIcon archiveIcon = new ImageIcon("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\img\\archive.png");
+        ImageIcon archiveIcon = new ImageIcon(imgFilePath + "img\\archive.png");
         Image archiveImage = archiveIcon.getImage();
         Image scaledImageArchive = archiveImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         archiveIcon = new ImageIcon(scaledImageArchive);
@@ -87,7 +90,7 @@ public class PatronsTab extends JPanel {
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-        ImageIcon reloadIcon = new ImageIcon("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\img\\reload.png");
+        ImageIcon reloadIcon = new ImageIcon(imgFilePath + "reload.png");
         Image reloadImage = reloadIcon.getImage();
         Image scaledImageReload = reloadImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         reloadIcon = new ImageIcon(scaledImageReload);

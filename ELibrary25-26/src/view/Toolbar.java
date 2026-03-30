@@ -6,8 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import javax.swing.*;
+import view.fonts.*;
 
 public class Toolbar extends JPanel implements ActionListener {
+	
+	static String imgFilePath = FilePath.getImgFilePath();
 
     private Dashboard dashboard;
 
@@ -34,18 +37,11 @@ public class Toolbar extends JPanel implements ActionListener {
         gbcToolbar.gridx = 1;
         gbcToolbar.insets = new Insets(0, 10, 0, 10);
 
-        Font Poppins = getFont();
+        Fonts poppins = new Fonts("Poppins", 14f);
+        Font poppinsStyle14 = poppins.getAppliedFont();
+        		
 
-        try {
-            Font baseFont = Font.createFont(Font.TRUETYPE_FONT,
-                    new File("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\fonts\\Poppins-Regular.ttf"));
-
-            Poppins = baseFont.deriveFont(Font.PLAIN, 14f);
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading Intro Rust font. Font set to fallback");
-        }
-
-        ImageIcon homeIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\home.png");
+        ImageIcon homeIcon = new ImageIcon(imgFilePath + "home.png");
         Image homeImage = homeIcon.getImage();
         Image scaledImageHome = homeImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         homeIcon = new ImageIcon(scaledImageHome);
@@ -54,12 +50,12 @@ public class Toolbar extends JPanel implements ActionListener {
         homeBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         homeBtn.setForeground(Color.WHITE);
         homeBtn.setBackground(activeBtn);
-        homeBtn.setFont(Poppins);
+        homeBtn.setFont(poppinsStyle14);
         homeBtn.addActionListener(this);
         toolbar.add(homeBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon facilityIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\facilities.png");
+        ImageIcon facilityIcon = new ImageIcon(imgFilePath + "facilities.png");
         Image facilityImage = facilityIcon.getImage();
         Image scaledImageFacility = facilityImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         facilityIcon = new ImageIcon(scaledImageFacility);
@@ -68,12 +64,12 @@ public class Toolbar extends JPanel implements ActionListener {
         facilityBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         facilityBtn.setForeground(Color.WHITE);
         facilityBtn.setBackground(inactiveBtn);
-        facilityBtn.setFont(Poppins);
+        facilityBtn.setFont(poppinsStyle14);
         facilityBtn.addActionListener(this);
         toolbar.add(facilityBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon booksIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\books.png");
+        ImageIcon booksIcon = new ImageIcon(imgFilePath + "books.png");
         Image booksImage = booksIcon.getImage();
         Image scaledImageBooks = booksImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         booksIcon = new ImageIcon(scaledImageBooks);
@@ -82,12 +78,12 @@ public class Toolbar extends JPanel implements ActionListener {
         booksBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         booksBtn.setForeground(Color.WHITE);
         booksBtn.setBackground(inactiveBtn);
-        booksBtn.setFont(Poppins);
+        booksBtn.setFont(poppinsStyle14);
         booksBtn.addActionListener(this);
         toolbar.add(booksBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon lnfIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\lost&found.png");
+        ImageIcon lnfIcon = new ImageIcon(imgFilePath + "lost&found.png");
         Image lnfImage = lnfIcon.getImage();
         Image scaledImageLnf = lnfImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         lnfIcon = new ImageIcon(scaledImageLnf);
@@ -96,12 +92,12 @@ public class Toolbar extends JPanel implements ActionListener {
         lnfBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         lnfBtn.setForeground(Color.WHITE);
         lnfBtn.setBackground(inactiveBtn);
-        lnfBtn.setFont(Poppins);
+        lnfBtn.setFont(poppinsStyle14);
         lnfBtn.addActionListener(this);
         toolbar.add(lnfBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon patronsIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\patrons.png");
+        ImageIcon patronsIcon = new ImageIcon(imgFilePath + "patrons.png");
         Image patronsImage = patronsIcon.getImage();
         Image scaledImagePatrons = patronsImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         patronsIcon = new ImageIcon(scaledImagePatrons);
@@ -110,12 +106,12 @@ public class Toolbar extends JPanel implements ActionListener {
         patronsBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         patronsBtn.setForeground(Color.WHITE);
         patronsBtn.setBackground(inactiveBtn);
-        patronsBtn.setFont(Poppins);
+        patronsBtn.setFont(poppinsStyle14);
         patronsBtn.addActionListener(this);
         toolbar.add(patronsBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon imsIcon = new ImageIcon("C:\\Applications\\VSC\\Workspace\\ELibrary\\view\\img\\ims.png");
+        ImageIcon imsIcon = new ImageIcon(imgFilePath + "ims.png");
         Image imsImage = imsIcon.getImage();
         Image scaledImageIms = imsImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         imsIcon = new ImageIcon(scaledImageIms);
@@ -124,7 +120,7 @@ public class Toolbar extends JPanel implements ActionListener {
         imsBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         imsBtn.setForeground(Color.WHITE);
         imsBtn.setBackground(inactiveBtn);
-        imsBtn.setFont(Poppins);
+        imsBtn.setFont(poppinsStyle14);
         imsBtn.addActionListener(this);
         toolbar.add(imsBtn, gbcToolbar);
         setBackground(Color.decode("#c4c4c4"));

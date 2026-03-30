@@ -7,8 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
+import view.fonts.*;
 
 public class loginWindow extends JFrame {
+	
+	static String imgFilePath = FilePath.getImgFilePath();
 
     public static void main(String[] args) {
         new loginWindow();
@@ -19,7 +22,7 @@ public class loginWindow extends JFrame {
 
         // Background panel with image
         JPanel panel = new JPanel() {
-            Image backgroundImage = new ImageIcon("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\img\\blurred_bg.jpg").getImage();
+            Image backgroundImage = new ImageIcon(imgFilePath + "blurred_bg.jpg").getImage();
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -45,7 +48,7 @@ public class loginWindow extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // elib logo
-        ImageIcon icon = new ImageIcon("C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\img\\elib_logo.png");
+        ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
         Image image = icon.getImage();
         Image scaledImage = image.getScaledInstance(160, 80, Image.SCALE_SMOOTH);
         icon = new ImageIcon(scaledImage);
@@ -56,13 +59,11 @@ public class loginWindow extends JFrame {
         // welcome message
         gbc.gridy++;
         JLabel welcomeMsg = new JLabel("<html><div style='text-align:center;'>Welcome to BulSU e-Library <br>Management Tool</div></html>");
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("C:\\Applications\\VSC\\Workspace\\ELibrary\\UI\\fonts\\ABeeZee-Regular.ttf"))
-                    .deriveFont(Font.PLAIN, 18f);
-            welcomeMsg.setFont(customFont);
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading ABeeZee font. Font set to fallback");
-        }
+        
+        Fonts aBeeZee = new Fonts("ABeeZee", 18f);
+        Font aBeeZee18Style = aBeeZee.getAppliedFont();
+        welcomeMsg.setFont(aBeeZee18Style);
+        
         welcomeMsg.setForeground(Color.WHITE);
         welcomeMsg.setHorizontalAlignment(SwingConstants.CENTER);
         loginContainer.add(welcomeMsg, gbc);
