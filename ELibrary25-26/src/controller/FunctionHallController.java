@@ -6,11 +6,10 @@ import java.util.List;
 
 import javax.swing.*;
 
-
-import model.DAOs.AmphitheaterCalendar.*;
+import model.DAOs.FunctionHall.*;
 import view.facility_panels.*;
 
-public class FacilityController {
+public class FunctionHallController {
 	
 	private FuncHallDAOImp daoFuncHall = new FuncHallDAOImp();
 	private Amphitheater amphi;
@@ -22,7 +21,7 @@ public class FacilityController {
 	private SmartLearningRoom2 slr2;
 	private TeleconferencingRoom tele;
 
-	public FacilityController(Amphitheater amphi, JPanel calendarGrid) {
+	public FunctionHallController(Amphitheater amphi, JPanel calendarGrid) {
 		this.amphi = amphi;
 		YearMonth currentMonth = amphi.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
@@ -68,7 +67,7 @@ public class FacilityController {
         }
 	}
 	
-	public FacilityController(DiscussionRoom1 disc1, JPanel calendarGrid) {
+	public FunctionHallController(DiscussionRoom1 disc1, JPanel calendarGrid) {
 		this.disc1 = disc1;
 		YearMonth currentMonth = disc1.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
@@ -114,7 +113,7 @@ public class FacilityController {
         }
 	}
 	
-	public FacilityController(DiscussionRoom2 disc2, JPanel calendarGrid) {
+	public FunctionHallController(DiscussionRoom2 disc2, JPanel calendarGrid) {
 		this.disc2 = disc2;
 		YearMonth currentMonth = disc2.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
@@ -159,7 +158,7 @@ public class FacilityController {
             calendarGrid.add(cell);
         }
 	}
-	public FacilityController(MultipurposeHall1 multi1, JPanel calendarGrid) {
+	public FunctionHallController(MultipurposeHall1 multi1, JPanel calendarGrid) {
 		this.multi1 = multi1;
 		YearMonth currentMonth = multi1.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
@@ -205,7 +204,7 @@ public class FacilityController {
         }
 	}
 	
-	public FacilityController(MultipurposeHall2 multi2, JPanel calendarGrid) {
+	public FunctionHallController(MultipurposeHall2 multi2, JPanel calendarGrid) {
 		this.multi2 = multi2;
 		YearMonth currentMonth = multi2.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
@@ -251,7 +250,7 @@ public class FacilityController {
         }
 	}
 	
-	public FacilityController(SmartLearningRoom1 slr1, JPanel calendarGrid) {
+	public FunctionHallController(SmartLearningRoom1 slr1, JPanel calendarGrid) {
 		this.slr1 = slr1;
 		YearMonth currentMonth = slr1.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
@@ -297,7 +296,7 @@ public class FacilityController {
         }
 	}
 	
-	public FacilityController(SmartLearningRoom2 slr2, JPanel calendarGrid) {
+	public FunctionHallController(SmartLearningRoom2 slr2, JPanel calendarGrid) {
 		this.slr2 = slr2;
 		YearMonth currentMonth = slr2.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
@@ -343,7 +342,7 @@ public class FacilityController {
         }
 	}
 	
-	public FacilityController(TeleconferencingRoom tele, JPanel calendarGrid) {
+	public FunctionHallController(TeleconferencingRoom tele, JPanel calendarGrid) {
 		this.tele = tele;
 		YearMonth currentMonth = tele.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
