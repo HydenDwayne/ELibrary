@@ -1623,13 +1623,11 @@ public class MainFunctions extends JPanel {
     }
 
     public static void main(String[] args) {
-        // PatronDAOImp dao = new PatronDAOImp();
-        PatronsTab patTab = new PatronsTab();
-        MainFunctions comp = new MainFunctions(patTab);
-        // comp.setNumberOfRows();
-        // comp.loadPatrons();
+    	Dashboard frame = new Dashboard();
+    	frame.setVisible(false);
+    	LoginWindow login = new LoginWindow(frame);
 
-        Dashboard frame = new Dashboard();
+        
     }
 
 }

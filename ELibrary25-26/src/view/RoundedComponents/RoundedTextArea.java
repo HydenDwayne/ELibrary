@@ -1,40 +1,106 @@
 package view.RoundedComponents;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 import javax.swing.*;
 
 public class RoundedTextArea extends JTextArea {
 
-    private int cornerRadius = 10;
+	private int cornerRadius = 15;
+    private String placeholder = "";
+    private Color placeholderColor = Color.GRAY;
+    private Color normalColor = Color.BLACK;
+    private Color borderColor = null; // no border by default
+    private int borderThickness = 1;        // default thickness
 
     public RoundedTextArea(int rows, int cols, int radius) {
         super(rows, cols);
         this.cornerRadius = radius;
         setOpaque(false); // necessary to allow rounded corners
+        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        setForeground(normalColor);
+        
+        addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (getText().equals(placeholder)) {
+                    setText("");
+                    setForeground(normalColor);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (getText().isEmpty()) {
+                    setText(placeholder);
+                    setForeground(placeholderColor);
+                }
+            }
+        });
+    }
+    
+    public void setBorderColor(Color color) {
+        this.borderColor = color;
+        repaint();
+    }
+
+    public void setBorderThickness(int thickness) {
+        this.borderThickness = thickness;
+        repaint();
+    }
+
+    public void setPlaceholder(String text) {
+        this.placeholder = text;
+        if (getText().isEmpty() || getText().equals(placeholder)) {
+            setText(placeholder);
+            setForeground(placeholderColor);
+        }
+    }
+
+    public String getRealText() {
+        return getText().equals(placeholder) ? "" : getText();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // fill background with rounded rectangle
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
-
         g2.dispose();
         super.paintComponent(g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
+        if (borderColor == null) return;
+
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(borderColor);
+        g2.setStroke(new BasicStroke(borderThickness));
 
-        g2.setColor(getForeground());
-        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
-
+        // Use ceil so thick strokes don't bleed outside bounds
+        int inset = (int) Math.ceil(borderThickness / 2.0);
+        g2.drawRoundRect(
+            inset,
+            inset,
+            getWidth() - 2 * inset,   // was: getWidth() - borderThickness
+            getHeight() - 2 * inset,  // was: getHeight() - borderThickness
+            cornerRadius,
+            cornerRadius
+        );
         g2.dispose();
+    }
+
+    @Override
+    public Insets getInsets() {
+        int pad = (int) Math.ceil(borderThickness / 2.0);
+        return new Insets(
+            5 + pad,   // top
+            10 + pad,  // left
+            5 + pad,   // bottom
+            10 + pad   // right
+        );
     }
 }

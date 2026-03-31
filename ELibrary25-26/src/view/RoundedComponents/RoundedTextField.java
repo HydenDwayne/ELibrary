@@ -4,20 +4,20 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class RoundedTextField extends JTextField {
-
     private int cornerRadius = 15;
     private String placeholder = "";
     private Color placeholderColor = Color.GRAY;
     private Color normalColor = Color.BLACK;
+    private Color borderColor = null; // no border by default
+    private int borderThickness = 1;        // default thickness
 
     public RoundedTextField(int columns, int radius) {
         super(columns);
         this.cornerRadius = radius;
-        setOpaque(false); // for rounded corners
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // padding
+        setOpaque(false);
+        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         setForeground(normalColor);
 
-        // Add focus listener for placeholder behavior
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -26,19 +26,26 @@ public class RoundedTextField extends JTextField {
                     setForeground(normalColor);
                 }
             }
-
             @Override
             public void focusLost(FocusEvent e) {
                 if (getText().isEmpty()) {
                     setText(placeholder);
                     setForeground(placeholderColor);
-                    
                 }
             }
         });
     }
 
-    // Setter for placeholder
+    public void setBorderColor(Color color) {
+        this.borderColor = color;
+        repaint();
+    }
+
+    public void setBorderThickness(int thickness) {
+        this.borderThickness = thickness;
+        repaint();
+    }
+
     public void setPlaceholder(String text) {
         this.placeholder = text;
         if (getText().isEmpty() || getText().equals(placeholder)) {
@@ -47,7 +54,6 @@ public class RoundedTextField extends JTextField {
         }
     }
 
-    // Returns the actual user input (ignores placeholder)
     public String getRealText() {
         return getText().equals(placeholder) ? "" : getText();
     }
@@ -55,19 +61,43 @@ public class RoundedTextField extends JTextField {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // fill background with rounded rectangle
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
-
         g2.dispose();
         super.paintComponent(g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
+        if (borderColor == null) return;
 
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(borderColor);
+        g2.setStroke(new BasicStroke(borderThickness));
+
+        // Use ceil so thick strokes don't bleed outside bounds
+        int inset = (int) Math.ceil(borderThickness / 2.0);
+        g2.drawRoundRect(
+            inset,
+            inset,
+            getWidth() - 2 * inset,   // was: getWidth() - borderThickness
+            getHeight() - 2 * inset,  // was: getHeight() - borderThickness
+            cornerRadius,
+            cornerRadius
+        );
+        g2.dispose();
+    }
+
+    @Override
+    public Insets getInsets() {
+        int pad = (int) Math.ceil(borderThickness / 2.0);
+        return new Insets(
+            5 + pad,   // top
+            10 + pad,  // left
+            5 + pad,   // bottom
+            10 + pad   // right
+        );
     }
 }

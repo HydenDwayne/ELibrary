@@ -7,17 +7,15 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import controller.LoginController;
 import view.fonts.*;
 
-public class loginWindow extends JFrame {
+public class LoginWindow extends JFrame {
 	
 	static String imgFilePath = FilePath.getImgFilePath();
 
-    public static void main(String[] args) {
-        new loginWindow();
-    }
-
-    public loginWindow() {
+    public LoginWindow(Dashboard frame) {
         setTitle("E-Library Management System");
 
         // Background panel with image
@@ -35,9 +33,9 @@ public class loginWindow extends JFrame {
 
         // red frosty panel
         RoundedPanel loginContainer = new RoundedPanel(30);
-        loginContainer.setPreferredSize(new Dimension(350, 400));
-        loginContainer.setBackground(new Color(121, 25, 24, 160));
-        Border padding = BorderFactory.createEmptyBorder(20, 10, 10, 10);
+        loginContainer.setPreferredSize(new Dimension(400, 500));
+        loginContainer.setBackground(new Color(109, 35, 33, 200));
+        Border padding = BorderFactory.createEmptyBorder(20, 0, 10, 0);
         loginContainer.setBorder(padding);
 
         loginContainer.setLayout(new GridBagLayout());
@@ -87,9 +85,18 @@ public class loginWindow extends JFrame {
         submitBtn.setForeground(Color.WHITE);
         submitBtn.setFocusPainted(false);
         submitBtn.addActionListener((ActionEvent e) -> {
-            Dashboard dash = new Dashboard();
-            dash.setVisible(true);
-            SwingUtilities.getWindowAncestor(submitBtn).setVisible(false);
+//            Dashboard dash = new Dashboard();
+//            dash.setVisible(true);
+//            SwingUtilities.getWindowAncestor(submitBtn).setVisible(false);
+        	
+        	LoginController comp = new LoginController(username.getText(), password.getText());
+        	
+        	if (comp.isLoggedIn()) {
+        		frame.setVisible(true);
+        		dispose();
+        	} else {
+        		JOptionPane.showMessageDialog(null, "Invalid login credentials");
+        	}
         });
         loginContainer.add(submitBtn, gbc);
 
@@ -104,11 +111,57 @@ public class loginWindow extends JFrame {
         loginFacility.setCursor(new Cursor(Cursor.HAND_CURSOR));
         loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
         loginFacility.addActionListener(e -> {
-            facilityLogin fl = new facilityLogin();
+            FacilityLogin fl = new FacilityLogin(frame);
             fl.setVisible(true);
-            SwingUtilities.getWindowAncestor(loginFacility).setVisible(false);
+            dispose();
         });
-        loginContainer.add(loginFacility, gbc);
+//        loginContainer.add(loginFacility, gbc);
+        
+     // patron registration button
+//        gbc.gridy++;
+        JButton patronRegistration = new JButton("Set-up as Patron Registration");
+        patronRegistration.setBorderPainted(false);
+        patronRegistration.setContentAreaFilled(false);
+        patronRegistration.setFocusPainted(false);
+        patronRegistration.setOpaque(false);
+        patronRegistration.setForeground(Color.decode("#f8c169"));
+        patronRegistration.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        patronRegistration.setFont(patronRegistration.getFont().deriveFont(Font.PLAIN, 14f));
+        patronRegistration.addActionListener(e -> {
+            FacilityLogin fl = new FacilityLogin(frame);
+            fl.setVisible(true);
+            dispose();
+        });
+//        loginContainer.add(patronRegistration, gbc);
+        
+     // lost and found button
+//        gbc.gridy++;
+        JButton lnfReport = new JButton("Set-up as Report Lost and Found");
+        lnfReport.setBorderPainted(false);
+        lnfReport.setContentAreaFilled(false);
+        lnfReport.setFocusPainted(false);
+        lnfReport.setOpaque(false);
+        lnfReport.setForeground(Color.decode("#f8c169"));
+        lnfReport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lnfReport.setFont(lnfReport.getFont().deriveFont(Font.PLAIN, 14f));
+        lnfReport.addActionListener(e -> {
+            ReportLNF rlnf = new ReportLNF(frame, this);
+            rlnf.setVisible(true);
+            dispose();
+        });
+        
+        
+        JPanel setupBtns = new JPanel();
+        setupBtns.setOpaque(false);
+        setupBtns.setLayout(new GridLayout(3,1));
+        
+        setupBtns.add(loginFacility);
+        setupBtns.add(patronRegistration);
+        setupBtns.add(lnfReport);
+        
+        loginContainer.add(setupBtns, gbc);
+        
+//        loginContainer.add(lnfReport, gbc);
 
         // Add loginContainer to panel
         panel.add(loginContainer);

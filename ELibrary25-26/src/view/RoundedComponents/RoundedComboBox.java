@@ -9,6 +9,8 @@ public class RoundedComboBox<E> extends JComboBox<E> {
 
     private int cornerRadius = 15;
     private String placeholder = "";
+    private Color borderColor = null; // no border by default
+    private int borderThickness = 1;  // default thickness
 
     public RoundedComboBox(E[] items, int radius) {
         super(items);
@@ -23,9 +25,23 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         setRenderer(new PlaceholderRenderer());
     }
 
-    // Optional placeholder setter
     public void setPlaceholder(String text) {
         this.placeholder = text;
+        repaint();
+    }
+
+    public void setBorderColor(Color color) {
+        this.borderColor = color;
+        repaint();
+    }
+
+    public void setBorderThickness(int thickness) {
+        this.borderThickness = thickness;
+        repaint();
+    }
+
+    public void clearBorder() {
+        this.borderColor = null;
         repaint();
     }
 
@@ -34,19 +50,43 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Draw rounded background
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(),
                 cornerRadius, cornerRadius);
-
         g2.dispose();
         super.paintComponent(g);
     }
 
     @Override
     protected void paintBorder(Graphics g) {
-        // Remove default border
+        if (borderColor == null) return;
+
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(borderColor);
+        g2.setStroke(new BasicStroke(borderThickness));
+
+        int inset = (int) Math.ceil(borderThickness / 2.0);
+        g2.drawRoundRect(
+            inset,
+            inset,
+            getWidth() - 2 * inset,
+            getHeight() - 2 * inset,
+            cornerRadius,
+            cornerRadius
+        );
+        g2.dispose();
+    }
+
+    @Override
+    public Insets getInsets() {
+        int pad = (int) Math.ceil(borderThickness / 2.0);
+        return new Insets(
+            5 + pad,
+            10 + pad,
+            5 + pad,
+            10 + pad
+        );
     }
 
     // --------------------- Rounded ComboBox UI ---------------------
@@ -83,7 +123,6 @@ public class RoundedComboBox<E> extends JComboBox<E> {
                     scrollPane.setOpaque(false);
                     scrollPane.getViewport().setOpaque(false);
 
-                    // Apply custom rounded scrollbar
                     JScrollBar vertical = scrollPane.getVerticalScrollBar();
                     vertical.setUI(new RoundedScrollBarUI());
                     vertical.setPreferredSize(new Dimension(10, Integer.MAX_VALUE));
@@ -111,7 +150,7 @@ public class RoundedComboBox<E> extends JComboBox<E> {
 
         @Override
         protected void configureScrollBarColors() {
-            thumbColor = new Color(150, 150, 150, 180); // semi-transparent gray
+            thumbColor = new Color(150, 150, 150, 180);
             trackColor = new Color(240, 240, 240);
         }
 

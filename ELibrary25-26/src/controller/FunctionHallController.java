@@ -72,7 +72,7 @@ public class FunctionHallController {
 		YearMonth currentMonth = disc1.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
 		
-		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("DiscRoom");
+		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("DiscRoom1");
 		
 		for (int day = 1; day <= daysInMonth; day++) {
 			
@@ -118,7 +118,7 @@ public class FunctionHallController {
 		YearMonth currentMonth = disc2.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
 		
-		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("DiscRoom");
+		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("DiscRoom2");
 		
 		for (int day = 1; day <= daysInMonth; day++) {
 			
@@ -255,7 +255,7 @@ public class FunctionHallController {
 		YearMonth currentMonth = slr1.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
 		
-		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("SLR");
+		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("SLR1");
 		
 		for (int day = 1; day <= daysInMonth; day++) {
 			
@@ -301,7 +301,7 @@ public class FunctionHallController {
 		YearMonth currentMonth = slr2.getCurrentMonth();
 		int daysInMonth = currentMonth.lengthOfMonth();
 		
-		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("SLR");
+		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("SLR2");
 		
 		for (int day = 1; day <= daysInMonth; day++) {
 			
