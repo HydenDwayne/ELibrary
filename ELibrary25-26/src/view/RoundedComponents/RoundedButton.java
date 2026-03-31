@@ -5,6 +5,8 @@ import javax.swing.*;
 public class RoundedButton extends JButton {
 
     private int cornerRadius = 15;
+    private Color borderColor = null;
+    private int borderThickness = 1;
 
     // Text constructor
     public RoundedButton(String text, int radius) {
@@ -37,8 +39,18 @@ public class RoundedButton extends JButton {
         setHorizontalAlignment(SwingConstants.CENTER);
         setVerticalAlignment(SwingConstants.CENTER);
         setHorizontalTextPosition(SwingConstants.CENTER);
-        setVerticalTextPosition(SwingConstants.BOTTOM); 
+        setVerticalTextPosition(SwingConstants.BOTTOM);
         // Change depending on layout preference
+    }
+
+    public void setBorderColor(Color color) {
+        this.borderColor = color;
+        repaint();
+    }
+
+    public void setBorderThickness(int thickness) {
+        this.borderThickness = thickness;
+        repaint();
     }
 
     @Override
@@ -60,6 +72,22 @@ public class RoundedButton extends JButton {
 
     @Override
     protected void paintBorder(Graphics g) {
+        if (borderColor == null) return;
 
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(borderColor);
+        g2.setStroke(new BasicStroke(borderThickness));
+
+        int inset = (int) Math.ceil(borderThickness / 2.0);
+        g2.drawRoundRect(
+            inset,
+            inset,
+            getWidth() - 2 * inset,
+            getHeight() - 2 * inset,
+            cornerRadius,
+            cornerRadius
+        );
+        g2.dispose();
     }
 }

@@ -1,4 +1,4 @@
-package view;
+package view.facility_login;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,6 +18,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 	RoundedComboBox<String> dropdownCollection;
 	JPanel wCard;
 	JPanel nCard;
+	RoundedTextField username;
+	RoundedTextField cardNo;
 
 	static String imgFilePath = FilePath.getImgFilePath();
 
@@ -76,23 +78,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		
 		JPanel inputWrapper = new JPanel();
 		
-		RoundedTextField usernameNonCard = new RoundedTextField(25, panelRadius);
-		RoundedTextField username = new RoundedTextField(20, panelRadius);
-		RoundedTextField cardNo = new RoundedTextField(5, panelRadius);
-		
-		Fonts poppins = new Fonts("Poppins", 10f);
-		Font poppinsStyle = poppins.getAppliedFont();
-		
-		usernameNonCard.setPlaceholder("Enter Student Number/Employee ID");
-		username.setPlaceholder("Enter Student Number/Employee ID");
-		cardNo.setPlaceholder("Card#");
-		
-		usernameNonCard.setFont(poppinsStyle);
-		username.setFont(poppinsStyle);
-		cardNo.setFont(poppinsStyle);
-		
-		wCard = addCardInput(username, cardNo);
-		nCard = addNonCardInput(usernameNonCard);
+		wCard = addCardInput();
+		nCard = addNonCardInput();
 		
 		nCard.setVisible(false);
 		
@@ -106,12 +93,12 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		gbc.gridy++;
 		
-		Fonts poppinsBold = new Fonts("PoppinsBold", 14f);
-		Font poppinsBoldStyle = poppinsBold.getAppliedFont();
+		Fonts poppins = new Fonts("PoppinsBold", 14f);
+		Font poppinsStyle = poppins.getAppliedFont();
 		
 		RoundedButton submitBtn = new RoundedButton("Submit", 20);
 		submitBtn.setPreferredSize(new Dimension(150, 30));
-		submitBtn.setFont(poppinsBoldStyle);
+		submitBtn.setFont(poppinsStyle);
 		submitBtn.setBackground(Color.decode("#5d1513"));
 		submitBtn.setForeground(Color.WHITE);
 		submitBtn.setFocusPainted(false);
@@ -120,7 +107,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 // unfinished ------------------------------------ insert logic for inserting login/logout here
                 // need to display user info or display user not found error
-                if (username.getText().equalsIgnoreCase("exit") || usernameNonCard.getText().equalsIgnoreCase("exit")) {
+                if (username.getText().equalsIgnoreCase("exit")) {
                     LoginWindow lw = new LoginWindow(frame);
                     lw.setVisible(true);
                     dispose();
@@ -132,13 +119,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		loginContainer.add(submitBtn, gbc);
 		
 		gbc.gridy++;
-		
-		Fonts poppins12 = new Fonts("Poppins", 12f);
-		Font poppinsStyle12 = poppins12.getAppliedFont();
-		
-		
         JButton loginFacility = new JButton("Register here");
-        loginFacility.setFont(poppinsStyle12);
         loginFacility.setBorderPainted(false);
         loginFacility.setContentAreaFilled(false);
         loginFacility.setFocusPainted(false);
@@ -146,9 +127,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
         loginFacility.setForeground(Color.decode("#f8c169"));
         loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
         loginFacility.addActionListener(e -> {
-            RegisterPatron rp = new RegisterPatron(this);
-            rp.setVisible(true);
-            dispose();
+//            FacilityLogin fl = new FacilityLogin(frame);
+//            fl.setVisible(true);
+//            dispose();
         });
         loginContainer.add(loginFacility, gbc);
 
@@ -411,10 +392,12 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	public JPanel addNonCardInput(RoundedTextField username) {
+	public JPanel addNonCardInput() {
 		JPanel input = new JPanel();
 		input.setPreferredSize(new Dimension(300, 30));
 		input.setLayout(new BorderLayout());
+		username = new RoundedTextField(25, 20);
+		username.setPlaceholder("Enter Patron ID");
 		input.setOpaque(false);
 		
 		input.add(username, BorderLayout.CENTER);
@@ -422,10 +405,14 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		return input;
 	}
 	
-	public JPanel addCardInput(RoundedTextField username, RoundedTextField cardNo) {
+	public JPanel addCardInput() {
 		JPanel input = new JPanel();
 		input.setPreferredSize(new Dimension(300, 30));
 		input.setLayout(new BorderLayout());
+		username = new RoundedTextField(20, 20);
+		username.setPlaceholder("Enter Patron ID");
+		cardNo = new RoundedTextField(5, 20);
+		cardNo.setPlaceholder("Card #");
 		input.setOpaque(false);
 		
 		input.add(username, BorderLayout.WEST);
