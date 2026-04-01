@@ -4,10 +4,11 @@ import controller.MainFunctions;
 import view.RoundedComponents.*;
 import view.analytics.*;
 import view.fonts.Fonts;
+import view.front_pages.FilePath;
+
 import java.time.*;
 import java.awt.*;
 import javax.swing.*;
-import view.FilePath;
 
 public class OverviewTab extends JPanel{
 	static String imgFilePath = FilePath.getImgFilePath();

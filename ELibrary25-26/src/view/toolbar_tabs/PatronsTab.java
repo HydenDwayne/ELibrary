@@ -1,9 +1,9 @@
 package view.toolbar_tabs;
 
 import controller.MainFunctions;
-import view.FilePath;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
+import view.front_pages.FilePath;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

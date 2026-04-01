@@ -1,4 +1,4 @@
-package view;
+package view.front_pages;
 
 import view.toolbar_tabs.*;
 import java.awt.*;
@@ -6,8 +6,9 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
-import view.FilePath;
+
 import view.fonts.Fonts;
+import view.front_pages.FilePath;
 
 public class Dashboard extends JFrame {
 	

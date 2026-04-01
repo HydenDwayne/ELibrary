@@ -1,4 +1,4 @@
-package view;
+package view.front_pages;
 
 import javax.swing.*;
 
@@ -12,7 +12,7 @@ public class ReportLNF extends JFrame{
 	
 	static String imgFilePath = FilePath.getImgFilePath();
 	
-	public ReportLNF(Dashboard frame, LoginWindow loginWindow) {
+	public ReportLNF(Dashboard frame, LoginWindow lw) {
 		int panelRadius = 20;
 		JPanel panel = new JPanel() {
 			Image backgroundImage = new ImageIcon(imgFilePath + "blurred_bg.jpg").getImage();
@@ -277,7 +277,6 @@ public class ReportLNF extends JFrame{
 		clearBtn.addActionListener(e -> {
 			
 			if (itemField.getText().equals("exit")) {
-				LoginWindow lw = new LoginWindow(frame);
 	            lw.setVisible(true);
 				dispose();
 			} else {

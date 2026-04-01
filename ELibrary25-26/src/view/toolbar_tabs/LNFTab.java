@@ -1,8 +1,9 @@
 package view.toolbar_tabs;
 
 import view.RoundedComponents.*;
-import view.FilePath;
 import view.fonts.Fonts;
+import view.front_pages.FilePath;
+
 import java.awt.*;
 import javax.swing.*;
 

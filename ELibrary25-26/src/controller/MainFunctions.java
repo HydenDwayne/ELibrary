@@ -13,6 +13,9 @@ import view.*;
 import view.book_panels.*;
 import view.facility_panels.*;
 import view.fonts.Fonts;
+import view.front_pages.Dashboard;
+import view.front_pages.FilePath;
+import view.front_pages.LoginWindow;
 import view.toolbar_tabs.*;
 import view.modal.*;
 import java.awt.*;
@@ -46,6 +49,9 @@ public class MainFunctions extends JPanel {
     private LNFDAOImp daoLNF = new LNFDAOImp();
     private AddBookModal addBookModal;
     private ViewPatronModal viewPatronModal;
+    
+    
+    
     
     public MainFunctions(ViewPatronModal viewPatronModal) {
     	this.viewPatronModal = viewPatronModal;
@@ -1625,6 +1631,11 @@ public class MainFunctions extends JPanel {
     public static void main(String[] args) {
     	Dashboard frame = new Dashboard();
     	frame.setVisible(false);
+    	LoginWindow lw = new LoginWindow(frame);
+    	lw.setVisible(false);
+//    	FacilityLogin fl = new FacilityLogin(frame, lw);
+//    	RegisterPatron rp = new RegisterPatron(frame, lw);
+//    	ReportLNF lnf = new ReportLNF(frame, lw);
     	LoginWindow login = new LoginWindow(frame);
 
         

@@ -1,9 +1,8 @@
-package elibrary;
+package archives;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
-import com.toedter.calendar.JDateChooser;
 
 public class registerPatronEmp extends JFrame {
 
@@ -81,9 +80,9 @@ public class registerPatronEmp extends JFrame {
         grid.add(darkLabel("Employee ID:"));
         grid.add(styledField());
         grid.add(twoPartLabel("Date Hired", " (2024-10-27)"));
-        JDateChooser dateChooser = new JDateChooser();
-        dateChooser.setDateFormatString("yyyy-MM-dd");
-        grid.add(dateChooser);
+//        JDateChooser dateChooser = new JDateChooser();
+//        dateChooser.setDateFormatString("yyyy-MM-dd");
+//        grid.add(dateChooser);
         bodyPanel.add(grid);
 
         bodyPanel.add(Box.createVerticalStrut(6));
