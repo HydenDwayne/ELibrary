@@ -75,7 +75,8 @@ public class StudentModal extends JPanel implements ActionListener {
 	        controller = new PatronRegistrationController(this, campus, genModal);
 	    } else {
 	        controller.setCampusCode(campus);
-	        controller.reloadCollegesAndPrograms();
+	        controller.reloadStudentCollegesAndPrograms();
+	        
 	    }
 
 	    updateStudentTypeOptions();
@@ -585,8 +586,8 @@ public class StudentModal extends JPanel implements ActionListener {
 			} else {
 				JOptionPane.showMessageDialog(
 		                this,
-		                "Error",
 		                "Please enter a valid year (e.g. 2026)",
+		                "Error",
 		                JOptionPane.INFORMATION_MESSAGE
 		        );
 			}

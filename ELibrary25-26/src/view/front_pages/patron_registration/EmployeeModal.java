@@ -14,12 +14,12 @@ import java.awt.event.*;
 public class EmployeeModal extends JPanel implements ActionListener {
 
     // Role checkboxes
-    JCheckBox adminCheck;
-    JCheckBox staffCheck;
-    JCheckBox facultyCheck;
+	public JCheckBox adminCheck;
+	public JCheckBox staffCheck;
+	public JCheckBox facultyCheck;
 
     // Labels
-    JLabel row1Label; // Employee ID
+//    JLabel row1Label; // Employee ID
     JLabel row2Label; // Date Hired
     JLabel row3Label; // Roles
     JLabel row4Label; // Assignment Code
@@ -29,13 +29,13 @@ public class EmployeeModal extends JPanel implements ActionListener {
     JLabel row8Label; // College
 
     // Fields
-    RoundedTextField row1Field;
-    RoundedTextField row2Field;
-    RoundedTextField row4Field;
-    RoundedTextField row5Field;
-    RoundedTextField row6Field;
+//    public RoundedTextField row1Field;
+    public RoundedTextField row2Field;
+    public RoundedTextField row4Field;
+    public RoundedTextField row5Field;
+    public RoundedTextField row6Field;
 //    RoundedComboBox<String> row7Field;
-    RoundedComboBox<String> row8Field;
+    public RoundedComboBox<String> row8Field;
 
     // Wrappers (same pattern as StudentModal)
     JPanel row4LabelWrapper;
@@ -46,26 +46,31 @@ public class EmployeeModal extends JPanel implements ActionListener {
 
     RoundedPanel modal;
     RegisterPatron rp;
+    GeneralModal genModal;
     
     private String campus;
+    
+    PatronRegistrationController controller;
 
 
     public void setCampusCode(String campus) {
-        this.campus = campus;
+	    this.campus = campus;
 
-        // 🔥 CONTROLLER IS CREATED HERE
-        PatronRegistrationController controller =
-            new PatronRegistrationController(this, campus);
-
-
-        updateVisibility();
-        resizeModal();
-    }
+	    if (controller == null) {
+	        controller = new PatronRegistrationController(this, campus, genModal);
+	    } else {
+	        controller.setCampusCode(campus);
+	        controller.reloadEmployeeColleges();
+	    }
+	    updateVisibility();
+	    resizeModal();
+	}
     
 
     static String imgFilePath = FilePath.getImgFilePath();
 
-    public EmployeeModal(RegisterPatron rp) {
+    public EmployeeModal(RegisterPatron rp, GeneralModal genModal) {
+    	this.genModal = genModal;
     	this.rp = rp;
         setOpaque(false);
 
@@ -140,19 +145,19 @@ public class EmployeeModal extends JPanel implements ActionListener {
 
         gbc.gridwidth = 1;
 
-        // ── Row 1: Employee ID ───────────────────────────────────────────────
-        gbc.gridy++;
-        gbc.gridx = 0;
-        JPanel row1LabelWrapper = new JPanel(new BorderLayout());
-        row1LabelWrapper.setOpaque(false);
-        row1LabelWrapper.setPreferredSize(new Dimension(210, 30));
-        row1Label = new JLabel("Employee ID");
-        row1LabelWrapper.add(row1Label, BorderLayout.WEST);
-        innerBody.add(row1LabelWrapper, gbc);
-
-        gbc.gridx = 1;
-        row1Field = new RoundedTextField(20, 15);
-        innerBody.add(row1Field, gbc);
+//        // ── Row 1: Employee ID ───────────────────────────────────────────────
+//        gbc.gridy++;
+//        gbc.gridx = 0;
+//        JPanel row1LabelWrapper = new JPanel(new BorderLayout());
+//        row1LabelWrapper.setOpaque(false);
+//        row1LabelWrapper.setPreferredSize(new Dimension(210, 30));
+//        row1Label = new JLabel("Employee ID");
+//        row1LabelWrapper.add(row1Label, BorderLayout.WEST);
+//        innerBody.add(row1LabelWrapper, gbc);
+//
+//        gbc.gridx = 1;
+//        row1Field = new RoundedTextField(20, 15);
+//        innerBody.add(row1Field, gbc);
 
         // ── Row 2: Date Hired ───────────────────────────────────────────────
         gbc.gridy++;
@@ -166,7 +171,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
 
         gbc.gridx = 1;
         row2Field = new RoundedTextField(20, 15);
-        row2Field.setPlaceholder("YYYY-MM-DD");
+        row2Field.setPlaceholder("YYYY");
         innerBody.add(row2Field, gbc);
 
         // ── Row 3: Roles ─────────────────────────────────────────────────────
@@ -324,7 +329,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		Fonts poppins16 = new Fonts("Poppins", 16f);
      		Font poppinsStyle16 = poppins16.getAppliedFont();
 
-     		row1Label.setFont(poppinsStyle16);
+//     		row1Label.setFont(poppinsStyle16);
      		row2Label.setFont(poppinsStyle16);
      		row3Label.setFont(poppinsStyle16);
      		row4Label.setFont(poppinsStyle16);
@@ -333,7 +338,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
 //     		row7Label.setFont(poppinsStyle16);
      		row8Label.setFont(poppinsStyle16);
 
-     		row1Label.setForeground(Color.decode("#842b28"));
+//     		row1Label.setForeground(Color.decode("#842b28"));
      		row2Label.setForeground(Color.decode("#842b28"));
      		row3Label.setForeground(Color.decode("#842b28"));
      		row4Label.setForeground(Color.decode("#842b28"));
@@ -346,7 +351,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		Fonts poppins12 = new Fonts("Poppins", 10f);
      		Font poppinsFieldStyle = poppins12.getAppliedFont();
 
-     		row1Field.setFont(poppinsFieldStyle);
+//     		row1Field.setFont(poppinsFieldStyle);
      		row2Field.setFont(poppinsFieldStyle);
      		row4Field.setFont(poppinsFieldStyle);
      		row5Field.setFont(poppinsFieldStyle);
@@ -355,8 +360,8 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		row8Field.setFont(poppinsFieldStyle);
 
      		// ── Apply field borders (same color & thickness as StudentModal) ─
-     		row1Field.setBorderColor(Color.decode("#924c4a"));
-     		row1Field.setBorderThickness(1);
+//     		row1Field.setBorderColor(Color.decode("#924c4a"));
+//     		row1Field.setBorderThickness(1);
 
      		row2Field.setBorderColor(Color.decode("#924c4a"));
      		row2Field.setBorderThickness(1);
@@ -473,6 +478,20 @@ public class EmployeeModal extends JPanel implements ActionListener {
             row8Field.setModel(new DefaultComboBoxModel<>(new String[]{""}));
         }
     }
+    
+    private boolean isValidYear(String text) {
+	    if (text == null || text.length() != 4) return false;
+
+	    for (int i = 0; i < text.length(); i++) {
+	        if (!Character.isDigit(text.charAt(i))) return false;
+	    }
+
+	    int year = Integer.parseInt(text);
+
+	    if (year < 1904 || year > 2026) return false;
+
+	    return true;
+	}
 
 
     @Override
@@ -480,35 +499,45 @@ public class EmployeeModal extends JPanel implements ActionListener {
 
 		switch (e.getActionCommand()) {
 		case "NEXT":
-		    String row2PlaceHolder = "Year Enrolled";
+			
+			
+			boolean isValidYearEnrolled = isValidYear(row2Field.getText());
+		    
+			if (isValidYearEnrolled) {
+				boolean success = controller.saveStudentRecord();
 
-		    if (row2Field.getText().equals(row2PlaceHolder)) {
-		        JOptionPane.showMessageDialog(null, "Fill in the required fields!");
-		    }
+				if (success) {
+			        JOptionPane.showMessageDialog(
+			            this,
+			            "Employee record successfully saved!",
+			            "Success",
+			            JOptionPane.INFORMATION_MESSAGE
+			        );
+
+			        genModal.clearFields();
+			        clearFields();
+
+			        rp.showCard("general");
+			    } else {
+			        JOptionPane.showMessageDialog(
+			            this,
+			            "Failed to save employee record.",
+			            "Error",
+			            JOptionPane.ERROR_MESSAGE
+			        );
+			    }
+			} else {
+				JOptionPane.showMessageDialog(
+		                this,
+		                "Please enter a valid year (e.g. 2026)",
+		                "Error",
+		                JOptionPane.INFORMATION_MESSAGE
+		        );
+			}
 		    break;
 
 		case "CLEAR":
-		    // ── Reset text fields ─────────────────────────────
-		    row1Field.setText("");
-		    row2Field.setText("");
-		    row2Field.setPlaceholder("YYYY-MM-DD");
-
-		    row4Field.setText("");
-		    row5Field.setText("");
-		    row6Field.setText("");
-
-		    // ── Reset combo boxes ─────────────────────────────
-//		    row7Field.setSelectedIndex(0);
-		    row8Field.setSelectedIndex(0);
-
-		    // ── Uncheck all role checkboxes ───────────────────
-		    adminCheck.setSelected(false);
-		    staffCheck.setSelected(false);
-		    facultyCheck.setSelected(false);
-
-		    // ── Reset dynamic visibility & modal size ─────────
-		    updateVisibility();
-		    resizeModal();
+			clearFields();
 		    break;
 		
 
@@ -520,4 +549,27 @@ public class EmployeeModal extends JPanel implements ActionListener {
 			break;
 		}
 	}
+    
+    public void clearFields() {
+
+        // Text fields
+//        row1Field.setText("");
+        row2Field.setText("");
+        row2Field.setPlaceholder("YYYY");
+
+        row4Field.setText("");
+        row5Field.setText("");
+        row6Field.setText("");
+
+        // Combo boxes
+        row8Field.setSelectedIndex(0);
+
+        // Checkboxes
+        adminCheck.setSelected(false);
+        staffCheck.setSelected(false);
+        facultyCheck.setSelected(false);
+
+        updateVisibility();
+        resizeModal();
+    }
 }

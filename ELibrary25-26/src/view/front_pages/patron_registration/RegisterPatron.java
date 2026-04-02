@@ -47,7 +47,7 @@ public class RegisterPatron extends JFrame {
 
         genModal  = new GeneralModal(lw, this);
         studModal = new StudentModal(this, genModal);
-        empModal  = new EmployeeModal(this);   // ✅ CREATE EMPLOYEE MODAL
+        empModal  = new EmployeeModal(this, genModal);   // ✅ CREATE EMPLOYEE MODAL
 
         cardPanel.add(wrap(genModal), "general");
         cardPanel.add(wrap(studModal), "student");

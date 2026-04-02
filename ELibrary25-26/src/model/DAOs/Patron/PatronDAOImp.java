@@ -257,5 +257,79 @@ public class PatronDAOImp implements DAOShowAllPatron, DAOShowOnePatron {
 			return false;
 		}
 	}
+	
+	public boolean insertEmployeeRecord(
+	        String patronID,
+	        String firstName,
+	        String middleInitial,
+	        String lastName,
+	        String emailAddress,
+	        String contactNumber,
+	        String homeAddress,
+	        String campCode,
+
+	        boolean administrator,
+	        boolean libraryStaff,
+	        boolean faculty,
+	        java.sql.Date dateHired,
+
+	        String adminPosition,
+	        String assignmentCode,
+	        String staffPosition,
+
+	        String facultyRank,
+	        String colCode
+	) {
+
+	    String sql = "{CALL addNewRecord_Patron_Employee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         CallableStatement cs = conn.prepareCall(sql)) {
+
+	        // ── Patron
+	        cs.setString(1, patronID);
+	        cs.setString(2, firstName);
+	        cs.setString(3, middleInitial);
+	        cs.setString(4, lastName);
+	        cs.setString(5, emailAddress);
+	        cs.setString(6, contactNumber);
+	        cs.setString(7, homeAddress);
+	        cs.setString(8, campCode); // ✅ already normalized
+
+	        // ── Employee flags
+	        cs.setBoolean(9, administrator);
+	        cs.setBoolean(10, libraryStaff);
+	        cs.setBoolean(11, faculty);
+	        cs.setDate(12, dateHired);
+
+	        // ── Administrator
+	        if (adminPosition != null) cs.setString(13, adminPosition);
+	        else cs.setNull(13, Types.VARCHAR);
+
+	        // ── Library Staff
+	        if (assignmentCode != null) cs.setString(14, assignmentCode);
+	        else cs.setNull(14, Types.VARCHAR);
+
+	        if (staffPosition != null) cs.setString(15, staffPosition);
+	        else cs.setNull(15, Types.VARCHAR);
+
+	        // ── Faculty
+	        if (facultyRank != null) cs.setString(16, facultyRank);
+	        else cs.setNull(16, Types.VARCHAR);
+
+	        if (colCode != null) cs.setString(17, colCode);
+	        else cs.setNull(17, Types.VARCHAR);
+
+	        // ✅ EXECUTE ONCE
+	        cs.execute();
+
+	        return true;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 
 }

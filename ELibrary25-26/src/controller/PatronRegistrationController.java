@@ -29,14 +29,27 @@ public class PatronRegistrationController {
 
 
 	// ✅ Employee constructor
-	public PatronRegistrationController(EmployeeModal empModal, String campusCode) {
+	public PatronRegistrationController(EmployeeModal empModal, String campusCode, GeneralModal genModal) {
 		this.studModal = null;
 		this.empModal = empModal;
 		this.campusCode = campusCode;
-		this.genModal = null;
+		this.genModal = genModal;
 
 		loadEmployeeColleges();
 	}
+	
+	// ✅ STUDENT ONLY
+	public void reloadStudentCollegesAndPrograms() {
+	    if (studModal == null) return;
+	    loadCollegesAndPrograms();
+	}
+
+	// ✅ EMPLOYEE ONLY
+	public void reloadEmployeeColleges() {
+	    if (empModal == null) return;
+	    loadEmployeeColleges();
+	}
+
 
 	private void loadEmployeeColleges() {
 
@@ -256,5 +269,99 @@ public class PatronRegistrationController {
 
 	public void reloadCollegesAndPrograms() {
 	    loadCollegesAndPrograms();
+	}
+	
+	public boolean saveEmployeeRecord() {
+
+	    try {
+	        // ─────────────────────────────────────
+	        // PATRON DATA
+	        // ─────────────────────────────────────
+	        String patronID  = normalizeText(genModal.getPatronID(), "Enter Patron ID");
+	        String firstName = normalizeText(genModal.getFirstName(), "Enter First Name");
+	        String lastName  = normalizeText(genModal.getLastName(), "Enter Last Name");
+	        String middle    = normalizeText(genModal.getMiddleInitial(), "Enter Middle Initial");
+	        String email     = normalizeText(genModal.getEmail(), "Enter Email Address");
+	        String contact   = normalizeText(genModal.getContact(), "Enter Contact Number");
+	        String address   = normalizeText(genModal.getAddress(), "Enter Home Address");
+
+	        if (patronID == null || firstName == null || lastName == null) {
+	            throw new IllegalArgumentException("Patron ID, First Name, and Last Name are required.");
+	        }
+
+	        // ✅ DB campus code already normalized
+	        String camp = toDbCampusCode(campusCode);
+	        
+
+	        // ─────────────────────────────────────
+	        // ROLE FLAGS
+	        // ─────────────────────────────────────
+	        boolean admin   = empModal.adminCheck.isSelected();
+	        boolean staff   = empModal.staffCheck.isSelected();
+	        boolean faculty = empModal.facultyCheck.isSelected();
+
+	        if (!admin && !staff && !faculty) {
+	            throw new IllegalArgumentException("At least one role must be selected.");
+	        }
+
+	        // ─────────────────────────────────────
+	        // DATE HIRED (REQUIRED)
+	        // ─────────────────────────────────────
+	        String dateText = normalizeText(empModal.row2Field.getText(), "YYYY");
+
+
+	        java.sql.Date dateHired = java.sql.Date.valueOf(dateText + "-01-01");
+
+
+	        // ─────────────────────────────────────
+	        // ROLE-SPECIFIC DATA
+	        // ─────────────────────────────────────
+	        String adminPos  = admin  ? normalizeText(empModal.row5Field.getText(), "") : null;
+	        String assign    = staff  ? normalizeText(empModal.row4Field.getText(), "") : null;
+	        String staffPos  = staff  ? normalizeText(empModal.row5Field.getText(), "") : null;
+	        String facRank   = faculty? normalizeText(empModal.row6Field.getText(), "") : null;
+	        String colCode   = faculty? (String) empModal.row8Field.getSelectedItem() : null;
+
+	        // ✅ CAUSE #1 FIX — Administrator validation
+	        if (admin && adminPos == null) {
+	            throw new IllegalArgumentException("Administrator position is required.");
+	        }
+
+	        // ✅ CAUSE #2 FIX — Library Staff validation
+	        if (staff && (assign == null || staffPos == null)) {
+	            throw new IllegalArgumentException("Assignment Code and Staff Position are required.");
+	        }
+
+	        // ✅ CAUSE #3 FIX — Faculty validation
+	        if (faculty && (facRank == null || colCode == null || colCode.isBlank())) {
+	            throw new IllegalArgumentException("Faculty Rank and College are required.");
+	        }
+
+	        // ─────────────────────────────────────
+	        // DAO CALL (SAFE)
+	        // ─────────────────────────────────────
+	        return daoPatron.insertEmployeeRecord(
+	                patronID, firstName, middle, lastName,
+	                email, contact, address, camp,
+
+	                admin, staff, faculty, dateHired,
+
+	                adminPos, assign, staffPos,
+	                facRank, colCode
+	        );
+
+	    } catch (IllegalArgumentException ex) {
+	        JOptionPane.showMessageDialog(
+	            null,
+	            ex.getMessage(),
+	            "Validation Error",
+	            JOptionPane.ERROR_MESSAGE
+	        );
+	        return false;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 }
