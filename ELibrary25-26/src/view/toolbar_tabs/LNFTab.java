@@ -106,6 +106,10 @@ public class LNFTab extends JPanel {
         reloadLogo.setFocusPainted(false);
         reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
+        reloadLogo.addActionListener(e -> {
+        	reloadData();
+        });
+        
         JPanel iconsPanel = new JPanel();
         iconsPanel.setOpaque(false);
         iconsPanel.setLayout(new GridLayout(1, 3));
@@ -314,6 +318,9 @@ public class LNFTab extends JPanel {
         tableData.removeAll();
         comp = new MainFunctions(this);
         tableData.add(comp, BorderLayout.NORTH);
+        
+        revalidate();
+        repaint();
     }
     
 

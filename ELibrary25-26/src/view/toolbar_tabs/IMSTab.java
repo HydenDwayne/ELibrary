@@ -109,6 +109,11 @@ public class IMSTab extends JPanel {
         reloadLogo.setFocusPainted(false);
         reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
+        reloadLogo.addActionListener(e -> {
+        	reloadData();
+        	reloadCards();
+        });
+        
         JPanel iconsPanel = new JPanel();
         iconsPanel.setOpaque(false);
         iconsPanel.setLayout(new GridLayout(1, 3));
@@ -329,12 +334,17 @@ public class IMSTab extends JPanel {
         tableData.removeAll();
         comp = new MainFunctions(this, "rows");
         tableData.add(comp, BorderLayout.NORTH);
+        revalidate();
+        repaint();
     }
     
     public void reloadCards() {
     	cardComp.removeAll();
         cardComp = new MainFunctions(this, "cards");
         cardContainer.add(cardComp, BorderLayout.CENTER);
+        
+        revalidate();
+        repaint();
     }
 
 }

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import controller.MainFunctions;
 import view.modal.*;
 
 public class BooksTab extends JPanel implements ActionListener {
@@ -157,6 +158,10 @@ public class BooksTab extends JPanel implements ActionListener {
         reloadLogo.setFocusPainted(false);
         reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
+        reloadLogo.addActionListener(e -> {
+        	reloadCurrentCollection();
+        });
+        
         JPanel iconsPanel = new JPanel();
         iconsPanel.setOpaque(false);
         iconsPanel.setLayout(new GridLayout(1, 3));
@@ -287,6 +292,49 @@ public class BooksTab extends JPanel implements ActionListener {
         add(booksTab);
 
     }
+    
+    private void reloadCurrentCollection() {
+
+        String selectedBookCol = (String) dropdownCollection.getSelectedItem();
+
+        if (selectedBookCol == null) {
+            return;
+        }
+
+        switch (selectedBookCol) {
+            case "Bulacaniana Collection":
+                bulacaniana.reloadData();
+                break;
+
+            case "Fiction Collection":
+                fiction.reloadData();
+                break;
+
+            case "Filipiniana Collection":
+                filipiniana.reloadData();
+                break;
+
+            case "General Circulation Section":
+                gencirc.reloadData();
+                break;
+
+            case "Reference Collection":
+                reference.reloadData();
+                break;
+
+            case "Reserve Collection":
+                reserve.reloadData();
+                break;
+
+            case "Theses and Dissertations":
+                tad.reloadData();
+                break;
+
+            default:
+                System.out.println("Nothing to reload");
+        }
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

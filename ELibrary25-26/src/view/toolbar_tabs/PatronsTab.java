@@ -82,7 +82,7 @@ public class PatronsTab extends JPanel {
         sortByLogo.setFocusPainted(false);
         sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-        ImageIcon archiveIcon = new ImageIcon(imgFilePath + "img\\archive.png");
+        ImageIcon archiveIcon = new ImageIcon(imgFilePath + "archive.png");
         Image archiveImage = archiveIcon.getImage();
         Image scaledImageArchive = archiveImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         archiveIcon = new ImageIcon(scaledImageArchive);
@@ -103,6 +103,10 @@ public class PatronsTab extends JPanel {
         reloadLogo.setBorderPainted(false);
         reloadLogo.setFocusPainted(false);
         reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        reloadLogo.addActionListener(e -> {
+        	reloadData();
+        });
         
         JPanel iconsPanel = new JPanel();
         iconsPanel.setOpaque(false);
@@ -291,7 +295,9 @@ public class PatronsTab extends JPanel {
         tableData = new JPanel();
         tableData.setOpaque(false);
 
+        
         reloadData();
+        
         
 
         tableData.setLayout(new BorderLayout());
@@ -313,7 +319,6 @@ public class PatronsTab extends JPanel {
         patronsTab.add(patronContainer, gbc);
         setBackground(Color.decode("#c4c4c4"));
         add(patronsTab);
-
     }
 
 
@@ -330,6 +335,9 @@ public class PatronsTab extends JPanel {
         tableData.removeAll();
         comp = new MainFunctions(this);
         tableData.add(comp, BorderLayout.NORTH);
+        
+        revalidate();
+        repaint();
     }
 
 }
