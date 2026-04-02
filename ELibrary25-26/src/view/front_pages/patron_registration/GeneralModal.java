@@ -37,6 +37,35 @@ public class GeneralModal extends JPanel implements ActionListener {
 
 	LoginWindow lw;
 	RegisterPatron rp;
+	
+	// In RegisterPatron
+	public String getPatronID() {
+	    return row1Field.getText().trim();
+	}
+
+	public String getFirstName() {
+	    return row3_1Field.getText().trim();
+	}
+
+	public String getMiddleInitial() {
+	    return row4Field.getText().trim();
+	}
+
+	public String getLastName() {
+	    return row3_2Field.getText().trim();
+	}
+
+	public String getEmail() {
+	    return row5Field.getText().trim();
+	}
+
+	public String getContact() {
+	    return row6Field.getText().trim();
+	}
+
+	public String getAddress() {
+	    return row7Field.getText().trim();
+	}
 
 	String campusCode = "Main";
 	
@@ -429,12 +458,19 @@ public class GeneralModal extends JPanel implements ActionListener {
 			} else {
 
 				if (studentBtn.isSelected()) {
-					campusCode = campuses[row8Field.getSelectedIndex()];
-					rp.setCampus(campusCode);
-					rp.showCard("student");
+				    campusCode = campuses[row8Field.getSelectedIndex()];
+				    rp.setCampus(campusCode);
+
+				    rp.studModal.setCampusCode(campusCode); // ✅ REQUIRED
+				    rp.showCard("student");
 				}
+
 				if (employeeBtn.isSelected()) {
-					JOptionPane.showMessageDialog(null, "EMPLOYEE");
+				    campusCode = campuses[row8Field.getSelectedIndex()];
+				    rp.setCampus(campusCode);
+
+				    rp.empModal.setCampusCode(campusCode); // ✅ REQUIRED
+				    rp.showCard("employee");
 				}
 			}
 			break;
@@ -444,26 +480,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 				lw.setVisible(true);
 				rp.dispose();
 			} else {
-				// CLEAR ALL THE INPUT FIELDS
-				row1Field.setText("");
-				row3_1Field.setText("");
-				row3_2Field.setText("");
-				row4Field.setText("");
-				row5Field.setText("");
-				row6Field.setText("");
-				row7Field.setText("");
-
-				row8Field.setSelectedIndex(0);
-				bg.setSelected(studentBtn.getModel(), true);
-
-				// SET THE PLACEHOLDER AGAIN
-				row1Field.setText("Enter Patron ID");
-				row3_1Field.setText("Enter First Name");
-				row3_2Field.setText("Enter Last Name");
-				row4Field.setText("Enter Middle Initial");
-				row5Field.setText("Enter Email Address");
-				row6Field.setText("Enter Contact Number");
-				row7Field.setText("Enter Home Address");
+				clearFields();
 			}
 			break;
 
@@ -471,4 +488,32 @@ public class GeneralModal extends JPanel implements ActionListener {
 			break;
 		}
 	}
+	
+	public void clearFields() {
+
+	    row1Field.setText("");
+	    row1Field.setPlaceholder("Enter Patron ID");
+
+	    row3_1Field.setText("");
+	    row3_1Field.setPlaceholder("Enter First Name");
+
+	    row3_2Field.setText("");
+	    row3_2Field.setPlaceholder("Enter Last Name");
+
+	    row4Field.setText("");
+	    row4Field.setPlaceholder("Enter Middle Initial");
+
+	    row5Field.setText("");
+	    row5Field.setPlaceholder("Enter Email Address");
+
+	    row6Field.setText("");
+	    row6Field.setPlaceholder("Enter Contact Number");
+
+	    row7Field.setText("");
+	    row7Field.setPlaceholder("Enter Home Address");
+
+	    row8Field.setSelectedIndex(0);
+	    bg.setSelected(studentBtn.getModel(), true);
+	}
+
 }

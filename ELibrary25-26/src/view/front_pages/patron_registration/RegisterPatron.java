@@ -1,6 +1,7 @@
 package view.front_pages.patron_registration;
 import javax.swing.*;
 
+import controller.PatronRegistrationController;
 import view.RoundedComponents.*;
 import view.fonts.*;
 import view.front_pages.FilePath;
@@ -10,106 +11,70 @@ import java.awt.event.*;
 import view.front_pages.*;
 
 
-public class RegisterPatron extends JFrame{
-	
-	static String imgFilePath = FilePath.getImgFilePath();
-	
-	
+public class RegisterPatron extends JFrame {
+
+    CardLayout cardLayout;
+    JPanel cardPanel;
+
+
+
+    GeneralModal genModal;
+    StudentModal studModal;
+    EmployeeModal empModal;   // ✅ ADD THIS
+
+    private String campus;
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
+    public String getCampus() {
+        return campus;
+    }
     
-	CardLayout cardLayout;
-	JPanel cardPanel;
-	
-	private String campus = "Main";
-	
-	GeneralModal genModal;
-	StudentModal studModal;
+    
+    
 
-	public void setCampus(String campus) {
-		this.campus = campus;
-	}
+    public RegisterPatron(Dashboard frame, LoginWindow lw) {
 
-	public RegisterPatron(Dashboard frame, LoginWindow lw) {
+        BackgroundPanel bgPanel = new BackgroundPanel(
+                FilePath.getImgFilePath() + "blurred_bg.jpg"
+        );
 
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+        cardPanel.setOpaque(false);
 
-	    BackgroundPanel bgPanel = new BackgroundPanel(imgFilePath + "blurred_bg.jpg");
+        genModal  = new GeneralModal(lw, this);
+        studModal = new StudentModal(this, genModal);
+        empModal  = new EmployeeModal(this);   // ✅ CREATE EMPLOYEE MODAL
 
-	    cardLayout = new CardLayout();
-	    cardPanel = new JPanel(cardLayout);
-	    cardPanel.setOpaque(false); 
+        cardPanel.add(wrap(genModal), "general");
+        cardPanel.add(wrap(studModal), "student");
+        cardPanel.add(wrap(empModal), "employee"); // ✅ ADD CARD
 
-	    genModal = new GeneralModal(lw, this);
-	    studModal = new StudentModal(this, genModal);
-	    
-	    
-	    JPanel genWrapper = new JPanel(new GridBagLayout());
-        genWrapper.setOpaque(false);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-        genWrapper.add(genModal, gbc);
+        bgPanel.setLayout(new BorderLayout());
+        bgPanel.add(cardPanel, BorderLayout.CENTER);
+        setContentPane(bgPanel);
 
-        JPanel studWrapper = new JPanel(new GridBagLayout());
-        studWrapper.setOpaque(false);
-        GridBagConstraints gbc2 = new GridBagConstraints();
-        gbc2.gridx = 0;
-        gbc2.gridy = 0;
-        gbc2.anchor = GridBagConstraints.CENTER;
-        studWrapper.add(studModal, gbc2);
+        cardLayout.show(cardPanel, "general");
 
-        cardPanel.add(genWrapper, "general");
-        cardPanel.add(studWrapper, "student");
+        setTitle("E-Library Management System");
+        pack();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
 
-	    bgPanel.setLayout(new BorderLayout());
-	    bgPanel.add(cardPanel, BorderLayout.CENTER);
+    private JPanel wrap(JComponent comp) {
+        JPanel wrapper = new JPanel(new GridBagLayout());
+        wrapper.setOpaque(false);
+        wrapper.add(comp);
+        return wrapper;
+    }
 
-	    setContentPane(bgPanel);
-
-	    cardLayout.show(cardPanel, "general");
-
-
-		// Frame settings
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                requestFocusInWindow();
-            }
-        });
-
-        addWindowFocusListener(new WindowAdapter() {
-            @Override
-            public void windowGainedFocus(WindowEvent e) {
-                // Request focus on something else, or a panel
-            	bgPanel.requestFocusInWindow();
-            }
-        });
-        
-		setTitle("E-Library Management System");
-		setContentPane(bgPanel);
-		pack();
-
-		if (getWidth() < 1120 || getHeight() < 600) {
-			setSize(1120, 600);
-		}
-
-		setMinimumSize(new Dimension(1120, 600));
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setLocationRelativeTo(null);
-		setVisible(true);
-	}
-	
-	public void showCard(String cardName) {
-	    if (cardName.equals("student")) {
-	        studModal.setCampusCode(campus);
-
-	        studModal.updateVisibility();
-	        studModal.resizeModal();
-	    }
-
-	    cardLayout.show(cardPanel, cardName);
-	}
-
-	
+    public void showCard(String name) {
+        cardLayout.show(cardPanel, name);
+    }
 }

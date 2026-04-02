@@ -31,16 +31,16 @@ public class StudentModal extends JPanel implements ActionListener {
 
 	// Input fields for each row
 //	RoundedTextField row1Field;
-	RoundedTextField row2Field;
+	public RoundedTextField row2Field;
 	public RoundedComboBox<String> row3Field;
 	public RoundedComboBox<String> row4Field;
 	public RoundedComboBox<String> row5Field;
-	RoundedComboBox<String> row6Field;
-	RoundedComboBox<String> row7Field;
-	RoundedTextField row8Field;
-	RoundedComboBox<String> row9Field;
-	RoundedTextField row10Field;
-	RoundedTextField row11Field;
+	public RoundedComboBox<String> row6Field;
+	public RoundedComboBox<String> row7Field;
+	public RoundedTextField row8Field;
+	public RoundedComboBox<String> row9Field;
+	public RoundedTextField row10Field;
+	public RoundedTextField row11Field;
 
 	// Label wrapper panels — stored as fields so updateVisibility() can toggle them
 	JPanel row4LabelWrapper;
@@ -52,6 +52,8 @@ public class StudentModal extends JPanel implements ActionListener {
 	JPanel row10LabelWrapper;
 	
 	String[] college = { "" };
+	
+	private PatronRegistrationController controller;
 	
 	
 	
@@ -69,16 +71,16 @@ public class StudentModal extends JPanel implements ActionListener {
 	public void setCampusCode(String campus) {
 	    this.campus = campus;
 
-	    PatronRegistrationController controller = new PatronRegistrationController(this, campus);
-
-	    updateStudentTypeOptions();
-
-	    if (row4Field != null) {
-	        row4Field.setSelectedIndex(0);
+	    if (controller == null) {
+	        controller = new PatronRegistrationController(this, campus, genModal);
+	    } else {
+	        controller.setCampusCode(campus);
+	        controller.reloadCollegesAndPrograms();
 	    }
 
-	    updateVisibility();  // Make fields visible first
-	    resizeModal();       // Layout refresh first
+	    updateStudentTypeOptions();
+	    updateVisibility();
+	    resizeModal();
 	}
 	
 	
@@ -143,7 +145,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		modal.setPreferredSize(new Dimension(500, 550));
 		modal.setBackground(Color.decode("#faecee"));
 
-		// ── Header ──────────────────────────────────────────────────────────────
+		// Header
 		JPanel header = new JPanel();
 		header.setBackground(Color.decode("#842b28"));
 		header.setPreferredSize(new Dimension(500, 100));
@@ -552,37 +554,47 @@ public class StudentModal extends JPanel implements ActionListener {
 
 		switch (e.getActionCommand()) {
 		case "NEXT":
-		    String row2PlaceHolder = "Year Enrolled";
 
-		    if (row2Field.getText().equals(row2PlaceHolder)) {
-		        JOptionPane.showMessageDialog(null, "Fill in the required fields!");
-		    } else if (!isValidYear(row2Field.getText())) {
-		        JOptionPane.showMessageDialog(null, "Please enter a valid year for Year Enrolled (e.g. 2024)");
-		    } else if (row10Field.isVisible() && !isValidYear(row10Field.getText())) {
-		        JOptionPane.showMessageDialog(null, "Please enter a valid year for Year Graduated (e.g. 2024)");
-		    }
+			boolean isValidYearEnrolled = isValidYear(row2Field.getText());
+		    
+			if (isValidYearEnrolled) {
+				boolean success = controller.saveStudentRecord();
+
+				if (success) {
+				    JOptionPane.showMessageDialog(
+				        this,
+				        "Student record successfully saved!",
+				        "Success",
+				        JOptionPane.INFORMATION_MESSAGE
+				    );
+
+				    // ✅ CLEAR FORMS
+				    genModal.clearFields();
+				    clearFields();
+
+				    // ✅ GO BACK TO STEP 1
+				    rp.showCard("general");
+				} else {
+			        JOptionPane.showMessageDialog(
+			                this,
+			                "Error",
+			                "Failed to save student record.",
+			                JOptionPane.ERROR_MESSAGE
+			        );
+			    }
+			} else {
+				JOptionPane.showMessageDialog(
+		                this,
+		                "Error",
+		                "Please enter a valid year (e.g. 2026)",
+		                JOptionPane.INFORMATION_MESSAGE
+		        );
+			}
+			
 		    break;
 
 		case "CLEAR":
-		    // Reset text fields
-			row2Field.setText("");
-		    row2Field.setPlaceholder("Year Enrolled");
-		    row8Field.setText("");
-		    row10Field.setText("");
-
-		    // Reset student type to placeholder
-		    resetStudentType();
-
-		    // Reset all other combo boxes
-		    row4Field.setSelectedIndex(0);
-		    row5Field.setSelectedIndex(0);
-		    row6Field.setSelectedIndex(0);
-		    row7Field.setSelectedIndex(0);
-		    row9Field.setSelectedIndex(0);
-
-		    // Update dynamic visibility
-		    updateVisibility();
-		    resizeModal();
+		    clearFields();
 		    break;
 
 		case "BACK":
@@ -593,4 +605,32 @@ public class StudentModal extends JPanel implements ActionListener {
 			break;
 		}
 	}
+	
+	public void clearFields() {
+
+	    // Text fields
+	    row2Field.setText("");
+	    row2Field.setPlaceholder("e.g. 2026");
+
+	    row8Field.setText("");
+	    row8Field.setPlaceholder("Enter Thesis Title");
+
+	    row10Field.setText("");
+	    row10Field.setPlaceholder("e.g. 2026");
+
+	    // Combo boxes
+	    row3Field.setSelectedIndex(0);
+	    row4Field.setSelectedIndex(0);
+	    row5Field.setSelectedIndex(0);
+	    row6Field.setSelectedIndex(0);
+	    row7Field.setSelectedIndex(0);
+	    row9Field.setSelectedIndex(0);
+
+	    updateVisibility();
+	    resizeModal();
+	}
+	
+	
+	
+	
 }

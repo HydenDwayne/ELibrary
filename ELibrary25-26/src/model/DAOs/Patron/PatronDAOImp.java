@@ -6,167 +6,69 @@ import java.util.List;
 
 public class PatronDAOImp implements DAOShowAllPatron, DAOShowOnePatron {
 
-    private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
+	private final String USER = "Pia";
+	private final String PASSWORD = "passwordPia";
 
-    @Override
-    public List<DAOPatron> getAllUsers() {
+	@Override
+	public List<DAOPatron> getAllUsers() {
 
-        List<DAOPatron> patrons = new ArrayList<>();
+		List<DAOPatron> patrons = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); CallableStatement stmt = conn.prepareCall("{CALL showAllPatrons}")) {
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				CallableStatement stmt = conn.prepareCall("{CALL showAllPatrons}")) {
 
-            ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                patrons.add(new DAOPatron(
-                        rs.getString("Patron ID"),
-                        rs.getString("Full Name"),
-                        rs.getString("Email Address"),
-                        rs.getString("Contact Number"),
-                        rs.getString("Home Address"),
-                        rs.getString("Campus"),
-                        rs.getString("Patron Type")
-                ));
-            }
+			while (rs.next()) {
+				patrons.add(new DAOPatron(rs.getString("Patron ID"), rs.getString("Full Name"),
+						rs.getString("Email Address"), rs.getString("Contact Number"), rs.getString("Home Address"),
+						rs.getString("Campus"), rs.getString("Patron Type")));
+			}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-        return patrons;
-    }
+		return patrons;
+	}
 
 	@Override
 	public List<DAOPatron> getUserDetail() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public String[] getCollegesPerCampus(String campusCode) {
-        List<String> list = new ArrayList<>();
-        
+	    List<String> list = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement("select CollegeCode from COLLEGE where CampCode = ?");) {
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement stmt = conn.prepareStatement(
+	             "SELECT CollegeCode FROM COLLEGE WHERE CampCode = ?")) {
 
-        	if (campusCode.equals("Main")) {
-            	stmt.setString(1, "M");
-            } else {
-        		stmt.setString(1, "BC");
-        	}
-        	
+	        stmt.setString(1, campusCode); // DB code
 
-            ResultSet rs = stmt.executeQuery();
-        	
-            while (rs.next()) {
-                list.add(rs.getString("CollegeCode"));
-            }
+	        ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            list.add(rs.getString("CollegeCode"));
+	        }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 
-        // Convert List<String> to String[]
-        return list.toArray(new String[0]);
-    }
-	
+	    return list.toArray(new String[0]);
+	}
+
 	public String[] getPrograms(String collegeCode, String campusCode) {
 	    List<String> list = new ArrayList<>();
-	    
-	    if (campusCode.equals("Main") || campusCode.equals("Bustos")) {
-	    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-	   	         PreparedStatement stmt = conn.prepareStatement(
-	   	             "SELECT ProgramCode FROM PROGRAM WHERE CollCode = ? AND CampusCode = ?"
-	   	         )) {
-
-	   	        stmt.setString(1, collegeCode);
-
-	   	        // DB uses single-letter codes, convert
-	   	        if (campusCode.equalsIgnoreCase("Main")) {
-	   	            stmt.setString(2, "M");
-	   	        } else if (campusCode.equalsIgnoreCase("Bustos")) {
-	   	            stmt.setString(2, "BC");
-	   	        }
-
-	   	        ResultSet rs = stmt.executeQuery();
-	   	        while (rs.next()) {
-	   	            list.add(rs.getString("ProgramCode"));
-	   	        }
-
-	   	    } catch (SQLException e) {
-	   	        e.printStackTrace();
-	   	    }
-	    } else {
-	    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-	   	         PreparedStatement stmt = conn.prepareStatement(
-	   	             "SELECT ProgramCode FROM PROGRAM WHERE CampusCode = ?"
-	   	         )) {
-
-	   	        // DB uses single-letter codes, convert
-	    		switch (campusCode.toLowerCase()) {
-	            case "hagonoy": stmt.setString(1, "HC"); break;
-	            case "meneses": stmt.setString(1, "MC"); break;
-	            case "san rafael": stmt.setString(1, "SRC"); break;
-	            case "sarmiento": stmt.setString(1, "SC"); break;
-	            default: stmt.setString(1, campusCode);
-	        }
-
-	   	        ResultSet rs = stmt.executeQuery();
-	   	        while (rs.next()) {
-	   	            list.add(rs.getString("ProgramCode"));
-	   	        }
-
-	   	    } catch (SQLException e) {
-	   	        e.printStackTrace();
-	   	    }
-	    }
-
-	    
-
-	    return list.toArray(new String[0]);
-	}
-	
-	public String[] getProgramsByCampus(String campusCode) {
-	    List<String> list = new ArrayList<>();
 
 	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 	         PreparedStatement stmt = conn.prepareStatement(
-	             "SELECT ProgramCode FROM PROGRAM WHERE CampusCode = ?"
-	         )) {
-
-	        // Convert user campus to DB code
-	        switch (campusCode.toLowerCase()) {
-	            case "main": stmt.setString(1, "M"); break;
-	            case "bustos": stmt.setString(1, "BC"); break;
-	            case "hagonoy": stmt.setString(1, "H"); break;
-	            case "meneses": stmt.setString(1, "MC"); break;
-	            case "san rafael": stmt.setString(1, "SR"); break;
-	            case "sarmiento": stmt.setString(1, "SC"); break;
-	            default: stmt.setString(1, campusCode);
-	        }
-
-	        ResultSet rs = stmt.executeQuery();
-	        while (rs.next()) {
-	            list.add(rs.getString("ProgramCode"));
-	        }
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return list.toArray(new String[0]);
-	}
-	
-	public String[] getProgramsByCollegeOnly(String collegeCode) {
-	    List<String> list = new ArrayList<>();
-
-	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-	         PreparedStatement stmt = conn.prepareStatement(
-	             "SELECT ProgramCode FROM PROGRAM WHERE CollCode = ?"
-	         )) {
+	             "SELECT ProgramCode FROM PROGRAM WHERE CollCode = ? AND CampusCode = ?")) {
 
 	        stmt.setString(1, collegeCode);
+	        stmt.setString(2, campusCode); // ← already DB code
 
 	        ResultSet rs = stmt.executeQuery();
 	        while (rs.next()) {
@@ -179,5 +81,181 @@ public class PatronDAOImp implements DAOShowAllPatron, DAOShowOnePatron {
 
 	    return list.toArray(new String[0]);
 	}
-	
+
+
+	public String[] getProgramsByCampus(String campusCode) {
+		List<String> list = new ArrayList<>();
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement stmt = conn
+						.prepareStatement("SELECT ProgramCode FROM PROGRAM WHERE CampusCode = ?")) {
+
+			// Convert user campus to DB code
+			switch (campusCode.toLowerCase()) {
+			case "main":
+				stmt.setString(1, "M");
+				break;
+			case "bustos":
+				stmt.setString(1, "BC");
+				break;
+			case "hagonoy":
+				stmt.setString(1, "H");
+				break;
+			case "meneses":
+				stmt.setString(1, "MC");
+				break;
+			case "san rafael":
+				stmt.setString(1, "SR");
+				break;
+			case "sarmiento":
+				stmt.setString(1, "SC");
+				break;
+			default:
+				stmt.setString(1, campusCode);
+			}
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("ProgramCode"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list.toArray(new String[0]);
+	}
+
+	public String[] getProgramsByCollegeOnly(String collegeCode) {
+		List<String> list = new ArrayList<>();
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement stmt = conn.prepareStatement("SELECT ProgramCode FROM PROGRAM WHERE CollCode = ?")) {
+
+			stmt.setString(1, collegeCode);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("ProgramCode"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list.toArray(new String[0]);
+	}
+
+	public boolean insertStudentRecord(String patronID, String firstName, String middleInitial, String lastName,
+			String emailAddress, String contactNumber, String homeAddress, String campCode,
+
+			java.sql.Date yearEnrolled, String studentType,
+
+			String yearLevel, String colCode, String programCode, String campusCode,
+
+			String thesisTitle, java.sql.Date yearGraduated, String degree,
+
+			Integer gradeLevel) {
+
+		String sql = "{CALL addNewRecord_Patron_Student(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				CallableStatement cs = conn.prepareCall(sql)) {
+
+			// ── Patron
+			cs.setString(1, patronID);
+			cs.setString(2, firstName);
+			cs.setString(3, middleInitial);
+			cs.setString(4, lastName);
+			cs.setString(5, emailAddress);
+			cs.setString(6, contactNumber);
+			cs.setString(7, homeAddress);
+			
+			switch (campCode.toLowerCase()) {
+			case "main":
+				cs.setString(8, "M");
+				break;
+			case "bustos":
+				cs.setString(8, "BC");
+				break;
+			case "hagonoy":
+				cs.setString(8, "H");
+				break;
+			case "meneses":
+				cs.setString(8, "MC");
+				break;
+			case "san rafael":
+				cs.setString(8, "SR");
+				break;
+			case "sarmiento":
+				cs.setString(8, "SC");
+				break;
+			default:
+				cs.setString(8, campCode);
+			}
+			
+
+			// ── Student
+			cs.setDate(9, yearEnrolled);
+			cs.setString(10, studentType);
+
+			// ── Undergraduate
+			if (yearLevel != null)
+				cs.setString(11, yearLevel);
+			else
+				cs.setNull(11, Types.VARCHAR);
+
+			if (colCode != null)
+				cs.setString(12, colCode);
+			else
+				cs.setNull(12, Types.VARCHAR);
+
+			if (programCode != null)
+				cs.setString(13, programCode);
+			else
+				cs.setNull(13, Types.VARCHAR);
+
+			if (campusCode != null)
+				cs.setString(14, campusCode);
+			else
+				cs.setNull(14, Types.VARCHAR);
+
+			// ── Graduate / Alumni
+			if (thesisTitle != null)
+				cs.setString(15, thesisTitle);
+			else
+				cs.setNull(15, Types.VARCHAR);
+
+			if (yearGraduated != null)
+				cs.setDate(16, yearGraduated);
+			else
+				cs.setNull(16, Types.DATE);
+
+			if (degree != null)
+				cs.setString(17, degree);
+			else
+				cs.setNull(17, Types.VARCHAR);
+
+			// ── LabHigh
+			if (gradeLevel != null)
+				cs.setInt(18, gradeLevel);
+			else
+				cs.setNull(18, Types.INTEGER);
+
+			// SQL Server may return update count AFTER execute
+			cs.execute();
+
+			while (cs.getMoreResults() || cs.getUpdateCount() != -1) {
+			    int count = cs.getUpdateCount();
+			    if (count > 0) return true;
+			}
+
+			return false;
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }
