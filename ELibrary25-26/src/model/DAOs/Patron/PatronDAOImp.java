@@ -253,7 +253,7 @@ public class PatronDAOImp implements DAOShowAllPatron, DAOShowOnePatron {
 			
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}

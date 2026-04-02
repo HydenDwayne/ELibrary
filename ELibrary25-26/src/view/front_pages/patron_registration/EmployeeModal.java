@@ -291,7 +291,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		Fonts poppins12btn = new Fonts("Poppins", 12f);
      		Font poppinsStyle12 = poppins12btn.getAppliedFont();
 
-     		RoundedButton submitBtn = new RoundedButton("NEXT", 15);
+     		RoundedButton submitBtn = new RoundedButton("SUBMIT", 15);
      		submitBtn.setPreferredSize(new Dimension(500, 40));
      		submitBtn.setBackground(Color.decode("#842b28"));
      		submitBtn.setForeground(Color.WHITE);
@@ -498,7 +498,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		switch (e.getActionCommand()) {
-		case "NEXT":
+		case "SUBMIT":
 			
 			
 			boolean isValidYearEnrolled = isValidYear(row2Field.getText());

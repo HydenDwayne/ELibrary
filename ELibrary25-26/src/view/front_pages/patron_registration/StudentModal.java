@@ -564,8 +564,8 @@ public class StudentModal extends JPanel implements ActionListener {
 				if (success) {
 				    JOptionPane.showMessageDialog(
 				        this,
-				        "Student record successfully saved!",
 				        "Success",
+				        "Successfully registered new patron!",
 				        JOptionPane.INFORMATION_MESSAGE
 				    );
 
@@ -578,8 +578,8 @@ public class StudentModal extends JPanel implements ActionListener {
 				} else {
 			        JOptionPane.showMessageDialog(
 			                this,
+			                "Patron ID already registered.",
 			                "Error",
-			                "Failed to save student record.",
 			                JOptionPane.ERROR_MESSAGE
 			        );
 			    }
