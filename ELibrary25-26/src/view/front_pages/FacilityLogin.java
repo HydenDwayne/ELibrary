@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import controller.TimeInTimeOutController;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 import view.front_pages.Dashboard;
@@ -14,10 +15,48 @@ import view.front_pages.FilePath;
 import view.front_pages.LoginWindow;
 
 public class FacilityLogin extends JFrame implements ActionListener {
+	
+	// NEW: wrapper
+	private JPanel patronStateWrapper;
+
+	// reference to normal state
+	private JPanel patronInfoPanel;
+
+	// reference to error state
+	private RoundedPanel patronErrorPanel;
 
 	RoundedComboBox<String> dropdownCollection;
 	JPanel wCard;
 	JPanel nCard;
+	public RoundedTextField username;
+	public RoundedTextField cardNo;
+	
+	RoundedTextField usernameNonCard;
+	
+	public JLabel patronIDValue;
+	public JTextArea fullNameValue;
+	public JTextArea college_campusValue;
+	public JLabel patronTypeValue;
+	public JLabel timeInValue;
+	public JLabel timeOutValue;
+	
+	String selectedFacility = "iPAD";
+	
+	public String getSelectedFacility() {
+		return selectedFacility;
+	}
+	
+	String patronID = "";
+	
+	public String getPatronID() {
+		return patronID;
+	}
+	
+	String cardNoText = "";
+	
+	public String getCardNo() {
+		return cardNoText;
+	}
 
 	static String imgFilePath = FilePath.getImgFilePath();
 
@@ -76,9 +115,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		
 		JPanel inputWrapper = new JPanel();
 		
-		RoundedTextField usernameNonCard = new RoundedTextField(25, panelRadius);
-		RoundedTextField username = new RoundedTextField(20, panelRadius);
-		RoundedTextField cardNo = new RoundedTextField(5, panelRadius);
+		usernameNonCard = new RoundedTextField(25, panelRadius);
+		username = new RoundedTextField(20, panelRadius);
+		cardNo = new RoundedTextField(5, panelRadius);
 		
 		Fonts poppins = new Fonts("Poppins", 10f);
 		Font poppinsStyle = poppins.getAppliedFont();
@@ -115,19 +154,33 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		submitBtn.setBackground(Color.decode("#5d1513"));
 		submitBtn.setForeground(Color.WHITE);
 		submitBtn.setFocusPainted(false);
-        submitBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // unfinished ------------------------------------ insert logic for inserting login/logout here
-                // need to display user info or display user not found error
-                if (username.getText().equalsIgnoreCase("exit") || usernameNonCard.getText().equalsIgnoreCase("exit")) {
-                    lw.setVisible(true);
-                    dispose();
-                } else {
-                    username.setText("");
-                }
-            }
-        });
+		submitBtn.addActionListener(e -> {
+
+		    String enteredPatronID;
+
+		    if (nCard.isVisible()) {
+		        enteredPatronID = usernameNonCard.getRealText().trim();
+		    } else {
+		        enteredPatronID = username.getRealText().trim();
+		        cardNoText = cardNo.getRealText().trim();
+		    }
+
+		    if (enteredPatronID.isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "Please enter a valid Patron ID.");
+		        return;
+		    }
+
+		    patronID = enteredPatronID;
+		    checkPatronID();
+
+		    username.setText("");
+		    usernameNonCard.setText("");
+		    cardNo.setText("");
+		    
+		    usernameNonCard.setPlaceholder("Enter Student Number/Employee ID");
+			username.setPlaceholder("Enter Student Number/Employee ID");
+			cardNo.setPlaceholder("Card#");
+		});
 		loginContainer.add(submitBtn, gbc);
 		
 		gbc.gridy++;
@@ -204,10 +257,26 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		rightPanel.add(facilitySelector, BorderLayout.NORTH);
 
-		JPanel patronInfo = new JPanel();
-		patronInfo.setPreferredSize(new Dimension(650, 400));
-		patronInfo.setLayout(new GridBagLayout());
-		patronInfo.setOpaque(false);
+		patronStateWrapper = new JPanel(new CardLayout());
+		patronStateWrapper.setOpaque(false);
+		patronStateWrapper.setPreferredSize(new Dimension(650, 400));
+		
+		patronErrorPanel = createPatronErrorPanel();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		patronInfoPanel = new JPanel();
+		patronInfoPanel.setLayout(new GridBagLayout());
+		patronInfoPanel.setOpaque(false);
 		GridBagConstraints gbcPatInfo = new GridBagConstraints();
 		gbcPatInfo.gridx = 0;
 		gbcPatInfo.gridy = 0;
@@ -228,7 +297,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronIDPanel.setBackground(new Color(203, 203, 203, 140));
 		patronIDPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel patronIDLabel = new JLabel("Student Number/Employee ID");
-		JLabel patronIDValue = new JLabel("2024105301");
+		patronIDValue = new JLabel("--");
 
 		patronIDLabel.setFont(introRustLabel);
 		patronIDValue.setFont(poppinsValue);
@@ -236,7 +305,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronIDPanel.add(patronIDLabel, BorderLayout.NORTH);
 		patronIDPanel.add(patronIDValue, BorderLayout.CENTER);
 
-		patronInfo.add(patronIDPanel, gbcPatInfo);
+		patronInfoPanel.add(patronIDPanel, gbcPatInfo);
 
 //        start
 		gbcPatInfo.gridx = 1;
@@ -247,8 +316,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		fullNamePanel.setBackground(new Color(203, 203, 203, 140));
 		fullNamePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel fullNameLabel = new JLabel("Full Name");
-		JTextArea fullNameValue = new JTextArea(
-			    "Maria Princess Jessie Mae DC. Santos III"
+		 fullNameValue = new JTextArea(
+			    "--"
 			);
 		
 		fullNameValue.setFont(poppinsValueLong);
@@ -265,7 +334,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		fullNamePanel.add(fullNameLabel, BorderLayout.NORTH);
 		fullNamePanel.add(fullNameValue, BorderLayout.CENTER);
 
-		patronInfo.add(fullNamePanel, gbcPatInfo);
+		patronInfoPanel.add(fullNamePanel, gbcPatInfo);
 
 //        end
 
@@ -279,8 +348,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		college_campusPanel.setBackground(new Color(203, 203, 203, 140));
 		college_campusPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel college_campusLabel = new JLabel("College/Campus");
-		JTextArea college_campusValue = new JTextArea(
-			    "Main - College of Information and Communications Technology"
+		 college_campusValue = new JTextArea(
+			    "--"
 			);
 		
 		college_campusValue.setFont(poppinsValueLong);
@@ -297,7 +366,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		college_campusPanel.add(college_campusLabel, BorderLayout.NORTH);
 		college_campusPanel.add(college_campusValue, BorderLayout.CENTER);
 
-		patronInfo.add(college_campusPanel, gbcPatInfo);
+		patronInfoPanel.add(college_campusPanel, gbcPatInfo);
 
 //      end
 		
@@ -310,7 +379,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronTypePanel.setBackground(new Color(203, 203, 203, 140));
 		patronTypePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel patronTypeLabel = new JLabel("Patron Category");
-		JLabel patronTypeValue = new JLabel("Employee");
+		 patronTypeValue = new JLabel("--");
 
 		patronTypeLabel.setFont(introRustLabel);
 		patronTypeValue.setFont(poppinsValueLong);
@@ -323,7 +392,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronTypePanel.add(patronTypeLabel, BorderLayout.NORTH);
 		patronTypePanel.add(patronTypeValueWrapper, BorderLayout.CENTER);
 
-		patronInfo.add(patronTypePanel, gbcPatInfo);
+		patronInfoPanel.add(patronTypePanel, gbcPatInfo);
 
 //      end
 		
@@ -337,8 +406,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeInPanel.setBackground(new Color(203, 203, 203, 140));
 		timeInPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel timeInLabel = new JLabel("Time In");
-		JLabel timeInValue = new JLabel(
-			    "08:25:26 A.M."
+		 timeInValue = new JLabel(
+			    "--"
 			);
 
 		timeInLabel.setFont(introRustLabel);
@@ -347,7 +416,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeInPanel.add(timeInLabel, BorderLayout.NORTH);
 		timeInPanel.add(timeInValue, BorderLayout.CENTER);
 
-		patronInfo.add(timeInPanel, gbcPatInfo);
+		patronInfoPanel.add(timeInPanel, gbcPatInfo);
 
 //      end
 		
@@ -360,7 +429,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeOutPanel.setBackground(new Color(203, 203, 203, 140));
 		timeOutPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel timeOutLabel = new JLabel("Time Out");
-		JLabel timeOutValue = new JLabel(
+		 timeOutValue = new JLabel(
 			    "--"
 			);
 
@@ -370,11 +439,16 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeOutPanel.add(timeOutLabel, BorderLayout.NORTH);
 		timeOutPanel.add(timeOutValue, BorderLayout.CENTER);
 
-		patronInfo.add(timeOutPanel, gbcPatInfo);
+		patronInfoPanel.add(timeOutPanel, gbcPatInfo);
+		
+		
 
 //      end
+		
+		patronStateWrapper.add(patronInfoPanel, "NORMAL");
+		patronStateWrapper.add(patronErrorPanel, "ERROR");
 
-		rightPanel.add(patronInfo, BorderLayout.CENTER);
+		rightPanel.add(patronStateWrapper, BorderLayout.CENTER);
 
 		panel.add(rightPanel, gbcMain);
 
@@ -410,6 +484,10 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
+	public void checkPatronID() {
+		TimeInTimeOutController titoc = new TimeInTimeOutController(this);
+	}
+	
 	public JPanel addNonCardInput(RoundedTextField username) {
 		JPanel input = new JPanel();
 		input.setPreferredSize(new Dimension(300, 30));
@@ -432,6 +510,40 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		
 		return input;
 	}
+	
+	private RoundedPanel createPatronErrorPanel() {
+	    RoundedPanel panel = new RoundedPanel(20);
+	    panel.setBackground(new Color(180, 40, 40, 220));
+	    panel.setLayout(new GridBagLayout());
+
+	    JLabel label = new JLabel("NO MATCHING RECORDS FOUND");
+	    label.setForeground(Color.WHITE);
+	    label.setFont(new Fonts("PoppinsBold", 24f).getAppliedFont());
+
+	    panel.add(label);
+	    return panel;
+	}
+	
+	public void showPatronNotRegistered() {
+	    CardLayout cl = (CardLayout) patronStateWrapper.getLayout();
+	    cl.show(patronStateWrapper, "ERROR");
+
+	    Timer timer = new Timer(5000, e -> resetPatronView());
+	    timer.setRepeats(false);
+	    timer.start();
+	}
+
+	public void resetPatronView() {
+	    CardLayout cl = (CardLayout) patronStateWrapper.getLayout();
+	    cl.show(patronStateWrapper, "NORMAL");
+
+	    patronIDValue.setText("--");
+	    fullNameValue.setText("--");
+	    college_campusValue.setText("--");
+	    patronTypeValue.setText("--");
+	    timeInValue.setText("--");
+	    timeOutValue.setText("--");
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -442,21 +554,31 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		
 		switch (selectedFacility) {
 		case "iPad Area": 
+			this.selectedFacility = "iPAD";
 			wCard.setVisible(true);
 			break;
 		case "Individual Study Room": 
+			this.selectedFacility = "ISR";
 			wCard.setVisible(true);
 			break;
 		case "Entrance": 
 			nCard.setVisible(true);
+			this.selectedFacility = "LOGIN";
 			break;
 		case "Laptop Section": 
+			this.selectedFacility = "LSect";
 			nCard.setVisible(true);
 			break;
 		case "PWD Area": 
+			this.selectedFacility = "PWD";
 			nCard.setVisible(true);
 			break;
 		case "Relaxation Room": 
+			this.selectedFacility = "RelaxRoom";
+			wCard.setVisible(true);
+			break;
+		case "Smart Development Zone": 
+			this.selectedFacility = "SDZ";
 			wCard.setVisible(true);
 			break;
 		
