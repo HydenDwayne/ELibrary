@@ -65,11 +65,15 @@ public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
 
-        return getPatronData(patronID, facilityCode, cardNo);
+        return getPatronData(
+        	    patronID,
+        	    facilityCode,
+        	    withCard ? cardNo : null
+        	);
     }
 
     
@@ -138,6 +142,9 @@ public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
     	
     	
 
-		return list.toArray(new String[0]);
+    	if (list.isEmpty()) {
+    	    return null;
+    	}
+    	return list.toArray(new String[0]);
     }
 }

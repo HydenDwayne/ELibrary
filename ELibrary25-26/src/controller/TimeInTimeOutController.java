@@ -19,9 +19,9 @@ public class TimeInTimeOutController {
         String patronID = fl.getPatronID();
 
         String[] patronData = daoFL.timeInTimeOutPatron(patronID, facilityCode, cardNo);
-
+        
         if (patronData == null) {
-            JOptionPane.showMessageDialog(null, "null patronData");
+            fl.showPatronNotRegistered();
             return;
         }
 

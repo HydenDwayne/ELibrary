@@ -15,6 +15,15 @@ import view.front_pages.FilePath;
 import view.front_pages.LoginWindow;
 
 public class FacilityLogin extends JFrame implements ActionListener {
+	
+	// NEW: wrapper
+	private JPanel patronStateWrapper;
+
+	// reference to normal state
+	private JPanel patronInfoPanel;
+
+	// reference to error state
+	private RoundedPanel patronErrorPanel;
 
 	RoundedComboBox<String> dropdownCollection;
 	JPanel wCard;
@@ -248,10 +257,26 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		rightPanel.add(facilitySelector, BorderLayout.NORTH);
 
-		JPanel patronInfo = new JPanel();
-		patronInfo.setPreferredSize(new Dimension(650, 400));
-		patronInfo.setLayout(new GridBagLayout());
-		patronInfo.setOpaque(false);
+		patronStateWrapper = new JPanel(new CardLayout());
+		patronStateWrapper.setOpaque(false);
+		patronStateWrapper.setPreferredSize(new Dimension(650, 400));
+		
+		patronErrorPanel = createPatronErrorPanel();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		patronInfoPanel = new JPanel();
+		patronInfoPanel.setLayout(new GridBagLayout());
+		patronInfoPanel.setOpaque(false);
 		GridBagConstraints gbcPatInfo = new GridBagConstraints();
 		gbcPatInfo.gridx = 0;
 		gbcPatInfo.gridy = 0;
@@ -280,7 +305,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronIDPanel.add(patronIDLabel, BorderLayout.NORTH);
 		patronIDPanel.add(patronIDValue, BorderLayout.CENTER);
 
-		patronInfo.add(patronIDPanel, gbcPatInfo);
+		patronInfoPanel.add(patronIDPanel, gbcPatInfo);
 
 //        start
 		gbcPatInfo.gridx = 1;
@@ -309,7 +334,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		fullNamePanel.add(fullNameLabel, BorderLayout.NORTH);
 		fullNamePanel.add(fullNameValue, BorderLayout.CENTER);
 
-		patronInfo.add(fullNamePanel, gbcPatInfo);
+		patronInfoPanel.add(fullNamePanel, gbcPatInfo);
 
 //        end
 
@@ -341,7 +366,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		college_campusPanel.add(college_campusLabel, BorderLayout.NORTH);
 		college_campusPanel.add(college_campusValue, BorderLayout.CENTER);
 
-		patronInfo.add(college_campusPanel, gbcPatInfo);
+		patronInfoPanel.add(college_campusPanel, gbcPatInfo);
 
 //      end
 		
@@ -367,7 +392,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronTypePanel.add(patronTypeLabel, BorderLayout.NORTH);
 		patronTypePanel.add(patronTypeValueWrapper, BorderLayout.CENTER);
 
-		patronInfo.add(patronTypePanel, gbcPatInfo);
+		patronInfoPanel.add(patronTypePanel, gbcPatInfo);
 
 //      end
 		
@@ -391,7 +416,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeInPanel.add(timeInLabel, BorderLayout.NORTH);
 		timeInPanel.add(timeInValue, BorderLayout.CENTER);
 
-		patronInfo.add(timeInPanel, gbcPatInfo);
+		patronInfoPanel.add(timeInPanel, gbcPatInfo);
 
 //      end
 		
@@ -414,11 +439,16 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeOutPanel.add(timeOutLabel, BorderLayout.NORTH);
 		timeOutPanel.add(timeOutValue, BorderLayout.CENTER);
 
-		patronInfo.add(timeOutPanel, gbcPatInfo);
+		patronInfoPanel.add(timeOutPanel, gbcPatInfo);
+		
+		
 
 //      end
+		
+		patronStateWrapper.add(patronInfoPanel, "NORMAL");
+		patronStateWrapper.add(patronErrorPanel, "ERROR");
 
-		rightPanel.add(patronInfo, BorderLayout.CENTER);
+		rightPanel.add(patronStateWrapper, BorderLayout.CENTER);
 
 		panel.add(rightPanel, gbcMain);
 
@@ -479,6 +509,40 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		input.add(cardNo, BorderLayout.EAST);
 		
 		return input;
+	}
+	
+	private RoundedPanel createPatronErrorPanel() {
+	    RoundedPanel panel = new RoundedPanel(20);
+	    panel.setBackground(new Color(180, 40, 40, 220));
+	    panel.setLayout(new GridBagLayout());
+
+	    JLabel label = new JLabel("NO MATCHING RECORDS FOUND");
+	    label.setForeground(Color.WHITE);
+	    label.setFont(new Fonts("PoppinsBold", 24f).getAppliedFont());
+
+	    panel.add(label);
+	    return panel;
+	}
+	
+	public void showPatronNotRegistered() {
+	    CardLayout cl = (CardLayout) patronStateWrapper.getLayout();
+	    cl.show(patronStateWrapper, "ERROR");
+
+	    Timer timer = new Timer(5000, e -> resetPatronView());
+	    timer.setRepeats(false);
+	    timer.start();
+	}
+
+	public void resetPatronView() {
+	    CardLayout cl = (CardLayout) patronStateWrapper.getLayout();
+	    cl.show(patronStateWrapper, "NORMAL");
+
+	    patronIDValue.setText("--");
+	    fullNameValue.setText("--");
+	    college_campusValue.setText("--");
+	    patronTypeValue.setText("--");
+	    timeInValue.setText("--");
+	    timeOutValue.setText("--");
 	}
 
 	@Override
