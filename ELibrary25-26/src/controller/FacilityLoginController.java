@@ -128,7 +128,12 @@ public class FacilityLoginController {
 					
 					
 					String startStr = indivCard.getPatronTimeIn();
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+					// Remove milliseconds if present
+					if (startStr.contains(".")) {
+					    startStr = startStr.substring(0, startStr.indexOf('.'));
+					}
+
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 					LocalDateTime start = LocalDateTime.parse(startStr, formatter);
 					LocalDateTime now   = LocalDateTime.now();
@@ -242,7 +247,13 @@ public class FacilityLoginController {
 					
 					
 					String startStr = indivCard.getPatronTimeIn();
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+					// Remove milliseconds if present
+					if (startStr.contains(".")) {
+					    startStr = startStr.substring(0, startStr.indexOf('.'));
+					}
+
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 					LocalDateTime start = LocalDateTime.parse(startStr, formatter);
 					LocalDateTime now   = LocalDateTime.now();
@@ -356,7 +367,12 @@ public class FacilityLoginController {
 					
 					
 					String startStr = indivCard.getPatronTimeIn();
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+					// Remove milliseconds if present
+					if (startStr.contains(".")) {
+					    startStr = startStr.substring(0, startStr.indexOf('.'));
+					}
+
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 					LocalDateTime start = LocalDateTime.parse(startStr, formatter);
 					LocalDateTime now   = LocalDateTime.now();
@@ -471,7 +487,12 @@ public class FacilityLoginController {
 					
 					
 					String startStr = indivCard.getPatronTimeIn();
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+					// Remove milliseconds if present
+					if (startStr.contains(".")) {
+					    startStr = startStr.substring(0, startStr.indexOf('.'));
+					}
+
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 					LocalDateTime start = LocalDateTime.parse(startStr, formatter);
 					LocalDateTime now   = LocalDateTime.now();

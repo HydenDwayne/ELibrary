@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import controller.TimeInTimeOutController;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 import view.front_pages.Dashboard;
@@ -18,8 +19,33 @@ public class FacilityLogin extends JFrame implements ActionListener {
 	RoundedComboBox<String> dropdownCollection;
 	JPanel wCard;
 	JPanel nCard;
-	RoundedTextField username;
-	RoundedTextField cardNo;
+	public RoundedTextField username;
+	public RoundedTextField cardNo;
+	
+	public JLabel patronIDValue;
+	public JTextArea fullNameValue;
+	public JTextArea college_campusValue;
+	public JLabel patronTypeValue;
+	public JLabel timeInValue;
+	public JLabel timeOutValue;
+	
+	String selectedFacility = "iPAD";
+	
+	public String getSelectedFacility() {
+		return selectedFacility;
+	}
+	
+	String patronID = "";
+	
+	public String getPatronID() {
+		return patronID;
+	}
+	
+	String cardNoText = "";
+	
+	public String getCardNo() {
+		return patronID;
+	}
 
 	static String imgFilePath = FilePath.getImgFilePath();
 
@@ -113,6 +139,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
                     dispose();
                 } else {
                     username.setText("");
+                    cardNoText = cardNo.getText();
+                    patronID = username.getText();
+                    checkPatronID();
                 }
             }
         });
@@ -172,7 +201,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 				"Laptop Section", 
 				"PWD Area", 
 				"Relaxation Room", 
-				"Smart Development Area" };
+				"Smart Development Zone" };
 		dropdownCollection = new RoundedComboBox<>(facilityNames, 15);
 		dropdownCollection.setPlaceholder("none");
 		dropdownCollection.setPreferredSize(new Dimension(200, 30));
@@ -210,7 +239,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronIDPanel.setBackground(new Color(203, 203, 203, 140));
 		patronIDPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel patronIDLabel = new JLabel("Student Number/Employee ID");
-		JLabel patronIDValue = new JLabel("2024105301");
+		patronIDValue = new JLabel("--");
 
 		patronIDLabel.setFont(introRustLabel);
 		patronIDValue.setFont(poppinsValue);
@@ -229,8 +258,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		fullNamePanel.setBackground(new Color(203, 203, 203, 140));
 		fullNamePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel fullNameLabel = new JLabel("Full Name");
-		JTextArea fullNameValue = new JTextArea(
-			    "Maria Princess Jessie Mae DC. Santos III"
+		fullNameValue = new JTextArea(
+			    "--"
 			);
 		
 		fullNameValue.setFont(poppinsValueLong);
@@ -261,8 +290,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		college_campusPanel.setBackground(new Color(203, 203, 203, 140));
 		college_campusPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel college_campusLabel = new JLabel("College/Campus");
-		JTextArea college_campusValue = new JTextArea(
-			    "Main - College of Information and Communications Technology"
+		college_campusValue = new JTextArea(
+			    "--"
 			);
 		
 		college_campusValue.setFont(poppinsValueLong);
@@ -292,7 +321,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		patronTypePanel.setBackground(new Color(203, 203, 203, 140));
 		patronTypePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel patronTypeLabel = new JLabel("Patron Category");
-		JLabel patronTypeValue = new JLabel("Employee");
+		patronTypeValue = new JLabel("--");
 
 		patronTypeLabel.setFont(introRustLabel);
 		patronTypeValue.setFont(poppinsValueLong);
@@ -319,8 +348,8 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeInPanel.setBackground(new Color(203, 203, 203, 140));
 		timeInPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel timeInLabel = new JLabel("Time In");
-		JLabel timeInValue = new JLabel(
-			    "08:25:26 A.M."
+		timeInValue = new JLabel(
+			    "--"
 			);
 
 		timeInLabel.setFont(introRustLabel);
@@ -342,7 +371,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		timeOutPanel.setBackground(new Color(203, 203, 203, 140));
 		timeOutPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 0));
 		JLabel timeOutLabel = new JLabel("Time Out");
-		JLabel timeOutValue = new JLabel(
+		timeOutValue = new JLabel(
 			    "--"
 			);
 
@@ -392,6 +421,10 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
+	public void checkPatronID() {
+		TimeInTimeOutController titoc = new TimeInTimeOutController(this);
+	}
+	
 	public JPanel addNonCardInput() {
 		JPanel input = new JPanel();
 		input.setPreferredSize(new Dimension(300, 30));
@@ -430,21 +463,31 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		
 		switch (selectedFacility) {
 		case "iPad Area": 
+			selectedFacility = "iPAD";
 			wCard.setVisible(true);
 			break;
 		case "Individual Study Room": 
+			selectedFacility = "ISR";
 			wCard.setVisible(true);
 			break;
 		case "Entrance": 
 			nCard.setVisible(true);
+			selectedFacility = "LOGIN";
 			break;
 		case "Laptop Section": 
+			selectedFacility = "LSect";
 			nCard.setVisible(true);
 			break;
 		case "PWD Area": 
+			selectedFacility = "PWD";
 			nCard.setVisible(true);
 			break;
 		case "Relaxation Room": 
+			selectedFacility = "RelaxRoom";
+			wCard.setVisible(true);
+			break;
+		case "Smart Development Zone": 
+			selectedFacility = "SDZ";
 			wCard.setVisible(true);
 			break;
 		

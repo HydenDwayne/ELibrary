@@ -330,6 +330,4 @@ public class PatronDAOImp implements DAOShowAllPatron, DAOShowOnePatron {
 	        return false;
 	    }
 	}
-
-
 }
