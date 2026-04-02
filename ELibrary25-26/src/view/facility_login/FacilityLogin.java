@@ -7,11 +7,11 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import view.Dashboard;
-import view.FilePath;
-import view.LoginWindow;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
+import view.front_pages.Dashboard;
+import view.front_pages.FilePath;
+import view.front_pages.LoginWindow;
 
 public class FacilityLogin extends JFrame implements ActionListener {
 

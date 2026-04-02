@@ -1,4 +1,4 @@
-package view;
+package view.front_pages;
 
 import view.RoundedComponents.*;
 import java.awt.*;

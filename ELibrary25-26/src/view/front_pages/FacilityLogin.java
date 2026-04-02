@@ -1,4 +1,4 @@
-package view;
+package view.front_pages;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -7,11 +7,11 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import view.Dashboard;
-import view.FilePath;
-import view.LoginWindow;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
+import view.front_pages.Dashboard;
+import view.front_pages.FilePath;
+import view.front_pages.LoginWindow;
 
 public class FacilityLogin extends JFrame implements ActionListener {
 
@@ -21,7 +21,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 	static String imgFilePath = FilePath.getImgFilePath();
 
-	public FacilityLogin(Dashboard frame) {
+	public FacilityLogin(Dashboard frame, LoginWindow lw) {
 		int panelRadius = 20;
 		JPanel panel = new JPanel() {
 			Image backgroundImage = new ImageIcon(imgFilePath + "blurred_bg.jpg").getImage();
@@ -121,7 +121,6 @@ public class FacilityLogin extends JFrame implements ActionListener {
                 // unfinished ------------------------------------ insert logic for inserting login/logout here
                 // need to display user info or display user not found error
                 if (username.getText().equalsIgnoreCase("exit") || usernameNonCard.getText().equalsIgnoreCase("exit")) {
-                    LoginWindow lw = new LoginWindow(frame);
                     lw.setVisible(true);
                     dispose();
                 } else {
@@ -137,20 +136,20 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		Font poppinsStyle12 = poppins12.getAppliedFont();
 		
 		
-        JButton loginFacility = new JButton("Register here");
-        loginFacility.setFont(poppinsStyle12);
-        loginFacility.setBorderPainted(false);
-        loginFacility.setContentAreaFilled(false);
-        loginFacility.setFocusPainted(false);
-        loginFacility.setOpaque(false);
-        loginFacility.setForeground(Color.decode("#f8c169"));
-        loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
-        loginFacility.addActionListener(e -> {
-            RegisterPatron rp = new RegisterPatron(this);
-            rp.setVisible(true);
-            dispose();
-        });
-        loginContainer.add(loginFacility, gbc);
+//        JButton loginFacility = new JButton("Register here");
+//        loginFacility.setFont(poppinsStyle12);
+//        loginFacility.setBorderPainted(false);
+//        loginFacility.setContentAreaFilled(false);
+//        loginFacility.setFocusPainted(false);
+//        loginFacility.setOpaque(false);
+//        loginFacility.setForeground(Color.decode("#f8c169"));
+//        loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
+//        loginFacility.addActionListener(e -> {
+//            RegisterPatron rp = new RegisterPatron(frame);
+//            rp.setVisible(true);
+//            dispose();
+//        });
+//        loginContainer.add(loginFacility, gbc);
 
 		panel.add(loginContainer, gbcMain);
 

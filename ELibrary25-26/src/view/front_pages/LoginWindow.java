@@ -1,4 +1,4 @@
-package view;
+package view.front_pages;
 
 import view.RoundedComponents.*;
 import java.awt.*;
@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 
 import controller.LoginController;
 import view.fonts.*;
+import view.front_pages.patron_registration.RegisterPatron;
 
 public class LoginWindow extends JFrame {
 	
@@ -111,9 +112,9 @@ public class LoginWindow extends JFrame {
         loginFacility.setCursor(new Cursor(Cursor.HAND_CURSOR));
         loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
         loginFacility.addActionListener(e -> {
-            FacilityLogin fl = new FacilityLogin(frame);
+            FacilityLogin fl = new FacilityLogin(frame, this);
             fl.setVisible(true);
-            dispose();
+            setVisible(false);
         });
 //        loginContainer.add(loginFacility, gbc);
         
@@ -128,9 +129,9 @@ public class LoginWindow extends JFrame {
         patronRegistration.setCursor(new Cursor(Cursor.HAND_CURSOR));
         patronRegistration.setFont(patronRegistration.getFont().deriveFont(Font.PLAIN, 14f));
         patronRegistration.addActionListener(e -> {
-            FacilityLogin fl = new FacilityLogin(frame);
-            fl.setVisible(true);
-            dispose();
+            RegisterPatron rp = new RegisterPatron(frame, this);
+            rp.setVisible(true);
+            setVisible(false);
         });
 //        loginContainer.add(patronRegistration, gbc);
         
@@ -147,7 +148,7 @@ public class LoginWindow extends JFrame {
         lnfReport.addActionListener(e -> {
             ReportLNF rlnf = new ReportLNF(frame, this);
             rlnf.setVisible(true);
-            dispose();
+            setVisible(false);
         });
         
         

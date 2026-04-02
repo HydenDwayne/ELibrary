@@ -1,4 +1,4 @@
-package view;
+package view.front_pages;
 
 public class FilePath {
 	private static String fontFilePath = "C:\\Users\\admin\\eclipse-workspace\\ELibrary25-26\\src\\view\\fonts\\";

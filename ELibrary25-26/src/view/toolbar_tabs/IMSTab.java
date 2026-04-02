@@ -1,13 +1,14 @@
 package view.toolbar_tabs;
 
 import view.RoundedComponents.*;
-import view.FilePath;
 import view.book_panels.*;
 import view.fonts.Fonts;
+import view.front_pages.Dashboard;
+import view.front_pages.FilePath;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
-import view.Dashboard;
 
 import javax.swing.*;
 import controller.MainFunctions;
