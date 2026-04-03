@@ -32,7 +32,7 @@ public class OverviewTab extends JPanel {
 
 	public OverviewTab() {
 
-		Timer timer = new Timer(60000, e -> reloadData());
+		Timer timer = new Timer(5000, e -> reloadData());
 		timer.start();
 
 		int panelRadius = 20;

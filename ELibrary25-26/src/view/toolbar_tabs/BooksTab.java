@@ -12,6 +12,7 @@ import javax.swing.*;
 import controller.MainFunctions;
 import view.modal.*;
 import view.modal.books_modal.*;
+import view.modal.filter_modal.*;
 
 public class BooksTab extends JPanel implements ActionListener {
 	
@@ -26,9 +27,33 @@ public class BooksTab extends JPanel implements ActionListener {
     Reserve reserve = new Reserve();
     ThesesAndDissertations tad = new ThesesAndDissertations();
     JLabel tabLabel = new JLabel("");
+    
+    private String filterClass = "";
+    private String filterStartYear ="";
+    private String filterEndYear = "";
 
-    public JLabel getTabLabel() {
+	public void setAllFilter(String filterClass, String filterStartYear, String filterEndYear) {
+		this.filterClass = filterClass;
+		this.filterStartYear = filterStartYear;
+		this.filterEndYear = filterEndYear;
+		setFilter();
+	}
+	
+	public String getFilterClass() {
+	    return filterClass;
+	}
+
+	public String getFilterStartYear() {
+	    return filterStartYear;
+	}
+
+	public String getFilterEndYear() {
+	    return filterEndYear;
+	}
+
+	public JLabel getTabLabel() {
         return tabLabel;
+        
     }
     
     String searchQuery = "";
@@ -148,6 +173,10 @@ public class BooksTab extends JPanel implements ActionListener {
         sortByLogo.setBorderPainted(false);
         sortByLogo.setFocusPainted(false);
         sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        sortByLogo.addActionListener(e -> {
+		    Window parent = SwingUtilities.getWindowAncestor(this);
+		    new FilterByModal(parent, this);
+		});
         
         ImageIcon archiveIcon = new ImageIcon(imgFilePath + "archive.png");
         Image archiveImage = archiveIcon.getImage();
@@ -306,6 +335,9 @@ public class BooksTab extends JPanel implements ActionListener {
         reference .setVisible(false);
         reserve.setVisible(false);
         tad.setVisible(false);
+        
+        
+        
 
         //============================================== 
         slctdBookCol.setOpaque(false);
@@ -320,16 +352,78 @@ public class BooksTab extends JPanel implements ActionListener {
         int selectedBookCol = dropdownCollection.getSelectedIndex();
 
         switch (selectedBookCol) {
+
+        case 0:
+            bulacaniana.reloadData(searchQuery);
+            break;
+
+        case 1:
+            gencirc.reloadData(searchQuery);
+            break;
+
+        case 2:
+            fiction.reloadData(searchQuery);
+            break;
+
+        case 3:
+            filipiniana.reloadData(searchQuery);
+            break;
+
+        case 4:
+            reference.reloadData(searchQuery);
+            break;
+
+        case 5:
+            reserve.reloadData(searchQuery);
+            break;
+
+        case 6:
+            tad.reloadData(searchQuery);
+            break;
+
+        default:
+            System.out.println("Nothing to reload");
+            break;
+    }
+    }
+    
+    public void setFilter() {
+    	bulacaniana.setFilterStartYear(filterStartYear);
+        bulacaniana.setFilterEndYear(filterEndYear);
+        bulacaniana.setFilterClass(filterClass);
+    	
+        fiction.setFilterStartYear(filterStartYear);
+        fiction.setFilterEndYear(filterEndYear);
+        fiction.setFilterClass(filterClass);
         
-        case 0 -> bulacaniana.reloadData(searchQuery);
-        case 1 -> gencirc.reloadData(searchQuery);
-        case 2 -> fiction.reloadData(searchQuery);
-        case 3 -> filipiniana.reloadData(searchQuery);
-        case 4 -> reference.reloadData(searchQuery);
-        case 5 -> reserve.reloadData(searchQuery);
-        case 6 -> tad.reloadData(searchQuery);
-        default -> System.out.println("Nothing to reload");
-        }
+        filipiniana.setFilterStartYear(filterStartYear);
+        filipiniana.setFilterEndYear(filterEndYear);
+        filipiniana.setFilterClass(filterClass);
+        
+        gencirc.setFilterStartYear(filterStartYear);
+        gencirc.setFilterEndYear(filterEndYear);
+        gencirc.setFilterClass(filterClass);
+        
+        reference.setFilterStartYear(filterStartYear);
+        reference.setFilterEndYear(filterEndYear);
+        reference.setFilterClass(filterClass);
+        
+        reserve.setFilterStartYear(filterStartYear);
+        reserve.setFilterEndYear(filterEndYear);
+        reserve.setFilterClass(filterClass);
+        
+        tad.setFilterStartYear(filterStartYear);
+        tad.setFilterEndYear(filterEndYear);
+        tad.setFilterClass(filterClass);
+        
+        tad.reloadData(searchQuery);
+        reserve.reloadData(searchQuery);
+        reference.reloadData(searchQuery);
+        filipiniana.reloadData(searchQuery);
+        fiction.reloadData(searchQuery);
+        gencirc.reloadData(searchQuery);
+        bulacaniana.reloadData(searchQuery);
+       
     }
 
 

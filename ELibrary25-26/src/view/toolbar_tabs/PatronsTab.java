@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
 import view.modal.*;
+import view.modal.books_modal.ReturnBookModal;
+import view.modal.filter_modal.FilterByPatronModal;
 
 public class PatronsTab extends JPanel {
 
@@ -25,6 +27,73 @@ public class PatronsTab extends JPanel {
 	int columnCount = 0;
 
 	public String searchQuery = "";
+
+	private String campuses = "";
+	private String types = "";
+
+	public void setTypes(String types) {
+		this.types = types;
+	}
+
+	// Campus filters
+	private boolean filterMain;
+	private boolean filterHagonoy;
+	private boolean filterSanRafael;
+	private boolean filterBustos;
+	private boolean filterMeneses;
+	private boolean filterSarmiento;
+
+	// Patron type filters
+	private boolean filterEmployee;
+	private boolean filterStudent;
+
+	public void setPatronFilters(boolean main, boolean hagonoy, boolean sanRafael, boolean bustos, boolean meneses,
+			boolean sarmiento, boolean employee, boolean student) {
+
+		this.filterMain = main;
+		this.filterHagonoy = hagonoy;
+		this.filterSanRafael = sanRafael;
+		this.filterBustos = bustos;
+		this.filterMeneses = meneses;
+		this.filterSarmiento = sarmiento;
+		this.filterEmployee = employee;
+		this.filterStudent = student;
+
+		reloadData(searchQuery); // apply filters to table
+	}
+
+	// --- getters ---
+	public boolean isFilterMain() {
+		return filterMain;
+	}
+
+	public boolean isFilterHagonoy() {
+		return filterHagonoy;
+	}
+
+	public boolean isFilterSanRafael() {
+		return filterSanRafael;
+	}
+
+	public boolean isFilterBustos() {
+		return filterBustos;
+	}
+
+	public boolean isFilterMeneses() {
+		return filterMeneses;
+	}
+
+	public boolean isFilterSarmiento() {
+		return filterSarmiento;
+	}
+
+	public boolean isFilterEmployee() {
+		return filterEmployee;
+	}
+
+	public boolean isFilterStudent() {
+		return filterStudent;
+	}
 
 	public PatronsTab() {
 		int panelRadius = 20;
@@ -90,6 +159,10 @@ public class PatronsTab extends JPanel {
 		sortByLogo.setBorderPainted(false);
 		sortByLogo.setFocusPainted(false);
 		sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		sortByLogo.addActionListener(e -> {
+			Window parent = SwingUtilities.getWindowAncestor(this);
+			new FilterByPatronModal(parent, this);
+		});
 
 		ImageIcon archiveIcon = new ImageIcon(imgFilePath + "archive.png");
 		Image archiveImage = archiveIcon.getImage();
@@ -334,12 +407,70 @@ public class PatronsTab extends JPanel {
 	}
 
 	public void reloadData(String searchQuery) {
+		concatCampuses();
+		concatTypes();
 		tableData.removeAll();
-		comp = new MainFunctions(this, searchQuery);
+		comp = new MainFunctions(this, searchQuery, campuses, types);
 		tableData.add(comp, BorderLayout.NORTH);
 
 		revalidate();
 		repaint();
 	}
 
+	public void concatCampuses() {
+
+		try {
+			campuses = "";
+
+			if (filterMain) {
+				campuses += ",M";
+			}
+			if (filterHagonoy) {
+				campuses += ",HC";
+			}
+			if (filterSanRafael) {
+				campuses += ",SRC";
+			}
+			if (filterBustos) {
+				campuses += ",BC";
+			}
+			if (filterMeneses) {
+				campuses += ",MC";
+			}
+			if (filterSarmiento) {
+				campuses += ",SC";
+			}
+
+			campuses = campuses.substring(1);
+
+		} catch (Exception e) {
+			return;
+		}
+
+//		if (filterStudent) {
+//			campuses += ",M";
+//		}
+//		if (filterEmployee) {
+//			campuses += ",M";
+//		}
+	}
+
+	public void concatTypes() {
+
+		try {
+			types = "";
+
+			if (filterEmployee) {
+				types += ",EMPLOYEE";
+			}
+			if (filterStudent) {
+				types += ",STUDENT";
+			}
+
+			types = types.substring(1);
+
+		} catch (Exception e) {
+			return;
+		}
+	}
 }
