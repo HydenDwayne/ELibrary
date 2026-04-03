@@ -5,6 +5,8 @@ import view.RoundedComponents.*;
 import view.analytics.*;
 import view.fonts.Fonts;
 import view.front_pages.FilePath;
+import view.modal.books_modal.BorrowBookModal;
+import view.modal.books_modal.ReturnBookModal;
 
 import java.time.*;
 import java.awt.*;
@@ -224,18 +226,27 @@ public class OverviewTab extends JPanel{
 
         quickActions.add(qckLabel);
 
-        RoundedButton addBook = new RoundedButton("Lend a book", 20);
-        addBook.setPreferredSize(new Dimension(280, 25));
-        addBook.setBackground(Color.decode("#f8c169"));
-        addBook.setHorizontalAlignment(SwingConstants.LEFT);
-        addBook.setForeground(Color.decode("#842b28"));
-        quickActions.add(addBook);
+        RoundedButton qckBtn1 = new RoundedButton("Lend a book", 20);
+        qckBtn1.setPreferredSize(new Dimension(280, 25));
+        qckBtn1.setBackground(Color.decode("#f8c169"));
+        qckBtn1.setHorizontalAlignment(SwingConstants.LEFT);
+        qckBtn1.setForeground(Color.decode("#842b28"));
+        qckBtn1.addActionListener(e -> {
+            Window window = SwingUtilities.getWindowAncestor(this);
+            new BorrowBookModal(window);
+        });
+        
+        quickActions.add(qckBtn1);
 
         RoundedButton qckBtn2 = new RoundedButton("Return a book", 20);
         qckBtn2.setPreferredSize(new Dimension(280, 25));
         qckBtn2.setBackground(Color.decode("#f8c169"));
         qckBtn2.setHorizontalAlignment(SwingConstants.LEFT);
         qckBtn2.setForeground(Color.decode("#842b28"));
+        qckBtn2.addActionListener(e -> {
+		    Window parent = SwingUtilities.getWindowAncestor(this);
+		    new ReturnBookModal(parent);
+		});
         quickActions.add(qckBtn2);
 
         RoundedButton qckBtn3 = new RoundedButton("Record a lost item", 20);

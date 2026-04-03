@@ -300,8 +300,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         submitBtn.setForeground(WHITE);
         submitBtn.setFocusPainted(false);
         submitBtn.addActionListener(e -> {
-            Window w = SwingUtilities.getWindowAncestor(this);
-            if (w != null) w.dispose();
+        	dialog.setStep3();
         });
 
         RoundedButton backBtn = new RoundedButton("< BACK", FIELD_RADIUS);

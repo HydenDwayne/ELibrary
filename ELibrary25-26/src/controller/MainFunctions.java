@@ -18,6 +18,8 @@ import view.front_pages.FilePath;
 import view.front_pages.LoginWindow;
 import view.toolbar_tabs.*;
 import view.modal.*;
+import view.modal.books_modal.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +52,7 @@ public class MainFunctions extends JPanel {
     private AddBookModal addBookModal;
     private ViewPatronModal viewPatronModal;
     
-    
+    String callNumber;
     
     
     public MainFunctions(ViewPatronModal viewPatronModal) {
@@ -778,6 +780,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -827,6 +834,7 @@ public class MainFunctions extends JPanel {
 
             gbcRow.gridy++;
 
+            
         }
     }
 

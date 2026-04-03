@@ -11,7 +11,7 @@ import javax.swing.*;
 
 import controller.MainFunctions;
 import view.modal.*;
-import view.modal.books_modal.BorrowBookModal;
+import view.modal.books_modal.*;
 
 public class BooksTab extends JPanel implements ActionListener {
 	
@@ -216,7 +216,7 @@ public class BooksTab extends JPanel implements ActionListener {
         lendBook.setForeground(Color.WHITE);
         lendBook.setPreferredSize(new Dimension(100, 30) );
         lendBook.addActionListener(e -> {
-            Window window = SwingUtilities.getWindowAncestor(BooksTab.this);
+            Window window = SwingUtilities.getWindowAncestor(this);
             new BorrowBookModal(window);
         });
         innerBtn2Cont.add(lendBook);
@@ -228,6 +228,11 @@ public class BooksTab extends JPanel implements ActionListener {
         returnBook.setBackground(Color.decode("#842b28"));
         returnBook.setForeground(Color.WHITE);
         returnBook.setPreferredSize(new Dimension(100, 30) );
+		returnBook.addActionListener(e -> {
+		    Window parent = SwingUtilities.getWindowAncestor(this);
+		    new ReturnBookModal(parent);
+		});
+
         innerBtn3Cont.add(returnBook);
         
         outerBtnCont.add(innerBtn3Cont);

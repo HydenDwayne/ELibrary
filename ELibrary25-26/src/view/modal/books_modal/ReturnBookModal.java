@@ -6,43 +6,41 @@ import javax.swing.*;
 import view.RoundedComponents.RoundedDialog;
 import view.modal.ModalUtils;
 
-public class BorrowBookModal extends RoundedDialog {
+public class ReturnBookModal extends RoundedDialog {
 
     private final Window parent;
 
-    public BorrowBookModal(Window parent) {
+    public ReturnBookModal(Window parent) {
         super(parent, 20);
         this.parent = parent;
 
-        // ✅ Dim the parent
+        // ✅ Dim the parent window
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
+        // ✅ Start at STEP 1
         setStep1();
 
-        setLocationRelativeTo(parent); // ✅ initial center
+        setLocationRelativeTo(parent);
         setVisible(true);
     }
 
+    // ✅ STEP 1 (this was missing)
     public void setStep1() {
-        setContentPane(new AddBorrowingRequestBook1(this));
+        setContentPane(new ReturnBook(this));
         refreshAndCenter();
     }
 
+    // ✅ STEP 2
     public void setStep2() {
-        setContentPane(new AddBorrowingRequestBook2(this));
-        refreshAndCenter();
-    }
-    
-    public void setStep3() {
-        setContentPane(new AddBorrowingRequestReceipt(this));
+        setContentPane(new ReturnBookConfirm(this));
         refreshAndCenter();
     }
 
     private void refreshAndCenter() {
         revalidate();
         repaint();
-        pack();                       // ✅ resize to new content
-        setLocationRelativeTo(parent); // ✅ RECENTER (THIS WAS MISSING)
+        pack();
+        setLocationRelativeTo(parent);
     }
 
     @Override
