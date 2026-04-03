@@ -10,6 +10,9 @@ import controller.FacilityLoginController;
 
 public class IPadArea extends JPanel {
 
+	JPanel cardCont;
+	GridBagConstraints gbc;
+	
     public IPadArea() {
     	
         setOpaque(false);
@@ -30,16 +33,16 @@ public class IPadArea extends JPanel {
 
         sessionCont.add(sessionText, BorderLayout.NORTH);
 
-        JPanel cardCont = new JPanel();
+        cardCont = new JPanel();
         cardCont.setOpaque(false);
         cardCont.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
         gbc.gridy = 1;
         gbc.gridx = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
-
-        FacilityLoginController comp = new FacilityLoginController(this, cardCont, gbc);
         
+        FacilityLoginController comp = new FacilityLoginController(this, cardCont, gbc);
+
         JScrollPane scrollBar = new JScrollPane(cardCont);
         scrollBar.setOpaque(false);
         scrollBar.getViewport().setOpaque(false);
