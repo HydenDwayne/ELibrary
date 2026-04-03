@@ -75,9 +75,9 @@ public class MainFunctions extends JPanel {
         showPatrons(searchQuery);
     }
     
-    public MainFunctions(LNFTab lnfTab) {
+    public MainFunctions(LNFTab lnfTab, String searchQuery) {
         this.lnfTab = lnfTab;
-        showLNF();
+        showLNF(searchQuery);
     }
 
     public MainFunctions(IMSTab imsTab, String element) {
@@ -312,8 +312,8 @@ public class MainFunctions extends JPanel {
 
     }
     
-    public void showLNF() {
-    	List<DAOLNF> lnf = daoLNF.getAllUsers();
+    public void showLNF(String searchQuery) {
+    	List<DAOLNF> lnf = daoLNF.getAllItems(searchQuery);
 
     	Fonts poppins12 = new Fonts("Poppins", 10f);
         Font poppins12Style = poppins12.getAppliedFont();

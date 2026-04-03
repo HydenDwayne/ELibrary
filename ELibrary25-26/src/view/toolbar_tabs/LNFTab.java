@@ -5,6 +5,9 @@ import view.fonts.Fonts;
 import view.front_pages.FilePath;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 
 import controller.MainFunctions;
@@ -27,6 +30,8 @@ public class LNFTab extends JPanel {
     int minColumnHeight = 25;
 
     int columnCount = 0;
+    
+    String searchQuery = "";
 
     public LNFTab() {
         int panelRadius = 20;
@@ -69,6 +74,15 @@ public class LNFTab extends JPanel {
         Fonts poppins12 = new Fonts("Poppins", 10f);
         Font poppins12Style = poppins12.getAppliedFont();
         searchItem.setFont(poppins12Style);
+        searchItem.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				searchQuery = searchItem.getText();
+				reloadData(searchQuery);
+			}
+
+		});
 
         searchContainer.add(searchItem);
 
@@ -107,7 +121,7 @@ public class LNFTab extends JPanel {
         reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
         reloadLogo.addActionListener(e -> {
-        	reloadData();
+        	reloadData(searchQuery);
         });
         
         JPanel iconsPanel = new JPanel();
@@ -281,7 +295,7 @@ public class LNFTab extends JPanel {
         tableData = new JPanel();
         tableData.setOpaque(false);
 
-        reloadData();
+        reloadData(searchQuery);
         
 
         tableData.setLayout(new BorderLayout());
@@ -314,9 +328,9 @@ public class LNFTab extends JPanel {
         return minColumnHeight;
     }
     
-    public void reloadData() {
+    public void reloadData(String searchQuery) {
         tableData.removeAll();
-        comp = new MainFunctions(this);
+        comp = new MainFunctions(this, searchQuery);
         tableData.add(comp, BorderLayout.NORTH);
         
         revalidate();
