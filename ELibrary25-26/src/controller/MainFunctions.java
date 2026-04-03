@@ -19,10 +19,11 @@ import view.front_pages.LoginWindow;
 import view.toolbar_tabs.*;
 import view.modal.*;
 import view.modal.books_modal.*;
+import view.modal.ims_modal.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -50,21 +51,21 @@ public class MainFunctions extends JPanel {
     private LNFTab lnfTab;
     private LNFDAOImp daoLNF = new LNFDAOImp();
     private AddBookModal addBookModal;
-    private ViewPatronModal viewPatronModal;
+//    private ViewPatronModal viewPatronModal;
     
     String callNumber;
     
     
-    public MainFunctions(ViewPatronModal viewPatronModal) {
-    	this.viewPatronModal = viewPatronModal;
-    	showPatronDetails();
-    }
-    
-    public MainFunctions(AddBookModal addBookModal) {
-    	this.addBookModal = addBookModal;
-    	
-    	insertOneToBook();
-    }
+//    public MainFunctions(ViewPatronModal viewPatronModal) {
+//    	this.viewPatronModal = viewPatronModal;
+//    	showPatronDetails();
+//    }
+//    
+//    public MainFunctions(AddBookModal addBookModal) {
+//    	this.addBookModal = addBookModal;
+//    	
+//    	insertOneToBook();
+//    }
  
     public MainFunctions(OverviewTab ovTab) {
         this.ovTab = ovTab;
@@ -129,37 +130,37 @@ public class MainFunctions extends JPanel {
         showThesisAndDissertationBooks(searchQuery, filters);
     }
     
-    public void showPatronDetails() {
-    	String callNumber = addBookModal.getCallNumberStr();
-    	String title = addBookModal.getTitleStr();
-    	String author = addBookModal.getAuthorStr();
-    	String year = addBookModal.getYearStr();
-    	String bookType = addBookModal.getBookTypeStr();
-    	String collection = addBookModal.getCollectionStr();
-    	String classification = addBookModal.getClassificationStr().substring(0,1);
-    	
-    	
-    	
-    	
-    	
-    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
-    }
-    
-    public void insertOneToBook() {
-    	String callNumber = addBookModal.getCallNumberStr();
-    	String title = addBookModal.getTitleStr();
-    	String author = addBookModal.getAuthorStr();
-    	String year = addBookModal.getYearStr();
-    	String bookType = addBookModal.getBookTypeStr();
-    	String collection = addBookModal.getCollectionStr();
-    	String classification = addBookModal.getClassificationStr().substring(0,1);
-    	
-    	
-    	
-    	
-    	
-    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
-    }
+//    public void showPatronDetails() {
+//    	String callNumber = addBookModal.getCallNumberStr();
+//    	String title = addBookModal.getTitleStr();
+//    	String author = addBookModal.getAuthorStr();
+//    	String year = addBookModal.getYearStr();
+//    	String bookType = addBookModal.getBookTypeStr();
+//    	String collection = addBookModal.getCollectionStr();
+//    	String classification = addBookModal.getClassificationStr().substring(0,1);
+//    	
+//    	
+//    	
+//    	
+//    	
+//    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
+//    }
+//    
+//    public void insertOneToBook() {
+//    	String callNumber = addBookModal.getCallNumberStr();
+//    	String title = addBookModal.getTitleStr();
+//    	String author = addBookModal.getAuthorStr();
+//    	String year = addBookModal.getYearStr();
+//    	String bookType = addBookModal.getBookTypeStr();
+//    	String collection = addBookModal.getCollectionStr();
+//    	String classification = addBookModal.getClassificationStr().substring(0,1);
+//    	
+//    	
+//    	
+//    	
+//    	
+//    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
+//    }
     
 
     public void showOverviewData() {
@@ -527,6 +528,11 @@ public class MainFunctions extends JPanel {
             col4.setBackground(Color.decode("#842b28"));
             col4.setForeground(Color.WHITE);
             col4.setFont(poppins10Style);
+            col4.addActionListener(e -> {
+            	Window parent = SwingUtilities.getWindowAncestor(this);
+            	new ViewIMSModal(parent);
+            	
+            });
 
             col1Panel.add(col1);
             col2Panel.add(col2);
@@ -562,12 +568,14 @@ public class MainFunctions extends JPanel {
     
     public void showActiveRequest() {
     	List<DAOActiveRequest> ar = daoAR.getAllRequests();
+    	
+        // int columnCount = patTab.getColumnCount();
+        setOpaque(false);
+        setLayout(new GridBagLayout());
 
-        JPanel cardPanel = new JPanel();
-        cardPanel.setOpaque(false);
-        cardPanel.setLayout(new GridBagLayout());
+
         GridBagConstraints gbcCard = new GridBagConstraints();
-        gbcCard.gridy = 1;
+        gbcCard.gridy = 0;
         gbcCard.insets = new Insets(10, 10, 10, 10);
 
 
@@ -681,27 +689,21 @@ public class MainFunctions extends JPanel {
             viewBtn.setBackground(Color.decode("#5d1513"));
             viewBtn.setForeground(Color.WHITE);
             viewBtn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            viewBtn.addActionListener(e -> {
+            	Window parent = SwingUtilities.getWindowAncestor(this);
+            	new ViewBorrowRequestModal(parent);
+            });
 
             rightPartCard.add(viewBtn, BorderLayout.SOUTH);
 
             // add
             card.add(leftPartCard, BorderLayout.WEST);
             card.add(rightPartCard, BorderLayout.EAST);
-            cardPanel.add(card, gbcCard);
+            add(card, gbcCard);
             gbcCard.gridy++;
         }
 
-        // card panel
-        JScrollPane cardScrollbar = new JScrollPane(cardPanel);
-        cardScrollbar.setOpaque(false);
-        cardScrollbar.getViewport().setOpaque(false);
-        cardScrollbar.setPreferredSize(new Dimension(500, 420));
-        cardScrollbar.setBorder(BorderFactory.createEmptyBorder(0, 40, 20, 40));
-        cardScrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        cardScrollbar.getVerticalScrollBar().setPreferredSize(new Dimension(8, Integer.MAX_VALUE));
-        cardScrollbar.getVerticalScrollBar().setUI(new RoundedScrollbar());
         
-        add(cardScrollbar);
     }
 
     public void showBulacanianaBooks(String searchQuery, String[] filters) {

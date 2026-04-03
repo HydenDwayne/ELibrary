@@ -3,6 +3,7 @@ package view.toolbar_tabs;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 import view.front_pages.FilePath;
+import view.modal.lost_and_found_modal.AddLostAndFoundModal;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -146,6 +147,10 @@ public class LNFTab extends JPanel {
         addLostItem.setBackground(Color.decode("#842b28"));
         addLostItem.setForeground(Color.WHITE);
         addLostItem.setPreferredSize(new Dimension(110, 30) );
+        addLostItem.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+        	new AddLostAndFoundModal(parent);
+        });
 
         outerBtnCont.add(addLostItem, BorderLayout.EAST);
         outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));

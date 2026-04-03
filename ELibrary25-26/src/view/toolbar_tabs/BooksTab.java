@@ -241,13 +241,10 @@ public class BooksTab extends JPanel implements ActionListener {
         addBook.setPreferredSize(new Dimension(100, 30) );
         innerBtn1Cont.add(addBook);
         
-        addBook.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AddBookModal modal = new AddBookModal();
-			}
-		});
+        addBook.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+			new AddBookModal(parent);
+        });
         
         outerBtnCont.add(innerBtn1Cont);
         

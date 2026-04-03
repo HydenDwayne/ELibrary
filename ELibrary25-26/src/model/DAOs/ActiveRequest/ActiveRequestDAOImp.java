@@ -4,13 +4,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiveRequestDAOImp implements DAOInterfaceActiveRequest {
+public class ActiveRequestDAOImp {
 
     private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
     private final String USER = "Pia";
     private final String PASSWORD = "passwordPia";
 
-    @Override
     public List<DAOActiveRequest> getAllRequests() {
 
         List<DAOActiveRequest> books = new ArrayList<>();

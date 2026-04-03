@@ -152,6 +152,7 @@ public class ViewBooks extends JPanel {
         yearField.setFont(poppins10);
         yearField.setBorderColor(FIELD_BORDER);
         yearField.setBorderThickness(1);
+        yearField.setEnabled(false);
         innerBody.add(yearField, gbc);
 
         // ---- Book Type ----

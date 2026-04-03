@@ -213,15 +213,15 @@ public class PatronsTab extends JPanel {
 		addLostItem.setForeground(Color.WHITE);
 		addLostItem.setPreferredSize(new Dimension(110, 30));
 
-		registerPatron1 modal = new registerPatron1();
-		addLostItem.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, modal, "Add Patron", JOptionPane.PLAIN_MESSAGE);
-
-			}
-		});
+//		registerPatron1 modal = new registerPatron1();
+//		addLostItem.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				JOptionPane.showMessageDialog(null, modal, "Add Patron", JOptionPane.PLAIN_MESSAGE);
+//
+//			}
+//		});
 
 		outerBtnCont.add(addLostItem, BorderLayout.EAST);
 		outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
