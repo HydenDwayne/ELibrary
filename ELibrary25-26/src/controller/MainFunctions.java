@@ -70,9 +70,9 @@ public class MainFunctions extends JPanel {
         showOverviewData();
     }
 
-    public MainFunctions(PatronsTab patTab) {
+    public MainFunctions(PatronsTab patTab, String searchQuery) {
         this.patTab = patTab;
-        showPatrons();
+        showPatrons(searchQuery);
     }
     
     public MainFunctions(LNFTab lnfTab) {
@@ -173,8 +173,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showPatrons() {
-        List<DAOPatron> patrons = daoPatron.getAllUsers();
+    public void showPatrons(String searchQuery) {
+        List<DAOPatron> patrons = daoPatron.getAllUsers(searchQuery);
 
         // loadPatrons();
         int minColumnHeight = patTab.getMinColumnHeight();

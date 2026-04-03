@@ -11,12 +11,18 @@ public class PatronDAOImp implements DAOShowAllPatron, DAOShowOnePatron {
 	private final String PASSWORD = "passwordPia";
 
 	@Override
-	public List<DAOPatron> getAllUsers() {
+	public List<DAOPatron> getAllUsers(String searchQuery) {
 
 		List<DAOPatron> patrons = new ArrayList<>();
 
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-				CallableStatement stmt = conn.prepareCall("{CALL showAllPatrons}")) {
+				CallableStatement stmt = conn.prepareCall("{CALL searchPatron(?)}")) {
+			
+			if (searchQuery == null) {
+				stmt.setString(1, "");
+			} else {
+				stmt.setString(1, searchQuery);
+			}
 
 			ResultSet rs = stmt.executeQuery();
 
