@@ -21,7 +21,28 @@ public class ThesesAndDissertations extends JPanel {
     int minColumnWidth = 59;
     int minColumnHeight = 25;
     
+    private String filterClass = "";
+    private String filterStartYear ="";
+    private String filterEndYear = "";
+    
     String searchQuery = "";
+
+	public void setFilterClass(String filterClass) {
+		this.filterClass = filterClass;
+		reloadData(searchQuery);
+	}
+
+	public void setFilterStartYear(String filterStartYear) {
+		this.filterStartYear = filterStartYear;
+		reloadData(searchQuery);
+	}
+	
+	public void setFilterEndYear(String filterEndYear) {
+		this.filterEndYear = filterEndYear;
+		
+	}
+    
+    
 
     public ThesesAndDissertations() {
 
@@ -173,8 +194,9 @@ public class ThesesAndDissertations extends JPanel {
     }
     
     public void reloadData(String searchQuery) {
+    	String[] filters = {filterClass, filterStartYear, filterEndYear};
         tableData.removeAll();
-        comp = new MainFunctions(this, searchQuery);
+        comp = new MainFunctions(this, searchQuery, filters);
         tableData.add(comp, BorderLayout.NORTH);
         revalidate();
         repaint();

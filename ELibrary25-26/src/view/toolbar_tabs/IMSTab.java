@@ -5,6 +5,8 @@ import view.book_panels.*;
 import view.fonts.Fonts;
 import view.front_pages.Dashboard;
 import view.front_pages.FilePath;
+import view.modal.ims_modal.AddIMSModal;
+import view.modal.ims_modal.AddRequestItemModal;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -22,6 +24,7 @@ public class IMSTab extends JPanel {
     private int minColumnHeight = 25;
     
     JPanel tableData;
+    JPanel cardData;
     MainFunctions comp;
     
     JPanel cardContainer;
@@ -147,6 +150,11 @@ public class IMSTab extends JPanel {
         addLostItem.setBackground(Color.decode("#842b28"));
         addLostItem.setForeground(Color.WHITE);
         addLostItem.setPreferredSize(new Dimension(110, 30) );
+        addLostItem.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+        	new AddIMSModal(parent);
+        	
+        });
 
         outerBtnCont.add(addLostItem, BorderLayout.EAST);
         outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
@@ -298,9 +306,32 @@ public class IMSTab extends JPanel {
         cardComp = new MainFunctions(this, "cards", null);
         cardComp.setOpaque(false);
         
+        
+     // actual table cards  ============================
+        cardData = new JPanel();
+        cardData.setOpaque(false);
+        cardData.setLayout(new BorderLayout());
 
         reloadCards();
-//        cardContainer.add(cardContainer, BorderLayout.CENTER);
+
+        
+        
+        
+     // card panel
+        JScrollPane cardScrollbar = new JScrollPane(cardData);
+        cardScrollbar.setOpaque(false);
+        cardScrollbar.getViewport().setOpaque(false);
+        cardScrollbar.setPreferredSize(new Dimension(500, 420));
+        cardScrollbar.setBorder(BorderFactory.createEmptyBorder(0, 40, 20, 40));
+        cardScrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        cardScrollbar.getVerticalScrollBar().setPreferredSize(new Dimension(8, Integer.MAX_VALUE));
+        cardScrollbar.getVerticalScrollBar().setUI(new RoundedScrollbar());
+        
+        cardContainer.add(cardScrollbar, BorderLayout.CENTER);
+        
+        
+        
+        
 
         // add request card button
         RoundedButton addCard = new RoundedButton("Request Item", panelRadius);
@@ -308,6 +339,10 @@ public class IMSTab extends JPanel {
         addCard.setForeground(Color.WHITE);
         addCard.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         addCard.setPreferredSize(new Dimension(140, 40));
+        addCard.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+        	new AddRequestItemModal(parent);
+        });
         
         
         JPanel bottomBtn = new JPanel();
@@ -350,9 +385,9 @@ public class IMSTab extends JPanel {
     }
     
     public void reloadCards() {
-    	cardComp.removeAll();
+    	cardData.removeAll();
         cardComp = new MainFunctions(this, "cards", null);
-        cardContainer.add(cardComp, BorderLayout.CENTER);
+        cardData.add(cardComp, BorderLayout.CENTER);
         
         revalidate();
         repaint();

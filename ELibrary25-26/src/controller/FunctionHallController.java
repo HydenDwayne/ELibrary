@@ -3,11 +3,13 @@ package controller;
 import java.awt.*;
 import java.time.*;
 import java.util.List;
+import java.awt.event.*;
 
 import javax.swing.*;
 
 import model.DAOs.FunctionHall.*;
 import view.facility_panels.*;
+import view.modal.function_hall_modal.ViewHallReservationModal;
 import view.toolbar_tabs.OverviewTab;
 
 public class FunctionHallController {
@@ -80,6 +82,23 @@ public class FunctionHallController {
 			
 
             JPanel cell = new JPanel(new BorderLayout());
+            cell.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                	
+
+					Color bg = cell.getBackground();
+					
+					if (bg.equals(Color.decode("#9f4542"))) {
+					    Window parent = SwingUtilities.getWindowAncestor(amphi);
+	        			new ViewHallReservationModal(parent);
+					}
+                	
+                	
+                	
+                }
+            });
+
             
             for(DAOFuncHall event: events) {
 				String calendarDay = "01";

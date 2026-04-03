@@ -19,10 +19,13 @@ import view.front_pages.LoginWindow;
 import view.toolbar_tabs.*;
 import view.modal.*;
 import view.modal.books_modal.*;
+import view.modal.ims_modal.*;
+import view.modal.patron_modal.ViewEmployeeModal;
+import view.modal.patron_modal.ViewStudentModal;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -50,29 +53,30 @@ public class MainFunctions extends JPanel {
     private LNFTab lnfTab;
     private LNFDAOImp daoLNF = new LNFDAOImp();
     private AddBookModal addBookModal;
-    private ViewPatronModal viewPatronModal;
+//    private ViewPatronModal viewPatronModal;
     
     String callNumber;
     
     
-    public MainFunctions(ViewPatronModal viewPatronModal) {
-    	this.viewPatronModal = viewPatronModal;
-    	showPatronDetails();
-    }
-    
-    public MainFunctions(AddBookModal addBookModal) {
-    	this.addBookModal = addBookModal;
-    	insertOneToBook();
-    }
+//    public MainFunctions(ViewPatronModal viewPatronModal) {
+//    	this.viewPatronModal = viewPatronModal;
+//    	showPatronDetails();
+//    }
+//    
+//    public MainFunctions(AddBookModal addBookModal) {
+//    	this.addBookModal = addBookModal;
+//    	
+//    	insertOneToBook();
+//    }
  
     public MainFunctions(OverviewTab ovTab) {
         this.ovTab = ovTab;
         showOverviewData();
     }
 
-    public MainFunctions(PatronsTab patTab, String searchQuery) {
+    public MainFunctions(PatronsTab patTab, String searchQuery, String campuses, String types) {
         this.patTab = patTab;
-        showPatrons(searchQuery);
+        showPatrons(searchQuery, campuses, types);
     }
     
     public MainFunctions(LNFTab lnfTab, String searchQuery) {
@@ -93,78 +97,78 @@ public class MainFunctions extends JPanel {
         
     }
 
-    public MainFunctions(Bulacaniana bulacanianaTab, String searchQuery) {
+    public MainFunctions(Bulacaniana bulacanianaTab, String searchQuery, String[] filters) {
         this.bulacanianaTab = bulacanianaTab;
-        showBulacanianaBooks(searchQuery);
+        showBulacanianaBooks(searchQuery, filters);
     }
 
-    public MainFunctions(Fiction fictionTab, String searchQuery) {
+    public MainFunctions(Fiction fictionTab, String searchQuery, String[] filters) {
         this.fictionTab = fictionTab;
-        showFictionBooks(searchQuery);
+        showFictionBooks(searchQuery, filters);
     }
 
-    public MainFunctions(Filipiniana filipinianaTab, String searchQuery) {
+    public MainFunctions(Filipiniana filipinianaTab, String searchQuery, String[] filters) {
         this.filipinianaTab = filipinianaTab;
-        showFilipinianaBooks(searchQuery);
+        showFilipinianaBooks(searchQuery, filters);
     }
 
-    public MainFunctions(GeneralCirculation genSecTab, String searchQuery) {
+    public MainFunctions(GeneralCirculation genSecTab, String searchQuery, String[] filters) {
         this.genSecTab = genSecTab;
-        showGenSecBooks(searchQuery);
+        showGenSecBooks(searchQuery, filters);
     }
 
-    public MainFunctions(Reference referenceTab, String searchQuery) {
+    public MainFunctions(Reference referenceTab, String searchQuery, String[] filters) {
         this.referenceTab = referenceTab;
-        showReferenceBooks(searchQuery);
+        showReferenceBooks(searchQuery, filters);
     }
 
-    public MainFunctions(Reserve reserveTab, String searchQuery) {
+    public MainFunctions(Reserve reserveTab, String searchQuery, String[] filters) {
         this.reserveTab = reserveTab;
-        showReserveBooks(searchQuery);
+        showReserveBooks(searchQuery, filters);
     }
 
-    public MainFunctions(ThesesAndDissertations TaDTab, String searchQuery) {
+    public MainFunctions(ThesesAndDissertations TaDTab, String searchQuery, String[] filters) {
         this.TaDTab = TaDTab;
-        showThesisAndDissertationBooks(searchQuery);
+        showThesisAndDissertationBooks(searchQuery, filters);
     }
     
-    public void showPatronDetails() {
-    	String callNumber = addBookModal.getCallNumberStr();
-    	String title = addBookModal.getTitleStr();
-    	String author = addBookModal.getAuthorStr();
-    	String year = addBookModal.getYearStr();
-    	String bookType = addBookModal.getBookTypeStr();
-    	String collection = addBookModal.getCollectionStr();
-    	String classification = addBookModal.getClassificationStr().substring(0,1);
-    	
-    	
-    	
-    	
-    	
-    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
-    }
-    
-    public void insertOneToBook() {
-    	String callNumber = addBookModal.getCallNumberStr();
-    	String title = addBookModal.getTitleStr();
-    	String author = addBookModal.getAuthorStr();
-    	String year = addBookModal.getYearStr();
-    	String bookType = addBookModal.getBookTypeStr();
-    	String collection = addBookModal.getCollectionStr();
-    	String classification = addBookModal.getClassificationStr().substring(0,1);
-    	
-    	
-    	
-    	
-    	
-    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
-    }
+//    public void showPatronDetails() {
+//    	String callNumber = addBookModal.getCallNumberStr();
+//    	String title = addBookModal.getTitleStr();
+//    	String author = addBookModal.getAuthorStr();
+//    	String year = addBookModal.getYearStr();
+//    	String bookType = addBookModal.getBookTypeStr();
+//    	String collection = addBookModal.getCollectionStr();
+//    	String classification = addBookModal.getClassificationStr().substring(0,1);
+//    	
+//    	
+//    	
+//    	
+//    	
+//    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
+//    }
+//    
+//    public void insertOneToBook() {
+//    	String callNumber = addBookModal.getCallNumberStr();
+//    	String title = addBookModal.getTitleStr();
+//    	String author = addBookModal.getAuthorStr();
+//    	String year = addBookModal.getYearStr();
+//    	String bookType = addBookModal.getBookTypeStr();
+//    	String collection = addBookModal.getCollectionStr();
+//    	String classification = addBookModal.getClassificationStr().substring(0,1);
+//    	
+//    	
+//    	
+//    	
+//    	
+//    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
+//    }
     
 
     public void showOverviewData() {
         List<DAOOverview> overviewData = daoOverview.getAllOverview();
 
-
+        
         for(DAOOverview ovData : overviewData) {
             ovTab.activeBooksData.setText(ovData.getActiveBooks()+"");
             ovTab.borrowedBooksData.setText(ovData.getBorrowedBooks()+"");
@@ -173,8 +177,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showPatrons(String searchQuery) {
-        List<DAOPatron> patrons = daoPatron.getAllUsers(searchQuery);
+    public void showPatrons(String searchQuery, String campuses, String type) {
+        List<DAOPatron> patrons = daoPatron.getAllUsers(searchQuery, campuses, type);
 
         // loadPatrons();
         int minColumnHeight = patTab.getMinColumnHeight();
@@ -242,19 +246,19 @@ public class MainFunctions extends JPanel {
             col8.setForeground(Color.WHITE);
             col8.setFont(poppinsStyle);
             
-            col8.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println(col1.getText());
-					System.out.println(col2.getText());
-					System.out.println(col3.getText());
-					System.out.println(col4.getText());
-					System.out.println(col5.getText());
-					System.out.println(col6.getText());
-					System.out.println(col7.getText());
-				}
-			});
+            col8.addActionListener(e -> {
+            	
+            	if (col7.getText().equals("EMPLOYEE")) {
+            		Window parent = SwingUtilities.getWindowAncestor(this);
+        			new ViewEmployeeModal(parent);
+            	}
+            	else {
+            		Window parent = SwingUtilities.getWindowAncestor(this);
+        			new ViewStudentModal(parent);
+            	}
+            	
+    			
+    		});
 
             col1Panel.add(col1);
             col2Panel.add(col2);
@@ -375,6 +379,13 @@ public class MainFunctions extends JPanel {
             JPanel col5Panel = new JPanel();
             JPanel col6Panel = new JPanel();
             JPanel col7Panel = new JPanel();
+            
+            RoundedButton col7 = new RoundedButton("Mark as Found", 12);
+            col7.setPreferredSize(new Dimension(minColumnWidth + 45, minColumnHeight - 5));
+            col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            col7.setBackground(Color.decode("#842b28"));
+            col7.setForeground(Color.WHITE);
+            col7.setFont(poppins10Style);
 
             if (item.getStatus().equals("Missing")) {
                 RoundedPanel roundedStatus = new RoundedPanel(25);
@@ -403,6 +414,8 @@ public class MainFunctions extends JPanel {
 
                 roundedStatus.add(col5);
                 col5Panel.add(roundedStatus);
+                col7.setBackground(Color.decode("#a26765"));
+                col7.setEnabled(false);
             }
             else if (item.getStatus().equals("Surrendered")){
                 RoundedPanel roundedStatus = new RoundedPanel(25);
@@ -419,12 +432,7 @@ public class MainFunctions extends JPanel {
                 col5Panel.add(roundedStatus);
             }
 
-            RoundedButton col7 = new RoundedButton("Mark as Found", 12);
-            col7.setPreferredSize(new Dimension(minColumnWidth + 45, minColumnHeight - 5));
-            col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            col7.setBackground(Color.decode("#842b28"));
-            col7.setForeground(Color.WHITE);
-            col7.setFont(poppins10Style);
+            
 
             col1Panel.add(col1);
             col2Panel.add(col2);
@@ -522,6 +530,11 @@ public class MainFunctions extends JPanel {
             col4.setBackground(Color.decode("#842b28"));
             col4.setForeground(Color.WHITE);
             col4.setFont(poppins10Style);
+            col4.addActionListener(e -> {
+            	Window parent = SwingUtilities.getWindowAncestor(this);
+            	new ViewIMSModal(parent);
+            	
+            });
 
             col1Panel.add(col1);
             col2Panel.add(col2);
@@ -557,12 +570,14 @@ public class MainFunctions extends JPanel {
     
     public void showActiveRequest() {
     	List<DAOActiveRequest> ar = daoAR.getAllRequests();
+    	
+        // int columnCount = patTab.getColumnCount();
+        setOpaque(false);
+        setLayout(new GridBagLayout());
 
-        JPanel cardPanel = new JPanel();
-        cardPanel.setOpaque(false);
-        cardPanel.setLayout(new GridBagLayout());
+
         GridBagConstraints gbcCard = new GridBagConstraints();
-        gbcCard.gridy = 1;
+        gbcCard.gridy = 0;
         gbcCard.insets = new Insets(10, 10, 10, 10);
 
 
@@ -676,31 +691,25 @@ public class MainFunctions extends JPanel {
             viewBtn.setBackground(Color.decode("#5d1513"));
             viewBtn.setForeground(Color.WHITE);
             viewBtn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            viewBtn.addActionListener(e -> {
+            	Window parent = SwingUtilities.getWindowAncestor(this);
+            	new ViewBorrowRequestModal(parent);
+            });
 
             rightPartCard.add(viewBtn, BorderLayout.SOUTH);
 
             // add
             card.add(leftPartCard, BorderLayout.WEST);
             card.add(rightPartCard, BorderLayout.EAST);
-            cardPanel.add(card, gbcCard);
+            add(card, gbcCard);
             gbcCard.gridy++;
         }
 
-        // card panel
-        JScrollPane cardScrollbar = new JScrollPane(cardPanel);
-        cardScrollbar.setOpaque(false);
-        cardScrollbar.getViewport().setOpaque(false);
-        cardScrollbar.setPreferredSize(new Dimension(500, 420));
-        cardScrollbar.setBorder(BorderFactory.createEmptyBorder(0, 40, 20, 40));
-        cardScrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        cardScrollbar.getVerticalScrollBar().setPreferredSize(new Dimension(8, Integer.MAX_VALUE));
-        cardScrollbar.getVerticalScrollBar().setUI(new RoundedScrollbar());
         
-        add(cardScrollbar);
     }
 
-    public void showBulacanianaBooks(String searchQuery) {
-        List<DAOBook> books = daoBook.getAllBooks("BulColl",searchQuery);
+    public void showBulacanianaBooks(String searchQuery, String[] filters) {
+        List<DAOBook> books = daoBook.getAllBooks("BulColl",searchQuery, filters[0], filters[1], filters[2]);
 
         // loadPatrons();
         int minColumnHeight = bulacanianaTab.getMinColumnHeight();
@@ -838,8 +847,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showFictionBooks(String searchQuery) {
-        List<DAOBook> books = daoBook.getAllBooks("FictColl",searchQuery);
+    public void showFictionBooks(String searchQuery, String[] filters) {
+        List<DAOBook> books = daoBook.getAllBooks("FictColl",searchQuery, filters[0], filters[1], filters[2]);
 
         // loadPatrons();
         int minColumnHeight = fictionTab.getMinColumnHeight();
@@ -919,6 +928,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -971,8 +985,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showFilipinianaBooks(String searchQuery) {
-        List<DAOBook> books = daoBook.getAllBooks("FiliColl", searchQuery);
+    public void showFilipinianaBooks(String searchQuery, String[] filters) {
+        List<DAOBook> books = daoBook.getAllBooks("FiliColl", searchQuery, filters[0], filters[1], filters[2]);
 
         // loadPatrons();
         int minColumnHeight = filipinianaTab.getMinColumnHeight();
@@ -1052,6 +1066,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1104,8 +1123,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showGenSecBooks(String searchQuery) {
-        List<DAOBook> books = daoBook.getAllBooks("CircColl", searchQuery);
+    public void showGenSecBooks(String searchQuery, String[] filters) {
+        List<DAOBook> books = daoBook.getAllBooks("CircColl", searchQuery, filters[0], filters[1], filters[2]);
 
         // loadPatrons();
         int minColumnHeight = genSecTab.getMinColumnHeight();
@@ -1185,6 +1204,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1237,8 +1261,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showReferenceBooks(String searchQuery) {
-        List<DAOBook> books = daoBook.getAllBooks("RefColl", searchQuery);
+    public void showReferenceBooks(String searchQuery, String[] filters) {
+        List<DAOBook> books = daoBook.getAllBooks("RefColl", searchQuery, filters[0], filters[1], filters[2]);
 
         // loadPatrons();
         int minColumnHeight = referenceTab.getMinColumnHeight();
@@ -1318,6 +1342,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1370,8 +1399,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showReserveBooks(String searchQuery) {
-        List<DAOBook> books = daoBook.getAllBooks("ResColl", searchQuery);
+    public void showReserveBooks(String searchQuery, String[] filters) {
+        List<DAOBook> books = daoBook.getAllBooks("ResColl", searchQuery, filters[0], filters[1], filters[2]);
 
         // loadPatrons();
         int minColumnHeight = reserveTab.getMinColumnHeight();
@@ -1451,6 +1480,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1503,8 +1537,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showThesisAndDissertationBooks(String searchQuery) {
-        List<DAOBook> books = daoBook.getAllBooks("T&D", searchQuery);
+    public void showThesisAndDissertationBooks(String searchQuery, String[] filters) {
+        List<DAOBook> books = daoBook.getAllBooks("T&D", searchQuery, filters[0], filters[1], filters[2]);
 
         // loadPatrons();
         int minColumnHeight = TaDTab.getMinColumnHeight();
@@ -1584,6 +1618,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1635,6 +1674,7 @@ public class MainFunctions extends JPanel {
 
         }
     }
+   
 
     public static void main(String[] args) {
     	Dashboard frame = new Dashboard();

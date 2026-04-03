@@ -10,12 +10,12 @@ public class BookDAOImp implements DAOInsertBook {
 	private final String USER = "Pia";
 	private final String PASSWORD = "passwordPia";
 
-	public List<DAOBook> getAllBooks(String collection, String searchQuery) {
-
+	public List<DAOBook> getAllBooks(String collection, String searchQuery, String filterClass, String filterStartYear, String filterEndYear) {
+		
 		List<DAOBook> books = new ArrayList<>();
 
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-				CallableStatement stmt = conn.prepareCall("{CALL searchBooks(?,?)}")) {
+				CallableStatement stmt = conn.prepareCall("{CALL searchBooks(?,?,?,?,?)}")) {
 
 			if (searchQuery == null) {
 				stmt.setString(1, "");
@@ -23,6 +23,25 @@ public class BookDAOImp implements DAOInsertBook {
 				stmt.setString(1, searchQuery);
 			}
 			stmt.setString(2, collection);
+			
+			if (filterClass.equals("")) {
+				stmt.setNull(3, java.sql.Types.INTEGER);
+			} else {
+				stmt.setString(3, filterClass);
+			}
+			
+			if (filterStartYear.equals("")) {
+				stmt.setNull(4, java.sql.Types.INTEGER);
+			} else {
+				stmt.setString(4, filterStartYear);
+			}
+			
+			if (filterEndYear.equals("")) {
+				stmt.setNull(5, java.sql.Types.INTEGER);
+			} else {
+				stmt.setString(5, filterEndYear);
+			}
+			
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -32,7 +51,7 @@ public class BookDAOImp implements DAOInsertBook {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 		return books;

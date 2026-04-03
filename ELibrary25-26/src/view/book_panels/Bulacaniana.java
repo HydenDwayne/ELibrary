@@ -21,6 +21,22 @@ public class Bulacaniana extends JPanel {
     int minColumnWidth = 59;
     int minColumnHeight = 25;
     
+    private String filterClass = "";
+    private String filterStartYear ="";
+    private String filterEndYear = "";
+
+	public void setFilterClass(String filterClass) {
+		this.filterClass = filterClass;
+	}
+
+	public void setFilterStartYear(String filterStartYear) {
+		this.filterStartYear = filterStartYear;
+	}
+	
+	public void setFilterEndYear(String filterEndYear) {
+		this.filterEndYear = filterEndYear;
+	} 
+    
     String searchQuery = "";
 
     public Bulacaniana() {
@@ -174,8 +190,9 @@ public class Bulacaniana extends JPanel {
     }
 
     public void reloadData(String searchQuery) {
+    	String[] filters = {filterClass, filterStartYear, filterEndYear};
         tableData.removeAll();
-        comp = new MainFunctions(this, searchQuery);
+        comp = new MainFunctions(this, searchQuery, filters);
         tableData.add(comp, BorderLayout.NORTH);
         revalidate();
         repaint();
