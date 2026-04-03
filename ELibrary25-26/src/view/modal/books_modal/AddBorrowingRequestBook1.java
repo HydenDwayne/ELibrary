@@ -1,4 +1,4 @@
-package archives;
+package view.modal.books_modal;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -14,7 +14,7 @@ import view.RoundedComponents.RoundedTextField;
 import view.front_pages.FilePath;
 import view.fonts.*;
 
-public class AddBorrowingRequestBook1 extends JFrame {
+public class AddBorrowingRequestBook1 extends JPanel {
 
 	static final Color MAROON = new Color(132, 43, 40); // #842b28 from sample
 	static final Color LIGHT_PINK = new Color(250, 236, 238); // #faecee from sample
@@ -24,28 +24,16 @@ public class AddBorrowingRequestBook1 extends JFrame {
 
 	static final int PANEL_RADIUS = 20;
 	static final int FIELD_RADIUS = 15;
+	
+	private final BorrowBookModal dialog;
 
 	static String imgFilePath = FilePath.getImgFilePath();
 
-	public AddBorrowingRequestBook1() {
-		// Background panel with blurred background (similar to SampleModal)
-		JPanel panel = new JPanel() {
-			// Image backgroundImage = new ImageIcon(FilePath.getImgFilePath() +
-			// "blurred_bg.jpg").getImage();
+	public AddBorrowingRequestBook1(BorrowBookModal dialog) {
+		this.dialog = dialog;
 
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				// If you have background image:
-				// g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-				// For now, using a gradient or solid color background
-				Graphics2D g2 = (Graphics2D) g.create();
-				g2.setColor(new Color(210, 180, 180));
-				g2.fillRect(0, 0, getWidth(), getHeight());
-				g2.dispose();
-			}
-		};
-		panel.setLayout(new GridBagLayout());
+		setBackground(Color.LIGHT_GRAY);
+		setOpaque(false);
 
 		// Main modal panel using RoundedPanel
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
@@ -57,10 +45,10 @@ public class AddBorrowingRequestBook1 extends JFrame {
 		header.setBackground(Color.decode("#842b28"));
 		header.setPreferredSize(new Dimension(500, 100));
 		header.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
-		
+
 		JPanel headerWrapper = new JPanel();
 		headerWrapper.setLayout(new BorderLayout());
-		headerWrapper.setPreferredSize(new Dimension(450,80));
+		headerWrapper.setPreferredSize(new Dimension(450, 80));
 		headerWrapper.setOpaque(false);
 
 		// elib logo
@@ -83,6 +71,19 @@ public class AddBorrowingRequestBook1 extends JFrame {
 		headerWrapper.add(headerLabel, BorderLayout.CENTER);
 
 		header.add(headerWrapper);
+
+		Fonts introRust24 = new Fonts("IntroRust", 24f);
+		Font introRustStyle24 = introRust24.getAppliedFont();
+
+		Fonts poppins16 = new Fonts("Poppins", 16f);
+		Font poppinsStyle16 = poppins16.getAppliedFont();
+
+		Fonts poppins12 = new Fonts("Poppins", 12f);
+		Font poppinsStyle12 = poppins12.getAppliedFont();
+
+		Fonts poppins10 = new Fonts("Poppins", 10f);
+		Font poppinsStyle10 = poppins10.getAppliedFont();
+
 		// Body panel
 		JPanel body = new JPanel();
 		body.setOpaque(false);
@@ -92,7 +93,7 @@ public class AddBorrowingRequestBook1 extends JFrame {
 		// Body title
 		JLabel bodyTitle = new JLabel("BORROWING REQUEST FOR A BOOK", SwingConstants.CENTER);
 		bodyTitle.setForeground(DARK_TEXT);
-		bodyTitle.setFont(new Font("Arial", Font.BOLD, 18));
+		bodyTitle.setFont(introRustStyle24);
 		body.add(bodyTitle, BorderLayout.NORTH);
 
 		// Inner body with form fields using GridBagLayout (following SampleModal
@@ -175,6 +176,20 @@ public class AddBorrowingRequestBook1 extends JFrame {
 
 		body.add(innerBody, BorderLayout.CENTER);
 
+		callNumLabel.setFont(poppinsStyle16);
+		equipLabel.setFont(poppinsStyle16);
+		patronMainLabel.setFont(poppinsStyle16);
+		patronHintLabel.setFont(poppinsStyle10);
+
+		callNumLabel.setForeground(DARK_TEXT);
+		equipLabel.setForeground(DARK_TEXT);
+		patronMainLabel.setForeground(DARK_TEXT);
+		patronHintLabel.setForeground(Color.GRAY);
+
+		callNumField.setFont(poppinsStyle10);
+		equipField.setFont(poppinsStyle10);
+		patronField.setFont(poppinsStyle10);
+
 		// Footer panel with buttons
 		JPanel footer = new JPanel();
 		footer.setPreferredSize(new Dimension(500, 100));
@@ -189,6 +204,9 @@ public class AddBorrowingRequestBook1 extends JFrame {
 		confirmBtn.setForeground(WHITE);
 		confirmBtn.setFont(new Font("Arial", Font.BOLD, 12));
 		confirmBtn.setFocusPainted(false);
+		confirmBtn.addActionListener(e -> {
+			dialog.setStep2();
+		});
 		footer.add(confirmBtn);
 
 		// Cancel button (outlined style)
@@ -200,27 +218,25 @@ public class AddBorrowingRequestBook1 extends JFrame {
 		cancelBtn.setFont(new Font("Arial", Font.BOLD, 12));
 		cancelBtn.setFocusPainted(false);
 		cancelBtn.addActionListener(e -> {
-			// Clear all fields
-			callNumField.setText("");
-			equipField.setText("");
-			patronField.setText("");
-
-			// Reset placeholders
-			callNumField.setPlaceholder("Enter Call Number");
-			equipField.setPlaceholder("Enter Equipment Name");
-			patronField.setPlaceholder("Enter Patron ID");
+			Window window = SwingUtilities.getWindowAncestor(this);
+			if (window instanceof JDialog) {
+				window.dispose();
+			}
 		});
+
 		footer.add(cancelBtn);
+
+		confirmBtn.setFont(poppinsStyle12);
+		cancelBtn.setFont(poppinsStyle12);
 
 		// Assemble modal
 		modal.add(header, BorderLayout.NORTH);
 		modal.add(body, BorderLayout.CENTER);
 		modal.add(footer, BorderLayout.SOUTH);
 
-		panel.add(modal);
+		add(modal);
 
 		// Frame settings
-		add(panel);
 
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -228,30 +244,5 @@ public class AddBorrowingRequestBook1 extends JFrame {
 				requestFocusInWindow();
 			}
 		});
-
-		addWindowFocusListener(new WindowAdapter() {
-			@Override
-			public void windowGainedFocus(WindowEvent e) {
-				modal.requestFocusInWindow();
-			}
-		});
-
-		setTitle("E-Library Management System");
-		setContentPane(panel);
-		pack();
-
-		if (getWidth() < 1120 || getHeight() < 600) {
-			setSize(1120, 600);
-		}
-
-		setMinimumSize(new Dimension(1120, 600));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setLocationRelativeTo(null);
-		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new AddBorrowingRequestBook1();
 	}
 }

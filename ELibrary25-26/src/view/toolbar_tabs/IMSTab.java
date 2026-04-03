@@ -26,6 +26,8 @@ public class IMSTab extends JPanel {
     
     JPanel cardContainer;
     MainFunctions cardComp;
+    
+    String searchQuery = "";
 
     public IMSTab() {
 
@@ -68,6 +70,16 @@ public class IMSTab extends JPanel {
         searchItem.setPlaceholder("Search item");
         searchItem.setBackground(Color.decode("#a6a6a6"));
         searchItem.setForeground(Color.WHITE);
+        
+        searchItem.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				searchQuery = searchItem.getText();
+				reloadData(searchQuery);
+			}
+
+		});
 
         Fonts poppins12 = new Fonts("Poppins", 10f);
         Font poppins12Style = poppins12.getAppliedFont();
@@ -108,9 +120,8 @@ public class IMSTab extends JPanel {
         reloadLogo.setBorderPainted(false);
         reloadLogo.setFocusPainted(false);
         reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
-        
         reloadLogo.addActionListener(e -> {
-        	reloadData();
+        	reloadData(searchQuery);
         	reloadCards();
         });
         
@@ -251,7 +262,7 @@ public class IMSTab extends JPanel {
         tableData.setOpaque(false);
         tableData.setLayout(new BorderLayout());
 
-        reloadData();
+        reloadData(searchQuery);
 
         JScrollPane scrollBar = new JScrollPane(tableData);
         scrollBar.setOpaque(false);
@@ -284,7 +295,7 @@ public class IMSTab extends JPanel {
         reqLabelCont.add(requestLabel, BorderLayout.WEST);
         cardContainer.add(reqLabelCont, BorderLayout.NORTH);
         
-        cardComp = new MainFunctions(this, "cards");
+        cardComp = new MainFunctions(this, "cards", null);
         cardComp.setOpaque(false);
         
 
@@ -330,9 +341,9 @@ public class IMSTab extends JPanel {
         return minColumnHeight;
     }
     
-    public void reloadData() {
+    public void reloadData(String searchQuery) {
         tableData.removeAll();
-        comp = new MainFunctions(this, "rows");
+        comp = new MainFunctions(this, "rows", searchQuery);
         tableData.add(comp, BorderLayout.NORTH);
         revalidate();
         repaint();
@@ -340,7 +351,7 @@ public class IMSTab extends JPanel {
     
     public void reloadCards() {
     	cardComp.removeAll();
-        cardComp = new MainFunctions(this, "cards");
+        cardComp = new MainFunctions(this, "cards", null);
         cardContainer.add(cardComp, BorderLayout.CENTER);
         
         revalidate();

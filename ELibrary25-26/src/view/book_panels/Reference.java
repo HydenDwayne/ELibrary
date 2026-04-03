@@ -21,6 +21,8 @@ public class Reference extends JPanel {
     int minColumnWidth = 59;
     int minColumnHeight = 25;
 
+    String searchQuery = "";
+    
     public Reference() {
 
         int panelRadius = 20;
@@ -137,7 +139,7 @@ public class Reference extends JPanel {
         tableData = new JPanel();
         tableData.setOpaque(false);
 
-        reloadData();
+        reloadData(searchQuery);
         
 
         tableData.setLayout(new BorderLayout());
@@ -170,9 +172,11 @@ public class Reference extends JPanel {
         return minColumnHeight;
     }
     
-    public void reloadData() {
+    public void reloadData(String searchQuery) {
         tableData.removeAll();
-        comp = new MainFunctions(this);
+        comp = new MainFunctions(this, searchQuery);
         tableData.add(comp, BorderLayout.NORTH);
+        revalidate();
+        repaint();
     }
 }

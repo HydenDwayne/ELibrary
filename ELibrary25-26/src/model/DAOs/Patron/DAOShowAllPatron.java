@@ -4,5 +4,5 @@ import java.util.List;
 
 
 public interface DAOShowAllPatron {
-    List<DAOPatron> getAllUsers();
+    List<DAOPatron> getAllUsers(String searchQuery);
 }

@@ -9,140 +9,139 @@ import controller.FunctionHallController;
 
 public class Amphitheater extends JPanel {
 
-    private JPanel calendarGrid;
-    private JLabel monthText;
-    private YearMonth currentMonth;
-    
-    public YearMonth getCurrentMonth() {
-    	return currentMonth;
-    }
+	private JPanel calendarGrid;
+	private JLabel monthText;
+	private YearMonth currentMonth;
 
-    JButton dateCont = new JButton();
+	public YearMonth getCurrentMonth() {
+		return currentMonth;
+	}
 
-    public Amphitheater() {
-        setOpaque(false);
+	JButton dateCont = new JButton();
 
-        setLayout(new BorderLayout());
+	public Amphitheater() {
+		Timer timer = new Timer(15000, e -> generateCalendar());
+		timer.start();
+		setOpaque(false);
 
-        currentMonth = YearMonth.now();
+		setLayout(new BorderLayout());
 
-        JPanel calendarCont = new JPanel(new BorderLayout());
-        calendarCont.setOpaque(false);
-        calendarCont.setPreferredSize(new Dimension(1200, 400));
+		currentMonth = YearMonth.now();
 
-        JPanel monthPanel = new JPanel();
-        monthPanel.setOpaque(false);
-        monthPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-        monthPanel.setLayout(new GridBagLayout());
+		JPanel calendarCont = new JPanel(new BorderLayout());
+		calendarCont.setOpaque(false);
+		calendarCont.setPreferredSize(new Dimension(1200, 400));
 
-        JPanel monthCtrl = new JPanel(new BorderLayout());
-        monthCtrl.setOpaque(false);
+		JPanel monthPanel = new JPanel();
+		monthPanel.setOpaque(false);
+		monthPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+		monthPanel.setLayout(new GridBagLayout());
 
-        JButton leftBtn = new JButton("<");
-        JButton rightBtn = new JButton(">");
+		JPanel monthCtrl = new JPanel(new BorderLayout());
+		monthCtrl.setOpaque(false);
 
-        leftBtn.setContentAreaFilled(false);
-        leftBtn.setBorderPainted(false);
-        leftBtn.setFocusPainted(false);
+		JButton leftBtn = new JButton("<");
+		JButton rightBtn = new JButton(">");
 
-        rightBtn.setContentAreaFilled(false);
-        rightBtn.setBorderPainted(false);
-        rightBtn.setFocusPainted(false);
+		leftBtn.setContentAreaFilled(false);
+		leftBtn.setBorderPainted(false);
+		leftBtn.setFocusPainted(false);
 
-        monthCtrl.add(leftBtn, BorderLayout.WEST);
-        monthCtrl.add(rightBtn, BorderLayout.EAST);
+		rightBtn.setContentAreaFilled(false);
+		rightBtn.setBorderPainted(false);
+		rightBtn.setFocusPainted(false);
 
-        monthText = new JLabel("", SwingConstants.CENTER);
-        Fonts introRust = new Fonts("IntroRust", 16f);
+		monthCtrl.add(leftBtn, BorderLayout.WEST);
+		monthCtrl.add(rightBtn, BorderLayout.EAST);
 
-        JPanel monthTextCont = new JPanel();
-        monthTextCont.setOpaque(false);
-        monthTextCont.setPreferredSize(new Dimension(200, 20));
-        monthTextCont.add(monthText);
+		monthText = new JLabel("", SwingConstants.CENTER);
+		Fonts introRust = new Fonts("IntroRust", 16f);
 
-        monthText.setFont(introRust.getAppliedFont());
+		JPanel monthTextCont = new JPanel();
+		monthTextCont.setOpaque(false);
+		monthTextCont.setPreferredSize(new Dimension(200, 20));
+		monthTextCont.add(monthText);
 
-        monthCtrl.add(monthTextCont, BorderLayout.CENTER);
-        monthPanel.add(monthCtrl);
+		monthText.setFont(introRust.getAppliedFont());
 
-        // calendar grid
-        calendarGrid = new JPanel(new GridLayout(7, 7));
-        calendarGrid.setBackground(Color.decode("#e4e4e4"));
+		monthCtrl.add(monthTextCont, BorderLayout.CENTER);
+		monthPanel.add(monthCtrl);
 
-        calendarCont.add(monthPanel, BorderLayout.NORTH);
-        calendarCont.add(calendarGrid, BorderLayout.CENTER);
+		// calendar grid
+		calendarGrid = new JPanel(new GridLayout(7, 7));
+		calendarGrid.setBackground(Color.decode("#e4e4e4"));
 
-        add(calendarCont, BorderLayout.CENTER);
+		calendarCont.add(monthPanel, BorderLayout.NORTH);
+		calendarCont.add(calendarGrid, BorderLayout.CENTER);
 
-        // generate initial calendar
-        generateCalendar();
+		add(calendarCont, BorderLayout.CENTER);
 
-        // month navigation
-        leftBtn.addActionListener(e -> {
-            currentMonth = currentMonth.minusMonths(1);
-            generateCalendar();
-        });
+		// generate initial calendar
+		generateCalendar();
 
-        rightBtn.addActionListener(e -> {
-            currentMonth = currentMonth.plusMonths(1);
-            generateCalendar();
-        });
-    }
+		// month navigation
+		leftBtn.addActionListener(e -> {
+			currentMonth = currentMonth.minusMonths(1);
+			generateCalendar();
+		});
 
-    private void generateCalendar() {
+		rightBtn.addActionListener(e -> {
+			currentMonth = currentMonth.plusMonths(1);
+			generateCalendar();
+		});
+	}
 
-        calendarGrid.removeAll();
+	private void generateCalendar() {
 
-        String[] weekLabel = {
-            "Sunday", "Monday", "Tuesday",
-            "Wednesday", "Thursday", "Friday", "Saturday"
-        };
+		calendarGrid.removeAll();
 
-        // header
-        for (String label : weekLabel) {
-            JPanel labelRow = new JPanel();
-            labelRow.setLayout(new GridBagLayout());
-            labelRow.setBackground(Color.decode("#842b28"));
-            JLabel day = new JLabel(label, SwingConstants.CENTER);
+		String[] weekLabel = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
-            if (label.equals("Sunday")) {
-                day.setForeground(Color.RED);
-            } else {
-                day.setForeground(Color.WHITE);
-            }
+		// header
+		for (String label : weekLabel) {
+			JPanel labelRow = new JPanel();
+			labelRow.setLayout(new GridBagLayout());
+			labelRow.setBackground(Color.decode("#842b28"));
+			JLabel day = new JLabel(label, SwingConstants.CENTER);
 
-            Fonts poppins = new Fonts("Poppins", 12f);
-            Font poppins12 = poppins.getAppliedFont();
-            day.setFont(poppins12);
+			if (label.equals("Sunday")) {
+				day.setForeground(Color.RED);
+			} else {
+				day.setForeground(Color.WHITE);
+			}
 
-            labelRow.add(day);
-            calendarGrid.add(labelRow);
-        }
+			Fonts poppins = new Fonts("Poppins", 12f);
+			Font poppins12 = poppins.getAppliedFont();
+			day.setFont(poppins12);
 
-        LocalDate firstDay = currentMonth.atDay(1);
+			labelRow.add(day);
+			calendarGrid.add(labelRow);
+		}
 
-        int daysInMonth = currentMonth.lengthOfMonth();
+		LocalDate firstDay = currentMonth.atDay(1);
 
-        int startColumn = firstDay.getDayOfWeek().getValue() % 7;
+		int daysInMonth = currentMonth.lengthOfMonth();
 
-        // start days buffer
-        for (int i = 0; i < startColumn; i++) {
-            calendarGrid.add(new JLabel(""));
-        }
+		int startColumn = firstDay.getDayOfWeek().getValue() % 7;
 
-        // days 
-        FunctionHallController comp = new FunctionHallController(this, calendarGrid);
-        
-        int cellsFilled = startColumn + daysInMonth;
+		// start days buffer
+		for (int i = 0; i < startColumn; i++) {
+			calendarGrid.add(new JLabel(""));
+		}
 
-        // end days buffer
-        for (int i = cellsFilled; i < 42; i++) {
-            calendarGrid.add(new JLabel(""));
-        }
+		// days
+		FunctionHallController comp = new FunctionHallController(this, calendarGrid);
 
-        monthText.setText(currentMonth.getMonth() + " " + currentMonth.getYear());
+		int cellsFilled = startColumn + daysInMonth;
 
-        calendarGrid.revalidate();
-        calendarGrid.repaint();
-    }
+		// end days buffer
+		for (int i = cellsFilled; i < 42; i++) {
+			calendarGrid.add(new JLabel(""));
+		}
+
+		monthText.setText(currentMonth.getMonth() + " " + currentMonth.getYear());
+
+		calendarGrid.revalidate();
+		calendarGrid.repaint();
+	}
 }

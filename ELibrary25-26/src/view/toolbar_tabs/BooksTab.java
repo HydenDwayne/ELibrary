@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import controller.MainFunctions;
 import view.modal.*;
+import view.modal.books_modal.*;
 
 public class BooksTab extends JPanel implements ActionListener {
 	
@@ -29,6 +30,8 @@ public class BooksTab extends JPanel implements ActionListener {
     public JLabel getTabLabel() {
         return tabLabel;
     }
+    
+    String searchQuery = "";
 
     public BooksTab() {
         int panelRadius = 20;
@@ -117,6 +120,16 @@ public class BooksTab extends JPanel implements ActionListener {
         searchItem.setPlaceholder("Search item");
         searchItem.setBackground(Color.decode("#a6a6a6"));
         searchItem.setForeground(Color.WHITE);
+        
+        searchItem.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				searchQuery = searchItem.getText();
+				reloadCurrentCollection();
+			}
+
+		});
 
         Fonts poppins12 = new Fonts("Poppins", 10f);
         Font poppins12Style = poppins12.getAppliedFont();
@@ -214,6 +227,10 @@ public class BooksTab extends JPanel implements ActionListener {
         lendBook.setBackground(Color.decode("#842b28"));
         lendBook.setForeground(Color.WHITE);
         lendBook.setPreferredSize(new Dimension(100, 30) );
+        lendBook.addActionListener(e -> {
+            Window window = SwingUtilities.getWindowAncestor(this);
+            new BorrowBookModal(window);
+        });
         innerBtn2Cont.add(lendBook);
         
         outerBtnCont.add(innerBtn2Cont);
@@ -223,6 +240,11 @@ public class BooksTab extends JPanel implements ActionListener {
         returnBook.setBackground(Color.decode("#842b28"));
         returnBook.setForeground(Color.WHITE);
         returnBook.setPreferredSize(new Dimension(100, 30) );
+		returnBook.addActionListener(e -> {
+		    Window parent = SwingUtilities.getWindowAncestor(this);
+		    new ReturnBookModal(parent);
+		});
+
         innerBtn3Cont.add(returnBook);
         
         outerBtnCont.add(innerBtn3Cont);
@@ -275,7 +297,7 @@ public class BooksTab extends JPanel implements ActionListener {
         slctdBookCol.add(reserve);
         slctdBookCol.add(tad);
 
-        bulacaniana.reloadData();
+        bulacaniana.reloadData(searchQuery);
         
         bulacaniana.setVisible(true); 
         fiction.setVisible(false);
@@ -295,43 +317,18 @@ public class BooksTab extends JPanel implements ActionListener {
     
     private void reloadCurrentCollection() {
 
-        String selectedBookCol = (String) dropdownCollection.getSelectedItem();
-
-        if (selectedBookCol == null) {
-            return;
-        }
+        int selectedBookCol = dropdownCollection.getSelectedIndex();
 
         switch (selectedBookCol) {
-            case "Bulacaniana Collection":
-                bulacaniana.reloadData();
-                break;
-
-            case "Fiction Collection":
-                fiction.reloadData();
-                break;
-
-            case "Filipiniana Collection":
-                filipiniana.reloadData();
-                break;
-
-            case "General Circulation Section":
-                gencirc.reloadData();
-                break;
-
-            case "Reference Collection":
-                reference.reloadData();
-                break;
-
-            case "Reserve Collection":
-                reserve.reloadData();
-                break;
-
-            case "Theses and Dissertations":
-                tad.reloadData();
-                break;
-
-            default:
-                System.out.println("Nothing to reload");
+        
+        case 0 -> bulacaniana.reloadData(searchQuery);
+        case 1 -> gencirc.reloadData(searchQuery);
+        case 2 -> fiction.reloadData(searchQuery);
+        case 3 -> filipiniana.reloadData(searchQuery);
+        case 4 -> reference.reloadData(searchQuery);
+        case 5 -> reserve.reloadData(searchQuery);
+        case 6 -> tad.reloadData(searchQuery);
+        default -> System.out.println("Nothing to reload");
         }
     }
 
@@ -353,37 +350,37 @@ public class BooksTab extends JPanel implements ActionListener {
             case "Bulacaniana Collection":
                 tabLabel.setText("4th | Bulacaniana");
                 bulacaniana.setVisible(true);
-                bulacaniana.reloadData();
+                bulacaniana.reloadData(searchQuery);
                 break;
             case "Fiction Collection":
                 tabLabel.setText("4th | Fiction Collection");
                 fiction.setVisible(true);
-                fiction.reloadData();
+                fiction.reloadData(searchQuery);
                 break;
             case "Filipiniana Collection":
                 tabLabel.setText("4th | Filipiniana Collection");
                 filipiniana.setVisible(true);
-                filipiniana.reloadData();
+                filipiniana.reloadData(searchQuery);
                 break;
             case "General Circulation Section":
                 tabLabel.setText("2nd | General Circulation");
                 gencirc.setVisible(true);
-                gencirc.reloadData();
+                gencirc.reloadData(searchQuery);
                 break;
             case "Reference Collection":
                 tabLabel.setText("4th | Reference Collection");
                 reference.setVisible(true);
-                reference.reloadData();
+                reference.reloadData(searchQuery);
                 break;
             case "Reserve Collection":
                 tabLabel.setText("4th | Reserve Collection");
                 reserve.setVisible(true);
-                reserve.reloadData();
+                reserve.reloadData(searchQuery);
                 break;
             case "Theses and Dissertations":
                 tabLabel.setText("3rd | Theses & Dissertation");
                 tad.setVisible(true);
-                tad.reloadData();
+                tad.reloadData(searchQuery);
                 break;
             default:
                 throw new AssertionError("Unknown facility selected: " + selectedBookCol);

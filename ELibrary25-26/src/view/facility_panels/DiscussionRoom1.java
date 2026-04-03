@@ -20,6 +20,8 @@ public class DiscussionRoom1 extends JPanel {
     JButton dateCont = new JButton();
 
     public DiscussionRoom1() {
+    	Timer timer = new Timer(15000, e -> generateCalendar());
+		timer.start();
         setOpaque(false);
 
         setLayout(new BorderLayout());
