@@ -928,6 +928,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1061,6 +1066,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1194,6 +1204,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1327,6 +1342,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1460,6 +1480,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1593,6 +1618,11 @@ public class MainFunctions extends JPanel {
             col7.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             col7.setBackground(Color.decode("#842b28"));
             col7.setForeground(Color.WHITE);
+            col7.addActionListener(e -> {
+            	callNumber = col1.getText();
+				Window parent = SwingUtilities.getWindowAncestor(this);
+				new ViewBookModal(parent, callNumber);
+            });
             col7.setFont(poppins10Style);
 
             col1Panel.add(col1);
@@ -1644,6 +1674,7 @@ public class MainFunctions extends JPanel {
 
         }
     }
+   
 
     public static void main(String[] args) {
     	Dashboard frame = new Dashboard();

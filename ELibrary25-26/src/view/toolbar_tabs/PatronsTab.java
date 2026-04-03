@@ -13,6 +13,7 @@ import javax.swing.*;
 import view.modal.*;
 import view.modal.books_modal.ReturnBookModal;
 import view.modal.filter_modal.FilterByPatronModal;
+import view.modal.patron_modal.RegisterPatronModal;
 import view.modal.patron_modal.ViewEmployeeModal;
 
 public class PatronsTab extends JPanel {
@@ -213,6 +214,14 @@ public class PatronsTab extends JPanel {
 		addPatron.setBackground(Color.decode("#842b28"));
 		addPatron.setForeground(Color.WHITE);
 		addPatron.setPreferredSize(new Dimension(110, 30));
+		addPatron.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		        Window parent = SwingUtilities.getWindowAncestor(comp);
+		        new RegisterPatronModal(parent);
+		    }
+		});
+
 		
 
 		outerBtnCont.add(addPatron, BorderLayout.EAST);
