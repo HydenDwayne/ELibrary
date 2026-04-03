@@ -8,6 +8,7 @@ import view.fonts.Fonts;
 import view.front_pages.FilePath;
 import view.modal.books_modal.BorrowBookModal;
 import view.modal.books_modal.ReturnBookModal;
+import view.modal.lost_and_found_modal.AddLostAndFoundModal;
 
 import java.time.*;
 import java.awt.*;
@@ -232,7 +233,7 @@ public class OverviewTab extends JPanel {
 
 		quickActions.add(qckLabel);
 
-		RoundedButton qckBtn1 = new RoundedButton("Lend a book", 20);
+		RoundedButton qckBtn1 = new RoundedButton("Lend a book", 15);
 		qckBtn1.setPreferredSize(new Dimension(280, 25));
 		qckBtn1.setBackground(Color.decode("#f8c169"));
 		qckBtn1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -244,7 +245,7 @@ public class OverviewTab extends JPanel {
 
 		quickActions.add(qckBtn1);
 
-		RoundedButton qckBtn2 = new RoundedButton("Return a book", 20);
+		RoundedButton qckBtn2 = new RoundedButton("Return a book", 15);
 		qckBtn2.setPreferredSize(new Dimension(280, 25));
 		qckBtn2.setBackground(Color.decode("#f8c169"));
 		qckBtn2.setHorizontalAlignment(SwingConstants.LEFT);
@@ -255,12 +256,16 @@ public class OverviewTab extends JPanel {
 		});
 		quickActions.add(qckBtn2);
 
-		RoundedButton qckBtn3 = new RoundedButton("Record a lost item", 20);
+		RoundedButton qckBtn3 = new RoundedButton("Record a lost item", 15);
 		qckBtn3.setPreferredSize(new Dimension(280, 25));
 		qckBtn3.setBackground(Color.decode("#f8c169"));
 		qckBtn3.setHorizontalAlignment(SwingConstants.LEFT);
 		qckBtn3.setForeground(Color.decode("#842b28"));
 		quickActions.add(qckBtn3);
+		qckBtn3.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+        	new AddLostAndFoundModal(parent);
+        });
 
 		overviewTab.add(quickActions, gbcContainer);
 

@@ -13,6 +13,7 @@ import javax.swing.*;
 import view.modal.*;
 import view.modal.books_modal.ReturnBookModal;
 import view.modal.filter_modal.FilterByPatronModal;
+import view.modal.patron_modal.ViewEmployeeModal;
 
 public class PatronsTab extends JPanel {
 
@@ -207,23 +208,14 @@ public class PatronsTab extends JPanel {
 		Fonts poppinsBtn = new Fonts("Poppins", 10f);
 		Font poppinsStyle10 = poppinsBtn.getAppliedFont();
 
-		RoundedButton addLostItem = new RoundedButton("Add Patron", panelRadius);
-		addLostItem.setFont(poppinsStyle10);
-		addLostItem.setBackground(Color.decode("#842b28"));
-		addLostItem.setForeground(Color.WHITE);
-		addLostItem.setPreferredSize(new Dimension(110, 30));
+		RoundedButton addPatron = new RoundedButton("Add Patron", panelRadius);
+		addPatron.setFont(poppinsStyle10);
+		addPatron.setBackground(Color.decode("#842b28"));
+		addPatron.setForeground(Color.WHITE);
+		addPatron.setPreferredSize(new Dimension(110, 30));
+		
 
-//		registerPatron1 modal = new registerPatron1();
-//		addLostItem.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				JOptionPane.showMessageDialog(null, modal, "Add Patron", JOptionPane.PLAIN_MESSAGE);
-//
-//			}
-//		});
-
-		outerBtnCont.add(addLostItem, BorderLayout.EAST);
+		outerBtnCont.add(addPatron, BorderLayout.EAST);
 		outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
 		// right side of the top wrapper

@@ -20,6 +20,8 @@ import view.toolbar_tabs.*;
 import view.modal.*;
 import view.modal.books_modal.*;
 import view.modal.ims_modal.*;
+import view.modal.patron_modal.ViewEmployeeModal;
+import view.modal.patron_modal.ViewStudentModal;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -244,19 +246,19 @@ public class MainFunctions extends JPanel {
             col8.setForeground(Color.WHITE);
             col8.setFont(poppinsStyle);
             
-            col8.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println(col1.getText());
-					System.out.println(col2.getText());
-					System.out.println(col3.getText());
-					System.out.println(col4.getText());
-					System.out.println(col5.getText());
-					System.out.println(col6.getText());
-					System.out.println(col7.getText());
-				}
-			});
+            col8.addActionListener(e -> {
+            	
+            	if (col7.getText().equals("EMPLOYEE")) {
+            		Window parent = SwingUtilities.getWindowAncestor(this);
+        			new ViewEmployeeModal(parent);
+            	}
+            	else {
+            		Window parent = SwingUtilities.getWindowAncestor(this);
+        			new ViewStudentModal(parent);
+            	}
+            	
+    			
+    		});
 
             col1Panel.add(col1);
             col2Panel.add(col2);
