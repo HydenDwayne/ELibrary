@@ -5,18 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class IMSDAOImp implements DAOInterface {
+public class IMSDAOImp {
 
     private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
     private final String USER = "Pia";
     private final String PASSWORD = "passwordPia";
 
-    @Override
-    public List<DAOIMS> getAllUsers() {
+    public List<DAOIMS> getAllItems(String searchQuery) {
 
         List<DAOIMS> ims = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement stmt = conn.prepareStatement("SELECT * FROM showAllIMS")) {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+        		CallableStatement stmt = conn.prepareCall("{CALL searchIMS(?)}")) {
+        	
+        	if (searchQuery == null) {
+				stmt.setString(1, "");
+			} else {
+				stmt.setString(1, searchQuery);
+			}
+        	
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

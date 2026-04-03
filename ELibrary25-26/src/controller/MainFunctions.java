@@ -80,12 +80,12 @@ public class MainFunctions extends JPanel {
         showLNF(searchQuery);
     }
 
-    public MainFunctions(IMSTab imsTab, String element) {
+    public MainFunctions(IMSTab imsTab, String element, String searchQuery) {
         this.imsTab = imsTab;
         if (element.equals("cards")) {
         	showActiveRequest();
         } else if (element.equals("rows")) {
-        	showIMS();
+        	showIMS(searchQuery);
         } else {
         	System.out.println("error at IMSTab MainFunction");
         }
@@ -476,8 +476,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showIMS() {
-        List<DAOIMS> ims = daoIMS.getAllUsers();
+    public void showIMS(String searchQuery) {
+        List<DAOIMS> ims = daoIMS.getAllItems(searchQuery);
 
         // loadPatrons();
         int minColumnHeight = imsTab.getMinColumnHeight();
