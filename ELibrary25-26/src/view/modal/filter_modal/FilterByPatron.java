@@ -93,6 +93,7 @@ public class FilterByPatron extends JPanel {
 
 		RoundedPanel campusSection = new RoundedPanel(12);
 		campusSection.setLayout(new BorderLayout(0, 6));
+		campusSection.setBackground(new Color (0,0,0,0));
 		campusSection.setOpaque(false);
 
 		JLabel campusTitle = new JLabel("CAMPUS");
@@ -124,7 +125,7 @@ public class FilterByPatron extends JPanel {
 
 		gbc.gridy++;
 
-		RoundedPanel patronSection = new RoundedPanel(12);
+		JPanel patronSection = new JPanel();
 		patronSection.setLayout(new BorderLayout(0, 6));
 		patronSection.setOpaque(false);
 

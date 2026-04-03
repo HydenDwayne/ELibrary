@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import model.DAOs.FunctionHall.*;
 import view.facility_panels.*;
+import view.modal.function_hall_modal.ReserveFunctionHallModal;
 import view.modal.function_hall_modal.ViewHallReservationModal;
 import view.toolbar_tabs.OverviewTab;
 
@@ -92,6 +93,9 @@ public class FunctionHallController {
 					if (bg.equals(Color.decode("#9f4542"))) {
 					    Window parent = SwingUtilities.getWindowAncestor(amphi);
 	        			new ViewHallReservationModal(parent);
+					} else {
+						Window parent = SwingUtilities.getWindowAncestor(amphi);
+	        			new ReserveFunctionHallModal(parent);
 					}
                 	
                 	

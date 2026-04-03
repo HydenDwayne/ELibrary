@@ -87,18 +87,6 @@ public class IMSTab extends JPanel {
         searchItem.setFont(poppins12Style);
 
         searchContainer.add(searchItem);
-
-     // sort by
-        ImageIcon sortByIcon = new ImageIcon(FilePath.image("sort_by_icon.png"));
-        Image sortByImage = sortByIcon.getImage();
-        Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
-        sortByIcon = new ImageIcon(scaledImageSortBy);
-        JButton sortByLogo = new JButton(sortByIcon);
-        sortByLogo.setBackground(new Color(0, 0, 0, 0));
-        sortByLogo.setContentAreaFilled(false);
-        sortByLogo.setBorderPainted(false);
-        sortByLogo.setFocusPainted(false);
-        sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
         ImageIcon archiveIcon = new ImageIcon(FilePath.image("archive.png"));
         Image archiveImage = archiveIcon.getImage();
@@ -131,7 +119,6 @@ public class IMSTab extends JPanel {
         iconsPanel.setLayout(new GridLayout(1, 3));
         iconsPanel.setPreferredSize(new Dimension(100,30));
         
-        iconsPanel.add(sortByLogo);
         iconsPanel.add(archiveLogo);
         iconsPanel.add(reloadLogo);
         
