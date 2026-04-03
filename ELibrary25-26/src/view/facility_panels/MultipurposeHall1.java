@@ -20,6 +20,8 @@ public class MultipurposeHall1 extends JPanel {
     JButton dateCont = new JButton();
 
     public MultipurposeHall1() {
+    	Timer timer = new Timer(15000, e -> generateCalendar());
+		timer.start();
         setOpaque(false);
 
         setLayout(new BorderLayout());

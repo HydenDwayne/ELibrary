@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import model.DAOs.FunctionHall.*;
 import view.facility_panels.*;
+import view.toolbar_tabs.OverviewTab;
 
 public class FunctionHallController {
 	
@@ -20,6 +21,53 @@ public class FunctionHallController {
 	private SmartLearningRoom1 slr1;
 	private SmartLearningRoom2 slr2;
 	private TeleconferencingRoom tele;
+	private OverviewTab ovTab;
+	
+	public FunctionHallController(OverviewTab ovTab, JPanel calendarGrid) {
+		this.ovTab = ovTab;
+		YearMonth currentMonth = ovTab.getCurrentMonth();
+		int daysInMonth = currentMonth.lengthOfMonth();
+		
+		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent();
+		
+		for (int day = 1; day <= daysInMonth; day++) {
+			
+
+            JPanel cell = new JPanel(new BorderLayout());
+            
+            for(DAOFuncHall event: events) {
+				String calendarDay = "01";
+				if (day < 10) {
+					calendarDay = "0" + day;
+				} else {
+					calendarDay = day+"";
+				}
+				String calendarMonth = "01";
+				if (currentMonth.getMonthValue() < 10) {
+					calendarMonth = "0" + currentMonth.getMonthValue();
+				} else {
+					calendarMonth = currentMonth.getMonthValue()+"";
+				}
+				String dateOfEvent = event.getDateOfEvent();
+				String calendarDate = currentMonth.getYear()+"-"+calendarMonth+"-"+calendarDay;
+				
+				if (calendarDate.equals(dateOfEvent)) {
+					cell.setBackground(Color.decode("#9f4542"));
+				}
+
+			}
+
+            cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+            JLabel dateLabel = new JLabel(String.valueOf(day));
+            dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+            dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+            cell.add(dateLabel, BorderLayout.NORTH);
+
+            calendarGrid.add(cell);
+        }
+	}
 
 	public FunctionHallController(Amphitheater amphi, JPanel calendarGrid) {
 		this.amphi = amphi;

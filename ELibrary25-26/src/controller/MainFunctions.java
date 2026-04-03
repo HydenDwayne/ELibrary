@@ -162,7 +162,7 @@ public class MainFunctions extends JPanel {
     
 
     public void showOverviewData() {
-        List<DAOOverview> overviewData = daoOverview.getAllUsers();
+        List<DAOOverview> overviewData = daoOverview.getAllOverview();
 
 
         for(DAOOverview ovData : overviewData) {

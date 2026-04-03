@@ -4,14 +4,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OverviewDAOImp implements DAOInterface {
+import model.DAOs.FunctionHall.DAOFuncHall;
+
+public class OverviewDAOImp {
 
     private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
     private final String USER = "Pia";
     private final String PASSWORD = "passwordPia";
 
-    @Override
-    public List<DAOOverview> getAllUsers() {
+
+    public List<DAOOverview> getAllOverview() {
 
         List<DAOOverview> ims = new ArrayList<>();
 
@@ -33,5 +35,7 @@ public class OverviewDAOImp implements DAOInterface {
 
         return ims;
     }
+    
+    
     
 }
