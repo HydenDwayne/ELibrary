@@ -134,8 +134,6 @@ public class StudentModal extends JPanel implements ActionListener {
 	RegisterPatron rp;
 	GeneralModal genModal;
 
-	static String imgFilePath = FilePath.getImgFilePath();
-
 	public StudentModal(RegisterPatron rp, GeneralModal genModal) {
 		this.genModal = genModal;
 		this.rp = rp;
@@ -154,7 +152,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		header.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
 		header.setLayout(new BorderLayout());
 
-		ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
+		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
 		Image image = icon.getImage();
 		Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(scaledImage);

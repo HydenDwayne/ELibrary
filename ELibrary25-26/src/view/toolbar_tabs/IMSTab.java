@@ -17,8 +17,6 @@ import controller.MainFunctions;
 import model.DAOs.ActiveRequest.DAOActiveRequest;
 
 public class IMSTab extends JPanel {
-	
-	static String imgFilePath = FilePath.getImgFilePath();
 
     private int minColumnWidth = 35;
     private int minColumnHeight = 25;
@@ -91,7 +89,7 @@ public class IMSTab extends JPanel {
         searchContainer.add(searchItem);
 
      // sort by
-        ImageIcon sortByIcon = new ImageIcon(imgFilePath + "sort_by_icon.png");
+        ImageIcon sortByIcon = new ImageIcon(FilePath.image("sort_by_icon.png"));
         Image sortByImage = sortByIcon.getImage();
         Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         sortByIcon = new ImageIcon(scaledImageSortBy);
@@ -102,7 +100,7 @@ public class IMSTab extends JPanel {
         sortByLogo.setFocusPainted(false);
         sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-        ImageIcon archiveIcon = new ImageIcon(imgFilePath + "archive.png");
+        ImageIcon archiveIcon = new ImageIcon(FilePath.image("archive.png"));
         Image archiveImage = archiveIcon.getImage();
         Image scaledImageArchive = archiveImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         archiveIcon = new ImageIcon(scaledImageArchive);
@@ -113,7 +111,7 @@ public class IMSTab extends JPanel {
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-        ImageIcon reloadIcon = new ImageIcon(imgFilePath + "reload.png");
+        ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();
         Image scaledImageReload = reloadImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         reloadIcon = new ImageIcon(scaledImageReload);

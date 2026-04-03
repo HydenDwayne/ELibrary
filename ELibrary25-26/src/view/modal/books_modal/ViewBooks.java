@@ -22,7 +22,6 @@ public class ViewBooks extends JPanel {
 
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
-    static final String imgFilePath = FilePath.getImgFilePath();
 
     /* ================= FIELDS ================= */
 
@@ -70,7 +69,7 @@ public class ViewBooks extends JPanel {
         headerWrapper.setOpaque(false);
         headerWrapper.setPreferredSize(new Dimension(450, 80));
 
-        ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
+        ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
         Image scaled = icon.getImage().getScaledInstance(110, 50, Image.SCALE_SMOOTH);
         JLabel logo = new JLabel(new ImageIcon(scaled));
         logo.setHorizontalAlignment(SwingConstants.CENTER);

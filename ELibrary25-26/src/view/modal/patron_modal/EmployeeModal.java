@@ -66,9 +66,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
 	    updateVisibility();
 	    resizeModal();
 	}
-    
 
-    static String imgFilePath = FilePath.getImgFilePath();
 
     public EmployeeModal(RegisterPatron rp, GeneralModal genModal) {
     	this.genModal = genModal;
@@ -87,7 +85,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		header.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
      		header.setLayout(new BorderLayout());
 
-     		ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
+     		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
      		Image image = icon.getImage();
      		Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
      		icon = new ImageIcon(scaledImage);

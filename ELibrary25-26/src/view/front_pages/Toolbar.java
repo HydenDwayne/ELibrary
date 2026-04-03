@@ -10,7 +10,6 @@ import view.fonts.*;
 
 public class Toolbar extends JPanel implements ActionListener {
 	
-	static String imgFilePath = FilePath.getImgFilePath();
 
     private Dashboard dashboard;
 
@@ -41,7 +40,7 @@ public class Toolbar extends JPanel implements ActionListener {
         Font poppinsStyle14 = poppins.getAppliedFont();
         		
 
-        ImageIcon homeIcon = new ImageIcon(imgFilePath + "home.png");
+        ImageIcon homeIcon = new ImageIcon(FilePath.image("home.png"));
         Image homeImage = homeIcon.getImage();
         Image scaledImageHome = homeImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         homeIcon = new ImageIcon(scaledImageHome);
@@ -55,7 +54,7 @@ public class Toolbar extends JPanel implements ActionListener {
         toolbar.add(homeBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon facilityIcon = new ImageIcon(imgFilePath + "facilities.png");
+        ImageIcon facilityIcon = new ImageIcon(FilePath.image("facilities.png"));
         Image facilityImage = facilityIcon.getImage();
         Image scaledImageFacility = facilityImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         facilityIcon = new ImageIcon(scaledImageFacility);
@@ -69,7 +68,7 @@ public class Toolbar extends JPanel implements ActionListener {
         toolbar.add(facilityBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon booksIcon = new ImageIcon(imgFilePath + "books.png");
+        ImageIcon booksIcon = new ImageIcon(FilePath.image("books.png"));
         Image booksImage = booksIcon.getImage();
         Image scaledImageBooks = booksImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         booksIcon = new ImageIcon(scaledImageBooks);
@@ -83,7 +82,7 @@ public class Toolbar extends JPanel implements ActionListener {
         toolbar.add(booksBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon lnfIcon = new ImageIcon(imgFilePath + "lost&found.png");
+        ImageIcon lnfIcon = new ImageIcon(FilePath.image("lost&found.png"));
         Image lnfImage = lnfIcon.getImage();
         Image scaledImageLnf = lnfImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         lnfIcon = new ImageIcon(scaledImageLnf);
@@ -97,7 +96,7 @@ public class Toolbar extends JPanel implements ActionListener {
         toolbar.add(lnfBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon patronsIcon = new ImageIcon(imgFilePath + "patrons.png");
+        ImageIcon patronsIcon = new ImageIcon(FilePath.image("patrons.png"));
         Image patronsImage = patronsIcon.getImage();
         Image scaledImagePatrons = patronsImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         patronsIcon = new ImageIcon(scaledImagePatrons);
@@ -111,7 +110,7 @@ public class Toolbar extends JPanel implements ActionListener {
         toolbar.add(patronsBtn, gbcToolbar);
 
         gbcToolbar.gridx++;
-        ImageIcon imsIcon = new ImageIcon(imgFilePath + "ims.png");
+        ImageIcon imsIcon = new ImageIcon(FilePath.image( "ims.png"));
         Image imsImage = imsIcon.getImage();
         Image scaledImageIms = imsImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         imsIcon = new ImageIcon(scaledImageIms);

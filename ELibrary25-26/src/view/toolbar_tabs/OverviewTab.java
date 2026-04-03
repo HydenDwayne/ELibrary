@@ -15,7 +15,6 @@ import java.awt.*;
 import javax.swing.*;
 
 public class OverviewTab extends JPanel {
-	static String imgFilePath = FilePath.getImgFilePath();
 
 	public JLabel activeBooksData = new JLabel();
 	public JLabel overdueBooksData = new JLabel();

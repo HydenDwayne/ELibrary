@@ -13,15 +13,13 @@ import view.fonts.*;
 import view.front_pages.patron_registration.RegisterPatron;
 
 public class LoginWindow extends JFrame {
-	
-	static String imgFilePath = FilePath.getImgFilePath();
 
     public LoginWindow(Dashboard frame) {
         setTitle("E-Library Management System");
 
         // Background panel with image
         JPanel panel = new JPanel() {
-            Image backgroundImage = new ImageIcon(imgFilePath + "blurred_bg.jpg").getImage();
+            Image backgroundImage = new ImageIcon(FilePath.image("blurred_bg.jpg")).getImage();
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -47,7 +45,7 @@ public class LoginWindow extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // elib logo
-        ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
+        ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
         Image image = icon.getImage();
         Image scaledImage = image.getScaledInstance(160, 80, Image.SCALE_SMOOTH);
         icon = new ImageIcon(scaledImage);

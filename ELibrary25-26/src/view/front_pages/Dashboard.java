@@ -12,7 +12,6 @@ import view.front_pages.FilePath;
 
 public class Dashboard extends JFrame {
 	
-	static String imgFilePath = FilePath.getImgFilePath();
 
     JPanel mainContent;
     OverviewTab ovTab;
@@ -52,7 +51,7 @@ public class Dashboard extends JFrame {
         leftHeader.setLayout(new BorderLayout());
         leftHeader.setOpaque(false);
 
-        ImageIcon elibIcon = new ImageIcon(imgFilePath + "elib_logo.png");
+        ImageIcon elibIcon = new ImageIcon(FilePath.image("elib_logo.png"));
         Image elibImage = elibIcon.getImage();
         Image scaledImageElib = elibImage.getScaledInstance(80, 40, Image.SCALE_SMOOTH);
         elibIcon = new ImageIcon(scaledImageElib);
@@ -72,7 +71,7 @@ public class Dashboard extends JFrame {
         account.setLayout(new BorderLayout());
         account.setOpaque(false);
 
-        ImageIcon profileIcon = new ImageIcon(imgFilePath + "acct_icon.png");
+        ImageIcon profileIcon = new ImageIcon(FilePath.image("acct_icon.png"));
         Image profileImage = profileIcon.getImage();
         Image scaledImageProfile = profileImage.getScaledInstance(60, 30, Image.SCALE_SMOOTH);
         profileIcon = new ImageIcon(scaledImageProfile);

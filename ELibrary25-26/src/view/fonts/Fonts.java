@@ -1,45 +1,36 @@
 package view.fonts;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.InputStream;
 
 import view.front_pages.FilePath;
 
 public class Fonts {
 
     private Font appliedFont;
-    
-    static String fontFilePath = FilePath.getFontFilePath();
 
-    public Fonts(String font_family, float size) {
-
-        switch (font_family) {
+    public Fonts(String fontFamily, float size) {
+        switch (fontFamily) {
             case "Poppins":
-                appliedFont = setPoppinsFont(size);
-                checkFontFiles();
+                appliedFont = loadFont("Poppins-Regular.ttf", size);
                 break;
+
             case "PoppinsBold":
-                appliedFont = setPoppinsBoldFont(size);
-                checkFontFiles();
+                appliedFont = loadFont("Poppins-Bold.ttf", size);
                 break;
+
             case "IntroRust":
-                appliedFont = setIntroRustFont(size);
-                checkFontFiles();
+                appliedFont = loadFont("IntroRust.otf", size);
                 break;
+
             case "ABeeZee":
-                appliedFont = setABeeZeeFont(size);
-                checkFontFiles();
+                appliedFont = loadFont("ABeeZee-Regular.ttf", size);
                 break;
+
             default:
-                throw new AssertionError();
-        }
-
-    }
-
-    public void checkFontFiles() {
-        if (appliedFont == null) {
-            System.out.println("Error. File not found.");
+                appliedFont = new Font("SansSerif", Font.PLAIN, (int) size);
+                break;
         }
     }
 
@@ -47,52 +38,18 @@ public class Fonts {
         return appliedFont;
     }
 
-    public static Font setPoppinsFont(float size) {
-        
-        try {
-            Font poppins;
-            poppins = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "Poppins-Regular.ttf")).deriveFont(size);
-            return poppins;
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading Poppins font. Font set to fallback: Sans Serif");
-        }
-        return null;
-    }
+    /* ================= JAR-SAFE FONT LOADER ================= */
 
-    public static Font setPoppinsBoldFont(float size) {
-        
-        try {
-            Font poppins;
-            poppins = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "Poppins-Bold.ttf")).deriveFont(size);
-            return poppins;
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading PoppinsBold font. Font set to fallback: Sans Serif");
-        }
-        return null;
-    }
+    private static Font loadFont(String fileName, float size) {
 
-    public static Font setIntroRustFont(float size) {
-        
-        try {
-            Font introRust;
-            introRust = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "IntroRust.otf")).deriveFont(size);
-            return introRust;
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading IntroRust font. Font set to fallback: Sans Serif");
-        }
-        return null;
-    }
+        try (InputStream is = FilePath.font(fileName).openStream()) {
 
-    public static Font setABeeZeeFont(float size) {
-        
-        try {
-            Font aBeeZee;
-            aBeeZee = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath + "ABeeZee-Regular.ttf")).deriveFont(size);
-            return aBeeZee;
-        } catch (FontFormatException | IOException e) {
-            System.out.println("Error loading ABeeZee font. Font set to fallback: Sans Serif");
+            return Font.createFont(Font.TRUETYPE_FONT, is)
+                       .deriveFont(size);
+
+        } catch (Exception e) {
+            System.err.println("⚠ Failed to load font: " + fileName);
+            return new Font("SansSerif", Font.PLAIN, (int) size);
         }
-       return null;
     }
 }

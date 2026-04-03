@@ -76,7 +76,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 	String[] campuses = { "Main", "Bustos", "Hagonoy", "Meneses", "San Rafael", "Sarmiento" };
 
 
-	static String imgFilePath = FilePath.getImgFilePath();
+
 
 	public GeneralModal(RegisterPatron rp) {
 		setOpaque(false);
@@ -97,7 +97,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 		// elib logo -- GAMITIN MO TO IF ELIB LOGO LANG
 		header.setLayout(new BorderLayout());
 
-		ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
+		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
 		Image image = icon.getImage();
 		Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(scaledImage);

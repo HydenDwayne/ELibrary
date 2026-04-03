@@ -15,8 +15,6 @@ import view.modal.books_modal.*;
 import view.modal.filter_modal.*;
 
 public class BooksTab extends JPanel implements ActionListener {
-	
-	static String imgFilePath = FilePath.getImgFilePath();
 
     RoundedComboBox<String> dropdownCollection;
     Bulacaniana bulacaniana = new Bulacaniana();
@@ -163,7 +161,7 @@ public class BooksTab extends JPanel implements ActionListener {
         searchContainer.add(searchItem);
 
         // sort by
-        ImageIcon sortByIcon = new ImageIcon(imgFilePath + "sort_by_icon.png");
+        ImageIcon sortByIcon = new ImageIcon(FilePath.image("sort_by_icon.png"));
         Image sortByImage = sortByIcon.getImage();
         Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         sortByIcon = new ImageIcon(scaledImageSortBy);
@@ -178,7 +176,7 @@ public class BooksTab extends JPanel implements ActionListener {
 		    new FilterByModal(parent, this);
 		});
         
-        ImageIcon archiveIcon = new ImageIcon(imgFilePath + "archive.png");
+        ImageIcon archiveIcon = new ImageIcon(FilePath.image("archive.png"));
         Image archiveImage = archiveIcon.getImage();
         Image scaledImageArchive = archiveImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         archiveIcon = new ImageIcon(scaledImageArchive);
@@ -189,7 +187,7 @@ public class BooksTab extends JPanel implements ActionListener {
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-        ImageIcon reloadIcon = new ImageIcon(imgFilePath + "reload.png");
+        ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();
         Image scaledImageReload = reloadImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
         reloadIcon = new ImageIcon(scaledImageReload);

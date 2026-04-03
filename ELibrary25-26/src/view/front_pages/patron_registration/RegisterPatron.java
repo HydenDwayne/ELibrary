@@ -38,7 +38,7 @@ public class RegisterPatron extends JFrame {
     public RegisterPatron(Dashboard frame, LoginWindow lw) {
 
         BackgroundPanel bgPanel = new BackgroundPanel(
-                FilePath.getImgFilePath() + "blurred_bg.jpg"
+                FilePath.image("blurred_bg.jpg")
         );
 
         cardLayout = new CardLayout();

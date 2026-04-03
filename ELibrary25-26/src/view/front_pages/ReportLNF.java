@@ -10,12 +10,11 @@ import java.awt.event.*;
 
 public class ReportLNF extends JFrame{
 	
-	static String imgFilePath = FilePath.getImgFilePath();
 	
 	public ReportLNF(Dashboard frame, LoginWindow lw) {
 		int panelRadius = 20;
 		JPanel panel = new JPanel() {
-			Image backgroundImage = new ImageIcon(imgFilePath + "blurred_bg.jpg").getImage();
+			Image backgroundImage = new ImageIcon(FilePath.image("blurred_bg.jpg")).getImage();
 
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -41,7 +40,7 @@ public class ReportLNF extends JFrame{
 		headerWrapper.setOpaque(false);
 		
 		// elib logo
-		ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
+		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
 		Image image = icon.getImage();
 		Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(scaledImage);

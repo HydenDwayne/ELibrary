@@ -32,8 +32,6 @@ import java.util.List;
 import javax.swing.*;
 
 public class MainFunctions extends JPanel {
-	
-	static String imgFilePath = FilePath.getImgFilePath();
 
     private PatronDAOImp daoPatron = new PatronDAOImp();        //model
     private IMSDAOImp daoIMS = new IMSDAOImp();        //model
@@ -756,7 +754,7 @@ public class MainFunctions extends JPanel {
 
             if (col6.getText().equals("NBB")) {
 
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "cross_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("cross_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -769,7 +767,7 @@ public class MainFunctions extends JPanel {
 
                 col6Panel.add(profileLogo);
             } else {
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "check_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("check_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -895,7 +893,7 @@ public class MainFunctions extends JPanel {
 
             if (col6.getText().equals("NBB")) {
 
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "cross_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("cross_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -908,7 +906,7 @@ public class MainFunctions extends JPanel {
 
                 col6Panel.add(profileLogo);
             } else {
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "check_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("check_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1033,7 +1031,7 @@ public class MainFunctions extends JPanel {
 
             if (col6.getText().equals("NBB")) {
 
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "cross_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("cross_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1046,7 +1044,7 @@ public class MainFunctions extends JPanel {
 
                 col6Panel.add(profileLogo);
             } else {
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "check_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("check_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1171,7 +1169,7 @@ public class MainFunctions extends JPanel {
 
             if (col6.getText().equals("NBB")) {
 
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "cross_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("cross_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1184,7 +1182,7 @@ public class MainFunctions extends JPanel {
 
                 col6Panel.add(profileLogo);
             } else {
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "check_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("check_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1309,7 +1307,7 @@ public class MainFunctions extends JPanel {
 
             if (col6.getText().equals("NBB")) {
 
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "cross_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("cross_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1322,7 +1320,7 @@ public class MainFunctions extends JPanel {
 
                 col6Panel.add(profileLogo);
             } else {
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "check_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("check_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1447,7 +1445,7 @@ public class MainFunctions extends JPanel {
 
             if (col6.getText().equals("NBB")) {
 
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "cross_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("cross_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1460,7 +1458,7 @@ public class MainFunctions extends JPanel {
 
                 col6Panel.add(profileLogo);
             } else {
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "check_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("check_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1585,7 +1583,7 @@ public class MainFunctions extends JPanel {
 
             if (col6.getText().equals("NBB")) {
 
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "ross_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("cross_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1598,7 +1596,7 @@ public class MainFunctions extends JPanel {
 
                 col6Panel.add(profileLogo);
             } else {
-                ImageIcon profileIcon = new ImageIcon(imgFilePath + "check_mark.png");
+                ImageIcon profileIcon = new ImageIcon(FilePath.image("check_mark.png"));
                 Image profileImage = profileIcon.getImage();
                 Image scaledImageProfile = profileImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
                 profileIcon = new ImageIcon(scaledImageProfile);
@@ -1674,19 +1672,4 @@ public class MainFunctions extends JPanel {
 
         }
     }
-   
-
-    public static void main(String[] args) {
-    	Dashboard frame = new Dashboard();
-    	frame.setVisible(false);
-    	LoginWindow lw = new LoginWindow(frame);
-    	lw.setVisible(false);
-//    	FacilityLogin fl = new FacilityLogin(frame, lw);
-//    	RegisterPatron rp = new RegisterPatron(frame, lw);
-//    	ReportLNF lnf = new ReportLNF(frame, lw);
-    	LoginWindow login = new LoginWindow(frame);
-
-        
-    }
-
 }

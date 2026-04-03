@@ -18,9 +18,6 @@ public class ViewEmployee extends JPanel {
 
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
-
-    static final String imgFilePath = FilePath.getImgFilePath();
-
     JCheckBox adminCheck, libraryStaffCheck, facultyCheck;
     JPanel assignmentCodeRow, positionRow, facultyRankRow, collegeRow, collegeCampusRow;
 
@@ -51,7 +48,7 @@ public class ViewEmployee extends JPanel {
         header.setBorder(new EmptyBorder(10, 0, 10, 10));
 
         JLabel logo = new JLabel(new ImageIcon(
-                new ImageIcon(imgFilePath + "elib_logo.png")
+                new ImageIcon(FilePath.image("elib_logo.png"))
                         .getImage().getScaledInstance(110, 50, Image.SCALE_SMOOTH)
         ));
 

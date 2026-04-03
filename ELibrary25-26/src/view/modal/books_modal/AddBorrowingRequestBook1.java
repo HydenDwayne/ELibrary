@@ -27,8 +27,6 @@ public class AddBorrowingRequestBook1 extends JPanel {
 	
 	private final BorrowBookModal dialog;
 
-	static String imgFilePath = FilePath.getImgFilePath();
-
 	public AddBorrowingRequestBook1(BorrowBookModal dialog) {
 		this.dialog = dialog;
 
@@ -52,7 +50,7 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		headerWrapper.setOpaque(false);
 
 		// elib logo
-		ImageIcon icon = new ImageIcon(imgFilePath + "elib_logo.png");
+		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
 		Image image = icon.getImage();
 		Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(scaledImage);
