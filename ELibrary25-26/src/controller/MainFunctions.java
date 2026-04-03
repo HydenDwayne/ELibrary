@@ -1678,13 +1678,13 @@ public class MainFunctions extends JPanel {
 
     public static void main(String[] args) {
     	Dashboard frame = new Dashboard();
-//    	frame.setVisible(false);
-//    	LoginWindow lw = new LoginWindow(frame);
-//    	lw.setVisible(false);
-////    	FacilityLogin fl = new FacilityLogin(frame, lw);
-////    	RegisterPatron rp = new RegisterPatron(frame, lw);
-////    	ReportLNF lnf = new ReportLNF(frame, lw);
-//    	LoginWindow login = new LoginWindow(frame);
+    	frame.setVisible(false);
+    	LoginWindow lw = new LoginWindow(frame);
+    	lw.setVisible(false);
+//    	FacilityLogin fl = new FacilityLogin(frame, lw);
+//    	RegisterPatron rp = new RegisterPatron(frame, lw);
+//    	ReportLNF lnf = new ReportLNF(frame, lw);
+    	LoginWindow login = new LoginWindow(frame);
 
         
     }
