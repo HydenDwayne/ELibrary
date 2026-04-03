@@ -21,6 +21,8 @@ public class Fiction extends JPanel {
     JPanel tableData;
     MainFunctions comp;
     
+    String searchQuery = "";
+    
 
     public Fiction() {
 
@@ -138,7 +140,7 @@ public class Fiction extends JPanel {
         tableData = new JPanel();
         tableData.setOpaque(false);
 
-        reloadData();
+        reloadData(searchQuery);
 
         tableData.setLayout(new BorderLayout());
 
@@ -171,9 +173,11 @@ public class Fiction extends JPanel {
         return minColumnHeight;
     }
     
-    public void reloadData() {
+    public void reloadData(String searchQuery) {
         tableData.removeAll();
-        comp = new MainFunctions(this);
+        comp = new MainFunctions(this, searchQuery);
         tableData.add(comp, BorderLayout.NORTH);
+        revalidate();
+        repaint();
     }
 }

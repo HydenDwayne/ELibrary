@@ -4,21 +4,25 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDAOImp implements DAOShowBook, DAOInsertBook {
+public class BookDAOImp implements DAOInsertBook {
 
 	private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
 	private final String USER = "Pia";
 	private final String PASSWORD = "passwordPia";
 
-	@Override
-	public List<DAOBook> getAllBooks(String collection) {
+	public List<DAOBook> getAllBooks(String collection, String searchQuery) {
 
 		List<DAOBook> books = new ArrayList<>();
 
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-				PreparedStatement stmt = conn.prepareStatement("SELECT * FROM showAllBooks WHERE CollectionCode = ?")) {
+				CallableStatement stmt = conn.prepareCall("{CALL searchBooks(?,?)}")) {
 
-			stmt.setString(1, collection);
+			if (searchQuery == null) {
+				stmt.setString(1, "");
+			} else {
+				stmt.setString(1, searchQuery);
+			}
+			stmt.setString(2, collection);
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -104,13 +108,13 @@ public class BookDAOImp implements DAOShowBook, DAOInsertBook {
 			stmt.setString(1, callNumber);
 
 			ResultSet checker = stmt.executeQuery();
-			
+
 			String bookType = "";
-			
+
 			while (checker.next()) {
-			bookType = checker.getString("BookType");
+				bookType = checker.getString("BookType");
 			}
-			
+
 			if (bookType.equals("NBB")) {
 				try (CallableStatement cs = conn.prepareCall("{CALL getNonBorrowableBookDetails(?)}")) {
 
@@ -119,20 +123,13 @@ public class BookDAOImp implements DAOShowBook, DAOInsertBook {
 					String bookTypeFull = "NON-BORROWABLE BOOK";
 
 					ResultSet rs = cs.executeQuery();
-					
+
 					rs.next();
-					
-					String[] bookDetails = {
-							rs.getString("CallNumber"),
-							rs.getString("Title"),
-							rs.getString("Author"),
-							rs.getString("PublicationYear"),
-							bookType,
-							rs.getString("CollectionName"),
-							rs.getString("Classification"),
-							rs.getString("SeriesTitle"),
-					};
-					
+
+					String[] bookDetails = { rs.getString("CallNumber"), rs.getString("Title"), rs.getString("Author"),
+							rs.getString("PublicationYear"), bookType, rs.getString("CollectionName"),
+							rs.getString("Classification"), rs.getString("SeriesTitle"), };
+
 					return bookDetails;
 
 				} catch (SQLException e) {
@@ -148,20 +145,13 @@ public class BookDAOImp implements DAOShowBook, DAOInsertBook {
 					String bookTypeFull = "BORROWABLE BOOK";
 
 					ResultSet rs = cs.executeQuery();
-					
+
 					rs.next();
-	
-					String[] bookDetails = {
-							rs.getString("CallNumber"),
-							rs.getString("Title"),
-							rs.getString("Author"),
-							rs.getString("PublicationYear"),
-							bookType,
-							rs.getString("CollectionName"),
-							rs.getString("Classification"),
-							rs.getString("AvailabilityStatus"),
-					};
-					
+
+					String[] bookDetails = { rs.getString("CallNumber"), rs.getString("Title"), rs.getString("Author"),
+							rs.getString("PublicationYear"), bookType, rs.getString("CollectionName"),
+							rs.getString("Classification"), rs.getString("AvailabilityStatus"), };
+
 					return bookDetails;
 
 				} catch (SQLException e) {
@@ -171,7 +161,6 @@ public class BookDAOImp implements DAOShowBook, DAOInsertBook {
 			} else {
 				return null;
 			}
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();

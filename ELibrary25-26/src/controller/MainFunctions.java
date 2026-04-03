@@ -93,39 +93,39 @@ public class MainFunctions extends JPanel {
         
     }
 
-    public MainFunctions(Bulacaniana bulacanianaTab) {
+    public MainFunctions(Bulacaniana bulacanianaTab, String searchQuery) {
         this.bulacanianaTab = bulacanianaTab;
-        showBulacanianaBooks();
+        showBulacanianaBooks(searchQuery);
     }
 
-    public MainFunctions(Fiction fictionTab) {
+    public MainFunctions(Fiction fictionTab, String searchQuery) {
         this.fictionTab = fictionTab;
-        showFictionBooks();
+        showFictionBooks(searchQuery);
     }
 
-    public MainFunctions(Filipiniana filipinianaTab) {
+    public MainFunctions(Filipiniana filipinianaTab, String searchQuery) {
         this.filipinianaTab = filipinianaTab;
-        showFilipinianaBooks();
+        showFilipinianaBooks(searchQuery);
     }
 
-    public MainFunctions(GeneralCirculation genSecTab) {
+    public MainFunctions(GeneralCirculation genSecTab, String searchQuery) {
         this.genSecTab = genSecTab;
-        showGenSecBooks();
+        showGenSecBooks(searchQuery);
     }
 
-    public MainFunctions(Reference referenceTab) {
+    public MainFunctions(Reference referenceTab, String searchQuery) {
         this.referenceTab = referenceTab;
-        showReferenceBooks();
+        showReferenceBooks(searchQuery);
     }
 
-    public MainFunctions(Reserve reserveTab) {
+    public MainFunctions(Reserve reserveTab, String searchQuery) {
         this.reserveTab = reserveTab;
-        showReserveBooks();
+        showReserveBooks(searchQuery);
     }
 
-    public MainFunctions(ThesesAndDissertations TaDTab) {
+    public MainFunctions(ThesesAndDissertations TaDTab, String searchQuery) {
         this.TaDTab = TaDTab;
-        showThesisAndDissertationBooks();
+        showThesisAndDissertationBooks(searchQuery);
     }
     
     public void showPatronDetails() {
@@ -699,8 +699,8 @@ public class MainFunctions extends JPanel {
         add(cardScrollbar);
     }
 
-    public void showBulacanianaBooks() {
-        List<DAOBook> books = daoBook.getAllBooks("BulColl");
+    public void showBulacanianaBooks(String searchQuery) {
+        List<DAOBook> books = daoBook.getAllBooks("BulColl",searchQuery);
 
         // loadPatrons();
         int minColumnHeight = bulacanianaTab.getMinColumnHeight();
@@ -838,8 +838,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showFictionBooks() {
-        List<DAOBook> books = daoBook.getAllBooks("FictColl");
+    public void showFictionBooks(String searchQuery) {
+        List<DAOBook> books = daoBook.getAllBooks("FictColl",searchQuery);
 
         // loadPatrons();
         int minColumnHeight = fictionTab.getMinColumnHeight();
@@ -971,8 +971,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showFilipinianaBooks() {
-        List<DAOBook> books = daoBook.getAllBooks("FiliColl");
+    public void showFilipinianaBooks(String searchQuery) {
+        List<DAOBook> books = daoBook.getAllBooks("FiliColl", searchQuery);
 
         // loadPatrons();
         int minColumnHeight = filipinianaTab.getMinColumnHeight();
@@ -1104,8 +1104,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showGenSecBooks() {
-        List<DAOBook> books = daoBook.getAllBooks("CircColl");
+    public void showGenSecBooks(String searchQuery) {
+        List<DAOBook> books = daoBook.getAllBooks("CircColl", searchQuery);
 
         // loadPatrons();
         int minColumnHeight = genSecTab.getMinColumnHeight();
@@ -1237,8 +1237,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showReferenceBooks() {
-        List<DAOBook> books = daoBook.getAllBooks("RefColl");
+    public void showReferenceBooks(String searchQuery) {
+        List<DAOBook> books = daoBook.getAllBooks("RefColl", searchQuery);
 
         // loadPatrons();
         int minColumnHeight = referenceTab.getMinColumnHeight();
@@ -1370,8 +1370,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showReserveBooks() {
-        List<DAOBook> books = daoBook.getAllBooks("ResColl");
+    public void showReserveBooks(String searchQuery) {
+        List<DAOBook> books = daoBook.getAllBooks("ResColl", searchQuery);
 
         // loadPatrons();
         int minColumnHeight = reserveTab.getMinColumnHeight();
@@ -1503,8 +1503,8 @@ public class MainFunctions extends JPanel {
         }
     }
 
-    public void showThesisAndDissertationBooks() {
-        List<DAOBook> books = daoBook.getAllBooks("T&D");
+    public void showThesisAndDissertationBooks(String searchQuery) {
+        List<DAOBook> books = daoBook.getAllBooks("T&D", searchQuery);
 
         // loadPatrons();
         int minColumnHeight = TaDTab.getMinColumnHeight();

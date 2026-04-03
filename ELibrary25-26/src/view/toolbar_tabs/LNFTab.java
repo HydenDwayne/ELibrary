@@ -77,7 +77,7 @@ public class LNFTab extends JPanel {
         searchItem.addKeyListener(new KeyAdapter() {
 
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyReleased(KeyEvent e) {
 				searchQuery = searchItem.getText();
 				reloadData(searchQuery);
 			}
