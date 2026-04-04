@@ -20,6 +20,8 @@ import view.toolbar_tabs.*;
 import view.modal.*;
 import view.modal.books_modal.*;
 import view.modal.ims_modal.*;
+import view.modal.lost_and_found_modal.AddLostAndFoundModal;
+import view.modal.lost_and_found_modal.MarkAsFoundModal;
 import view.modal.patron_modal.ViewEmployeeModal;
 import view.modal.patron_modal.ViewStudentModal;
 
@@ -391,6 +393,11 @@ public class MainFunctions extends JPanel {
                 roundedStatus.setPreferredSize(new Dimension(minColumnWidth, 20));
                 roundedStatus.setBackground(Color.decode("#ff3131"));
                 roundedStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                
+                col7.addActionListener(e -> {
+                	Window parent = SwingUtilities.getWindowAncestor(this);
+                	new MarkAsFoundModal(parent, item.getItemNum());
+                });
 
                 col5.setText("Missing");
                 col5.setFont(poppins10Style);
@@ -421,6 +428,11 @@ public class MainFunctions extends JPanel {
                 roundedStatus.setPreferredSize(new Dimension(minColumnWidth + 20, 20));
                 roundedStatus.setBackground(Color.decode("#e8bf1a"));
                 roundedStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+                
+                col7.addActionListener(e -> {
+                	Window parent = SwingUtilities.getWindowAncestor(this);
+                	new MarkAsFoundModal(parent, item.getItemNum());
+                });
 
                 col5.setText("Surrendered");
                 col5.setFont(poppins10Style);
