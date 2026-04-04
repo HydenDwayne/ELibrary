@@ -2,6 +2,9 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.BookController;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,255 +15,329 @@ import view.fonts.Fonts;
 
 public class AddBook extends JPanel {
 
-    static final Color MAROON = new Color(132, 43, 40);
-    static final Color LIGHT_PINK = new Color(250, 236, 238);
-    static final Color DARK_TEXT = new Color(109, 35, 33);
-    static final Color FIELD_BORDER = new Color(146, 76, 74);
+	static final Color MAROON = new Color(132, 43, 40);
+	static final Color LIGHT_PINK = new Color(250, 236, 238);
+	static final Color DARK_TEXT = new Color(109, 35, 33);
+	static final Color FIELD_BORDER = new Color(146, 76, 74);
 
-    static final int PANEL_RADIUS = 20;
-    static final int FIELD_RADIUS = 15;
+	static final int PANEL_RADIUS = 20;
+	static final int FIELD_RADIUS = 15;
 
+	public RoundedTextField callNumberField;
+	public RoundedTextField titleField;
+	public RoundedTextField authorField;
+	public RoundedTextField seriesField;
 
-    RoundedTextField callNumberField;
-    RoundedTextField titleField;
-    RoundedTextField authorField;
-    RoundedTextField seriesField;
+	public RoundedComboBox<String> yearCombo;
+	public RoundedComboBox<String> classCombo;
+	public RoundedComboBox<String> collectionCombo;
+	public RoundedComboBox<String> typeCombo;
 
-    JPanel innerBody;
-    GridBagConstraints gbc;
-    int seriesRowIndex;
+	JPanel innerBody;
+	GridBagConstraints gbc;
+	int seriesRowIndex;
 
-    RoundedComboBox<String> typeCombo;
+	List<Component> dynamicComponents = new ArrayList<>();
 
-    List<Component> dynamicComponents = new ArrayList<>();
+	/* ================= FONTS ================= */
 
-    public AddBook() {
+	Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
+	Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
+	Font poppins16 = new Fonts("Poppins", 16f).getAppliedFont();
+	Font poppins12 = new Fonts("Poppins", 12f).getAppliedFont();
+	Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-        setOpaque(false);
-        setLayout(new BorderLayout());
+	public AddBook() {
 
-        /* ================= FONTS ================= */
+		setOpaque(false);
+		setLayout(new BorderLayout());
 
-        Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
-        Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
-        Font poppins16   = new Fonts("Poppins", 16f).getAppliedFont();
-        Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
-        Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
+		/* ================= MODAL ================= */
 
-        /* ================= MODAL ================= */
+		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
+		modal.setLayout(new BorderLayout());
+		modal.setPreferredSize(new Dimension(500, 600));
+		modal.setBackground(LIGHT_PINK);
 
-        RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
-        modal.setLayout(new BorderLayout());
-        modal.setPreferredSize(new Dimension(500, 600));
-        modal.setBackground(LIGHT_PINK);
+		/* ================= HEADER ================= */
 
-        /* ================= HEADER ================= */
+		JPanel header = new JPanel();
+		header.setBackground(MAROON);
+		header.setPreferredSize(new Dimension(500, 100));
+		header.setBorder(new EmptyBorder(10, 0, 10, 10));
 
-        JPanel header = new JPanel();
-        header.setBackground(MAROON);
-        header.setPreferredSize(new Dimension(500, 100));
-        header.setBorder(new EmptyBorder(10, 0, 10, 10));
+		JPanel headerWrapper = new JPanel(new BorderLayout());
+		headerWrapper.setPreferredSize(new Dimension(450, 80));
+		headerWrapper.setOpaque(false);
 
-        JPanel headerWrapper = new JPanel(new BorderLayout());
-        headerWrapper.setPreferredSize(new Dimension(450, 80));
-        headerWrapper.setOpaque(false);
+		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
+		Image scaled = icon.getImage().getScaledInstance(110, 50, Image.SCALE_SMOOTH);
+		JLabel logo = new JLabel(new ImageIcon(scaled));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
 
-        ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
-        Image scaled = icon.getImage().getScaledInstance(110, 50, Image.SCALE_SMOOTH);
-        JLabel logo = new JLabel(new ImageIcon(scaled));
-        logo.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel headerLabel = new JLabel("BOOKS");
+		headerLabel.setFont(introRust26);
+		headerLabel.setForeground(Color.WHITE);
+		headerLabel.setBorder(new EmptyBorder(0, 70, 0, 0));
 
-        JLabel headerLabel = new JLabel("BOOKS");
-        headerLabel.setFont(introRust26);
-        headerLabel.setForeground(Color.WHITE);
-        headerLabel.setBorder(new EmptyBorder(0, 70, 0, 0));
+		headerWrapper.add(logo, BorderLayout.WEST);
+		headerWrapper.add(headerLabel, BorderLayout.CENTER);
+		header.add(headerWrapper);
 
-        headerWrapper.add(logo, BorderLayout.WEST);
-        headerWrapper.add(headerLabel, BorderLayout.CENTER);
-        header.add(headerWrapper);
+		/* ================= BODY ================= */
 
-        /* ================= BODY ================= */
+		JPanel body = new JPanel(new BorderLayout());
+		body.setOpaque(false);
+		body.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel body = new JPanel(new BorderLayout());
-        body.setOpaque(false);
-        body.setBorder(new EmptyBorder(10, 10, 10, 10));
+		JLabel bodyTitle = new JLabel("ADD A BOOK RECORD", SwingConstants.CENTER);
+		bodyTitle.setFont(introRust24);
+		bodyTitle.setForeground(DARK_TEXT);
+		body.add(bodyTitle, BorderLayout.NORTH);
 
-        JLabel bodyTitle = new JLabel("ADD A BOOK RECORD", SwingConstants.CENTER);
-        bodyTitle.setFont(introRust24);
-        bodyTitle.setForeground(DARK_TEXT);
-        body.add(bodyTitle, BorderLayout.NORTH);
+		innerBody = new JPanel(new GridBagLayout());
+		innerBody.setOpaque(false);
+		innerBody.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        innerBody = new JPanel(new GridBagLayout());
-        innerBody.setOpaque(false);
-        innerBody.setBorder(new EmptyBorder(10, 10, 10, 10));
+		gbc = new GridBagConstraints();
+		gbc.gridy = -1;
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        gbc = new GridBagConstraints();
-        gbc.gridy = -1;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+		/* ================= STATIC FIELDS ================= */
 
-        /* ================= STATIC FIELDS ================= */
+		// Call Number
+		gbc.gridy++;
+		gbc.gridx = 0;
+		JLabel callNumberLabel = new JLabel("Call Number:");
+		callNumberLabel.setFont(poppins16);
+		callNumberLabel.setForeground(DARK_TEXT);
+		innerBody.add(callNumberLabel, gbc);
 
-        // Call Number
-        gbc.gridy++;
-        gbc.gridx = 0;
-        innerBody.add(label("Call Number:", poppins16), gbc);
+		gbc.gridx = 1;
+		callNumberField = new RoundedTextField(19, FIELD_RADIUS);
+		callNumberField.setFont(poppins10);
+		callNumberField.setPlaceholder("Enter call number");
+		callNumberField.setBorderColor(FIELD_BORDER);
+		callNumberField.setBorderThickness(1);
+		innerBody.add(callNumberField, gbc);
 
-        gbc.gridx = 1;
-        callNumberField = textField("Enter call number", poppins10);
-        innerBody.add(callNumberField, gbc);
+		// Title
+		gbc.gridy++;
+		gbc.gridx = 0;
+		JLabel titleLabel = new JLabel("Title:");
+		titleLabel.setFont(poppins16);
+		titleLabel.setForeground(DARK_TEXT);
+		innerBody.add(titleLabel, gbc);
 
-        // Title
-        gbc.gridy++;
-        gbc.gridx = 0;
-        innerBody.add(label("Title:", poppins16), gbc);
+		gbc.gridx = 1;
+		titleField = new RoundedTextField(19, FIELD_RADIUS);
+		titleField.setFont(poppins10);
+		titleField.setPlaceholder("Enter book title");
+		titleField.setBorderColor(FIELD_BORDER);
+		titleField.setBorderThickness(1);
+		innerBody.add(titleField, gbc);
 
-        gbc.gridx = 1;
-        titleField = textField("Enter book title", poppins10);
-        innerBody.add(titleField, gbc);
+		// Author
+		gbc.gridy++;
+		gbc.gridx = 0;
+		JLabel authorLabel = new JLabel("Author:");
+		authorLabel.setFont(poppins16);
+		authorLabel.setForeground(DARK_TEXT);
+		innerBody.add(authorLabel, gbc);
 
-        // Author
-        gbc.gridy++;
-        gbc.gridx = 0;
-        innerBody.add(label("Author:", poppins16), gbc);
+		gbc.gridx = 1;
+		authorField = new RoundedTextField(19, FIELD_RADIUS);
+		authorField.setFont(poppins10);
+		authorField.setPlaceholder("Enter author name");
+		authorField.setBorderColor(FIELD_BORDER);
+		authorField.setBorderThickness(1);
+		innerBody.add(authorField, gbc);
 
-        gbc.gridx = 1;
-        authorField = textField("Enter author name", poppins10);
-        innerBody.add(authorField, gbc);
+		// Author
+		gbc.gridy++;
+		gbc.gridx = 0;
+		JLabel yearLabel = new JLabel("Publication Year:");
+		yearLabel.setFont(poppins16);
+		yearLabel.setForeground(DARK_TEXT);
+		innerBody.add(yearLabel, gbc);
 
-        // Classification
-        gbc.gridy++;
-        gbc.gridx = 0;
-        innerBody.add(label("Classification Code:", poppins16), gbc);
+		int startYear = 1980;
+		int endYear = 2026;
 
-        gbc.gridx = 1;
-        RoundedComboBox<String> classCombo =
-                new RoundedComboBox<>(new String[]{"A","B","C","D","E","F"}, FIELD_RADIUS);
-        styleCombo(classCombo, poppins10);
-        innerBody.add(classCombo, gbc);
+		// Array size must be positive
+		String[] years = new String[endYear - startYear + 1];
 
-        // ✅ NEW COMBO ROW (always visible)
-        gbc.gridy++;
-        gbc.gridx = 0;
-        innerBody.add(label("Collection Code:", poppins16), gbc);
+		// Fill array from endYear down to startYear
+		for (int i = 0; i < years.length; i++) {
+		    years[i] = String.valueOf(endYear - i);
+		}
 
-        gbc.gridx = 1;
-        RoundedComboBox<String> collectionCombo =
-                new RoundedComboBox<>(new String[]{
-                        "Bulacaniana",
-                        "General Circulation",
-                        "Fiction",
-                        "Filipiniana",
-                        "Reference",
-                        "Reserve"
-                }, FIELD_RADIUS);
-        styleCombo(collectionCombo, poppins10);
-        innerBody.add(collectionCombo, gbc);
+		gbc.gridx = 1;
+		yearCombo = new RoundedComboBox<>(years, FIELD_RADIUS);
+		yearCombo.setFont(poppins10);
+		yearCombo.setPlaceholder("Select");
+		yearCombo.setBorderColor(FIELD_BORDER);
+		yearCombo.setBorderThickness(1);
+		yearCombo.setPreferredSize(new Dimension(200, 30));
+		innerBody.add(yearCombo, gbc);
 
-        // Book Type
-        gbc.gridy++;
-        gbc.gridx = 0;
-        innerBody.add(label("Book Type:", poppins16), gbc);
+		// Classification
+		gbc.gridy++;
+		gbc.gridx = 0;
+		JLabel classLabel = new JLabel("Classification Code:");
+		classLabel.setFont(poppins16);
+		classLabel.setForeground(DARK_TEXT);
+		innerBody.add(classLabel, gbc);
 
-        gbc.gridx = 1;
-        typeCombo = new RoundedComboBox<>(
-                new String[]{"BORROWABLE", "NON-BORROWABLE"}, FIELD_RADIUS);
-        styleCombo(typeCombo, poppins10);
-        innerBody.add(typeCombo, gbc);
+		new BookController(this, gbc, poppins10, innerBody, FIELD_RADIUS, FIELD_BORDER);
 
-        // Save index for Series Title insertion
-        seriesRowIndex = gbc.gridy + 1;
+		// Collection
+		gbc.gridy++;
+		gbc.gridx = 0;
+		JLabel collectionLabel = new JLabel("Collection Code:");
+		collectionLabel.setFont(poppins16);
+		collectionLabel.setForeground(DARK_TEXT);
+		innerBody.add(collectionLabel, gbc);
 
-        typeCombo.addActionListener(e -> updateSeriesRow());
+		gbc.gridx = 1;
+		collectionCombo = new RoundedComboBox<>(
+				new String[] { "Bulacaniana Collection", "General Circulation Collection", "Fiction Collection", "Filipiniana Collection", "Reference Collection", "Reserve Collection", "Theses and Dissertations" },
+				FIELD_RADIUS);
+		collectionCombo.setFont(poppins10);
+		collectionCombo.setPlaceholder("Select");
+		collectionCombo.setBorderColor(FIELD_BORDER);
+		collectionCombo.setBorderThickness(1);
+		collectionCombo.setPreferredSize(new Dimension(200, 30));
+		innerBody.add(collectionCombo, gbc);
 
-        body.add(innerBody, BorderLayout.CENTER);
+		// Book Type
+		gbc.gridy++;
+		gbc.gridx = 0;
+		JLabel typeLabel = new JLabel("Book Type:");
+		typeLabel.setFont(poppins16);
+		typeLabel.setForeground(DARK_TEXT);
+		innerBody.add(typeLabel, gbc);
 
-        /* ================= FOOTER ================= */
+		gbc.gridx = 1;
+		typeCombo = new RoundedComboBox<>(new String[] { "BORROWABLE", "NON-BORROWABLE" }, FIELD_RADIUS);
+		typeCombo.setFont(poppins10);
+		typeCombo.setPlaceholder("Select");
+		typeCombo.setBorderColor(FIELD_BORDER);
+		typeCombo.setBorderThickness(1);
+		typeCombo.setPreferredSize(new Dimension(200, 30));
+		innerBody.add(typeCombo, gbc);
 
-        JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
-        footer.setBorder(new EmptyBorder(0, 35, 10, 35));
-        footer.setOpaque(false);
+		seriesRowIndex = gbc.gridy + 1;
+		typeCombo.addActionListener(e -> updateSeriesRow());
 
-        RoundedButton confirmBtn = new RoundedButton("CONFIRM & SAVE", FIELD_RADIUS);
-        confirmBtn.setFont(poppins12);
-        confirmBtn.setBackground(MAROON);
-        confirmBtn.setForeground(Color.WHITE);
-        footer.add(confirmBtn);
+		body.add(innerBody, BorderLayout.CENTER);
 
-        RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
-        cancelBtn.setFont(poppins12);
-        cancelBtn.setForeground(MAROON);
-        cancelBtn.setBorderColor(MAROON);
-        cancelBtn.setBorderThickness(1);
-        cancelBtn.addActionListener(e -> {
-            Window w = SwingUtilities.getWindowAncestor(this);
-            if (w instanceof JDialog) w.dispose();
-        });
-        footer.add(cancelBtn);
+		/* ================= FOOTER ================= */
 
-        modal.add(header, BorderLayout.NORTH);
-        modal.add(body, BorderLayout.CENTER);
-        modal.add(footer, BorderLayout.SOUTH);
+		JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
+		footer.setBorder(new EmptyBorder(0, 35, 10, 35));
+		footer.setOpaque(false);
 
-        add(modal, BorderLayout.CENTER);
-    }
+		RoundedButton confirmBtn = new RoundedButton("CONFIRM & SAVE", FIELD_RADIUS);
+		confirmBtn.setFont(poppins12);
+		confirmBtn.setBackground(MAROON);
+		confirmBtn.setForeground(Color.WHITE);
+		confirmBtn.addActionListener(e -> {
 
-    /* ================= DYNAMIC SERIES ROW ================= */
+			String callnumberTxt = callNumberField.getRealText().trim();
+			String titleTxt = titleField.getRealText().trim();
+			String authorTxt = authorField.getRealText().trim();
+			String yearTxt = yearCombo.getSelectedItem().toString();
+			
+			String seriesTxt = "";
+			
+			if (seriesField == null) {
+				seriesTxt = "";
+			} else {
+				seriesTxt = seriesField.getRealText().trim();
+			}
+			
+			
+			String classTxt = classCombo.getSelectedItem().toString();
+			String collectionTxt = collectionCombo.getSelectedItem().toString();
+			String typeTxt = typeCombo.getSelectedItem().toString();
 
-    private void updateSeriesRow() {
+			if ((callnumberTxt == null || titleTxt == null || authorTxt == null || yearTxt == null || classTxt == null
+					|| collectionTxt == null || typeTxt == null) || (typeTxt.equals("NON-BORROWABLE") && seriesTxt == null)) {
+				JOptionPane.showMessageDialog(null, "Fill in all the fields");
+			} else {
+				String[] bookDetails = { 
+						callnumberTxt, 
+						titleTxt, 
+						authorTxt, 
+						yearTxt, 
+						typeTxt, 
+						collectionTxt, 
+						classTxt, 
+						seriesTxt };
 
-        // Remove old dynamic components
-        for (Component c : dynamicComponents) {
-            innerBody.remove(c);
-        }
-        dynamicComponents.clear();
+				new BookController(bookDetails);
+				Window w = SwingUtilities.getWindowAncestor(this);
+				if (w instanceof JDialog)
+					w.dispose();
+			}
 
-        if ("NON-BORROWABLE".equals(typeCombo.getSelectedItem())) {
+		});
+		footer.add(confirmBtn);
 
-            gbc.gridy = seriesRowIndex;
-            gbc.gridx = 0;
+		RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
+		cancelBtn.setFont(poppins12);
+		cancelBtn.setForeground(MAROON);
+		cancelBtn.setBorderColor(MAROON);
+		cancelBtn.setBorderThickness(1);
+		cancelBtn.addActionListener(e -> {
+			Window w = SwingUtilities.getWindowAncestor(this);
+			if (w instanceof JDialog)
+				w.dispose();
+		});
+		footer.add(cancelBtn);
 
-            JLabel seriesLbl = label("Series Title:", new Fonts("Poppins", 16f).getAppliedFont());
-            innerBody.add(seriesLbl, gbc);
-            dynamicComponents.add(seriesLbl);
+		modal.add(header, BorderLayout.NORTH);
+		modal.add(body, BorderLayout.CENTER);
+		modal.add(footer, BorderLayout.SOUTH);
 
-            gbc.gridx = 1;
-            seriesField = new RoundedTextField(19, FIELD_RADIUS);
-            seriesField.setFont(new Fonts("Poppins", 10f).getAppliedFont());
-            seriesField.setPlaceholder("Enter series title");
-            seriesField.setBorderColor(FIELD_BORDER);
-            seriesField.setBorderThickness(1);
-            innerBody.add(seriesField, gbc);
-            dynamicComponents.add(seriesField);
-        }
+		add(modal, BorderLayout.CENTER);
+	}
 
-        innerBody.revalidate();
-        innerBody.repaint();
-    }
+	/* ================= DYNAMIC SERIES ROW ================= */
 
-    /* ================= SMALL INLINE UTILITIES (NOT HELPERS FOR ROWS) ================= */
+	private void updateSeriesRow() {
 
-    private JLabel label(String text, Font font) {
-        JLabel lbl = new JLabel(text);
-        lbl.setFont(font);
-        lbl.setForeground(DARK_TEXT);
-        return lbl;
-    }
+		// Remove old dynamic components
+		for (Component c : dynamicComponents) {
+			innerBody.remove(c);
+		}
+		dynamicComponents.clear();
 
-    private RoundedTextField textField(String placeholder, Font font) {
-        RoundedTextField tf = new RoundedTextField(19, FIELD_RADIUS);
-        tf.setFont(font);
-        tf.setPlaceholder(placeholder);
-        tf.setBorderColor(FIELD_BORDER);
-        tf.setBorderThickness(1);
-        return tf;
-    }
+		if ("NON-BORROWABLE".equals(typeCombo.getSelectedItem())) {
 
-    private void styleCombo(RoundedComboBox<String> combo, Font font) {
-        combo.setFont(font);
-        combo.setPlaceholder("Select");
-        combo.setBorderColor(FIELD_BORDER);
-        combo.setBorderThickness(1);
-        combo.setPreferredSize(new Dimension(200, 30));
-    }
+			gbc.gridy = seriesRowIndex;
+			gbc.gridx = 0;
+
+			JLabel lbl = new JLabel("Series Title:");
+			lbl.setFont(poppins16);
+			lbl.setForeground(DARK_TEXT);
+
+			innerBody.add(lbl, gbc);
+			dynamicComponents.add(lbl);
+
+			gbc.gridx = 1;
+			seriesField = new RoundedTextField(19, FIELD_RADIUS);
+			seriesField.setFont(new Fonts("Poppins", 10f).getAppliedFont());
+			seriesField.setPlaceholder("Enter series title");
+			seriesField.setBorderColor(FIELD_BORDER);
+			seriesField.setBorderThickness(1);
+			innerBody.add(seriesField, gbc);
+			dynamicComponents.add(seriesField);
+		}
+
+		innerBody.revalidate();
+		innerBody.repaint();
+	}
 }

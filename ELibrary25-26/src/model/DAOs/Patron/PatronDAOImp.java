@@ -10,26 +10,25 @@ public class PatronDAOImp {
 	private final String USER = "Pia";
 	private final String PASSWORD = "passwordPia";
 
-	
 	public List<DAOPatron> getAllUsers(String searchQuery, String campuses, String types) {
 
 		List<DAOPatron> patrons = new ArrayList<>();
 
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 				CallableStatement stmt = conn.prepareCall("{CALL searchPatron(?,?,?)}")) {
-			
+
 			if (searchQuery == null) {
 				stmt.setString(1, "");
 			} else {
 				stmt.setString(1, searchQuery);
 			}
-			
+
 			if (campuses == null) {
 				stmt.setString(2, "");
 			} else {
 				stmt.setString(2, campuses);
 			}
-			
+
 			if (types == null) {
 				stmt.setString(3, "");
 			} else {
@@ -57,48 +56,46 @@ public class PatronDAOImp {
 	}
 
 	public String[] getCollegesPerCampus(String campusCode) {
-	    List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>();
 
-	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-	         PreparedStatement stmt = conn.prepareStatement(
-	             "SELECT CollegeCode FROM COLLEGE WHERE CampCode = ?")) {
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement stmt = conn.prepareStatement("SELECT CollegeCode FROM COLLEGE WHERE CampCode = ?")) {
 
-	        stmt.setString(1, campusCode); // DB code
+			stmt.setString(1, campusCode); // DB code
 
-	        ResultSet rs = stmt.executeQuery();
-	        while (rs.next()) {
-	            list.add(rs.getString("CollegeCode"));
-	        }
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("CollegeCode"));
+			}
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    return list.toArray(new String[0]);
+		return list.toArray(new String[0]);
 	}
 
 	public String[] getPrograms(String collegeCode, String campusCode) {
-	    List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>();
 
-	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-	         PreparedStatement stmt = conn.prepareStatement(
-	             "SELECT ProgramCode FROM PROGRAM WHERE CollCode = ? AND CampusCode = ?")) {
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement stmt = conn
+						.prepareStatement("SELECT ProgramCode FROM PROGRAM WHERE CollCode = ? AND CampusCode = ?")) {
 
-	        stmt.setString(1, collegeCode);
-	        stmt.setString(2, campusCode); // ← already DB code
+			stmt.setString(1, collegeCode);
+			stmt.setString(2, campusCode); // ← already DB code
 
-	        ResultSet rs = stmt.executeQuery();
-	        while (rs.next()) {
-	            list.add(rs.getString("ProgramCode"));
-	        }
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getString("ProgramCode"));
+			}
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    return list.toArray(new String[0]);
+		return list.toArray(new String[0]);
 	}
-
 
 	public String[] getProgramsByCampus(String campusCode) {
 		List<String> list = new ArrayList<>();
@@ -186,7 +183,7 @@ public class PatronDAOImp {
 			cs.setString(5, emailAddress);
 			cs.setString(6, contactNumber);
 			cs.setString(7, homeAddress);
-			
+
 			switch (campCode.toLowerCase()) {
 			case "main":
 				cs.setString(8, "M");
@@ -209,7 +206,6 @@ public class PatronDAOImp {
 			default:
 				cs.setString(8, campCode);
 			}
-			
 
 			// ── Student
 			cs.setDate(9, yearEnrolled);
@@ -262,89 +258,126 @@ public class PatronDAOImp {
 			cs.execute();
 
 			while (cs.getMoreResults() || cs.getUpdateCount() != -1) {
-			    int count = cs.getUpdateCount();
-			    if (count > 0) return true;
+				int count = cs.getUpdateCount();
+				if (count > 0)
+					return true;
 			}
 
 			return false;
-			
 
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			return false;
 		}
 	}
-	
-	public boolean insertEmployeeRecord(
-	        String patronID,
-	        String firstName,
-	        String middleInitial,
-	        String lastName,
-	        String emailAddress,
-	        String contactNumber,
-	        String homeAddress,
-	        String campCode,
 
-	        boolean administrator,
-	        boolean libraryStaff,
-	        boolean faculty,
-	        java.sql.Date dateHired,
+	public boolean insertEmployeeRecord(String patronID, String firstName, String middleInitial, String lastName,
+			String emailAddress, String contactNumber, String homeAddress, String campCode,
 
-	        String adminPosition,
-	        String assignmentCode,
-	        String staffPosition,
+			boolean administrator, boolean libraryStaff, boolean faculty, java.sql.Date dateHired,
 
-	        String facultyRank,
-	        String colCode
-	) {
+			String adminPosition, String assignmentCode, String staffPosition,
 
-	    String sql = "{CALL addNewRecord_Patron_Employee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+			String facultyRank, String colCode) {
+
+		String sql = "{CALL addNewRecord_Patron_Employee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				CallableStatement cs = conn.prepareCall(sql)) {
+
+			// ── Patron
+			cs.setString(1, patronID);
+			cs.setString(2, firstName);
+			cs.setString(3, middleInitial);
+			cs.setString(4, lastName);
+			cs.setString(5, emailAddress);
+			cs.setString(6, contactNumber);
+			cs.setString(7, homeAddress);
+			cs.setString(8, campCode); // ✅ already normalized
+
+			// ── Employee flags
+			cs.setBoolean(9, administrator);
+			cs.setBoolean(10, libraryStaff);
+			cs.setBoolean(11, faculty);
+			cs.setDate(12, dateHired);
+
+			// ── Administrator
+			if (adminPosition != null)
+				cs.setString(13, adminPosition);
+			else
+				cs.setNull(13, Types.VARCHAR);
+
+			// ── Library Staff
+			if (assignmentCode != null)
+				cs.setString(14, assignmentCode);
+			else
+				cs.setNull(14, Types.VARCHAR);
+
+			if (staffPosition != null)
+				cs.setString(15, staffPosition);
+			else
+				cs.setNull(15, Types.VARCHAR);
+
+			// ── Faculty
+			if (facultyRank != null)
+				cs.setString(16, facultyRank);
+			else
+				cs.setNull(16, Types.VARCHAR);
+
+			if (colCode != null)
+				cs.setString(17, colCode);
+			else
+				cs.setNull(17, Types.VARCHAR);
+
+			// ✅ EXECUTE ONCE
+			cs.execute();
+
+			return true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean checkPatronExists(String patronID) {
+	    String sql = "SELECT COUNT(*) FROM PATRON WHERE PatronID = ?";
 
 	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-	         CallableStatement cs = conn.prepareCall(sql)) {
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-	        // ── Patron
-	        cs.setString(1, patronID);
-	        cs.setString(2, firstName);
-	        cs.setString(3, middleInitial);
-	        cs.setString(4, lastName);
-	        cs.setString(5, emailAddress);
-	        cs.setString(6, contactNumber);
-	        cs.setString(7, homeAddress);
-	        cs.setString(8, campCode); // ✅ already normalized
+	        pstmt.setString(1, patronID);
 
-	        // ── Employee flags
-	        cs.setBoolean(9, administrator);
-	        cs.setBoolean(10, libraryStaff);
-	        cs.setBoolean(11, faculty);
-	        cs.setDate(12, dateHired);
-
-	        // ── Administrator
-	        if (adminPosition != null) cs.setString(13, adminPosition);
-	        else cs.setNull(13, Types.VARCHAR);
-
-	        // ── Library Staff
-	        if (assignmentCode != null) cs.setString(14, assignmentCode);
-	        else cs.setNull(14, Types.VARCHAR);
-
-	        if (staffPosition != null) cs.setString(15, staffPosition);
-	        else cs.setNull(15, Types.VARCHAR);
-
-	        // ── Faculty
-	        if (facultyRank != null) cs.setString(16, facultyRank);
-	        else cs.setNull(16, Types.VARCHAR);
-
-	        if (colCode != null) cs.setString(17, colCode);
-	        else cs.setNull(17, Types.VARCHAR);
-
-	        // ✅ EXECUTE ONCE
-	        cs.execute();
-
-	        return true;
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt(1) > 0;  // If count > 0, record exists
+	            }
+	        }
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        return false;
 	    }
+
+	    return false;
+	}
+	
+	public boolean checkPatronBorrowLimit(String patronID) {
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         CallableStatement stmt = conn.prepareCall("{CALL checkPatronBorrowLimit(?)}")) {
+
+	    	stmt.setString(1, patronID);
+
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt(1) > 0;  // If count > 0, record exists
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return false;
 	}
 }

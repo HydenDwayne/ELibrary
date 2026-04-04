@@ -2,6 +2,9 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.BookController;
+
 import java.awt.*;
 
 import view.RoundedComponents.RoundedButton;
@@ -20,8 +23,9 @@ public class ReturnBook extends JPanel {
 
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
-
-
+    
+    public RoundedTextField txnField;
+    public String[] borrowDetails;
 
     public ReturnBook(ReturnBookModal dialog) {
 
@@ -43,7 +47,7 @@ public class ReturnBook extends JPanel {
         modal.setPreferredSize(new Dimension(500, 320));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER (SAME AS OTHERS) ================= */
+        /* ================= HEADER ================= */
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -86,12 +90,25 @@ public class ReturnBook extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridy = -1;
+        gbc.gridy = 0;
 
-        /* ================= INPUT ================= */
+        /* ================= TRANSACTION ID ================= */
 
-        addRow(innerBody, gbc, "Transaction ID:",
-                editableField("Enter Transaction ID", poppins10));
+        JLabel txnLabel = new JLabel("Transaction ID:");
+        txnLabel.setFont(poppins16);
+        txnLabel.setForeground(DARK_TEXT);
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        innerBody.add(txnLabel, gbc);
+
+        txnField = new RoundedTextField(19, FIELD_RADIUS);
+        txnField.setPlaceholder("Enter Transaction ID");
+        txnField.setFont(poppins10);
+        txnField.setBorderColor(FIELD_BORDER);
+        txnField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(txnField, gbc);
 
         body.add(innerBody, BorderLayout.CENTER);
 
@@ -106,13 +123,29 @@ public class ReturnBook extends JPanel {
         cancelBtn.setForeground(MAROON);
         cancelBtn.setBorderColor(MAROON);
         cancelBtn.setBorderThickness(1);
-        cancelBtn.addActionListener(e -> close());
+        cancelBtn.addActionListener(e -> {
+            Window w = SwingUtilities.getWindowAncestor(this);
+            if (w != null) w.dispose();
+        });
 
         RoundedButton checkBtn = new RoundedButton("CHECK DETAILS", FIELD_RADIUS);
         checkBtn.setFont(poppins12);
         checkBtn.setBackground(MAROON);
         checkBtn.setForeground(Color.WHITE);
-        checkBtn.addActionListener(e-> {dialog.setStep2();});
+        checkBtn.addActionListener(e -> {
+        	
+        	if(txnField == null || txnField.getRealText().isBlank()) {
+        		JOptionPane.showMessageDialog(null, "Fill in the field");
+        		System.out.println("adasdasda");
+        	} else {
+        		
+        		new BookController(this,txnField.getRealText());
+        		
+        		if (borrowDetails != null) {
+        			dialog.setStep2(borrowDetails);
+        		}
+        	}
+        });
 
         footer.add(cancelBtn);
         footer.add(checkBtn);
@@ -124,44 +157,5 @@ public class ReturnBook extends JPanel {
         modal.add(footer, BorderLayout.SOUTH);
 
         add(modal, BorderLayout.CENTER);
-    }
-
-    /* ================= HELPERS ================= */
-
-    private void addRow(JPanel parent, GridBagConstraints gbc,
-                        String labelText, JComponent field) {
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        gbc.weightx = 0;
-
-        JPanel labelWrap = new JPanel(new BorderLayout());
-        labelWrap.setOpaque(false);
-        labelWrap.setPreferredSize(new Dimension(210, 30));
-
-        JLabel lbl = new JLabel(labelText);
-        lbl.setFont(new Fonts("Poppins", 16f).getAppliedFont());
-        lbl.setForeground(DARK_TEXT);
-
-        labelWrap.add(lbl, BorderLayout.WEST);
-        parent.add(labelWrap, gbc);
-
-        gbc.gridx = 1;
-        gbc.weightx = 1;
-        parent.add(field, gbc);
-    }
-
-    private RoundedTextField editableField(String placeholder, Font font) {
-        RoundedTextField tf = new RoundedTextField(19, FIELD_RADIUS);
-        tf.setPlaceholder(placeholder);
-        tf.setFont(font);
-        tf.setBorderColor(FIELD_BORDER);
-        tf.setBorderThickness(1);
-        return tf;
-    }
-
-    private void close() {
-        Window w = SwingUtilities.getWindowAncestor(this);
-        if (w != null) w.dispose();
     }
 }

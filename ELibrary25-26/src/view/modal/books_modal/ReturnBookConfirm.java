@@ -2,7 +2,11 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.BookController;
+
 import java.awt.*;
+import java.time.LocalDate;
 
 import view.RoundedComponents.RoundedButton;
 import view.RoundedComponents.RoundedPanel;
@@ -21,10 +25,15 @@ public class ReturnBookConfirm extends JPanel {
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
 
-
     private final ReturnBookModal dialog;
+    
+    public RoundedTextField statusField;
+    public RoundedTextField dueField;
+    public RoundedTextField patronField;
+    public RoundedTextField callField;
+    public RoundedTextField txnField;
 
-    public ReturnBookConfirm(ReturnBookModal dialog) {
+    public ReturnBookConfirm(ReturnBookModal dialog, String[] borrowDetails) {
         this.dialog = dialog;
 
         setOpaque(false);
@@ -45,7 +54,7 @@ public class ReturnBookConfirm extends JPanel {
         modal.setPreferredSize(new Dimension(500, 420));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER (SAME AS OTHER MODALS) ================= */
+        /* ================= HEADER ================= */
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -88,15 +97,106 @@ public class ReturnBookConfirm extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridy = -1;
+        gbc.gridy = 0;
 
-        /* ================= CONFIRM DETAILS ================= */
+        /* ================= TRANSACTION ID ================= */
 
-        addRow(innerBody, gbc, "Transaction ID:", ro("TXN-2024-0001", poppins10));
-        addRow(innerBody, gbc, "Book Call Number:", ro("DS210.L86 2020", poppins10));
-        addRow(innerBody, gbc, "Patron ID:", ro("2024100015", poppins10));
-        addRow(innerBody, gbc, "Borrow Due Date:", ro("Within Due Date", poppins10));
-        addRow(innerBody, gbc, "Due Date Status:", ro("ON TIME", poppins10));
+        JLabel txnLabel = new JLabel("Transaction ID:");
+        txnLabel.setFont(poppins16);
+        txnLabel.setForeground(DARK_TEXT);
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        innerBody.add(txnLabel, gbc);
+
+         txnField = new RoundedTextField(19, FIELD_RADIUS);
+        txnField.setPlaceholder("TXN-2024-0001");
+        txnField.setEditable(false);
+        txnField.setFont(poppins10);
+        txnField.setBorderColor(FIELD_BORDER);
+        txnField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(txnField, gbc);
+
+        /* ================= BOOK CALL NUMBER ================= */
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        JLabel callLabel = new JLabel("Book Call Number:");
+        callLabel.setFont(poppins16);
+        callLabel.setForeground(DARK_TEXT);
+        innerBody.add(callLabel, gbc);
+
+         callField = new RoundedTextField(19, FIELD_RADIUS);
+        callField.setPlaceholder("DS210.L86 2020");
+        callField.setEditable(false);
+        callField.setFont(poppins10);
+        callField.setBorderColor(FIELD_BORDER);
+        callField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(callField, gbc);
+
+        /* ================= PATRON ID ================= */
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        JLabel patronLabel = new JLabel("Patron ID:");
+        patronLabel.setFont(poppins16);
+        patronLabel.setForeground(DARK_TEXT);
+        innerBody.add(patronLabel, gbc);
+
+         patronField = new RoundedTextField(19, FIELD_RADIUS);
+        patronField.setPlaceholder("2024100015");
+        patronField.setEditable(false);
+        patronField.setFont(poppins10);
+        patronField.setBorderColor(FIELD_BORDER);
+        patronField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(patronField, gbc);
+
+        /* ================= BORROW DUE DATE ================= */
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        JLabel dueLabel = new JLabel("Due Date:");
+        dueLabel.setFont(poppins16);
+        dueLabel.setForeground(DARK_TEXT);
+        innerBody.add(dueLabel, gbc);
+
+         dueField = new RoundedTextField(19, FIELD_RADIUS);
+        dueField.setPlaceholder("2026-04-08");
+        dueField.setEditable(false);
+        dueField.setFont(poppins10);
+        dueField.setBorderColor(FIELD_BORDER);
+        dueField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(dueField, gbc);
+
+        /* ================= DUE DATE STATUS ================= */
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        JLabel statusLabel = new JLabel("Due Date Status:");
+        statusLabel.setFont(poppins16);
+        statusLabel.setForeground(DARK_TEXT);
+        innerBody.add(statusLabel, gbc);
+
+         statusField = new RoundedTextField(19, FIELD_RADIUS);
+        statusField.setPlaceholder("ON TIME");
+        statusField.setEditable(false);
+        statusField.setFont(poppins10);
+        statusField.setBorderColor(FIELD_BORDER);
+        statusField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(statusField, gbc);
 
         body.add(innerBody, BorderLayout.CENTER);
 
@@ -117,7 +217,10 @@ public class ReturnBookConfirm extends JPanel {
         confirmBtn.setFont(poppins12);
         confirmBtn.setBackground(MAROON);
         confirmBtn.setForeground(Color.WHITE);
-        confirmBtn.addActionListener(e -> dialog.dispose());
+        confirmBtn.addActionListener(e -> {
+        	new BookController(this, borrowDetails[0], borrowDetails[1]);
+        	dialog.dispose();
+        });
 
         footer.add(backBtn);
         footer.add(confirmBtn);
@@ -127,42 +230,39 @@ public class ReturnBookConfirm extends JPanel {
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);
+        
+//        public RoundedTextField statusField;
+//        public RoundedTextField dueField;
+//        public RoundedTextField patronField;
+//        public RoundedTextField callField;
+//        public RoundedTextField txnField;
+        
+        dueField.setText(borrowDetails[3]);
+        patronField.setText(borrowDetails[4]);
+        callField.setText(borrowDetails[1]);
+        txnField.setText(borrowDetails[0]);
+        
+
+        String dateStr = borrowDetails[2];
+
+        // convert String → LocalDate
+     // remove time → keep only yyyy-MM-dd
+        dateStr = dateStr.substring(0, 10);
+
+        // convert String → LocalDate
+        LocalDate inputDate = LocalDate.parse(dateStr);
+
+        // get current date
+        LocalDate today = LocalDate.now();
+
+        // compare
+        if (!inputDate.isBefore(today)) {
+            statusField.setText("ON TIME");
+        } else {
+            statusField.setText("OVERDUE");
+        }
 
         add(modal, BorderLayout.CENTER);
-    }
-
-    /* ================= HELPERS ================= */
-
-    private void addRow(JPanel parent, GridBagConstraints gbc,
-                        String labelText, JComponent field) {
-        gbc.gridy++;
-        gbc.gridx = 0;
-        gbc.weightx = 0;
-
-        JPanel wrap = new JPanel(new BorderLayout());
-        wrap.setOpaque(false);
-        wrap.setPreferredSize(new Dimension(210, 30));
-
-        JLabel lbl = new JLabel(labelText);
-        lbl.setFont(new Fonts("Poppins", 16f).getAppliedFont());
-        lbl.setForeground(DARK_TEXT);
-
-        wrap.add(lbl, BorderLayout.WEST);
-        parent.add(wrap, gbc);
-
-        gbc.gridx = 1;
-        gbc.weightx = 1;
-        parent.add(field, gbc);
-    }
-
-    private RoundedTextField ro(String value, Font font) {
-        RoundedTextField tf = new RoundedTextField(19, FIELD_RADIUS);
-        tf.setPlaceholder(value);
-        tf.setEditable(false);
-        tf.setFont(font);
-        tf.setBorderColor(FIELD_BORDER);
-        tf.setBorderThickness(1);
-        return tf;
+        
     }
 }
-

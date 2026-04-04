@@ -2,6 +2,9 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import controller.BookController;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +29,7 @@ public class AddBorrowingRequestBook1 extends JPanel {
 	static final int FIELD_RADIUS = 15;
 	
 	private final BorrowBookModal dialog;
+	public boolean isFound = false;
 
 	public AddBorrowingRequestBook1(BorrowBookModal dialog) {
 		this.dialog = dialog;
@@ -125,25 +129,6 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		callNumField.setBorderThickness(1);
 		innerBody.add(callNumField, gbc);
 
-		// Equipment Name row
-		gbc.gridy++;
-		gbc.gridx = 0;
-		JPanel equipLabelWrapper = new JPanel();
-		equipLabelWrapper.setOpaque(false);
-		equipLabelWrapper.setPreferredSize(new Dimension(210, 30));
-		equipLabelWrapper.setLayout(new BorderLayout());
-		JLabel equipLabel = new JLabel("Equipment Name:");
-		equipLabel.setForeground(DARK_TEXT);
-		equipLabelWrapper.add(equipLabel, BorderLayout.WEST);
-		innerBody.add(equipLabelWrapper, gbc);
-
-		gbc.gridx = 1;
-		RoundedTextField equipField = new RoundedTextField(19, FIELD_RADIUS);
-		equipField.setPlaceholder("Enter Equipment Name");
-		equipField.setBorderColor(FIELD_BORDER);
-		equipField.setBorderThickness(1);
-		innerBody.add(equipField, gbc);
-
 		// Patron ID row with hint
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -175,17 +160,15 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		body.add(innerBody, BorderLayout.CENTER);
 
 		callNumLabel.setFont(poppinsStyle16);
-		equipLabel.setFont(poppinsStyle16);
 		patronMainLabel.setFont(poppinsStyle16);
 		patronHintLabel.setFont(poppinsStyle10);
 
 		callNumLabel.setForeground(DARK_TEXT);
-		equipLabel.setForeground(DARK_TEXT);
+
 		patronMainLabel.setForeground(DARK_TEXT);
 		patronHintLabel.setForeground(Color.GRAY);
 
 		callNumField.setFont(poppinsStyle10);
-		equipField.setFont(poppinsStyle10);
 		patronField.setFont(poppinsStyle10);
 
 		// Footer panel with buttons
@@ -203,7 +186,15 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		confirmBtn.setFont(new Font("Arial", Font.BOLD, 12));
 		confirmBtn.setFocusPainted(false);
 		confirmBtn.addActionListener(e -> {
-			dialog.setStep2();
+			
+			if (callNumField.getRealText() == null || patronField.getRealText() == null || callNumField.getRealText().isBlank() || patronField.getRealText().isBlank()) {
+				JOptionPane.showMessageDialog(null, "Fill all fields");
+			} else {
+				new BookController(this, callNumField.getRealText(), patronField.getRealText());
+				if (isFound) {
+					dialog.setStep2(callNumField.getRealText(), patronField.getRealText());
+				}
+			}
 		});
 		footer.add(confirmBtn);
 

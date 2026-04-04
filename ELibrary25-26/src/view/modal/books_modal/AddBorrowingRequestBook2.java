@@ -2,6 +2,9 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.BookController;
+
 import java.awt.*;
 
 import view.RoundedComponents.RoundedButton;
@@ -21,11 +24,27 @@ public class AddBorrowingRequestBook2 extends JPanel {
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
 
-
+    String callNumber = "";
+    String patronID = "";
+    
     private final BorrowBookModal dialog;
+    
+    public RoundedTextField bookTitleField;
+    public RoundedTextField authorField;
+    public RoundedTextField collectionField;
+    public RoundedTextField statusField;
+    public RoundedTextField callNumField;
+    public RoundedTextField patronField;
+    public RoundedTextField dueDateField;
+    
+    
+    
+    
 
-    public AddBorrowingRequestBook2(BorrowBookModal dialog) {
+    public AddBorrowingRequestBook2(BorrowBookModal dialog, String callNumber, String patronID) {
         this.dialog = dialog;
+        this.callNumber = callNumber;
+        this.patronID = patronID;
 
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -93,8 +112,10 @@ public class AddBorrowingRequestBook2 extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = -1;
+        
+        gbc.gridy++;
 
-        /* ================= BOOK DETAILS ================= *//*Panel bookTitleLabelWrapper = new JPanel();
+        JPanel bookTitleLabelWrapper = new JPanel();
         bookTitleLabelWrapper.setOpaque(false);
         bookTitleLabelWrapper.setPreferredSize(new Dimension(210, 30));
         bookTitleLabelWrapper.setLayout(new BorderLayout());
@@ -107,8 +128,8 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(bookTitleLabelWrapper, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField bookTitleField = new RoundedTextField(19, FIELD_RADIUS);
-        bookTitleField.setPlaceholder("Book Title");
+         bookTitleField = new RoundedTextField(19, FIELD_RADIUS);
+        bookTitleField.setText("Book Title");
         bookTitleField.setEditable(false);
         bookTitleField.setFont(poppins10);
         bookTitleField.setBorderColor(FIELD_BORDER);
@@ -134,8 +155,8 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(authorLabelWrapper, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField authorField = new RoundedTextField(19, FIELD_RADIUS);
-        authorField.setPlaceholder("Author");
+         authorField = new RoundedTextField(19, FIELD_RADIUS);
+        authorField.setText("Author");
         authorField.setEditable(false);
         authorField.setFont(poppins10);
         authorField.setBorderColor(FIELD_BORDER);
@@ -161,8 +182,8 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(collectionLabelWrapper, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField collectionField = new RoundedTextField(19, FIELD_RADIUS);
-        collectionField.setPlaceholder("FILIPINIANA");
+         collectionField = new RoundedTextField(19, FIELD_RADIUS);
+        collectionField.setText("FILIPINIANA");
         collectionField.setEditable(false);
         collectionField.setFont(poppins10);
         collectionField.setBorderColor(FIELD_BORDER);
@@ -188,8 +209,8 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(statusLabelWrapper, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField statusField = new RoundedTextField(19, FIELD_RADIUS);
-        statusField.setPlaceholder("AVAILABLE");
+         statusField = new RoundedTextField(19, FIELD_RADIUS);
+        statusField.setText("AVAILABLE");
         statusField.setEditable(false);
         statusField.setFont(poppins10);
         statusField.setBorderColor(FIELD_BORDER);
@@ -217,8 +238,8 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(callNumLabelWrapper, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField callNumField = new RoundedTextField(19, FIELD_RADIUS);
-        callNumField.setPlaceholder("DS210.L86 2020");
+         callNumField = new RoundedTextField(19, FIELD_RADIUS);
+        callNumField.setText("DS210.L86 2020");
         callNumField.setEditable(false);
         callNumField.setFont(poppins10);
         callNumField.setBorderColor(FIELD_BORDER);
@@ -244,8 +265,8 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(patronLabelWrapper, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField patronField = new RoundedTextField(19, FIELD_RADIUS);
-        patronField.setPlaceholder("2024100015");
+         patronField = new RoundedTextField(19, FIELD_RADIUS);
+        patronField.setText("2024100015");
         patronField.setEditable(false);
         patronField.setFont(poppins10);
         patronField.setBorderColor(FIELD_BORDER);
@@ -271,8 +292,8 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(dueDateLabelWrapper, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField dueDateField = new RoundedTextField(19, FIELD_RADIUS);
-        dueDateField.setPlaceholder("Due Date");
+         dueDateField = new RoundedTextField(19, FIELD_RADIUS);
+        dueDateField.setText("Due Date");
         dueDateField.setEditable(false);
         dueDateField.setFont(poppins10);
         dueDateField.setBorderColor(FIELD_BORDER);
@@ -285,7 +306,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         gbc.gridy++;
         gbc.gridx = 0;
 
-
+        new BookController(this, this.callNumber, this.patronID);
 
         JPanel footer = new JPanel();
         footer.setPreferredSize(new Dimension(500, 100));
@@ -299,7 +320,16 @@ public class AddBorrowingRequestBook2 extends JPanel {
         submitBtn.setForeground(WHITE);
         submitBtn.setFocusPainted(false);
         submitBtn.addActionListener(e -> {
-        	dialog.setStep3();
+        	
+    	String[] borrowDetails = {
+        	callNumField.getText(),
+        	dueDateField.getText(),
+        	patronField.getText(),
+        	"CircDesk"
+    	};
+    	
+    	
+        	dialog.setStep3(borrowDetails);
         });
 
         RoundedButton backBtn = new RoundedButton("< BACK", FIELD_RADIUS);
