@@ -2,7 +2,12 @@ package view.modal.function_hall_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.FunctionHallController;
+
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import view.RoundedComponents.*;
 import view.front_pages.FilePath;
@@ -18,8 +23,12 @@ public class ReserveFunctionHall extends JPanel {
 
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
+    
+    private String[] reservationDetails = {"","","","","","",""};
+    private String hallCode = "";
 
-    public ReserveFunctionHall() {
+    public ReserveFunctionHall(String hallCode, String dateSelected) {
+    	this.hallCode = hallCode;
 
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -36,7 +45,7 @@ public class ReserveFunctionHall extends JPanel {
 
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
-        modal.setPreferredSize(new Dimension(520, 580));
+        modal.setPreferredSize(new Dimension(520, 450));
         modal.setBackground(LIGHT_PINK);
 
         /* ================= HEADER ================= */
@@ -100,54 +109,92 @@ public class ReserveFunctionHall extends JPanel {
         eventField.setBorderColor(FIELD_BORDER);
         eventField.setBorderThickness(1);
         innerBody.add(eventField, gbc);
+        
+        /* ================= ROW 6: Start Time ================= */
 
-        // Start Time
-        gbc.gridy++; gbc.gridx = 0;
-        JLabel startLbl = new JLabel("Start Time (00:00):");
+        gbc.gridy++;
+        gbc.gridx = 0;
+        JLabel startLbl = new JLabel("Start Time:");
         startLbl.setFont(poppins16);
         startLbl.setForeground(DARK_TEXT);
         startLbl.setPreferredSize(labelSize);
         innerBody.add(startLbl, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField startField = new RoundedTextField(19, FIELD_RADIUS);
-        startField.setFont(poppins10);
-        startField.setPlaceholder("Enter Start Time");
+
+        // 1️⃣ Create the spinners
+        List<String> timeSlots = generateTimeSlots(); // 07:00 - 17:00
+        RoundedSpinner startField = new RoundedSpinner(timeSlots, FIELD_RADIUS);
         startField.setBorderColor(FIELD_BORDER);
         startField.setBorderThickness(1);
-        innerBody.add(startField, gbc);
+        ((JSpinner) startField).setValue("07:00");
 
-        // End Time
-        gbc.gridy++; gbc.gridx = 0;
-        JLabel endLbl = new JLabel("End Time (00:00):");
+        RoundedSpinner endField = new RoundedSpinner(timeSlots, FIELD_RADIUS);
+        endField.setBorderColor(FIELD_BORDER);
+        endField.setBorderThickness(1);
+        ((JSpinner) endField).setValue("08:00");
+
+        // 3️⃣ Add validation so start <= end
+        JSpinner startSpinner = (JSpinner) startField;
+        JSpinner endSpinner = (JSpinner) endField;
+
+        startSpinner.addChangeListener(e -> {
+            String startTime = startSpinner.getValue().toString();
+            String endTime = endSpinner.getValue().toString();
+
+            int startIndex = timeSlots.indexOf(startTime);
+            int endIndex = timeSlots.indexOf(endTime);
+
+            if (startIndex >= endIndex) {
+                int newEndIndex = Math.min(startIndex + 1, timeSlots.size() - 1);
+                endSpinner.setValue(timeSlots.get(newEndIndex));
+            }
+        });
+
+        endSpinner.addChangeListener(e -> {
+            String startTime = startSpinner.getValue().toString();
+            String endTime = endSpinner.getValue().toString();
+
+            int startIndex = timeSlots.indexOf(startTime);
+            int endIndex = timeSlots.indexOf(endTime);
+
+            if (endIndex <= startIndex) {
+                int newStartIndex = Math.max(endIndex - 1, 0);
+                startSpinner.setValue(timeSlots.get(newStartIndex));
+            }
+        });
+
+        // 4️⃣ Add them to the panel
+        innerBody.add(startSpinner, gbc);
+
+        /* ================= ROW 7: End Time ================= */
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+        JLabel endLbl = new JLabel("End Time:");
         endLbl.setFont(poppins16);
         endLbl.setForeground(DARK_TEXT);
         endLbl.setPreferredSize(labelSize);
         innerBody.add(endLbl, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField endField = new RoundedTextField(19, FIELD_RADIUS);
-        endField.setFont(poppins10);
-        endField.setPlaceholder("Enter End Time");
-        endField.setBorderColor(FIELD_BORDER);
-        endField.setBorderThickness(1);
-        innerBody.add(endField, gbc);
+        innerBody.add(endSpinner, gbc);
 
         // Chosen Date
-        gbc.gridy++; gbc.gridx = 0;
-        JLabel dateLbl = new JLabel("Chosen Date (YYYY-MM-DD):");
-        dateLbl.setFont(poppins16);
-        dateLbl.setForeground(DARK_TEXT);
-        dateLbl.setPreferredSize(labelSize);
-        innerBody.add(dateLbl, gbc);
-
-        gbc.gridx = 1;
-        RoundedTextField dateField = new RoundedTextField(19, FIELD_RADIUS);
-        dateField.setFont(poppins10);
-        dateField.setPlaceholder("Enter Date");
-        dateField.setBorderColor(FIELD_BORDER);
-        dateField.setBorderThickness(1);
-        innerBody.add(dateField, gbc);
+//        gbc.gridy++; gbc.gridx = 0;
+//        JLabel dateLbl = new JLabel("Chosen Date (YYYY-MM-DD):");
+//        dateLbl.setFont(poppins16);
+//        dateLbl.setForeground(DARK_TEXT);
+//        dateLbl.setPreferredSize(labelSize);
+//        innerBody.add(dateLbl, gbc);
+//
+//        gbc.gridx = 1;
+//        RoundedTextField dateField = new RoundedTextField(19, FIELD_RADIUS);
+//        dateField.setFont(poppins10);
+//        dateField.setPlaceholder("Enter Date");
+//        dateField.setBorderColor(FIELD_BORDER);
+//        dateField.setBorderThickness(1);
+//        innerBody.add(dateField, gbc);
 
         // Reserved By
         gbc.gridy++; gbc.gridx = 0;
@@ -207,6 +254,35 @@ public class ReserveFunctionHall extends JPanel {
         confirmBtn.setFont(poppins12);
         confirmBtn.setBackground(MAROON);
         confirmBtn.setForeground(WHITE);
+        confirmBtn.addActionListener(e -> {
+        	if (approvedField.getRealText().isEmpty() ||
+            		reservedField.getRealText().isEmpty() ||
+            		eventField.getRealText().isEmpty() ||
+            		startField.getValue().toString().isEmpty() ||
+            		endField.getValue().toString().isEmpty()) {
+            	JOptionPane.showMessageDialog(null, "Fill in all necessary details");
+            } else {
+            	String[]reservationDetails = {
+            			this.hallCode,
+                		approvedField.getRealText(),
+                		reservedField.getRealText(),
+                		eventField.getRealText(),
+                		dateSelected,
+                		startField.getValue().toString(),
+                		endField.getValue().toString(),
+                		};
+                setReservationDetails(reservationDetails);
+                
+                
+                
+                FunctionHallController comp = new FunctionHallController(reservationDetails);
+                
+                Window w = SwingUtilities.getWindowAncestor(this);
+                if (w instanceof JDialog) {
+                    w.dispose();
+                }
+            }
+        });
 
         footer.add(cancelBtn);
         footer.add(confirmBtn);
@@ -216,7 +292,33 @@ public class ReserveFunctionHall extends JPanel {
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);
-
+        
+        
+        
+        
+        
         add(modal, BorderLayout.CENTER);
+    }
+    
+    public void setReservationDetails(String[]reservationDetails) {
+    	this.reservationDetails = reservationDetails;
+    }
+    
+    private List<String> generateTimeSlots() {
+        List<String> times = new ArrayList<>();
+        int hour = 7;
+        int minute = 0;
+
+        while (hour < 17 || (hour == 17 && minute == 0)) {
+            String h = (hour < 10) ? "0" + hour : String.valueOf(hour);
+            String m = (minute < 10) ? "0" + minute : String.valueOf(minute);
+            times.add(h + ":" + m);
+            minute += 30;
+            if (minute >= 60) {
+                minute = 0;
+                hour++;
+            }
+        }
+        return times;
     }
 }

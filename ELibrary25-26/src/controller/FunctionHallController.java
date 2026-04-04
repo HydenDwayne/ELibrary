@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.awt.event.*;
 
@@ -73,69 +74,111 @@ public class FunctionHallController {
 	}
 
 	public FunctionHallController(Amphitheater amphi, JPanel calendarGrid) {
-		this.amphi = amphi;
-		YearMonth currentMonth = amphi.getCurrentMonth();
-		int daysInMonth = currentMonth.lengthOfMonth();
-		
-		List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("LibAmphi");
-		
-		for (int day = 1; day <= daysInMonth; day++) {
-			
+        this.amphi = amphi;
+
+        YearMonth currentMonth = amphi.getCurrentMonth();
+        int daysInMonth = currentMonth.lengthOfMonth();
+
+        List<DAOFuncHall> events = daoFuncHall.checkDayForEvent("LibAmphi");
+
+        for (int day = 1; day <= daysInMonth; day++) {
 
             JPanel cell = new JPanel(new BorderLayout());
+            cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+            // Format date properly
+            String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
+            String calendarMonth = (currentMonth.getMonthValue() < 10)
+                    ? "0" + currentMonth.getMonthValue()
+                    : String.valueOf(currentMonth.getMonthValue());
+
+            String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
+
+            // Find matching event (ONLY ONE)
+            DAOFuncHall matchedEvent = null;
+
+            for (DAOFuncHall event : events) {
+                if (calendarDate.equals(event.getDateOfEvent())) {
+                    cell.setBackground(Color.decode("#9f4542"));
+                    matchedEvent = event;
+                    break; // ✅ stop once found
+                }
+            }
+
+         // FINAL reference for lambda
+            String finalCalendarDate = calendarDate;
+            DAOFuncHall finalEvent = matchedEvent;
+
+            // Add ONLY ONE listener per cell
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                	
+                    try {
+                        Window parent = SwingUtilities.getWindowAncestor(amphi);
 
-					Color bg = cell.getBackground();
-					
-					if (bg.equals(Color.decode("#9f4542"))) {
-					    Window parent = SwingUtilities.getWindowAncestor(amphi);
-	        			new ViewHallReservationModal(parent);
-					} else {
-						Window parent = SwingUtilities.getWindowAncestor(amphi);
-	        			new ReserveFunctionHallModal(parent);
-					}
-                	
-                	
-                	
+                        if (finalEvent != null) {
+                            // HAS EVENT → View modal
+                            String startTimeRaw = finalEvent.getStartTime();
+                            String endTimeRaw = finalEvent.getEndTime();
+
+                            LocalTime startTime = LocalTime.parse(startTimeRaw,
+                                    DateTimeFormatter.ofPattern("HH:mm:ss.SSSSSSS"));
+                            LocalTime endTime = LocalTime.parse(endTimeRaw,
+                                    DateTimeFormatter.ofPattern("HH:mm:ss.SSSSSSS"));
+
+                            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+
+                            String[] eventDetails = {
+                                    finalEvent.getHallReservationNumber(),
+                                    finalEvent.getLibrarianID(),
+                                    finalEvent.getPatronID(),
+                                    finalEvent.getEventName(),
+                                    finalEvent.getDateOfEvent(),
+                                    startTime.format(outputFormatter),
+                                    endTime.format(outputFormatter),
+                            };
+
+                            new ViewHallReservationModal(parent, eventDetails);
+
+                        } else {
+                            new ReserveFunctionHallModal(parent, "LibAmphi", finalCalendarDate);
+                            amphi.generateCalendar();
+                        }
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             });
 
-            
-            for(DAOFuncHall event: events) {
-				String calendarDay = "01";
-				if (day < 10) {
-					calendarDay = "0" + day;
-				} else {
-					calendarDay = day+"";
-				}
-				String calendarMonth = "01";
-				if (currentMonth.getMonthValue() < 10) {
-					calendarMonth = "0" + currentMonth.getMonthValue();
-				} else {
-					calendarMonth = currentMonth.getMonthValue()+"";
-				}
-				String dateOfEvent = event.getDateOfEvent();
-				String calendarDate = currentMonth.getYear()+"-"+calendarMonth+"-"+calendarDay;
-				
-				if (calendarDate.equals(dateOfEvent)) {
-					cell.setBackground(Color.decode("#9f4542"));
-				}
-
-			}
-
-            cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
+            // Add day label
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
             cell.add(dateLabel, BorderLayout.NORTH);
-
             calendarGrid.add(cell);
         }
+    }
+	
+	// delete/archive reservation
+	
+	public FunctionHallController(String reservationNumber) {
+		boolean isSuccessful = daoFuncHall.archiveReservation(reservationNumber);
+		
+		if (!isSuccessful) {
+			JOptionPane.showMessageDialog(null, "Error. Event has not been cancelled");
+		}
+		
+	}
+	
+//	add new reservation
+	public FunctionHallController(String[] reservationDetails) {
+		boolean isSuccessful = daoFuncHall.addNewReservation(reservationDetails);
+		
+		if (!isSuccessful) {
+			JOptionPane.showMessageDialog(null, "Error. Date not Reserved");
+		}
 	}
 	
 	public FunctionHallController(DiscussionRoom1 disc1, JPanel calendarGrid) {
