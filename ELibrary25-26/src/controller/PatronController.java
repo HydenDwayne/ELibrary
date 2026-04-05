@@ -1,9 +1,11 @@
 package controller;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import model.DAOs.Patron.PatronDAOImp;
+import view.RoundedComponents.RoundedComboBox;
 import view.modal.patron_modal.*;
 
 public class PatronController {
@@ -363,5 +365,228 @@ public class PatronController {
 	        e.printStackTrace();
 	        return false;
 	    }
+	}
+	
+	private void selectComboItemByText(RoundedComboBox<?> comboBox, String text) {
+	    for (int i = 0; i < comboBox.getItemCount(); i++) {
+	        Object item = comboBox.getItemAt(i);
+	        if (item != null && item.toString().equalsIgnoreCase(text)) {
+	            comboBox.setSelectedIndex(i);
+	            return;
+	        }
+	    }
+	}
+	
+	// view patron - student
+	public PatronController(ViewStudent view, String patronID) {
+
+	    String[] patronDetails = daoPatron.getStudentDetails(patronID);
+	    switch (patronDetails[8]) {
+		case "Main":
+			view.setColleges(daoPatron.getColleges("M"));
+	    	view.setPrograms(daoPatron.getProgramsPerCollege(patronDetails[10], "M"));
+	    	view.collegeLbl.setVisible(true);
+	    	view.collegeField.setVisible(true);
+	    	view.campusField.setSelectedIndex(0);
+			break;
+		case "Bustos":
+			view.setColleges(daoPatron.getColleges("BC"));
+	    	view.setPrograms(daoPatron.getProgramsPerCollege(patronDetails[10], "BC"));
+	    	view.collegeLbl.setVisible(true);
+	    	view.collegeField.setVisible(true);
+	    	view.campusField.setSelectedIndex(1);
+			break;
+		case "Hagonoy":
+			view.setPrograms(daoPatron.getProgramsPerCampus("HC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(2);
+			break;
+		case "Meneses":
+			view.setPrograms(daoPatron.getProgramsPerCampus("MC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(3);
+			break;
+		case "Sarmiento":
+			view.setPrograms(daoPatron.getProgramsPerCampus("SC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(4);
+			break;
+		case "San Rafael":
+			view.setPrograms(daoPatron.getProgramsPerCampus("SRC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(5);
+			break;
+		default:
+			break;
+		}
+	    
+	    if (patronDetails[7].equals("LABHIGH")) {
+	    	String[] yearLvl = {"7","8","9","10"};
+	    	view.setYearLevels(yearLvl);
+	    	view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+	    	selectComboItemByText(view.levelField, patronDetails[14]);
+	    } else {
+	    	String[] yearLvl = {"1st","2nd","3rd","4th", "5th"};
+	    	view.setYearLevels(yearLvl);
+	    	selectComboItemByText(view.levelField, patronDetails[9]);
+	    }
+	    
+	    view.pidField.setText(patronDetails[0]);
+	    view.firstNameField.setText(patronDetails[1]);
+	    view.middleField.setText(patronDetails[2]);
+	    view.lastNameField.setText(patronDetails[3]);
+	    view.emailField.setText(patronDetails[4]);
+	    view.contactField.setText(patronDetails[5]);
+	    view.addressField.setText(patronDetails[6]);
+	    
+	    
+	 // StudentType is at index 7
+	    selectComboItemByText(view.studentTypeField, patronDetails[7]);
+	    selectComboItemByText(view.collegeField, patronDetails[10]);
+	    selectComboItemByText(view.programField, patronDetails[11]);
+	    
+	    view.thesisField.setText(patronDetails[12]);
+	    view.gradYearField.setText(patronDetails[15]);
+	}
+	
+	public void isGraduateSelected(ViewStudent view, boolean b, String campus) {
+		String campusCode = "";
+		
+		
+		if (b) {
+			String[] graduateColleges = {"CLAW", "GS"};
+			view.setColleges(graduateColleges);
+		} else {
+			if (campus.equals("Main")) {
+				campusCode = "M";
+			} else if (campus.equals("Bustos")) {
+				campusCode = "BC";
+			}
+			view.setColleges(daoPatron.getColleges(campusCode));
+		}
+	}
+	
+	public void setCollegesAndPrograms(ViewStudent view, String campus, String college) {
+		switch (campus) {
+		case "Main":
+			String[] campusCodeMain = daoPatron.getColleges("M");
+			view.setColleges(campusCodeMain);
+			view.collegeField.setSelectedIndex(0);
+			
+			String programMain = view.collegeField.getSelectedItem().toString();
+			
+	    	view.setPrograms(daoPatron.getProgramsPerCollege(programMain, "M"));
+	    	view.collegeLbl.setVisible(true);
+	    	view.collegeField.setVisible(true);
+	    	view.campusField.setSelectedIndex(0);
+			break;
+		case "Bustos":
+			String[] campusCodeBustos = daoPatron.getColleges("BC");
+			view.setColleges(campusCodeBustos);
+			view.collegeField.setSelectedIndex(0);
+			
+			String programBustos = view.collegeField.getSelectedItem().toString();
+			
+	    	view.setPrograms(daoPatron.getProgramsPerCollege(programBustos, "BC"));
+	    	
+	    	view.collegeLbl.setVisible(true);
+	    	view.collegeField.setVisible(true);
+	    	view.campusField.setSelectedIndex(1);
+			break;
+		case "Hagonoy":
+			view.setPrograms(daoPatron.getProgramsPerCampus("HC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(2);
+			break;
+		case "Meneses":
+			view.setPrograms(daoPatron.getProgramsPerCampus("MC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(3);
+			break;
+		case "Sarmiento":
+			view.setPrograms(daoPatron.getProgramsPerCampus("SC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(4);
+			break;
+		case "San Rafael":
+			view.setPrograms(daoPatron.getProgramsPerCampus("SRC"));
+			view.collegeLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			view.campusField.setSelectedIndex(5);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void reloadProgramsPerCollege(ViewStudent view, String collegeCode, String campusCode) {
+		view.setPrograms(daoPatron.getProgramsPerCollege(collegeCode, campusCode));
+	}
+	
+	public void reloadCollege(ViewEmployee view, String campus) {
+		switch (campus) {
+		case "Main":
+			String[] campusCodeMain = daoPatron.getColleges("M");
+			view.setColleges(campusCodeMain);
+			break;
+		case "Bustos":
+			String[] campusCodeBustos = daoPatron.getColleges("BC");
+			view.setColleges(campusCodeBustos);
+			break;
+		default:
+			view.cLbl.setVisible(false);
+	    	view.collegeField.setVisible(false);
+			break;
+		}
+	}
+	
+	public PatronController(ViewEmployee view, String patronID) {
+		String[] patronDetails = daoPatron.getEmployeeDetails(patronID);
+		for (String string : patronDetails) {
+			System.out.println(string);
+		}
+		
+		view.pidField.setText(patronDetails[0]);
+	    view.firstNameField.setText(patronDetails[1]);
+	    view.middleField.setText(patronDetails[2]);
+	    view.lastNameField.setText(patronDetails[3]);
+	    view.emailField.setText(patronDetails[4]);
+	    view.contactField.setText(patronDetails[5]);
+	    view.addressField.setText(patronDetails[6]);
+	    
+	    view.adminPositionField.setText(patronDetails[7]);
+	    
+	    view.assignmentCodeField.setText(patronDetails[8]);
+	    view.libPositionField.setText(patronDetails[9]);
+	    
+	    view.facultyRankField.setText(patronDetails[10]);
+//	    
+//	    selectComboItemByText(view.collegeField, patronDetails[11]);
+//	    selectComboItemByText(view.campusField, patronDetails[12]);
+	    
+	    view.adminCheck.setSelected(false);
+	    view.libraryStaffCheck.setSelected(false);
+	    view.facultyCheck.setSelected(false);
+	    
+	    if (patronDetails[13].equals("1")) {
+	    	view.adminCheck.setSelected(true);
+	    }
+	    
+	    if (patronDetails[14].equals("1")) {
+	    	view.libraryStaffCheck.setSelected(true);
+	    }
+	    
+	    if (patronDetails[15].equals("1")) {
+	    	view.facultyCheck.setSelected(true);
+	    }
+	    
 	}
 }

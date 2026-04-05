@@ -250,11 +250,11 @@ public class MainFunctions extends JPanel {
             	
             	if (col7.getText().equals("EMPLOYEE")) {
             		Window parent = SwingUtilities.getWindowAncestor(this);
-        			new ViewEmployeeModal(parent);
+        			new ViewEmployeeModal(parent, patron.getPatronID());
             	}
             	else {
             		Window parent = SwingUtilities.getWindowAncestor(this);
-        			new ViewStudentModal(parent);
+        			new ViewStudentModal(parent, patron.getPatronID());
             	}
             	
     			

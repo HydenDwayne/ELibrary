@@ -380,4 +380,163 @@ public class PatronDAOImp {
 
 	    return false;
 	}
+	
+	// view patron - student
+	public String[] getStudentDetails(String patronID) {
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		         CallableStatement stmt = conn.prepareCall("{CALL GetPatronWithType_IF(?)}")) {
+
+		    	stmt.setString(1, patronID);
+
+		    	ResultSet rs = stmt.executeQuery();
+		    	rs.next();
+		    	String[] studentDetails = {
+		    			checkIfColNull(rs, "PatronID"),
+		    			checkIfColNull(rs, "FirstName"),
+		    			checkIfColNull(rs, "MiddleInitial"),
+		    			checkIfColNull(rs, "LastName"),
+		    		    checkIfColNull(rs, "EmailAddress"),
+		    		    checkIfColNull(rs, "ContactNumber"),
+		    		    checkIfColNull(rs, "HomeAddress"),
+		    		    checkIfColNull(rs, "StudentType"),
+		    		    checkIfColNull(rs, "CampusName"),
+
+		    		    checkIfColNull(rs, "YearLevel"),
+		    		    checkIfColNull(rs, "ColCode"),
+		    		    checkIfColNull(rs, "ProgramCode"),
+
+		    		    checkIfColNull(rs, "ThesisTitle"),
+		    		    checkIfColNull(rs, "Degree"),
+
+		    		    checkIfColNull(rs, "GradeLevel"),
+		    		    
+		    		    checkIfColNull(rs, "YearGraduated"),
+		    		};
+		        
+		    	return studentDetails;
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+
+		    return null;
+	}
+	
+	private String checkIfColNull(ResultSet rs, String column) {
+	    try {
+	        rs.findColumn(column); // check if column exists
+	        String val = rs.getString(column);
+	        if (val == null) {
+	            val = "--";
+	        }
+	        return val;
+	    } catch (SQLException e) {
+	        return "--"; // column doesn't exist
+	    }
+	}
+	
+	public String[] getColleges(String campusCode) {
+	    
+		List<String> list = new ArrayList<>();
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement stmt = conn.prepareStatement("select * from COLLEGE where CampCode = ?")) {
+
+	        stmt.setString(1, campusCode);
+
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        while (rs.next()) {
+	        	list.add(rs.getString("CollegeCode"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+		return list.toArray(new String[0]);
+	}
+	
+	public String[] getProgramsPerCollege(String collegeCode, String campusCode) {
+	    
+		List<String> list = new ArrayList<>();
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement stmt = conn.prepareStatement("select * from PROGRAM where CollCode = ? and CampusCode = ?")) {
+
+	        stmt.setString(1, collegeCode);
+	        stmt.setString(2, campusCode);
+
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        while (rs.next()) {
+	        	list.add(rs.getString("ProgramCode"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+		return list.toArray(new String[0]);
+	}
+	
+	public String[] getProgramsPerCampus(String campusCode) {
+	    
+		List<String> list = new ArrayList<>();
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement stmt = conn.prepareStatement("select * from PROGRAM where CampusCode = ?")) {
+	    	
+	        stmt.setString(1, campusCode);
+
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        while (rs.next()) {
+	        	list.add(rs.getString("ProgramCode"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+		return list.toArray(new String[0]);
+	}
+
+	// view patron - employee
+		public String[] getEmployeeDetails(String patronID) {
+			try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			         CallableStatement stmt = conn.prepareCall("{CALL GetPatronEmployeeDetails(?)}")) {
+
+			    	stmt.setString(1, patronID);
+
+			    	ResultSet rs = stmt.executeQuery();
+			    	rs.next();
+			    	String[] studentDetails = {
+			    			checkIfColNull(rs, "PatronID"),
+			    			checkIfColNull(rs, "FirstName"),
+			    			checkIfColNull(rs, "MiddleInitial"),
+			    			checkIfColNull(rs, "LastName"),
+			    		    checkIfColNull(rs, "EmailAddress"),
+			    		    checkIfColNull(rs, "ContactNumber"),
+			    		    checkIfColNull(rs, "HomeAddress"),
+
+			    		    checkIfColNull(rs, "AdminPosition"),
+
+			    		    checkIfColNull(rs, "AssignmentCode"),
+			    		    checkIfColNull(rs, "LibraryPosition"),
+			    		    
+			    		    checkIfColNull(rs, "FacultyRank"),
+			    		    checkIfColNull(rs, "ColCode"),
+			    		    checkIfColNull(rs, "CampusName"),
+			    		    
+			    		    checkIfColNull(rs, "ADMINISTRATOR"),
+			    		    checkIfColNull(rs, "LIBRARY_STAFF"),
+			    		    checkIfColNull(rs, "FACULTY")
+			    		};
+			        
+			    	return studentDetails;
+
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			    }
+
+			    return null;
+		}
 }

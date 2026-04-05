@@ -9,7 +9,7 @@ public class ViewStudentModal extends RoundedDialog {
 
     private final Window parent;
 
-    public ViewStudentModal(Window parent) {
+    public ViewStudentModal(Window parent, String patronID) {
         super(parent, 20); // same corner radius as all modals
         this.parent = parent;
 
@@ -17,7 +17,7 @@ public class ViewStudentModal extends RoundedDialog {
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
         // Set modal content
-        setContentPane(new ViewStudent());
+        setContentPane(new ViewStudent(patronID));
         pack();
         setLocationRelativeTo(parent);
         setVisible(true);
