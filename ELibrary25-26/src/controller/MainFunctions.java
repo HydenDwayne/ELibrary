@@ -496,7 +496,7 @@ public class MainFunctions extends JPanel {
 
     public void showIMS(String searchQuery) {
         List<DAOIMS> ims = daoIMS.getAllItems(searchQuery);
-
+        
         // loadPatrons();
         int minColumnHeight = imsTab.getMinColumnHeight();
         int minColumnWidth = imsTab.getMinColumnWidth();
@@ -542,7 +542,7 @@ public class MainFunctions extends JPanel {
             col4.setFont(poppins10Style);
             col4.addActionListener(e -> {
             	Window parent = SwingUtilities.getWindowAncestor(this);
-            	new ViewIMSModal(parent);
+            	new ViewIMSModal(parent, col1.getText());
             	
             });
 
@@ -604,6 +604,7 @@ public class MainFunctions extends JPanel {
 
         // card
         for (DAOActiveRequest item: ar) {
+        	JLabel loanID = new JLabel(item.getLoanID());
             RoundedPanel card = new RoundedPanel(20);
             card.setPreferredSize(new Dimension(300, 150));
             card.setBackground(Color.decode("#842b28"));
@@ -664,9 +665,17 @@ public class MainFunctions extends JPanel {
             statusLabel.setForeground(Color.decode("#b4b4b4"));
             lowerLPCard.add(statusLabel, BorderLayout.NORTH);
 
-            JLabel statusValue = new JLabel("Pending");
+            JLabel statusValue = new JLabel(item.getLoanStatus());
+            
+            if (statusValue.getText().equals("Pending")) {
+            	statusValue.setForeground(Color.decode("#d9d202"));
+            } else if (statusValue.getText().equals("Approved")) {
+            	statusValue.setForeground(Color.decode("#21eb5a"));
+            } else if (statusValue.getText().equals("Borrowed")) {
+            	statusValue.setForeground(Color.decode("#E53888"));
+            } 
+            
             statusValue.setFont(poppinsBoldStyle14);
-            statusValue.setForeground(Color.decode("#ffde59"));;
             lowerLPCard.add(statusValue, BorderLayout.SOUTH);
 
             centerContainer.add(lowerLPCard, BorderLayout.SOUTH);
@@ -703,7 +712,7 @@ public class MainFunctions extends JPanel {
             viewBtn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             viewBtn.addActionListener(e -> {
             	Window parent = SwingUtilities.getWindowAncestor(this);
-            	new ViewBorrowRequestModal(parent);
+            	new ViewBorrowRequestModal(parent, item.getLoanID());
             });
 
             rightPartCard.add(viewBtn, BorderLayout.SOUTH);

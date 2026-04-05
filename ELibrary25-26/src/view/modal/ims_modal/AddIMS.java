@@ -2,6 +2,9 @@ package view.modal.ims_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.IMSController;
+
 import java.awt.*;
 
 import view.RoundedComponents.*;
@@ -162,6 +165,22 @@ public class AddIMS extends JPanel {
         confirmBtn.setFont(poppins12);
         confirmBtn.setBackground(MAROON);
         confirmBtn.setForeground(WHITE);
+        confirmBtn.addActionListener(e -> {
+        	
+        	if (
+    			serialField == null || serialField.getRealText().isBlank() || 
+				equipmentField == null || equipmentField.getRealText().isBlank() ||
+				itemTypeField == null || itemTypeField.getRealText().isBlank()) {
+        		JOptionPane.showMessageDialog(null, "Fill all fields");
+        	} else {
+        		IMSController comp = new IMSController(this);
+            	comp.addNewEquipment(new String[] {serialField.getRealText(),equipmentField.getRealText(),itemTypeField.getRealText()});
+            	Window w = SwingUtilities.getWindowAncestor(this);
+    			if (w instanceof JDialog)
+    				w.dispose();
+        	}
+        	
+        });
         footer.add(confirmBtn);
 
         RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);

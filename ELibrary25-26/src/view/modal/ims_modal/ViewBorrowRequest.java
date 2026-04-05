@@ -2,6 +2,9 @@ package view.modal.ims_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.IMSController;
+
 import java.awt.*;
 import view.RoundedComponents.*;
 import view.front_pages.FilePath;
@@ -17,9 +20,19 @@ public class ViewBorrowRequest extends JPanel {
 
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
+    
+    IMSController comp;
+    
+    public RoundedTextField loanIdField;
+    public RoundedTextField serialField;
+    public RoundedTextField patronField;
+    public RoundedTextField venueField;
+    public RoundedTextField dateField;
+    public RoundedComboBox<String> statusCombo;
+    
 
 
-    public ViewBorrowRequest() {
+    public ViewBorrowRequest(String loanID) {
 
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -106,7 +119,7 @@ public class ViewBorrowRequest extends JPanel {
         innerBody.add(labelWrap, gbc);
 
         gbc.gridx = 1; gbc.weightx = 0.5;
-        RoundedTextField loanIdField = new RoundedTextField(19, FIELD_RADIUS);
+         loanIdField = new RoundedTextField(19, FIELD_RADIUS);
         loanIdField.setFont(poppins10);
         loanIdField.setText("IMS-00001");
         loanIdField.setEditable(false);
@@ -126,7 +139,7 @@ public class ViewBorrowRequest extends JPanel {
         innerBody.add(labelWrap, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField serialField = new RoundedTextField(19, FIELD_RADIUS);
+         serialField = new RoundedTextField(19, FIELD_RADIUS);
         serialField.setFont(poppins10);
         serialField.setText("SN-12345");
         serialField.setEditable(false);
@@ -146,7 +159,7 @@ public class ViewBorrowRequest extends JPanel {
         innerBody.add(labelWrap, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField patronField = new RoundedTextField(19, FIELD_RADIUS);
+         patronField = new RoundedTextField(19, FIELD_RADIUS);
         patronField.setFont(poppins10);
         patronField.setText("2024100015");
         patronField.setEditable(false);
@@ -166,7 +179,7 @@ public class ViewBorrowRequest extends JPanel {
         innerBody.add(labelWrap, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField venueField = new RoundedTextField(19, FIELD_RADIUS);
+         venueField = new RoundedTextField(19, FIELD_RADIUS);
         venueField.setFont(poppins10);
         venueField.setText("Room 304");
         venueField.setEditable(false);
@@ -186,7 +199,7 @@ public class ViewBorrowRequest extends JPanel {
         innerBody.add(labelWrap, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField dateField = new RoundedTextField(19, FIELD_RADIUS);
+         dateField = new RoundedTextField(19, FIELD_RADIUS);
         dateField.setFont(poppins10);
         dateField.setText("2026-04-01");
         dateField.setEditable(false);
@@ -207,7 +220,7 @@ public class ViewBorrowRequest extends JPanel {
 
         gbc.gridx = 1;
         String[] statuses = { "Pending", "Approved", "Borrowed" };
-        RoundedComboBox<String> statusCombo = new RoundedComboBox<>(statuses, FIELD_RADIUS);
+        statusCombo = new RoundedComboBox<>(statuses, FIELD_RADIUS);
         statusCombo.setFont(poppins10);
         statusCombo.setBorderColor(FIELD_BORDER);
         statusCombo.setBorderThickness(1);
@@ -226,6 +239,14 @@ public class ViewBorrowRequest extends JPanel {
         saveBtn.setFont(poppins12);
         saveBtn.setBackground(MAROON);
         saveBtn.setForeground(WHITE);
+        saveBtn.addActionListener(e -> {
+        	String status = statusCombo.getSelectedItem().toString();
+        	
+        	comp.updateLoanStatus(loanID, status);
+    		
+        	Window w = SwingUtilities.getWindowAncestor(this);
+            if (w instanceof JDialog) w.dispose();
+        });
         footer.add(saveBtn);
 
         RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
@@ -240,6 +261,9 @@ public class ViewBorrowRequest extends JPanel {
         footer.add(cancelBtn);
 
         /* ================= ASSEMBLY ================= */
+        
+        comp = new IMSController(this);
+        comp.getLoanInfo(loanID);
 
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
