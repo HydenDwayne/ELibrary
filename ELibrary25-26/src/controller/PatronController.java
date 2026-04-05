@@ -15,6 +15,11 @@ public class PatronController {
 	PatronDAOImp daoPatron = new PatronDAOImp();
 	String campusCode;
 	GeneralModal genModal;
+	ViewStudent view;
+	String patronID;
+	
+	String selectedYear = "";
+	
 
 	public PatronController(StudentModal studModal, String campusCode, GeneralModal genModal) {
 	    this.empModal = null;
@@ -367,7 +372,7 @@ public class PatronController {
 	    }
 	}
 	
-	private void selectComboItemByText(RoundedComboBox<?> comboBox, String text) {
+	public void selectComboItemByText(RoundedComboBox<?> comboBox, String text) {
 	    for (int i = 0; i < comboBox.getItemCount(); i++) {
 	        Object item = comboBox.getItemAt(i);
 	        if (item != null && item.toString().equalsIgnoreCase(text)) {
@@ -379,8 +384,13 @@ public class PatronController {
 	
 	// view patron - student
 	public PatronController(ViewStudent view, String patronID) {
-
-	    String[] patronDetails = daoPatron.getStudentDetails(patronID);
+		this.view = view;
+		this.patronID = patronID;
+	    
+	}
+	
+	public void getPatronDetails() {
+		String[] patronDetails = daoPatron.getStudentDetails(patronID);
 	    switch (patronDetails[8]) {
 		case "Main":
 			view.setColleges(daoPatron.getColleges("M"));
@@ -429,11 +439,21 @@ public class PatronController {
 	    	view.setYearLevels(yearLvl);
 	    	view.collegeLbl.setVisible(false);
 	    	view.collegeField.setVisible(false);
-	    	selectComboItemByText(view.levelField, patronDetails[14]);
+	    	
+	    	selectedYear = patronDetails[14];
+	    	
+	    	SwingUtilities.invokeLater(() -> {
+	    	    selectComboItemByText(view.levelField, patronDetails[14]);
+	    	});
 	    } else {
 	    	String[] yearLvl = {"1st","2nd","3rd","4th", "5th"};
 	    	view.setYearLevels(yearLvl);
-	    	selectComboItemByText(view.levelField, patronDetails[9]);
+	    	
+	    	selectedYear = patronDetails[9];
+	    	
+	    	SwingUtilities.invokeLater(() -> {
+	    	    selectComboItemByText(view.levelField, patronDetails[9]);
+	    	});
 	    }
 	    
 	    view.pidField.setText(patronDetails[0]);
@@ -445,14 +465,24 @@ public class PatronController {
 	    view.addressField.setText(patronDetails[6]);
 	    
 	    
+	    
 	 // StudentType is at index 7
-	    selectComboItemByText(view.studentTypeField, patronDetails[7]);
-	    selectComboItemByText(view.collegeField, patronDetails[10]);
-	    selectComboItemByText(view.programField, patronDetails[11]);
+	    SwingUtilities.invokeLater(() -> {
+	    	selectComboItemByText(view.studentTypeField, patronDetails[7]);
+	    	selectComboItemByText(view.levelField, patronDetails[9]);
+	 	    selectComboItemByText(view.collegeField, patronDetails[10]);
+	 	    selectComboItemByText(view.programField, patronDetails[11]);
+	    });
+
 	    
 	    view.thesisField.setText(patronDetails[12]);
 	    view.gradYearField.setText(patronDetails[15]);
 	}
+	
+	public String getYear() {
+		return selectedYear;
+	}
+	
 	
 	public void isGraduateSelected(ViewStudent view, boolean b, String campus) {
 		String campusCode = "";
@@ -550,9 +580,6 @@ public class PatronController {
 	
 	public PatronController(ViewEmployee view, String patronID) {
 		String[] patronDetails = daoPatron.getEmployeeDetails(patronID);
-		for (String string : patronDetails) {
-			System.out.println(string);
-		}
 		
 		view.pidField.setText(patronDetails[0]);
 	    view.firstNameField.setText(patronDetails[1]);
@@ -571,7 +598,7 @@ public class PatronController {
 //	    
 //	    selectComboItemByText(view.collegeField, patronDetails[11]);
 //	    selectComboItemByText(view.campusField, patronDetails[12]);
-	    
+
 	    view.adminCheck.setSelected(false);
 	    view.libraryStaffCheck.setSelected(false);
 	    view.facultyCheck.setSelected(false);
@@ -588,5 +615,23 @@ public class PatronController {
 	    	view.facultyCheck.setSelected(true);
 	    }
 	    
+	}
+	
+	public boolean updatePatronStudent(String[] patronDetails) {
+		boolean isSuccessful = daoPatron.updatePatronStudent(patronDetails);
+		
+		if (!isSuccessful) {
+			JOptionPane.showMessageDialog(null, "Error. No record updated");
+		}
+		return isSuccessful;
+	}
+	
+	public boolean updatePatronEmployee(String[] patronDetails) {
+		boolean isSuccessful = daoPatron.updatePatronEmployee(patronDetails);
+		
+		if (!isSuccessful) {
+			JOptionPane.showMessageDialog(null, "Error. No record updated");
+		}
+		return isSuccessful;
 	}
 }

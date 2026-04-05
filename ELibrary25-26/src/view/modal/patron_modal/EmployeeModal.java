@@ -512,11 +512,9 @@ public class EmployeeModal extends JPanel implements ActionListener {
 			            "Success",
 			            JOptionPane.INFORMATION_MESSAGE
 			        );
-
-			        genModal.clearFields();
-			        clearFields();
-
-			        rp.showCard("general");
+			        Window w = SwingUtilities.getWindowAncestor(this);
+					if (w instanceof JDialog)
+						w.dispose();
 			    } else {
 			        JOptionPane.showMessageDialog(
 			            this,

@@ -461,6 +461,48 @@ public class ViewEmployee extends JPanel {
 		submitBtn.setFont(poppins10);
 		submitBtn.setBackground(MAROON);
 		submitBtn.setForeground(WHITE);
+		submitBtn.addActionListener(e -> {
+			
+			if (!adminCheck.isSelected() && !libraryStaffCheck.isSelected() && !facultyCheck.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Select at least one role");
+			} else {
+				// Collect the employee details into a String array
+			    String[] employeeDetails = {
+			        pidField.getRealText(),                                   // 0 PatronID
+			        firstNameField.getRealText(),                             // 1 FirstName
+			        middleField.getRealText(),                                // 2 MiddleInitial
+			        lastNameField.getRealText(),                              // 3 LastName
+			        emailField.getRealText(),                                 // 4 EmailAddress
+			        contactField.getRealText(),                               // 5 ContactNumber
+			        addressField.getRealText(),                               // 6 HomeAddress
+			        campusField.getSelectedItem() != null
+			            ? campusField.getSelectedItem().toString()
+			            : null,                                               // 7 CampCode
+
+			        String.valueOf(adminCheck.isSelected()),                 // 8 IsAdmin
+			        String.valueOf(libraryStaffCheck.isSelected()),          // 9 IsLibraryStaff
+			        String.valueOf(facultyCheck.isSelected()),               // 10 IsFaculty
+
+			        adminPositionField.getRealText(),                        // 11 AdminPosition
+			        assignmentCodeField.getRealText(),                       // 12 AssignmentCode
+			        libPositionField.getRealText(),                          // 13 StaffPosition
+
+			        facultyRankField.getRealText(),                          // 14 FacultyRank
+			        collegeField.getSelectedItem() != null
+			            ? collegeField.getSelectedItem().toString()
+			            : null                                               // 15 ColCode
+			    };
+			    
+			    boolean isSuccessful = comp.updatePatronEmployee(employeeDetails);
+				if (isSuccessful) {
+					Window w = SwingUtilities.getWindowAncestor(this);
+					if (w instanceof JDialog)
+						w.dispose();
+				}
+			}
+		    
+
+		});
 
 		footer.add(backBtn);
 		footer.add(submitBtn);
