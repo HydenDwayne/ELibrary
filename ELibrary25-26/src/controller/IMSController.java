@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import model.DAOs.ActiveRequest.ActiveRequestDAOImp;
 import model.DAOs.IMS.IMSDAOImp;
+import model.DAOs.Patron.PatronDAOImp;
 import view.modal.ims_modal.AddIMS;
 import view.modal.ims_modal.AddRequestItem;
 import view.modal.ims_modal.ViewBorrowRequest;
@@ -23,6 +24,7 @@ public class IMSController {
 	ActiveRequestDAOImp daoCard = new ActiveRequestDAOImp();
 	AddIMS add;
 	AddRequestItem req;
+	PatronDAOImp daoPatron = new PatronDAOImp();
 	
 	public IMSController(ViewIMS view) {
 		this.view = view;
@@ -108,12 +110,28 @@ public class IMSController {
 	}
 	
 	public boolean addNewRequest(String[] requestDetails) {
-		boolean isSuccessful = daoCard.addRequest(requestDetails);
+		boolean isSuccessful = false;
+		boolean patronExists = daoPatron.checkPatronExists(requestDetails[1]);
+		boolean serialNumberExists = daoCard.checkEquipmentExists(requestDetails[0]);
+		boolean isBorrowable = daoCard.checkIfAvailable(requestDetails[0]);
 		
-		if (isSuccessful) {
-			JOptionPane.showMessageDialog(null, "Error. Equipment not added");
+		if(!patronExists && !serialNumberExists) {
+			JOptionPane.showMessageDialog(null, "Error. Patron ID and Serial does not match any records");
+		} else if(!serialNumberExists) {
+			JOptionPane.showMessageDialog(null, "Error. Serial Number does not match any records");
+		} else if (!patronExists) {
+			JOptionPane.showMessageDialog(null, "Error. Patron ID does not match any records");
+		} else if (patronExists && serialNumberExists) {
+			
+			if(!isBorrowable) {
+				JOptionPane.showMessageDialog(null, "Error. Equipment currently borrowed");
+			} else {
+				isSuccessful = daoCard.addRequest(requestDetails);
+				if (!isSuccessful) {
+					JOptionPane.showMessageDialog(null, "Error. Request not issued");
+				}
+			}
 		}
-		
 		return isSuccessful;
 	}
 }

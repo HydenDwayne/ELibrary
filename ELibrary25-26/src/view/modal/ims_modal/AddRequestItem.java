@@ -193,7 +193,7 @@ public class AddRequestItem extends JPanel {
             String serial = serialField != null ? serialField.getRealText() : "";
             String patron = patronField != null ? patronField.getRealText() : "";
             String venue = venueField != null ? venueField.getRealText() : "";
-            String borrowDate = borrowDateField != null ? borrowDateField.getRealText() : "";
+            String borrowDate = borrowDateField != null ? borrowDateField.getRealText().trim() : "";
 
             if (!serial.isBlank() && !patron.isBlank() && !venue.isBlank() && !borrowDate.isBlank()) {
 
@@ -205,11 +205,12 @@ public class AddRequestItem extends JPanel {
                 };
                 
                 IMSController comp = new IMSController(this);
-                comp.addNewRequest(requestData);
-
-                // Optional: close modal after success
-                Window w = SwingUtilities.getWindowAncestor(this);
-                if (w instanceof JDialog) w.dispose();
+                boolean isSuccessful = comp.addNewRequest(requestData);
+                
+                if (isSuccessful) {
+                	Window w = SwingUtilities.getWindowAncestor(this);
+                    if (w instanceof JDialog) w.dispose();
+                }
 
             } else {
                 JOptionPane.showMessageDialog(null, "Fill all fields");
