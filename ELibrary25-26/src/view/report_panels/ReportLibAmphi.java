@@ -18,6 +18,8 @@ public class ReportLibAmphi extends JPanel {
 	    static final int PANEL_RADIUS = 20;
 	    static final int FIELD_RADIUS = 15;
 	    
+	    
+	    
     public ReportLibAmphi() {
         setLayout(new BorderLayout());
 

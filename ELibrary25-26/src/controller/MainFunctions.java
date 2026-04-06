@@ -250,11 +250,11 @@ public class MainFunctions extends JPanel {
             	
             	if (col7.getText().equals("EMPLOYEE")) {
             		Window parent = SwingUtilities.getWindowAncestor(this);
-        			new ViewEmployeeModal(parent, patron.getPatronID());
+        			new ViewEmployeeModal(parent, patron.getPatronID(), patTab);
             	}
             	else {
             		Window parent = SwingUtilities.getWindowAncestor(this);
-        			new ViewStudentModal(parent, patron.getPatronID());
+        			new ViewStudentModal(parent, patron.getPatronID(), patTab);
             	}
             	
     			
@@ -395,6 +395,7 @@ public class MainFunctions extends JPanel {
                 roundedStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
                 
                 col7.addActionListener(e -> {
+                	lnfTab.reloadData(lnfTab.searchQuery);
                 	Window parent = SwingUtilities.getWindowAncestor(this);
                 	new MarkAsFoundModal(parent, item.getItemNum());
                 });
@@ -419,8 +420,13 @@ public class MainFunctions extends JPanel {
 
                 roundedStatus.add(col5);
                 col5Panel.add(roundedStatus);
-                col7.setBackground(Color.decode("#a26765"));
-                col7.setEnabled(false);
+                col7.setText("Archive record");
+                col7.addActionListener(e -> {
+                	ArchiveController comp = new ArchiveController("LostAndFound", item.getItemNum());
+                	
+                	comp.setArchived();
+                	lnfTab.reloadData(lnfTab.searchQuery);
+                });
             }
             else if (item.getStatus().equals("Surrendered")){
                 RoundedPanel roundedStatus = new RoundedPanel(25);
@@ -430,6 +436,7 @@ public class MainFunctions extends JPanel {
                 roundedStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
                 
                 col7.addActionListener(e -> {
+                	lnfTab.reloadData(lnfTab.searchQuery);
                 	Window parent = SwingUtilities.getWindowAncestor(this);
                 	new MarkAsFoundModal(parent, item.getItemNum());
                 });
@@ -541,6 +548,8 @@ public class MainFunctions extends JPanel {
             col4.setForeground(Color.WHITE);
             col4.setFont(poppins10Style);
             col4.addActionListener(e -> {
+            	imsTab.reloadCards();
+            	imsTab.reloadData(imsTab.searchQuery);
             	Window parent = SwingUtilities.getWindowAncestor(this);
             	new ViewIMSModal(parent, col1.getText());
             	

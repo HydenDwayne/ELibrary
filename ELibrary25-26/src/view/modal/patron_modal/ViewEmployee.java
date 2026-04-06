@@ -3,12 +3,14 @@ package view.modal.patron_modal;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import controller.ArchiveController;
 import controller.PatronController;
 
 import java.awt.*;
 
 import view.RoundedComponents.*;
 import view.front_pages.FilePath;
+import view.toolbar_tabs.PatronsTab;
 import view.fonts.Fonts;
 
 public class ViewEmployee extends JPanel {
@@ -33,7 +35,6 @@ public class ViewEmployee extends JPanel {
 	JLabel ccLbl;
 	
 	PatronController comp;
-	
 
 	// LEFT PANEL FIELDS
 	public RoundedTextField pidField = new RoundedTextField(19, FIELD_RADIUS);
@@ -54,7 +55,7 @@ public class ViewEmployee extends JPanel {
 	
 	String[] colleges = {""};
 
-	public ViewEmployee(String patronID) {
+	public ViewEmployee(String patronID, PatronsTab patTab) {
 
 		setOpaque(false);
 		setLayout(new BorderLayout());
@@ -441,7 +442,7 @@ public class ViewEmployee extends JPanel {
 		body.add(content, BorderLayout.CENTER);
 
 		/* ================= FOOTER ================= */
-		JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
+		JPanel footer = new JPanel(new GridLayout(1, 3, 10, 0));
 		footer.setPreferredSize(new Dimension(900, 60));
 		footer.setBorder(new EmptyBorder(10, 20, 10, 20));
 		footer.setOpaque(false);
@@ -456,6 +457,22 @@ public class ViewEmployee extends JPanel {
 			if (w instanceof JDialog)
 				w.dispose();
 		});
+        
+        RoundedButton archiveBtn = new RoundedButton("ARCHIVE PATRON", FIELD_RADIUS);
+        archiveBtn.setFont(poppins10);
+        archiveBtn.setForeground(MAROON);
+        archiveBtn.setBorderColor(MAROON);
+        archiveBtn.setBorderThickness(1);
+        archiveBtn.addActionListener(e -> {
+        	ArchiveController comp = new ArchiveController("Patrons", patronID);
+        	
+        	boolean isSuccessful = comp.setArchived();
+        	if(isSuccessful) {
+        		patTab.reloadData(patTab.searchQuery);
+        		Window w = SwingUtilities.getWindowAncestor(this);
+        		if (w != null) w.dispose();
+        	}
+        });
 
 		RoundedButton submitBtn = new RoundedButton("SAVE DETAILS", FIELD_RADIUS);
 		submitBtn.setFont(poppins10);
@@ -495,6 +512,7 @@ public class ViewEmployee extends JPanel {
 			    
 			    boolean isSuccessful = comp.updatePatronEmployee(employeeDetails);
 				if (isSuccessful) {
+					patTab.reloadData(patTab.searchQuery);
 					Window w = SwingUtilities.getWindowAncestor(this);
 					if (w instanceof JDialog)
 						w.dispose();
@@ -505,6 +523,7 @@ public class ViewEmployee extends JPanel {
 		});
 
 		footer.add(backBtn);
+		footer.add(archiveBtn);
 		footer.add(submitBtn);
 
 		comp = new PatronController(this, patronID);

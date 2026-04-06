@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import controller.ArchiveController;
 import view.report_panels.*;
 import view.report_panels.Modals.FacilityModal;
 
@@ -44,7 +45,11 @@ public class ReportsTab extends JPanel implements ActionListener {
     JLabel tabLabel = new JLabel("");
     
     String reportPage = "";
-
+    JTable table;
+    String tableName;
+    
+    JPanel southPanel;
+    
     public ReportsTab(String tab) {
         int panelRadius = 20;
         setOpaque(false);
@@ -128,7 +133,7 @@ public class ReportsTab extends JPanel implements ActionListener {
         }
 
         
-        
+        dropdownFacility.setSelectedIndex(0);
         dropdownFacility.setPlaceholder("none");
         dropdownFacility.setPreferredSize(new Dimension(200, 30));
         dropdownFacility.addActionListener(this);
@@ -144,7 +149,7 @@ public class ReportsTab extends JPanel implements ActionListener {
         topWrapper.add(slctReports, BorderLayout.WEST);
 
         // no red part
-        tabLabel.setText("Amphitheather Schedule");
+//        tabLabel.setText("Amphitheather Schedule");
         tabLabel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         tabLabel.setForeground(Color.decode("#6d2321"));
 
@@ -271,12 +276,55 @@ public class ReportsTab extends JPanel implements ActionListener {
         p.setVisible(false);
         slctdFaciCont.add(p);
         
+        
+        
+        
+        southPanel = new JPanel();
+        southPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 60));
+        southPanel.setVisible(false);
+        southPanel.setOpaque(false);
+        southPanel.setLayout(new BorderLayout());
+        
         loadSelection();
+        
+        RoundedButton archiveBtn = new RoundedButton("Archive Selected", panelRadius);
+        archiveBtn.setPreferredSize(new Dimension(200, 40));
+        archiveBtn.setBackground(Color.decode("#842b28"));
+        archiveBtn.setForeground(Color.WHITE);
+        archiveBtn.setFont(introRustStyle);
+        archiveBtn.addActionListener(e -> {
+        	
+    	    if(getSelectedRow(table) != null) {
+    	    	ArchiveController ac = new ArchiveController(tableName, getSelectedRow(table));
+            	
+            	boolean isSuccessful = ac.setArchived();
+            	if(isSuccessful) {
+            		Window w = SwingUtilities.getWindowAncestor(this);
+            		if (w != null) w.dispose();
+            	}
+    	    } else {
+    	    	JOptionPane.showMessageDialog(null, "Select a row first!");
+    	    }
+        });
+        
+        southPanel.add(archiveBtn, BorderLayout.EAST);
+        facContainer.add(southPanel, BorderLayout.SOUTH);
 
         // =========================
         facilitiesTab.add(facContainer, gbc);
         facilitiesTab.setOpaque(false);
         add(facContainer);
+    }
+    
+    public String getSelectedRow(JTable table) {
+    	int selectedRow = table.getSelectedRow();
+    	if (selectedRow != -1) {
+    	    Object value = table.getValueAt(selectedRow, 1); // column 0 = first column
+    	    String firstColumnValue = value.toString();
+    	    
+    	    return firstColumnValue;
+    	}
+    	return null;
     }
 
     @Override
@@ -307,8 +355,8 @@ public class ReportsTab extends JPanel implements ActionListener {
         ims.setVisible(false);
         lims.setVisible(false);
         p.setVisible(false);
-               
-        
+        southPanel.setVisible(false);
+
 
         String selectedFac = (String) dropdownFacility.getSelectedItem();
 
@@ -330,26 +378,41 @@ public class ReportsTab extends JPanel implements ActionListener {
                 break;
             case "iPad Area":
                 tabLabel.setText("iPad Area Reports");
+                tableName = "FacilityLogin";
+                table = ia.table;
+                southPanel.setVisible(true);
                 reportPage = "iPAD";
                 ia.setVisible(true);
                 break;
             case "Individual Study Room":
                 tabLabel.setText("Individual Study Room Reports");
+                tableName = "FacilityLogin";
+                table = isr.table;
+                southPanel.setVisible(true);
                 reportPage = "ISR";
                 isr.setVisible(true);
                 break;
             case "E-Library Login":
                 tabLabel.setText("E-Library Login Reports");
+                tableName = "FacilityLogin";
+                table = li.table;
+                southPanel.setVisible(true);
                 reportPage = "LOGIN";
                 li.setVisible(true);
                 break;
             case "Laptop Section":
                 tabLabel.setText("Laptop Section Reports");
+                tableName = "FacilityLogin";
+                table = ls.table;
+                southPanel.setVisible(true);
                 reportPage = "LSect";
                 ls.setVisible(true);
                 break;
             case "PWD Area":
                 tabLabel.setText("PWD Area Reports");
+                tableName = "FacilityLogin";
+                table = pwd.table;
+                southPanel.setVisible(true);
                 reportPage = "PWD";
                 pwd.setVisible(true);
                 break;
@@ -365,11 +428,17 @@ public class ReportsTab extends JPanel implements ActionListener {
                 break;
             case "Relaxation Room":
                 tabLabel.setText("Relaxation Room Reports");
+                tableName = "FacilityLogin";
+                table = rr.table;
+                southPanel.setVisible(true);
                 reportPage = "RelaxRoom";
                 rr.setVisible(true);
                 break;
             case "Smart Device Zone":
                 tabLabel.setText("Smart Device Zone Reports");
+                tableName = "FacilityLogin";
+                table = sdz.table;
+                southPanel.setVisible(true);
                 reportPage = "SDZ";
                 sdz.setVisible(true);
                 break;
@@ -390,11 +459,17 @@ public class ReportsTab extends JPanel implements ActionListener {
                 break;
             case "Book Loans":
                 tabLabel.setText("Book Loans Reports");
+                tableName = "FacilityLogin";
+                table = bl.table;
+                southPanel.setVisible(true);
                 reportPage = "BookLoan";
                 bl.setVisible(true);
                 break;
             case "Book Returns":
                 tabLabel.setText("Book Returns Reports");
+                tableName = "ReturnBook";
+                table = rb.table;
+                southPanel.setVisible(true);
                 reportPage = "ReturnBook";
                 rb.setVisible(true);
                 break;

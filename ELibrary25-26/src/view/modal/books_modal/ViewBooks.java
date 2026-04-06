@@ -2,6 +2,8 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import java.awt.*;
+
+import controller.ArchiveController;
 import controller.BookController;import javax.swing.border.EmptyBorder;
 import view.RoundedComponents.RoundedButton;
 import view.RoundedComponents.RoundedPanel;
@@ -38,6 +40,7 @@ public class ViewBooks extends JPanel {
 
     public RoundedButton saveBtn;
     public RoundedButton closeBtn;
+    public RoundedButton archiveBtn;
 
     public ViewBooks(String callNumber) {
 
@@ -340,18 +343,18 @@ public class ViewBooks extends JPanel {
 
             String[] bookDetails = new String[9];
 
-            bookDetails[0] = callNumberField.getText(); // Call Number
-            bookDetails[1] = bookTitleField.getText();  // Title
-            bookDetails[2] = authorField.getText();     // Author
-            bookDetails[3] = yearField.getText();       // Publication Year
+            bookDetails[0] = callNumberField.getRealText(); // Call Number
+            bookDetails[1] = bookTitleField.getRealText();  // Title
+            bookDetails[2] = authorField.getRealText();     // Author
+            bookDetails[3] = yearField.getRealText();       // Publication Year
             bookDetails[4] = typeCombo.getSelectedItem() != null 
                           ? typeCombo.getSelectedItem().toString() : ""; // Book Type
             bookDetails[5] = collectionCombo.getSelectedItem() != null 
                           ? collectionCombo.getSelectedItem().toString() : ""; // Collection Code
-            bookDetails[6] = classField.getText();     // Classification Code
+            bookDetails[6] = classField.getRealText();     // Classification Code
             bookDetails[7] = availCombo.getSelectedItem() != null 
                           ? availCombo.getSelectedItem().toString() : ""; // Availability Status
-            bookDetails[8] = seriesField.getText();    // Series Title
+            bookDetails[8] = seriesField.getRealText();    // Series Title
 
             new BookController(this, bookDetails);
             
@@ -359,6 +362,28 @@ public class ViewBooks extends JPanel {
             if (w != null) w.dispose();
         });
         footer.add(saveBtn);
+        
+        JPanel bottomBtns = new JPanel();
+        bottomBtns.setOpaque(false);
+        bottomBtns.setLayout(new GridLayout(1,2,10,0));
+        
+        archiveBtn = new RoundedButton("ARCHIVE BOOK", FIELD_RADIUS);
+        archiveBtn.setFont(poppins12);
+        archiveBtn.setForeground(MAROON);
+        archiveBtn.setBorderColor(MAROON);
+        archiveBtn.setBorderThickness(1);
+        archiveBtn.addActionListener(e -> {
+        	
+        	ArchiveController comp = new ArchiveController("Books", callNumber);
+        	
+        	boolean isSuccessful = comp.setArchived();
+        	if(isSuccessful) {
+        		Window w = SwingUtilities.getWindowAncestor(this);
+        		if (w != null) w.dispose();
+        	}
+            
+        });
+        
 
         closeBtn = new RoundedButton("CLOSE", FIELD_RADIUS);
         closeBtn.setFont(poppins12);
@@ -369,7 +394,11 @@ public class ViewBooks extends JPanel {
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w != null) w.dispose();
         });
-        footer.add(closeBtn);
+        
+        bottomBtns.add(closeBtn);
+        bottomBtns.add(archiveBtn);
+        
+        footer.add(bottomBtns);
 
         /* ================= ASSEMBLY ================= */
 

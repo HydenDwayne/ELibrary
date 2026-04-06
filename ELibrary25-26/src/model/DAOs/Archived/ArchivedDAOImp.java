@@ -205,10 +205,10 @@ public class ArchivedDAOImp {
             while (rs.next()) {
                 // Map the correct columns from the stored procedure to the DAO
             	reports.add(new DAOArchivedPatron(
-            			rs.getString("PatronID"), 
-            			rs.getString("LastName"),
+            			rs.getString("PatronID"),
             			rs.getString("FirstName"),
             			rs.getString("MiddleInitial"),
+            			rs.getString("LastName"),
 						rs.getString("EmailAddress"), 
 						rs.getString("ContactNumber"), 
 						rs.getString("HomeAddress"),
@@ -274,5 +274,64 @@ public class ArchivedDAOImp {
         }
 
         return reports;
+    }
+    
+    public boolean setArchived(String tableName, String pk) {
+    	
+    	String sql = "{CALL archive"+ tableName +"(?)}";
+    	try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                CallableStatement stmt = conn.prepareCall(sql)) {
+
+    			if (tableName.equals("FacilityLogin")) {
+    				stmt.setInt(1, Integer.parseInt(pk));
+    			} else {
+    				stmt.setString(1, pk);
+    			}
+    		
+    			
+    			int success = stmt.executeUpdate();
+    			
+    			if (success > 0) {
+    				return true;
+    			}
+
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+    	
+    	return false;
+    }
+    
+    public boolean setUnarchived(String tableName, String pk) {
+
+        // WARNING: Prefer whitelisting table names to avoid SQL injection
+        String sql = "{CALL unarchive" + tableName + "(?)}";
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             CallableStatement stmt = conn.prepareCall(sql)) {
+
+        	if (tableName.equals("FacilityLogin")) {
+				stmt.setInt(1, Integer.parseInt(pk));
+			} else {
+				stmt.setString(1, pk);
+			}
+
+            boolean hasResult = stmt.execute();
+
+            if (hasResult) { // there is a result set
+                try (ResultSet rs = stmt.getResultSet()) {
+                    if (rs.next()) {
+                        int status = rs.getInt("Status");
+                        System.out.println(status);
+                        return status == 1;
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false; // default if no result or error
     }
 }

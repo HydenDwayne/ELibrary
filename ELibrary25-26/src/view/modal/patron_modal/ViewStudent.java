@@ -3,12 +3,14 @@ package view.modal.patron_modal;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import controller.ArchiveController;
 import controller.PatronController;
 
 import java.awt.*;
 
 import view.RoundedComponents.*;
 import view.front_pages.FilePath;
+import view.toolbar_tabs.PatronsTab;
 import view.fonts.Fonts;
 
 public class ViewStudent extends JPanel {
@@ -66,7 +68,7 @@ public class ViewStudent extends JPanel {
 	public String selectedCollege = "";
 
 
-	public ViewStudent(String patronID) {
+	public ViewStudent(String patronID, PatronsTab patTab) {
 		this.patronID = patronID;
 
 		setLayout(new BorderLayout());
@@ -334,6 +336,22 @@ public class ViewStudent extends JPanel {
 			if (w instanceof JDialog)
 				w.dispose();
 		});
+        
+        RoundedButton archiveBtn = new RoundedButton("ARCHIVE PATRON", FIELD_RADIUS);
+        archiveBtn.setFont(poppins10);
+        archiveBtn.setForeground(MAROON);
+        archiveBtn.setBorderColor(MAROON);
+        archiveBtn.setBorderThickness(1);
+        archiveBtn.addActionListener(e -> {
+        	ArchiveController comp = new ArchiveController("Patrons", patronID);
+        	
+        	boolean isSuccessful = comp.setArchived();
+        	if(isSuccessful) {
+        		patTab.reloadData(patTab.searchQuery);
+        		Window w = SwingUtilities.getWindowAncestor(this);
+        		if (w != null) w.dispose();
+        	}
+        });
 
 		RoundedButton submitBtn = new RoundedButton("SAVE DETAILS", FIELD_RADIUS);
 		submitBtn.setFont(poppins10);
@@ -389,15 +407,15 @@ public class ViewStudent extends JPanel {
 		
 		boolean isSuccessful = comp.updatePatronStudent(patronDetails);
 		if (isSuccessful) {
+			patTab.reloadData(patTab.searchQuery);
 			Window w = SwingUtilities.getWindowAncestor(this);
 			if (w instanceof JDialog)
 				w.dispose();
 		}
 		});
 		
-		
-
 		footer.add(backBtn);
+		footer.add(archiveBtn);
 		footer.add(submitBtn);
 
 		modal.add(header, BorderLayout.NORTH);

@@ -29,7 +29,7 @@ public class IMSTab extends JPanel {
     JPanel cardContainer;
     MainFunctions cardComp;
     
-    String searchQuery = "";
+    public String searchQuery = "";
 
     public IMSTab() {
 
@@ -102,6 +102,7 @@ public class IMSTab extends JPanel {
         archiveLogo.addActionListener(e -> {
         	Window parent = SwingUtilities.getWindowAncestor(this);
 	        new FacilityModal(parent, "ims");
+	        reloadData(searchQuery);
         });
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));

@@ -179,6 +179,7 @@ public class PatronsTab extends JPanel {
 		archiveLogo.addActionListener(e -> {
 			Window parent = SwingUtilities.getWindowAncestor(this);
 			new ArchivedPatronModal(parent);
+			reloadData(searchQuery);
 		});
 
 		ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));

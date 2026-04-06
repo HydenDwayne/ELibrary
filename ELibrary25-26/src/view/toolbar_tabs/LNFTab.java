@@ -34,7 +34,7 @@ public class LNFTab extends JPanel {
 
     int columnCount = 0;
     
-    String searchQuery = "";
+    public String searchQuery = "";
 
     public LNFTab() {
         int panelRadius = 20;
@@ -102,6 +102,7 @@ public class LNFTab extends JPanel {
         archiveLogo.addActionListener(e -> {
 			Window parent = SwingUtilities.getWindowAncestor(this);
 			new ArchivedLostAndFoundModal(parent);
+			reloadData(searchQuery);
 		});
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
@@ -143,6 +144,7 @@ public class LNFTab extends JPanel {
         addLostItem.addActionListener(e -> {
         	Window parent = SwingUtilities.getWindowAncestor(this);
         	new AddLostAndFoundModal(parent);
+        	reloadData(searchQuery);
         });
 
         outerBtnCont.add(addLostItem, BorderLayout.EAST);

@@ -136,6 +136,22 @@ public class ArchivedReturnBook extends JPanel {
         unarchiveBtn.setFont(poppins12);
         unarchiveBtn.setBackground(MAROON);
         unarchiveBtn.setForeground(WHITE);
+        unarchiveBtn.addActionListener(e -> {
+        	int selectedRow = table.getSelectedRow();
+        	if (selectedRow != -1) {
+        	    Object value = table.getValueAt(selectedRow, 0); // column 0 = first column
+        	    String firstColumnValue = value.toString();
+
+        	    ArchiveController ac = new ArchiveController("ReturnBook", firstColumnValue);
+            	
+            	boolean isSuccessful = ac.setUnarchived();
+            	if(isSuccessful) {
+            		Window w = SwingUtilities.getWindowAncestor(this);
+            		if (w != null) w.dispose();
+            	}
+        	}
+        	
+        });
 
         footer.add(cancelBtn);
         footer.add(unarchiveBtn);

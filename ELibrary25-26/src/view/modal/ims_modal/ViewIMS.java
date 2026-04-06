@@ -3,6 +3,7 @@ package view.modal.ims_modal;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import controller.ArchiveController;
 import controller.IMSController;
 
 import java.awt.*;
@@ -180,7 +181,31 @@ public class ViewIMS extends JPanel {
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w != null) w.dispose();
         });
-        footer.add(cancelBtn);
+        
+        
+        JPanel bottomBtns = new JPanel();
+        bottomBtns.setOpaque(false);
+        bottomBtns.setLayout(new GridLayout(1,2,10,0));
+        
+        RoundedButton archiveBtn = new RoundedButton("ARCHIVE ITEM", FIELD_RADIUS);
+        archiveBtn.setFont(poppins10);
+        archiveBtn.setForeground(MAROON);
+        archiveBtn.setBorderColor(MAROON);
+        archiveBtn.setBorderThickness(1);
+        archiveBtn.addActionListener(e -> {
+        	ArchiveController comp = new ArchiveController("IMS", serialNumber);
+        	
+        	boolean isSuccessful = comp.setArchived();
+        	if(isSuccessful) {
+        		Window w = SwingUtilities.getWindowAncestor(this);
+        		if (w != null) w.dispose();
+        	}
+        });
+        
+        bottomBtns.add(cancelBtn);
+        bottomBtns.add(archiveBtn);
+        
+        footer.add(bottomBtns);
 
         /* ================= ASSEMBLY ================= */
         

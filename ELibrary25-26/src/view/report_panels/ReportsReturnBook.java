@@ -18,6 +18,8 @@ public class ReportsReturnBook extends JPanel {
 	    static final int PANEL_RADIUS = 20;
 	    static final int FIELD_RADIUS = 15;
 	    
+	    public JTable table;
+	    
     public ReportsReturnBook() {
         setLayout(new BorderLayout());
 
@@ -39,7 +41,7 @@ public class ReportsReturnBook extends JPanel {
         };
 
         // JTable
-        JTable table = new JTable(model);
+         table = new JTable(model);
         table.setFillsViewportHeight(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
