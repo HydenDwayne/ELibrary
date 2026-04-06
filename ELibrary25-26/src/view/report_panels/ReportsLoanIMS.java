@@ -32,12 +32,18 @@ public class ReportsLoanIMS extends JPanel {
         ReportsController comp = new ReportsController(null);
         Object[][] data = comp.getEquipmentLoanData();
         // Table model
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+        	@Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make every cell non-editable
+            }
+        };
 
         // JTable
         JTable table = new JTable(model);
         table.setFillsViewportHeight(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
   
         table.setRowHeight(35);
         Fonts poppins = new Fonts("Poppins", 10f);

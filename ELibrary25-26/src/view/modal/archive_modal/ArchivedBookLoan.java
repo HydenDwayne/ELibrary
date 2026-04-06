@@ -12,7 +12,7 @@ import java.awt.*;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 
-public class ArchivedFacilityLogin extends JPanel {
+public class ArchivedBookLoan extends JPanel {
 
     static final Color MAROON       = new Color(132, 43, 40);
     static final Color LIGHT_PINK   = new Color(250, 236, 238);
@@ -25,26 +25,23 @@ public class ArchivedFacilityLogin extends JPanel {
 
     public JTable table;
 
-    public ArchivedFacilityLogin(String facilityCode) {
+    public ArchivedBookLoan() {
 
         setOpaque(false);
         setLayout(new BorderLayout());
 
         /* ================= FONTS ================= */
-
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 20f).getAppliedFont();
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
 
         /* ================= MODAL ================= */
-
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(600, 500));
         modal.setBackground(LIGHT_PINK);
 
         /* ================= HEADER ================= */
-
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(MAROON);
         header.setPreferredSize(new Dimension(500, 100));
@@ -62,13 +59,12 @@ public class ArchivedFacilityLogin extends JPanel {
         header.add(title, BorderLayout.CENTER);
 
         /* ================= BODY ================= */
-
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
         body.setBorder(new EmptyBorder(10, 15, 10, 15));
 
         JLabel bodyTitle = new JLabel(
-            "ALL ARCHIVED RECORDS OF FACILITY LOGIN",
+            "ALL ARCHIVED RECORDS OF BOOK LOAN",
             SwingConstants.CENTER
         );
         bodyTitle.setFont(introRust24);
@@ -77,11 +73,9 @@ public class ArchivedFacilityLogin extends JPanel {
         body.add(bodyTitle, BorderLayout.NORTH);
 
         /* ================= TABLE ================= */
-
-        String[] columnHeader = {"Log ID", "Facility Code", "Patron ID", "Status"};
-
-        ArchiveController comp = new ArchiveController(facilityCode);
-        Object[][] data = comp.getTableDataFL();
+        String[] columnHeader = {"Transaction ID", "Call Number", "Borrow Date", "Patron ID", "Status"};
+        ArchiveController comp = new ArchiveController(null);
+        Object[][] data = comp.getBookLoanData();
 
         DefaultTableModel model = new DefaultTableModel(data, columnHeader) {
         	@Override
@@ -90,15 +84,14 @@ public class ArchivedFacilityLogin extends JPanel {
             }
         };
         
-
         table = new JTable(model);
         table.setRowHeight(25);
         table.setFont(poppins12);
         table.setGridColor(FIELD_BORDER);
         table.setShowGrid(true);
-        
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         JTableHeader headerTable = table.getTableHeader();
         headerTable.setBackground(MAROON);
         headerTable.setForeground(WHITE);
@@ -116,7 +109,6 @@ public class ArchivedFacilityLogin extends JPanel {
         body.add(tableWrapper, BorderLayout.CENTER);
 
         /* ================= FOOTER ================= */
-
         JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
         footer.setBorder(new EmptyBorder(10, 30, 15, 30));
         footer.setOpaque(false);
@@ -127,9 +119,8 @@ public class ArchivedFacilityLogin extends JPanel {
         cancelBtn.setBorderColor(MAROON);
         cancelBtn.setBorderThickness(1);
         cancelBtn.addActionListener(e -> {
-        	Window w = SwingUtilities.getWindowAncestor(this);
-			if (w instanceof JDialog)
-				w.dispose();
+            Window w = SwingUtilities.getWindowAncestor(this);
+            if (w instanceof JDialog) w.dispose();
         });
 
         RoundedButton unarchiveBtn = new RoundedButton("UNARCHIVE", FIELD_RADIUS);
@@ -141,7 +132,6 @@ public class ArchivedFacilityLogin extends JPanel {
         footer.add(unarchiveBtn);
 
         /* ================= ASSEMBLY ================= */
-
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);

@@ -3,6 +3,9 @@ package view.toolbar_tabs;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 import view.front_pages.FilePath;
+import view.modal.archive_modal.ArchivedLostAndFound;
+import view.modal.archive_modal.ArchivedLostAndFoundModal;
+import view.modal.archive_modal.ArchivedPatronModal;
 import view.modal.lost_and_found_modal.AddLostAndFoundModal;
 
 import java.awt.*;
@@ -96,6 +99,10 @@ public class LNFTab extends JPanel {
         archiveLogo.setBorderPainted(false);
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        archiveLogo.addActionListener(e -> {
+			Window parent = SwingUtilities.getWindowAncestor(this);
+			new ArchivedLostAndFoundModal(parent);
+		});
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();

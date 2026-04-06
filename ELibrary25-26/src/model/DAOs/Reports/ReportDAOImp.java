@@ -191,7 +191,6 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-            	System.out.println(rs.getString("PatronID"));
                 // Map the correct columns from the stored procedure to the DAO
             	reports.add(new DAOPatron(
             			rs.getString("PatronID"), 

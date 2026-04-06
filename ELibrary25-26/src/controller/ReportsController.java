@@ -155,7 +155,6 @@ public class ReportsController {
 		for (int i = 0; i < transactions.size(); i++) {
 			
 			DAOPatron t = transactions.get(i);
-			System.out.println(t.getPatronID());
 			data[i][0] = t.getPatronID();
 			data[i][1] = t.getLastName();
 			data[i][2] = t.getFirstName();

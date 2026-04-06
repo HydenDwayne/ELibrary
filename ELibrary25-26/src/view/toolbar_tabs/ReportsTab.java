@@ -4,6 +4,8 @@ import view.RoundedComponents.*;
 //import view.book_panels.*;
 //import view.facility_panels.*;
 import view.fonts.Fonts;
+import view.modal.archive_modal.ArchivedModal;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -40,6 +42,8 @@ public class ReportsTab extends JPanel implements ActionListener {
     ReportsPatrons p = new ReportsPatrons();
     
     JLabel tabLabel = new JLabel("");
+    
+    String reportPage = "";
 
     public ReportsTab(String tab) {
         int panelRadius = 20;
@@ -93,7 +97,14 @@ public class ReportsTab extends JPanel implements ActionListener {
                     "Multipurpose Hall 2",
                     "Smart Learning Room 1",
                     "Smart Learning Room 2",
-                    "Teleconferencing Room"
+                    "Teleconferencing Room",
+                    "iPad Area",
+                    "Laptop Section",
+                    "Individual Study Room",
+                    "Relaxation Room",
+                    "Smart Device Zone",
+                    "E-Library Login",
+                    "PWD Area"
                 };
         	dropdownFacility = new RoundedComboBox<>(facilityItems, panelRadius);
         } else if (tab.equals("patron")) {
@@ -144,23 +155,44 @@ public class ReportsTab extends JPanel implements ActionListener {
         topWrapper.add(tabLabel, BorderLayout.CENTER);
 
         // see archive button on the right
-        RoundedButton seeArchiveBtn = new RoundedButton("See Archive", panelRadius);
-        seeArchiveBtn.setPreferredSize(new Dimension(150, 40));
+        RoundedButton seeArchiveBtn = new RoundedButton("See Archived Records", panelRadius);
+        seeArchiveBtn.setPreferredSize(new Dimension(200, 40));
         seeArchiveBtn.setBackground(Color.decode("#842b28"));
         seeArchiveBtn.setForeground(Color.WHITE);
         seeArchiveBtn.setFont(introRustStyle);
         seeArchiveBtn.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+			new ArchivedModal(parent, reportPage);
+        });
+        
+        RoundedButton closeBtn = new RoundedButton("X", panelRadius);
+        closeBtn.setPreferredSize(new Dimension(50,50));
+        closeBtn.setBorderColor(Color.decode("#842b28"));
+        closeBtn.setBorderThickness(1);
+        
+//        closeBtn.setBackground(Color.decode("#842b28"));
+        closeBtn.setForeground(Color.decode("#842b28"));
+        closeBtn.setFont(introRustStyle);
+        closeBtn.addActionListener(e -> {
         	Window w = SwingUtilities.getWindowAncestor(this);
 			if (w instanceof JDialog)
 				w.dispose();
         });
         
-        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel btnPanelWrapper = new JPanel();
+        btnPanelWrapper.setOpaque(false);
+        btnPanelWrapper.setPreferredSize(new Dimension(320, 40));
+        
+        JPanel btnPanel = new JPanel(new BorderLayout());
+        btnPanel.setPreferredSize(new Dimension(320, 50));
         btnPanel.setOpaque(false);
         btnPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 60));
-        btnPanel.add(seeArchiveBtn);
+        btnPanel.add(seeArchiveBtn, BorderLayout.WEST);
+        btnPanel.add(closeBtn, BorderLayout.EAST);
         
-        topWrapper.add(btnPanel, BorderLayout.EAST);
+        btnPanelWrapper.add(btnPanel);
+        
+        topWrapper.add(btnPanelWrapper, BorderLayout.EAST);
 
         facContainer.add(topWrapper, BorderLayout.NORTH);
 
@@ -283,86 +315,107 @@ public class ReportsTab extends JPanel implements ActionListener {
         switch (selectedFac) {
             case "Amphitheater":
                 tabLabel.setText("Amphitheater Reports");
+                reportPage = "LibAmphi";
                 amp.setVisible(true);
                 break;
             case "Discussion Room 1":
                 tabLabel.setText("Discussion Room 1 Reports");
+                reportPage = "DiscRoom1";
                 dr1.setVisible(true);
                 break;
             case "Discussion Room 2":
                 tabLabel.setText("Discussion Room 2 Reports");
+                reportPage = "DiscRoom2";
                 dr2.setVisible(true);
                 break;
             case "iPad Area":
                 tabLabel.setText("iPad Area Reports");
+                reportPage = "iPAD";
                 ia.setVisible(true);
                 break;
             case "Individual Study Room":
                 tabLabel.setText("Individual Study Room Reports");
+                reportPage = "ISR";
                 isr.setVisible(true);
                 break;
             case "E-Library Login":
                 tabLabel.setText("E-Library Login Reports");
+                reportPage = "LOGIN";
                 li.setVisible(true);
                 break;
             case "Laptop Section":
                 tabLabel.setText("Laptop Section Reports");
+                reportPage = "LSect";
                 ls.setVisible(true);
                 break;
             case "PWD Area":
                 tabLabel.setText("PWD Area Reports");
+                reportPage = "PWD";
                 pwd.setVisible(true);
                 break;
             case "Multipurpose Hall 1":
                 tabLabel.setText("Multipurpose Hall 1 Reports");
+                reportPage = "MH1";
                 mh1.setVisible(true);
                 break;
             case "Multipurpose Hall 2":
                 tabLabel.setText("Multipurpose Hall 2 Reports");
+                reportPage = "MH2";
                 mh2.setVisible(true);
                 break;
             case "Relaxation Room":
                 tabLabel.setText("Relaxation Room Reports");
+                reportPage = "RelaxRoom";
                 rr.setVisible(true);
                 break;
             case "Smart Device Zone":
                 tabLabel.setText("Smart Device Zone Reports");
+                reportPage = "SDZ";
                 sdz.setVisible(true);
                 break;
             case "Smart Learning Room 1":
                 tabLabel.setText("Smart Learning Room 1 Reports");
+                reportPage = "SLR1";
                 slr1.setVisible(true);
                 break;
             case "Smart Learning Room 2":
                 tabLabel.setText("Smart Learning Room 2 Reports");
+                reportPage = "SLR2";
                 slr2.setVisible(true);
                 break;
             case "Teleconferencing Room":
                 tabLabel.setText("Teleconferencing Room Reports");
+                reportPage = "TeleconRoom";
                 tcr.setVisible(true);
                 break;
             case "Book Loans":
                 tabLabel.setText("Book Loans Reports");
+                reportPage = "BookLoan";
                 bl.setVisible(true);
                 break;
             case "Book Returns":
                 tabLabel.setText("Book Returns Reports");
+                reportPage = "ReturnBook";
                 rb.setVisible(true);
                 break;
             case "Books":
                 tabLabel.setText("Books Reports");
+                reportPage = "Books";
                 b.setVisible(true);
                 break;
             case "Instructional Media Services":
                 tabLabel.setText("Instructional Media Services Reports");
+                reportPage = "IMS";
                 ims.setVisible(true);
                 break;
             case "Equipment Loans":
                 tabLabel.setText("Equipment Loans Reports");
+                reportPage = "EL";
                 lims.setVisible(true);
                 break;
             case "Patrons":
                 tabLabel.setText("Patrons Reports");
+                reportPage = "Patrons";
                 p.setVisible(true);
                 break;
             default:

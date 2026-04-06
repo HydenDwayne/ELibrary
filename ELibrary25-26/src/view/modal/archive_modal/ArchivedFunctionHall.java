@@ -12,7 +12,7 @@ import java.awt.*;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 
-public class ArchivedFacilityLogin extends JPanel {
+public class ArchivedFunctionHall extends JPanel {
 
     static final Color MAROON       = new Color(132, 43, 40);
     static final Color LIGHT_PINK   = new Color(250, 236, 238);
@@ -25,7 +25,7 @@ public class ArchivedFacilityLogin extends JPanel {
 
     public JTable table;
 
-    public ArchivedFacilityLogin(String facilityCode) {
+    public ArchivedFunctionHall(String facilityCode) {
 
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -68,7 +68,7 @@ public class ArchivedFacilityLogin extends JPanel {
         body.setBorder(new EmptyBorder(10, 15, 10, 15));
 
         JLabel bodyTitle = new JLabel(
-            "ALL ARCHIVED RECORDS OF FACILITY LOGIN",
+            "ALL ARCHIVED RECORDS OF HALL RESERVATIONS",
             SwingConstants.CENTER
         );
         bodyTitle.setFont(introRust24);
@@ -78,10 +78,15 @@ public class ArchivedFacilityLogin extends JPanel {
 
         /* ================= TABLE ================= */
 
-        String[] columnHeader = {"Log ID", "Facility Code", "Patron ID", "Status"};
+        String[] columnHeader = {
+            "Hall Reservation Number",
+            "Function Hall Code",
+            "Event Name",
+            "Status"
+        };
 
         ArchiveController comp = new ArchiveController(facilityCode);
-        Object[][] data = comp.getTableDataFL();
+        Object[][] data = comp.getTableData();
 
         DefaultTableModel model = new DefaultTableModel(data, columnHeader) {
         	@Override
