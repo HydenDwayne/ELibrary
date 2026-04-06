@@ -4,6 +4,9 @@ import view.RoundedComponents.*;
 import view.book_panels.*;
 import view.facility_panels.*;
 import view.fonts.Fonts;
+import view.front_pages.FilePath;
+import view.report_panels.Modals.FacilityModal;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -96,8 +99,10 @@ public class FacilitiesTab extends JPanel implements ActionListener {
 
         // container of the red part
         JPanel topWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topWrapper.setLayout(new BorderLayout());
         topWrapper.setOpaque(false);
         topWrapper.add(slctFacility);
+        topWrapper.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
 
         // no red part
         tabLabel.setText("7th | Amphitheather");
@@ -107,8 +112,56 @@ public class FacilitiesTab extends JPanel implements ActionListener {
         Fonts introRust22 = new Fonts("IntroRust", 22f);
         Font introRust22Style = introRust22.getAppliedFont();
         tabLabel.setFont(introRust22Style);
+        
+        
+        
+        ImageIcon archiveIcon = new ImageIcon(FilePath.image("archive.png"));
+        Image archiveImage = archiveIcon.getImage();
+        Image scaledImageArchive = archiveImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
+        archiveIcon = new ImageIcon(scaledImageArchive);
+        JButton archiveLogo = new JButton(archiveIcon);
+        archiveLogo.setBackground(new Color(0, 0, 0, 0));
+        archiveLogo.setContentAreaFilled(false);
+        archiveLogo.setBorderPainted(false);
+        archiveLogo.setFocusPainted(false);
+        archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        archiveLogo.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+	        new FacilityModal(parent, "facilities");
+        });
+        
+        ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
+        Image reloadImage = reloadIcon.getImage();
+        Image scaledImageReload = reloadImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
+        reloadIcon = new ImageIcon(scaledImageReload);
+        JButton reloadLogo = new JButton(reloadIcon);
+        reloadLogo.setBackground(new Color(0, 0, 0, 0));
+        reloadLogo.setContentAreaFilled(false);
+        reloadLogo.setBorderPainted(false);
+        reloadLogo.setFocusPainted(false);
+        reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        reloadLogo.addActionListener(e -> {
+//        	reloadCurrentCollection();
+        });
+        
+        JPanel iconsPanel = new JPanel();
+        iconsPanel.setOpaque(false);
+        iconsPanel.setLayout(new GridLayout(1, 3));
+        iconsPanel.setPreferredSize(new Dimension(80,30));
+        
+//        iconsPanel.add(sortByLogo);
+        iconsPanel.add(archiveLogo);
+        iconsPanel.add(reloadLogo);
+        
+     // add red facility selector to the left
+        topWrapper.add(slctFacility, BorderLayout.WEST);
 
+        // add tab label in the center
         topWrapper.add(tabLabel, BorderLayout.CENTER);
+
+        // add icons panel to the right
+        topWrapper.add(iconsPanel, BorderLayout.EAST);
 
         facContainer.add(topWrapper, BorderLayout.NORTH);
 

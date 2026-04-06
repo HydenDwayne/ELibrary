@@ -15,6 +15,7 @@ import view.modal.books_modal.ReturnBookModal;
 import view.modal.filter_modal.FilterByPatronModal;
 import view.modal.patron_modal.RegisterPatronModal;
 import view.modal.patron_modal.ViewEmployeeModal;
+import view.report_panels.Modals.FacilityModal;
 
 public class PatronsTab extends JPanel {
 
@@ -174,6 +175,10 @@ public class PatronsTab extends JPanel {
 		archiveLogo.setBorderPainted(false);
 		archiveLogo.setFocusPainted(false);
 		archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		archiveLogo.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+	        new FacilityModal(parent, "patron");
+        });
 
 		ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
 		Image reloadImage = reloadIcon.getImage();

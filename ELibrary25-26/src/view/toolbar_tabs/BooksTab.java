@@ -13,6 +13,7 @@ import controller.MainFunctions;
 import view.modal.*;
 import view.modal.books_modal.*;
 import view.modal.filter_modal.*;
+import view.report_panels.Modals.FacilityModal;
 
 public class BooksTab extends JPanel implements ActionListener {
 
@@ -186,6 +187,10 @@ public class BooksTab extends JPanel implements ActionListener {
         archiveLogo.setBorderPainted(false);
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        archiveLogo.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+	        new FacilityModal(parent, "books");
+        });
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();

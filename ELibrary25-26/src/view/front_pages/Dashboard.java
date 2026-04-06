@@ -20,12 +20,9 @@ public class Dashboard extends JFrame {
     LNFTab lnfTab;
     PatronsTab patTab;
     IMSTab imsTab;
-    
 
     public Dashboard() {
-    	
-    	
-    	
+
         // Use BorderLayout for the frame
         setLayout(new BorderLayout());
 
@@ -134,7 +131,7 @@ public class Dashboard extends JFrame {
         patTab.setVisible(false);
 
         imsTab = new IMSTab();
-        imsTab.setVisible(false);
+        imsTab.setVisible(false);  
 
         mainContent.add(ovTab);
         mainContent.add(facTab);

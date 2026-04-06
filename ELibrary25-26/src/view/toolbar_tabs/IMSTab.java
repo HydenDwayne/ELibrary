@@ -7,6 +7,7 @@ import view.front_pages.Dashboard;
 import view.front_pages.FilePath;
 import view.modal.ims_modal.AddIMSModal;
 import view.modal.ims_modal.AddRequestItemModal;
+import view.report_panels.Modals.FacilityModal;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -98,6 +99,10 @@ public class IMSTab extends JPanel {
         archiveLogo.setBorderPainted(false);
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        archiveLogo.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+	        new FacilityModal(parent, "ims");
+        });
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();
