@@ -159,12 +159,12 @@ public class FacilityLogin extends JFrame implements ActionListener {
 			if (nCard.isVisible()) {
 				enteredPatronID = usernameNonCard.getRealText().trim();
 			} else {
-
 				enteredPatronID = username.getRealText().trim();
 				cardNoText = cardNo.getRealText().trim();
-				if (enteredPatronID.equals("exit")) {
-					return;
-				}
+			}
+			if (enteredPatronID.equals("exit")) {
+				lw.setVisible(true);
+				dispose();
 			}
 
 			if (enteredPatronID.isEmpty()) {

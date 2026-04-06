@@ -13,6 +13,7 @@ import controller.MainFunctions;
 import view.modal.*;
 import view.modal.books_modal.*;
 import view.modal.filter_modal.*;
+import view.report_panels.Modals.FacilityModal;
 
 public class BooksTab extends JPanel implements ActionListener {
 
@@ -186,6 +187,11 @@ public class BooksTab extends JPanel implements ActionListener {
         archiveLogo.setBorderPainted(false);
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        archiveLogo.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+	        new FacilityModal(parent, "books");
+	        reloadCurrentCollection();
+        });
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();
@@ -242,6 +248,7 @@ public class BooksTab extends JPanel implements ActionListener {
         addBook.addActionListener(e -> {
         	Window parent = SwingUtilities.getWindowAncestor(this);
 			new AddBookModal(parent);
+			reloadCurrentCollection();
         });
         
         outerBtnCont.add(innerBtn1Cont);
@@ -254,6 +261,7 @@ public class BooksTab extends JPanel implements ActionListener {
         lendBook.addActionListener(e -> {
             Window window = SwingUtilities.getWindowAncestor(this);
             new BorrowBookModal(window);
+            reloadCurrentCollection();
         });
         innerBtn2Cont.add(lendBook);
         
@@ -267,6 +275,7 @@ public class BooksTab extends JPanel implements ActionListener {
 		returnBook.addActionListener(e -> {
 		    Window parent = SwingUtilities.getWindowAncestor(this);
 		    new ReturnBookModal(parent);
+		    reloadCurrentCollection();
 		});
 
         innerBtn3Cont.add(returnBook);

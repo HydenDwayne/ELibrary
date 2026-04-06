@@ -2,6 +2,9 @@ package view.modal.ims_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.IMSController;
+
 import java.awt.*;
 
 import view.RoundedComponents.*;
@@ -185,6 +188,35 @@ public class AddRequestItem extends JPanel {
         confirmBtn.setFont(poppins12);
         confirmBtn.setBackground(MAROON);
         confirmBtn.setForeground(WHITE);
+        confirmBtn.addActionListener(e -> {
+
+            String serial = serialField != null ? serialField.getRealText() : "";
+            String patron = patronField != null ? patronField.getRealText() : "";
+            String venue = venueField != null ? venueField.getRealText() : "";
+            String borrowDate = borrowDateField != null ? borrowDateField.getRealText().trim() : "";
+
+            if (!serial.isBlank() && !patron.isBlank() && !venue.isBlank() && !borrowDate.isBlank()) {
+
+                String[] requestData = new String[] {
+                    serial,
+                    patron,
+                    venue,
+                    borrowDate
+                };
+                
+                IMSController comp = new IMSController(this);
+                boolean isSuccessful = comp.addNewRequest(requestData);
+                
+                if (isSuccessful) {
+                	Window w = SwingUtilities.getWindowAncestor(this);
+                    if (w instanceof JDialog) w.dispose();
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Fill all fields");
+            }
+        });
+
         footer.add(confirmBtn);
 
         RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);

@@ -567,13 +567,9 @@ public class StudentModal extends JPanel implements ActionListener {
 				        "Successfully registered new patron!",
 				        JOptionPane.INFORMATION_MESSAGE
 				    );
-
-				    // ✅ CLEAR FORMS
-				    genModal.clearFields();
-				    clearFields();
-
-				    // ✅ GO BACK TO STEP 1
-				    rp.showCard("general");
+				    Window w = SwingUtilities.getWindowAncestor(this);
+					if (w instanceof JDialog)
+						w.dispose();
 				} else {
 			        JOptionPane.showMessageDialog(
 			                this,

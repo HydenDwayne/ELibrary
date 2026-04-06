@@ -2,6 +2,9 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.BookController;
+
 import java.awt.*;
 
 import view.RoundedComponents.RoundedButton;
@@ -21,11 +24,14 @@ public class AddBorrowingRequestReceipt extends JPanel {
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
 
-
-
     private final BorrowBookModal dialog;
+    
+    public RoundedTextField txnField;
+    public RoundedTextField callField;
+    public RoundedTextField patronField;
+    public RoundedTextField dueField;
 
-    public AddBorrowingRequestReceipt(BorrowBookModal dialog) {
+    public AddBorrowingRequestReceipt(BorrowBookModal dialog, String[] borrowDetails) {
         this.dialog = dialog;
 
         setOpaque(false);
@@ -46,7 +52,7 @@ public class AddBorrowingRequestReceipt extends JPanel {
         modal.setPreferredSize(new Dimension(500, 420));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER (EXACT COPY) ================= */
+        /* ================= HEADER ================= */
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -89,14 +95,82 @@ public class AddBorrowingRequestReceipt extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridy = -1;
+        gbc.gridy = 0;
 
-        /* ================= RECEIPT DETAILS ================= */
+        /* ================= TRANSACTION ID ================= */
+        JLabel txnLabel = new JLabel("Transaction ID:");
+        txnLabel.setFont(poppins16);
+        txnLabel.setForeground(DARK_TEXT);
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        innerBody.add(txnLabel, gbc);
 
-        addRow(innerBody, gbc, "Transaction ID:", roField("TXN-2024-0001", poppins10));
-        addRow(innerBody, gbc, "Book Call Number:", roField("DS210.L86 2020", poppins10));
-        addRow(innerBody, gbc, "Patron ID:", roField("2024100015", poppins10));
-        addRow(innerBody, gbc, "Borrow Due Date:", roField("2026-01-15", poppins10));
+         txnField = new RoundedTextField(19, FIELD_RADIUS);
+        txnField.setPlaceholder("TXN-2024-0001");
+        txnField.setEditable(false);
+        txnField.setFont(poppins10);
+        txnField.setBorderColor(FIELD_BORDER);
+        txnField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(txnField, gbc);
+
+        /* ================= BOOK CALL NUMBER ================= */
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        JLabel callLabel = new JLabel("Book Call Number:");
+        callLabel.setFont(poppins16);
+        callLabel.setForeground(DARK_TEXT);
+        innerBody.add(callLabel, gbc);
+
+         callField = new RoundedTextField(19, FIELD_RADIUS);
+        callField.setPlaceholder("DS210.L86 2020");
+        callField.setEditable(false);
+        callField.setFont(poppins10);
+        callField.setBorderColor(FIELD_BORDER);
+        callField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(callField, gbc);
+
+        /* ================= PATRON ID ================= */
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        JLabel patronLabel = new JLabel("Patron ID:");
+        patronLabel.setFont(poppins16);
+        patronLabel.setForeground(DARK_TEXT);
+        innerBody.add(patronLabel, gbc);
+
+         patronField = new RoundedTextField(19, FIELD_RADIUS);
+        patronField.setPlaceholder("2024100015");
+        patronField.setEditable(false);
+        patronField.setFont(poppins10);
+        patronField.setBorderColor(FIELD_BORDER);
+        patronField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(patronField, gbc);
+
+        /* ================= BORROW DUE DATE ================= */
+        gbc.gridy++;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        JLabel dueLabel = new JLabel("Borrow Due Date:");
+        dueLabel.setFont(poppins16);
+        dueLabel.setForeground(DARK_TEXT);
+        innerBody.add(dueLabel, gbc);
+
+         dueField = new RoundedTextField(19, FIELD_RADIUS);
+        dueField.setPlaceholder("2026-01-15");
+        dueField.setEditable(false);
+        dueField.setFont(poppins10);
+        dueField.setBorderColor(FIELD_BORDER);
+        dueField.setBorderThickness(1);
+        gbc.gridx = 1;
+        gbc.weightx = 1;
+        innerBody.add(dueField, gbc);
 
         body.add(innerBody, BorderLayout.CENTER);
 
@@ -125,38 +199,7 @@ public class AddBorrowingRequestReceipt extends JPanel {
         modal.add(footer, BorderLayout.SOUTH);
 
         add(modal, BorderLayout.CENTER);
-    }
-
-    /* ================= HELPERS ================= */
-
-    private void addRow(JPanel parent, GridBagConstraints gbc, String labelText, JComponent field) {
-        gbc.gridy++;
-        gbc.gridx = 0;
-        gbc.weightx = 0;
-
-        JPanel labelWrapper = new JPanel(new BorderLayout());
-        labelWrapper.setOpaque(false);
-        labelWrapper.setPreferredSize(new Dimension(210, 30));
-
-        JLabel label = new JLabel(labelText);
-        label.setFont(new Fonts("Poppins", 16f).getAppliedFont());
-        label.setForeground(DARK_TEXT);
-
-        labelWrapper.add(label, BorderLayout.WEST);
-        parent.add(labelWrapper, gbc);
-
-        gbc.gridx = 1;
-        gbc.weightx = 1;
-        parent.add(field, gbc);
-    }
-
-    private RoundedTextField roField(String text, Font font) {
-        RoundedTextField tf = new RoundedTextField(19, FIELD_RADIUS);
-        tf.setPlaceholder(text);
-        tf.setEditable(false);
-        tf.setFont(font);
-        tf.setBorderColor(FIELD_BORDER);
-        tf.setBorderThickness(1);
-        return tf;
+        
+        new BookController(this, borrowDetails);
     }
 }

@@ -2,6 +2,9 @@ package view.modal.lost_and_found_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.LNFController;
+
 import java.awt.*;
 
 import view.RoundedComponents.*;
@@ -210,6 +213,29 @@ public class AddLostAndFound extends JPanel {
 		confirmBtn.setFont(poppins12);
 		confirmBtn.setBackground(MAROON);
 		confirmBtn.setForeground(WHITE);
+		confirmBtn.addActionListener(e -> {
+			
+			String item = itemField.getRealText().trim();
+		    String owner = ownerField.getRealText().trim();
+		    String desc = descField.getRealText().trim();
+		    String floorTxt = floorField.getSelectedItem().toString();
+		    String statusTxt = statusField.getSelectedItem().toString();
+		    String date = dateField.getRealText().trim();
+		    
+		    String[] reportDetails = {
+		            item,
+		            owner,
+		            desc,
+		            floorTxt,
+		            statusTxt,
+		            date
+		        };
+			new LNFController(this, reportDetails);
+			
+			Window w = SwingUtilities.getWindowAncestor(this);
+			if (w instanceof JDialog)
+				w.dispose();
+		});
 		footer.add(confirmBtn);
 
 		RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);

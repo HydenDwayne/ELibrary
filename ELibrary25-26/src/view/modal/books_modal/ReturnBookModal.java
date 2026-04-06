@@ -31,8 +31,8 @@ public class ReturnBookModal extends RoundedDialog {
     }
 
     // ✅ STEP 2
-    public void setStep2() {
-        setContentPane(new ReturnBookConfirm(this));
+    public void setStep2(String[] borrowDetails) {
+        setContentPane(new ReturnBookConfirm(this, borrowDetails));
         refreshAndCenter();
     }
 

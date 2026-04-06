@@ -124,6 +124,7 @@ public class Toolbar extends JPanel implements ActionListener {
         toolbar.add(imsBtn, gbcToolbar);
         setBackground(Color.decode("#c4c4c4"));
         add(toolbar);
+
     }
 
     @Override

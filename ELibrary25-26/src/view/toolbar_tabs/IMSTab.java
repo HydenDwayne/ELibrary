@@ -7,6 +7,7 @@ import view.front_pages.Dashboard;
 import view.front_pages.FilePath;
 import view.modal.ims_modal.AddIMSModal;
 import view.modal.ims_modal.AddRequestItemModal;
+import view.report_panels.Modals.FacilityModal;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -28,7 +29,7 @@ public class IMSTab extends JPanel {
     JPanel cardContainer;
     MainFunctions cardComp;
     
-    String searchQuery = "";
+    public String searchQuery = "";
 
     public IMSTab() {
 
@@ -87,18 +88,6 @@ public class IMSTab extends JPanel {
         searchItem.setFont(poppins12Style);
 
         searchContainer.add(searchItem);
-
-     // sort by
-        ImageIcon sortByIcon = new ImageIcon(FilePath.image("sort_by_icon.png"));
-        Image sortByImage = sortByIcon.getImage();
-        Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
-        sortByIcon = new ImageIcon(scaledImageSortBy);
-        JButton sortByLogo = new JButton(sortByIcon);
-        sortByLogo.setBackground(new Color(0, 0, 0, 0));
-        sortByLogo.setContentAreaFilled(false);
-        sortByLogo.setBorderPainted(false);
-        sortByLogo.setFocusPainted(false);
-        sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
         ImageIcon archiveIcon = new ImageIcon(FilePath.image("archive.png"));
         Image archiveImage = archiveIcon.getImage();
@@ -110,6 +99,11 @@ public class IMSTab extends JPanel {
         archiveLogo.setBorderPainted(false);
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        archiveLogo.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+	        new FacilityModal(parent, "ims");
+	        reloadData(searchQuery);
+        });
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();
@@ -131,7 +125,6 @@ public class IMSTab extends JPanel {
         iconsPanel.setLayout(new GridLayout(1, 3));
         iconsPanel.setPreferredSize(new Dimension(100,30));
         
-        iconsPanel.add(sortByLogo);
         iconsPanel.add(archiveLogo);
         iconsPanel.add(reloadLogo);
         

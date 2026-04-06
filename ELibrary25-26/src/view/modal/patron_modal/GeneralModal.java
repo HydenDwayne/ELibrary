@@ -426,14 +426,14 @@ public class GeneralModal extends JPanel implements ActionListener {
 		submitBtn.addActionListener(this);
 		footer.add(submitBtn, BorderLayout.NORTH);
 
-		RoundedButton clearBtn = new RoundedButton("CLEAR", 15);
-		clearBtn.setForeground(Color.decode("#842b28"));
-		clearBtn.setBorderColor(Color.decode("#842b28"));
-		clearBtn.setBorderThickness(1);
-		clearBtn.setPreferredSize(new Dimension(500, 40));
-		clearBtn.setFont(poppinsStyle12);
-		clearBtn.addActionListener(this);
-		footer.add(clearBtn, BorderLayout.SOUTH);
+		RoundedButton cancelBtn = new RoundedButton("CANCEL", 15);
+		cancelBtn.setForeground(Color.decode("#842b28"));
+		cancelBtn.setBorderColor(Color.decode("#842b28"));
+		cancelBtn.setBorderThickness(1);
+		cancelBtn.setPreferredSize(new Dimension(500, 40));
+		cancelBtn.setFont(poppinsStyle12);
+		cancelBtn.addActionListener(this);
+		footer.add(cancelBtn, BorderLayout.SOUTH);
 
 		modal.add(header, BorderLayout.NORTH);
 		modal.add(body, BorderLayout.CENTER);
@@ -475,46 +475,14 @@ public class GeneralModal extends JPanel implements ActionListener {
 			}
 			break;
 
-		case "CLEAR":
-			if (row1Field.getText().equals("exit")) {
-				Window w = SwingUtilities.getWindowAncestor(this);
-				if (w instanceof JDialog)
-					w.dispose();
-			} else {
-				clearFields();
-			}
+		case "CANCEL":
+			Window w = SwingUtilities.getWindowAncestor(this);
+			if (w instanceof JDialog)
+				w.dispose();
 			break;
 
 		default:
 			break;
 		}
 	}
-	
-	public void clearFields() {
-
-	    row1Field.setText("");
-	    row1Field.setPlaceholder("Enter Patron ID");
-
-	    row3_1Field.setText("");
-	    row3_1Field.setPlaceholder("Enter First Name");
-
-	    row3_2Field.setText("");
-	    row3_2Field.setPlaceholder("Enter Last Name");
-
-	    row4Field.setText("");
-	    row4Field.setPlaceholder("Enter Middle Initial");
-
-	    row5Field.setText("");
-	    row5Field.setPlaceholder("Enter Email Address");
-
-	    row6Field.setText("");
-	    row6Field.setPlaceholder("Enter Contact Number");
-
-	    row7Field.setText("");
-	    row7Field.setPlaceholder("Enter Home Address");
-
-	    row8Field.setSelectedIndex(0);
-	    bg.setSelected(studentBtn.getModel(), true);
-	}
-
 }

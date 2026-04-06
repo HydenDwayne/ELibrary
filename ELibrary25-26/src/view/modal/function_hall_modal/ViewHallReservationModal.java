@@ -4,12 +4,15 @@ import view.RoundedComponents.RoundedDialog;
 import view.modal.ModalUtils;
 
 import java.awt.*;
+import java.util.List;
+
+import model.DAOs.FunctionHall.DAOFuncHall;
 
 public class ViewHallReservationModal extends RoundedDialog {
 
     private final Window parent;
 
-    public ViewHallReservationModal(Window parent) {
+    public ViewHallReservationModal(Window parent, String[] event) {
         super(parent, 20); // same radius as all other modals
         this.parent = parent;
 
@@ -17,7 +20,7 @@ public class ViewHallReservationModal extends RoundedDialog {
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
         // Set content panel
-        setContentPane(new ViewHallReservation());
+        setContentPane(new ViewHallReservation(event));
         pack();
         setLocationRelativeTo(parent);
         setVisible(true);

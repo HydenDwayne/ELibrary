@@ -3,6 +3,9 @@ package view.toolbar_tabs;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 import view.front_pages.FilePath;
+import view.modal.archive_modal.ArchivedLostAndFound;
+import view.modal.archive_modal.ArchivedLostAndFoundModal;
+import view.modal.archive_modal.ArchivedPatronModal;
 import view.modal.lost_and_found_modal.AddLostAndFoundModal;
 
 import java.awt.*;
@@ -31,7 +34,7 @@ public class LNFTab extends JPanel {
 
     int columnCount = 0;
     
-    String searchQuery = "";
+    public String searchQuery = "";
 
     public LNFTab() {
         int panelRadius = 20;
@@ -85,18 +88,6 @@ public class LNFTab extends JPanel {
 		});
 
         searchContainer.add(searchItem);
-
-     // sort by
-        ImageIcon sortByIcon = new ImageIcon(FilePath.image("sort_by_icon.png"));
-        Image sortByImage = sortByIcon.getImage();
-        Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
-        sortByIcon = new ImageIcon(scaledImageSortBy);
-        JButton sortByLogo = new JButton(sortByIcon);
-        sortByLogo.setBackground(new Color(0, 0, 0, 0));
-        sortByLogo.setContentAreaFilled(false);
-        sortByLogo.setBorderPainted(false);
-        sortByLogo.setFocusPainted(false);
-        sortByLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
         ImageIcon archiveIcon = new ImageIcon(FilePath.image("archive.png"));
         Image archiveImage = archiveIcon.getImage();
@@ -108,6 +99,11 @@ public class LNFTab extends JPanel {
         archiveLogo.setBorderPainted(false);
         archiveLogo.setFocusPainted(false);
         archiveLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        archiveLogo.addActionListener(e -> {
+			Window parent = SwingUtilities.getWindowAncestor(this);
+			new ArchivedLostAndFoundModal(parent);
+			reloadData(searchQuery);
+		});
         
         ImageIcon reloadIcon = new ImageIcon(FilePath.image("reload.png"));
         Image reloadImage = reloadIcon.getImage();
@@ -129,7 +125,6 @@ public class LNFTab extends JPanel {
         iconsPanel.setLayout(new GridLayout(1, 3));
         iconsPanel.setPreferredSize(new Dimension(100,30));
         
-        iconsPanel.add(sortByLogo);
         iconsPanel.add(archiveLogo);
         iconsPanel.add(reloadLogo);
         
@@ -149,6 +144,7 @@ public class LNFTab extends JPanel {
         addLostItem.addActionListener(e -> {
         	Window parent = SwingUtilities.getWindowAncestor(this);
         	new AddLostAndFoundModal(parent);
+        	reloadData(searchQuery);
         });
 
         outerBtnCont.add(addLostItem, BorderLayout.EAST);

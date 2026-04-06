@@ -2,6 +2,8 @@ package view.modal.books_modal;
 
 import javax.swing.*;
 import java.awt.*;
+
+import controller.ArchiveController;
 import controller.BookController;import javax.swing.border.EmptyBorder;
 import view.RoundedComponents.RoundedButton;
 import view.RoundedComponents.RoundedPanel;
@@ -34,9 +36,11 @@ public class ViewBooks extends JPanel {
     public RoundedComboBox<String> typeCombo;
     public RoundedComboBox<String> availCombo;
     public RoundedTextField classField;
+    public RoundedTextField callNumberField;
 
     public RoundedButton saveBtn;
     public RoundedButton closeBtn;
+    public RoundedButton archiveBtn;
 
     public ViewBooks(String callNumber) {
 
@@ -104,6 +108,22 @@ public class ViewBooks extends JPanel {
         gbc.gridy = -1;
 
         /* ================= FIELDS ================= */
+        
+     // ---- Book Title ----
+        gbc.gridy++;
+        gbc.gridx = 0;
+        JLabel callNumberLbl = new JLabel("Call Number:");
+        callNumberLbl.setFont(poppins16);
+        callNumberLbl.setForeground(DARK_TEXT);
+        innerBody.add(callNumberLbl, gbc);
+
+        gbc.gridx = 1;
+        callNumberField = new RoundedTextField(19, FIELD_RADIUS);
+        callNumberField.setFont(poppins10);
+        callNumberField.setBorderColor(FIELD_BORDER);
+        callNumberField.setEnabled(false);
+        callNumberField.setBorderThickness(1);
+        innerBody.add(callNumberField, gbc);
 
         // ---- Book Title ----
         gbc.gridy++;
@@ -119,6 +139,8 @@ public class ViewBooks extends JPanel {
         bookTitleField.setBorderColor(FIELD_BORDER);
         bookTitleField.setBorderThickness(1);
         innerBody.add(bookTitleField, gbc);
+        
+        Dimension fieldSize = new Dimension(200, bookTitleField.getPreferredSize().height);
 
         // ---- Author ----
         gbc.gridy++;
@@ -148,6 +170,7 @@ public class ViewBooks extends JPanel {
         for (int i = 0; i < years.length; i++) years[i] = 2000 + i;
 
         yearField = new RoundedTextField(19, FIELD_RADIUS);
+        yearField.setPreferredSize(fieldSize);
         yearField.setFont(poppins10);
         yearField.setBorderColor(FIELD_BORDER);
         yearField.setBorderThickness(1);
@@ -164,19 +187,40 @@ public class ViewBooks extends JPanel {
 
         gbc.gridx = 1;
         typeCombo = new RoundedComboBox<>(new String[]{"NBB", "BB"}, FIELD_RADIUS);
+        typeCombo.setPreferredSize(fieldSize);
         typeCombo.setFont(poppins10);
         typeCombo.setBorderColor(FIELD_BORDER);
         typeCombo.setBorderThickness(1);
         typeCombo.addActionListener(e -> {
-        	if (typeCombo.getSelectedIndex() == 0) {
-        		availCombo.setEnabled(false);
-        		seriesField.setEnabled(true);
-        	}
-        	if (typeCombo.getSelectedIndex() == 1) {
-        		availCombo.setEnabled(true);
-        		seriesField.setEnabled(false);
-        	}
+            String selectedType = (String) typeCombo.getSelectedItem();
+
+            if ("NBB".equals(selectedType)) {
+                // Only allow reference, reserve, theses, and dissertation
+                String[] nbbCollections = {
+                    "Reference Collection",
+                    "Reserve Collection",
+                    "Theses and Dissertations"
+                };
+                collectionCombo.setModel(new DefaultComboBoxModel<>(nbbCollections));
+                collectionCombo.setEnabled(true); // editable if you want
+                availCombo.setEnabled(false);
+                seriesField.setEnabled(true);
+            } else if ("BB".equals(selectedType)) {
+                // Restore all other collections
+                String[] bbCollections = {
+                    "Bulacaniana Collection", 
+                    "General Circulation Section", 
+                    "Fiction Collection",
+                    "Filipiniana Collection"
+                };
+                collectionCombo.setModel(new DefaultComboBoxModel<>(bbCollections));
+                collectionCombo.setEnabled(true);
+                availCombo.setEnabled(true);
+                seriesField.setEnabled(false);
+            }
         });
+        
+        
         innerBody.add(typeCombo, gbc);
 
         // ---- Collection Code ----
@@ -199,6 +243,7 @@ public class ViewBooks extends JPanel {
         
         gbc.gridx = 1;
         collectionCombo = new RoundedComboBox<>(collections, FIELD_RADIUS);
+        collectionCombo.setPreferredSize(fieldSize);
         collectionCombo.setFont(poppins10);
         collectionCombo.setBorderColor(FIELD_BORDER);
         collectionCombo.setBorderThickness(1);
@@ -214,6 +259,7 @@ public class ViewBooks extends JPanel {
 
         gbc.gridx = 1;
         classField = new RoundedTextField(19, FIELD_RADIUS);
+        classField.setPreferredSize(fieldSize);
         classField.setFont(poppins10);
         classField.setBorderColor(FIELD_BORDER);
         classField.setBorderThickness(1);
@@ -228,14 +274,30 @@ public class ViewBooks extends JPanel {
         availLbl.setForeground(DARK_TEXT);
         innerBody.add(availLbl, gbc);
 
+        String[] status = {"Available", "Borrowed", "Archived"};
         gbc.gridx = 1;
         availCombo = new RoundedComboBox<>(
-            new String[]{"Available", "Borrowed", "Archived"},
+            status,
             FIELD_RADIUS
         );
+        availCombo.setPreferredSize(fieldSize);
         availCombo.setFont(poppins10);
         availCombo.setBorderColor(FIELD_BORDER);
         availCombo.setBorderThickness(1);
+        availCombo.addActionListener(e -> {
+            String selected = (String) availCombo.getSelectedItem();
+
+            if ("Borrowed".equals(selected)) {
+                availCombo.setEnabled(false);
+            } else {
+                // Show only Available and Archived
+                String[] options = {"Available", "Archived"};
+                availCombo.setModel(new DefaultComboBoxModel<>(options));
+                availCombo.setEnabled(true);
+            }
+        });
+        
+        
         innerBody.add(availCombo, gbc);
 
         // ---- Series Title ----
@@ -257,6 +319,14 @@ public class ViewBooks extends JPanel {
 
         new BookController(this, callNumber); // loads data + classification codes
 
+        if ("Borrowed".equals(availCombo.getSelectedItem())) {
+            availCombo.setEnabled(false);
+        } else {
+            String[] options = {"Available", "Archived"};
+            availCombo.setModel(new DefaultComboBoxModel<>(options));
+            availCombo.setEnabled(true);
+        }
+        
         body.add(innerBody, BorderLayout.CENTER);
 
         /* ================= FOOTER ================= */
@@ -269,7 +339,51 @@ public class ViewBooks extends JPanel {
         saveBtn.setFont(poppins12);
         saveBtn.setBackground(MAROON);
         saveBtn.setForeground(WHITE);
+        saveBtn.addActionListener(e -> {
+
+            String[] bookDetails = new String[9];
+
+            bookDetails[0] = callNumberField.getRealText(); // Call Number
+            bookDetails[1] = bookTitleField.getRealText();  // Title
+            bookDetails[2] = authorField.getRealText();     // Author
+            bookDetails[3] = yearField.getRealText();       // Publication Year
+            bookDetails[4] = typeCombo.getSelectedItem() != null 
+                          ? typeCombo.getSelectedItem().toString() : ""; // Book Type
+            bookDetails[5] = collectionCombo.getSelectedItem() != null 
+                          ? collectionCombo.getSelectedItem().toString() : ""; // Collection Code
+            bookDetails[6] = classField.getRealText();     // Classification Code
+            bookDetails[7] = availCombo.getSelectedItem() != null 
+                          ? availCombo.getSelectedItem().toString() : ""; // Availability Status
+            bookDetails[8] = seriesField.getRealText();    // Series Title
+
+            new BookController(this, bookDetails);
+            
+            Window w = SwingUtilities.getWindowAncestor(this);
+            if (w != null) w.dispose();
+        });
         footer.add(saveBtn);
+        
+        JPanel bottomBtns = new JPanel();
+        bottomBtns.setOpaque(false);
+        bottomBtns.setLayout(new GridLayout(1,2,10,0));
+        
+        archiveBtn = new RoundedButton("ARCHIVE BOOK", FIELD_RADIUS);
+        archiveBtn.setFont(poppins12);
+        archiveBtn.setForeground(MAROON);
+        archiveBtn.setBorderColor(MAROON);
+        archiveBtn.setBorderThickness(1);
+        archiveBtn.addActionListener(e -> {
+        	
+        	ArchiveController comp = new ArchiveController("Books", callNumber);
+        	
+        	boolean isSuccessful = comp.setArchived();
+        	if(isSuccessful) {
+        		Window w = SwingUtilities.getWindowAncestor(this);
+        		if (w != null) w.dispose();
+        	}
+            
+        });
+        
 
         closeBtn = new RoundedButton("CLOSE", FIELD_RADIUS);
         closeBtn.setFont(poppins12);
@@ -280,7 +394,11 @@ public class ViewBooks extends JPanel {
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w != null) w.dispose();
         });
-        footer.add(closeBtn);
+        
+        bottomBtns.add(closeBtn);
+        bottomBtns.add(archiveBtn);
+        
+        footer.add(bottomBtns);
 
         /* ================= ASSEMBLY ================= */
 

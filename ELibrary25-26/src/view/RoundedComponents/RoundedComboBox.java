@@ -116,32 +116,64 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         protected ComboPopup createPopup() {
             BasicComboPopup popup = new BasicComboPopup(comboBox) {
 
-                @Override
-                protected JScrollPane createScroller() {
-                    JScrollPane scrollPane = new JScrollPane(list);
-                    scrollPane.setBorder(BorderFactory.createEmptyBorder());
-                    scrollPane.setOpaque(false);
-                    scrollPane.getViewport().setOpaque(false);
+            	@Override
+            	protected JScrollPane createScroller() {
+            	    JScrollPane scrollPane = new JScrollPane(list);
+            	    scrollPane.setBorder(BorderFactory.createEmptyBorder());
+            	    scrollPane.setOpaque(false);
+            	    scrollPane.getViewport().setOpaque(false);
 
-                    JScrollBar vertical = scrollPane.getVerticalScrollBar();
-                    vertical.setUI(new RoundedScrollBarUI());
-                    vertical.setPreferredSize(new Dimension(10, Integer.MAX_VALUE));
+            	    // ✅ REMOVE horizontal scroll
+            	    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-                    return scrollPane;
-                }
+            	    // keep vertical scroll
+            	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-                @Override
-                public void show() {
-                    list.setBorder(new EmptyBorder(5, 5, 5, 5));
-                    list.setSelectionBackground(new Color(200, 220, 255));
-                    list.setBackground(Color.WHITE);
-                    list.setFixedCellHeight(30);
-                    super.show();
-                }
-            };
-            return popup;
+            	    JScrollBar vertical = scrollPane.getVerticalScrollBar();
+            	    vertical.setUI(new RoundedScrollBarUI());
+            	    vertical.setPreferredSize(new Dimension(10, Integer.MAX_VALUE));
+
+            	    return scrollPane;
+            	}
+
+            	@Override
+            	public void show() {
+
+            	    list.setBorder(new EmptyBorder(5, 5, 5, 5));
+            	    list.setSelectionBackground(new Color(200, 220, 255));
+            	    list.setBackground(Color.WHITE);
+
+            	    // ✅ allow dynamic height (CRITICAL)
+            	    list.setFixedCellHeight(-1);
+
+            	    // ✅ limit rows (prevents fullscreen)
+            	    list.setVisibleRowCount(5);
+
+            	    // ✅ force popup width = combo width
+            	    int width = comboBox.getWidth() + 10;
+
+            	    // ✅ calculate proper height
+            	    int rowHeight = list.getCellBounds(0, 0).height;
+            	    int height = rowHeight * list.getVisibleRowCount();
+
+            	    // fallback in case renderer hasn't calculated yet
+            	    if (rowHeight <= 0) {
+            	        rowHeight = 40;
+            	        height = rowHeight * list.getVisibleRowCount();
+            	    }
+
+            	    scroller.setPreferredSize(new Dimension(width, height));
+
+            	    super.show();
+            	}
+
+			};
+            	return popup; 
+            	} 
         }
-    }
+        
+
+    
 
     // --------------------- Rounded ScrollBar UI ---------------------
     private static class RoundedScrollBarUI extends BasicScrollBarUI {
@@ -203,33 +235,51 @@ public class RoundedComboBox<E> extends JComboBox<E> {
     }
 
     // --------------------- Placeholder Renderer ---------------------
-    private class PlaceholderRenderer extends DefaultListCellRenderer {
-        @Override
-        public Component getListCellRendererComponent(JList<?> list,
-                                                      Object value,
-                                                      int index,
-                                                      boolean isSelected,
-                                                      boolean cellHasFocus) {
+    private class PlaceholderRenderer implements ListCellRenderer<Object> {
 
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        private final JTextArea area;
+
+        public PlaceholderRenderer() {
+            area = new JTextArea();
+            area.setLineWrap(true);          // ✅ wrap text
+            area.setWrapStyleWord(true);
+            area.setOpaque(true);
+            area.setFont(getFont());
+
+            // ✅ increase height (padding)
+            area.setBorder(new EmptyBorder(2, 10, 2, 10));
+        }
+
+        @Override
+        public Component getListCellRendererComponent(
+                JList<?> list,
+                Object value,
+                int index,
+                boolean isSelected,
+                boolean cellHasFocus) {
 
             if (value == null && placeholder != null && !placeholder.isEmpty()) {
-                setText(placeholder);
-                setForeground(Color.GRAY);
+                area.setText(placeholder);
+                area.setForeground(Color.GRAY);
             } else {
-                setForeground(Color.BLACK);
-                setText(value != null ? value.toString() : "");
+                area.setText(value != null ? value.toString() : "");
+                area.setForeground(Color.BLACK);
             }
+            
+            
 
-            setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+            area.setFont(list.getFont());
+
+            // ✅ FIX wrapping + alignment
+            area.setSize(list.getWidth(), Short.MAX_VALUE);
 
             if (isSelected) {
-                setBackground(new Color(200, 220, 255));
+                area.setBackground(new Color(200, 220, 255));
             } else {
-                setBackground(Color.WHITE);
+                area.setBackground(Color.WHITE);
             }
 
-            return this;
+            return area;
         }
     }
 }

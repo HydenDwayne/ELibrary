@@ -28,13 +28,13 @@ public class BorrowBookModal extends RoundedDialog {
         refreshAndCenter();
     }
 
-    public void setStep2() {
-        setContentPane(new AddBorrowingRequestBook2(this));
+    public void setStep2(String callNumber, String patronNumber) {
+        setContentPane(new AddBorrowingRequestBook2(this, callNumber, patronNumber));
         refreshAndCenter();
     }
     
-    public void setStep3() {
-        setContentPane(new AddBorrowingRequestReceipt(this));
+    public void setStep3(String[] borrowDetails) {
+        setContentPane(new AddBorrowingRequestReceipt(this, borrowDetails));
         refreshAndCenter();
     }
 

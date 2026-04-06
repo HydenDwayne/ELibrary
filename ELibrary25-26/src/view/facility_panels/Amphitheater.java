@@ -91,7 +91,7 @@ public class Amphitheater extends JPanel {
 		});
 	}
 
-	private void generateCalendar() {
+	public void generateCalendar() {
 
 		calendarGrid.removeAll();
 

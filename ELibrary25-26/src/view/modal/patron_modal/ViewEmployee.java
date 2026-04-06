@@ -2,365 +2,579 @@ package view.modal.patron_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.ArchiveController;
+import controller.PatronController;
+
 import java.awt.*;
 
 import view.RoundedComponents.*;
 import view.front_pages.FilePath;
+import view.toolbar_tabs.PatronsTab;
 import view.fonts.Fonts;
 
 public class ViewEmployee extends JPanel {
 
-    static final Color MAROON = new Color(132, 43, 40);
-    static final Color LIGHT_PINK = new Color(250, 236, 238);
-    static final Color WHITE = Color.WHITE;
-    static final Color DARK_TEXT = new Color(109, 35, 33);
-    static final Color FIELD_BORDER = new Color(146, 76, 74);
+	static final Color MAROON = new Color(132, 43, 40);
+	static final Color LIGHT_PINK = new Color(250, 236, 238);
+	static final Color WHITE = Color.WHITE;
+	static final Color DARK_TEXT = new Color(109, 35, 33);
+	static final Color FIELD_BORDER = new Color(146, 76, 74);
 
-    static final int PANEL_RADIUS = 20;
-    static final int FIELD_RADIUS = 15;
-    JCheckBox adminCheck, libraryStaffCheck, facultyCheck;
-    JPanel assignmentCodeRow, positionRow, facultyRankRow, collegeRow, collegeCampusRow;
+	static final int PANEL_RADIUS = 20;
+	static final int FIELD_RADIUS = 15;
 
-    public ViewEmployee() {
+	public JCheckBox adminCheck, libraryStaffCheck, facultyCheck;
+	JPanel assignmentCodeRow, adminPositionRow, libPositionRow, facultyRankRow, collegeRow, campusRow;
+	
+	JLabel apLbl;
+	JLabel acLbl;
+	JLabel lpLbl;
+	JLabel frLbl;
+	public JLabel cLbl;
+	JLabel ccLbl;
+	
+	PatronController comp;
 
-        setOpaque(false);
-        setLayout(new BorderLayout());
+	// LEFT PANEL FIELDS
+	public RoundedTextField pidField = new RoundedTextField(19, FIELD_RADIUS);
+	public RoundedTextField firstNameField = new RoundedTextField(19, FIELD_RADIUS);
+	public RoundedTextField middleField = new RoundedTextField(5, FIELD_RADIUS);
+	public RoundedTextField lastNameField = new RoundedTextField(19, FIELD_RADIUS);
+	public RoundedTextField emailField = new RoundedTextField(19, FIELD_RADIUS);
+	public RoundedTextField contactField = new RoundedTextField(19, FIELD_RADIUS);
+	public RoundedTextField addressField = new RoundedTextField(19, FIELD_RADIUS);
 
-        /* ================= FONTS ================= */
+	// CONDITIONAL FIELDS
+	public RoundedTextField assignmentCodeField;
+	public RoundedTextField adminPositionField;
+	public RoundedTextField libPositionField;
+	public RoundedTextField facultyRankField;
+	public RoundedComboBox<String> collegeField;
+	public RoundedComboBox<String> campusField;
+	
+	String[] colleges = {""};
 
-        Font introRust36 = new Fonts("IntroRust", 36f).getAppliedFont();
-        Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
-        Font poppins16   = new Fonts("Poppins", 16f).getAppliedFont();
-        Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
+	public ViewEmployee(String patronID, PatronsTab patTab) {
 
-        /* ================= MODAL ================= */
+		setOpaque(false);
+		setLayout(new BorderLayout());
 
-        RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
-        modal.setLayout(new BorderLayout());
-        modal.setPreferredSize(new Dimension(900, 550));
-        modal.setBackground(LIGHT_PINK);
+		/* ================= FONTS ================= */
+		Font introRust36 = new Fonts("IntroRust", 36f).getAppliedFont();
+		Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
+		Font poppins16 = new Fonts("Poppins", 16f).getAppliedFont();
+		Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= HEADER ================= */
+		Dimension fieldDim = new Dimension(pidField.getPreferredSize());
 
-        JPanel header = new JPanel(new BorderLayout());
-        header.setBackground(MAROON);
-        header.setPreferredSize(new Dimension(900, 100));
-        header.setBorder(new EmptyBorder(10, 0, 10, 10));
+		// MANUAL FONT AND BORDER SETTING FOR LEFT PANEL FIELDS
+		pidField.setFont(poppins10);
+		pidField.setBorderColor(FIELD_BORDER);
+		pidField.setPreferredSize(fieldDim);
+		pidField.setEnabled(false);
+		firstNameField.setFont(poppins10);
+		firstNameField.setBorderColor(FIELD_BORDER);
+		firstNameField.setPreferredSize(fieldDim);
+		middleField.setFont(poppins10);
+		middleField.setBorderColor(FIELD_BORDER);
+		middleField.setPreferredSize(fieldDim);
+		lastNameField.setFont(poppins10);
+		lastNameField.setBorderColor(FIELD_BORDER);
+		lastNameField.setPreferredSize(fieldDim);
+		emailField.setFont(poppins10);
+		emailField.setBorderColor(FIELD_BORDER);
+		emailField.setPreferredSize(fieldDim);
+		contactField.setFont(poppins10);
+		contactField.setBorderColor(FIELD_BORDER);
+		contactField.setPreferredSize(fieldDim);
+		addressField.setFont(poppins10);
+		addressField.setBorderColor(FIELD_BORDER);
+		addressField.setPreferredSize(fieldDim);
 
-        JLabel logo = new JLabel(new ImageIcon(
-                new ImageIcon(FilePath.image("elib_logo.png"))
-                        .getImage().getScaledInstance(110, 50, Image.SCALE_SMOOTH)
-        ));
+		/* ================= MODAL ================= */
+		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
+		modal.setLayout(new BorderLayout());
+		modal.setPreferredSize(new Dimension(900, 550));
+		modal.setBackground(LIGHT_PINK);
 
-        JLabel headerLabel = new JLabel("PATRONS");
-        headerLabel.setFont(introRust36);
-        headerLabel.setForeground(Color.WHITE);
-        headerLabel.setBorder(new EmptyBorder(0, 260, 0, 0));
+		/* ================= HEADER ================= */
+		JPanel header = new JPanel(new BorderLayout());
+		header.setBackground(MAROON);
+		header.setPreferredSize(new Dimension(900, 100));
+		header.setBorder(new EmptyBorder(10, 0, 10, 10));
 
-        header.add(logo, BorderLayout.WEST);
-        header.add(headerLabel, BorderLayout.CENTER);
+		JLabel logo = new JLabel(new ImageIcon(new ImageIcon(FilePath.image("elib_logo.png")).getImage()
+				.getScaledInstance(110, 50, Image.SCALE_SMOOTH)));
 
-        /* ================= BODY ================= */
+		JLabel headerLabel = new JLabel("PATRONS");
+		headerLabel.setFont(introRust36);
+		headerLabel.setForeground(Color.WHITE);
+		headerLabel.setBorder(new EmptyBorder(0, 260, 0, 0));
 
-        JPanel body = new JPanel(new BorderLayout());
-        body.setOpaque(false);
-        body.setBorder(new EmptyBorder(10, 15, 10, 15));
+		header.add(logo, BorderLayout.WEST);
+		header.add(headerLabel, BorderLayout.CENTER);
 
-        JLabel bodyTitle = new JLabel("DETAILED VIEW FOR EMPLOYEE", SwingConstants.CENTER);
-        bodyTitle.setFont(introRust24);
-        bodyTitle.setForeground(DARK_TEXT);
-        body.add(bodyTitle, BorderLayout.NORTH);
+		/* ================= BODY ================= */
+		JPanel body = new JPanel(new BorderLayout());
+		body.setOpaque(false);
+		body.setBorder(new EmptyBorder(10, 15, 10, 15));
 
-        JPanel content = new JPanel(new GridLayout(1, 2, 20, 0));
-        content.setOpaque(false);
-        content.setBorder(new EmptyBorder(15, 5, 5, 5));
+		JLabel title = new JLabel("DETAILED VIEW FOR EMPLOYEE", SwingConstants.CENTER);
+		title.setFont(introRust24);
+		title.setForeground(DARK_TEXT);
+		body.add(title, BorderLayout.NORTH);
 
-        /* ================= LEFT PANEL ================= */
+		JPanel content = new JPanel(new GridLayout(1, 2, 20, 0));
+		content.setOpaque(false);
+		content.setBorder(new EmptyBorder(15, 5, 5, 5));
 
-        RoundedPanel left = new RoundedPanel(12);
-        left.setBackground(WHITE);
-        left.setBorder(new EmptyBorder(15, 15, 15, 15));
-        left.setLayout(new GridBagLayout());
+		/* ================= LEFT PANEL ================= */
+		RoundedPanel left = new RoundedPanel(12);
+		left.setBackground(WHITE);
+		left.setBorder(new EmptyBorder(15, 15, 15, 15));
+		left.setLayout(new GridBagLayout());
 
-        GridBagConstraints l = new GridBagConstraints();
-        l.gridy = 0;
-        l.insets = new Insets(6, 6, 6, 6);
-        l.fill = GridBagConstraints.HORIZONTAL;
-        l.weightx = 0.5;
+		GridBagConstraints l = new GridBagConstraints();
+		l.insets = new Insets(6, 6, 6, 6);
+		l.fill = GridBagConstraints.HORIZONTAL;
+		l.weightx = 0.5;
 
-        // Patron ID
-        l.gridx = 0;
-        JLabel patronIdLbl = new JLabel("Patron ID:");
-        patronIdLbl.setFont(poppins16);
-        patronIdLbl.setForeground(DARK_TEXT);
-        left.add(patronIdLbl, l);
+		int row = 0;
+		l.gridx = 0;
+		l.gridy = row;
+		JLabel pidLbl = new JLabel("Patron ID:");
+		pidLbl.setFont(poppins16);
+		pidLbl.setForeground(DARK_TEXT);
+		left.add(pidLbl, l);
+		l.gridx = 1;
+		left.add(pidField, l);
 
-        l.gridx = 1;
-        RoundedTextField patronIdField = new RoundedTextField(19, FIELD_RADIUS);
-        patronIdField.setFont(poppins10);
-        patronIdField.setBorderColor(FIELD_BORDER);
-        patronIdField.setEnabled(false);
-        left.add(patronIdField, l);
+		row++;
+		l.gridx = 0;
+		l.gridy = row;
+		JLabel fnLbl = new JLabel("First Name:");
+		fnLbl.setFont(poppins16);
+		fnLbl.setForeground(DARK_TEXT);
+		left.add(fnLbl, l);
+		l.gridx = 1;
+		left.add(firstNameField, l);
 
-        // Full Name
-        l.gridy++;
-        l.gridx = 0;
-        JLabel nameLbl = new JLabel("Full Name:");
-        nameLbl.setFont(poppins16);
-        nameLbl.setForeground(DARK_TEXT);
-        left.add(nameLbl, l);
+		row++;
+		l.gridx = 0;
+		l.gridy = row;
+		JLabel miLbl = new JLabel("Middle Initial:");
+		miLbl.setFont(poppins16);
+		miLbl.setForeground(DARK_TEXT);
+		left.add(miLbl, l);
+		l.gridx = 1;
+		left.add(middleField, l);
 
-        l.gridx = 1;
-        RoundedTextField nameField = new RoundedTextField(19, FIELD_RADIUS);
-        nameField.setFont(poppins10);
-        nameField.setBorderColor(FIELD_BORDER);
-        left.add(nameField, l);
+		row++;
+		l.gridx = 0;
+		l.gridy = row;
+		JLabel lnLbl = new JLabel("Last Name:");
+		lnLbl.setFont(poppins16);
+		lnLbl.setForeground(DARK_TEXT);
+		left.add(lnLbl, l);
+		l.gridx = 1;
+		left.add(lastNameField, l);
 
-        // Email Address
-        l.gridy++;
-        l.gridx = 0;
-        JLabel emailLbl = new JLabel("Email Address:");
-        emailLbl.setFont(poppins16);
-        emailLbl.setForeground(DARK_TEXT);
-        left.add(emailLbl, l);
+		row++;
+		l.gridx = 0;
+		l.gridy = row;
+		JLabel emailLbl = new JLabel("Email Address:");
+		emailLbl.setFont(poppins16);
+		emailLbl.setForeground(DARK_TEXT);
+		left.add(emailLbl, l);
+		l.gridx = 1;
+		left.add(emailField, l);
 
-        l.gridx = 1;
-        RoundedTextField emailField = new RoundedTextField(19, FIELD_RADIUS);
-        emailField.setFont(poppins10);
-        emailField.setBorderColor(FIELD_BORDER);
-        left.add(emailField, l);
+		row++;
+		l.gridx = 0;
+		l.gridy = row;
+		JLabel contactLbl = new JLabel("Contact Number:");
+		contactLbl.setFont(poppins16);
+		contactLbl.setForeground(DARK_TEXT);
+		left.add(contactLbl, l);
+		l.gridx = 1;
+		left.add(contactField, l);
 
-        // Contact Number
-        l.gridy++;
-        l.gridx = 0;
-        JLabel contactLbl = new JLabel("Contact Number:");
-        contactLbl.setFont(poppins16);
-        contactLbl.setForeground(DARK_TEXT);
-        left.add(contactLbl, l);
+		row++;
+		l.gridx = 0;
+		l.gridy = row;
+		JLabel addressLbl = new JLabel("Home Address:");
+		addressLbl.setFont(poppins16);
+		addressLbl.setForeground(DARK_TEXT);
+		left.add(addressLbl, l);
+		l.gridx = 1;
+		left.add(addressField, l);
 
-        l.gridx = 1;
-        RoundedTextField contactField = new RoundedTextField(19, FIELD_RADIUS);
-        contactField.setFont(poppins10);
-        contactField.setBorderColor(FIELD_BORDER);
-        left.add(contactField, l);
-
-        // Campus
-        l.gridy++;
-        l.gridx = 0;
-        JLabel campusLbl = new JLabel("Campus:");
-        campusLbl.setFont(poppins16);
-        campusLbl.setForeground(DARK_TEXT);
-        left.add(campusLbl, l);
-
-        l.gridx = 1;
-        RoundedTextField campusField = new RoundedTextField(19, FIELD_RADIUS);
-        campusField.setFont(poppins10);
-        campusField.setBorderColor(FIELD_BORDER);
-        left.add(campusField, l);
-
-        /* ================= RIGHT PANEL ================= */
-
-        RoundedPanel right = new RoundedPanel(12);
+		/* ================= RIGHT PANEL ================= */
+		RoundedPanel right = new RoundedPanel(12);
+        right.setLayout(new GridBagLayout());
         right.setBackground(WHITE);
         right.setBorder(new EmptyBorder(15, 15, 15, 15));
-        right.setLayout(new GridBagLayout());
 
         GridBagConstraints r = new GridBagConstraints();
-        r.gridy = 0;
         r.insets = new Insets(6, 6, 6, 6);
         r.fill = GridBagConstraints.HORIZONTAL;
         r.weightx = 0.5;
+        r.gridy = 0;
 
-        // Patron Type
+		int rRow = 0;
+
+		r.gridy = rRow;
+		JLabel typeLbl = new JLabel("Employee Type:");
+		typeLbl.setFont(poppins16);
+		typeLbl.setForeground(DARK_TEXT);
+		right.add(typeLbl, r);
+
+		r.gridx = 1;
+		JPanel checkPanel = new JPanel();
+		checkPanel.setOpaque(false);
+		checkPanel.setLayout(new BoxLayout(checkPanel, BoxLayout.Y_AXIS));
+
+		// MANUAL CHECKBOXES
+		adminCheck = new JCheckBox("Administrator");
+		adminCheck.setFont(poppins10);
+		adminCheck.setForeground(DARK_TEXT);
+		adminCheck.setOpaque(false);
+		checkPanel.add(adminCheck);
+
+		libraryStaffCheck = new JCheckBox("Library Staff");
+		libraryStaffCheck.setFont(poppins10);
+		libraryStaffCheck.setForeground(DARK_TEXT);
+		libraryStaffCheck.setOpaque(false);
+		checkPanel.add(libraryStaffCheck);
+
+		facultyCheck = new JCheckBox("Faculty");
+		facultyCheck.setFont(poppins10);
+		facultyCheck.setForeground(DARK_TEXT);
+		facultyCheck.setOpaque(false);
+		checkPanel.add(facultyCheck);
+
+		right.add(checkPanel, r);
+
+		// CONDITIONAL FIELDS
+		assignmentCodeField = new RoundedTextField(19, FIELD_RADIUS);
+		assignmentCodeField.setFont(poppins10);
+		assignmentCodeField.setBorderColor(FIELD_BORDER);
+		adminPositionField = new RoundedTextField(19, FIELD_RADIUS);
+		adminPositionField.setFont(poppins10);
+		adminPositionField.setBorderColor(FIELD_BORDER);
+		libPositionField = new RoundedTextField(19, FIELD_RADIUS);
+		libPositionField.setFont(poppins10);
+		libPositionField.setBorderColor(FIELD_BORDER);
+		facultyRankField = new RoundedTextField(19, FIELD_RADIUS);
+		facultyRankField.setFont(poppins10);
+		facultyRankField.setBorderColor(FIELD_BORDER);
+		collegeField = new RoundedComboBox<>(colleges, FIELD_RADIUS);
+		collegeField.setFont(poppins10);
+		collegeField.setBorderColor(FIELD_BORDER);
+		campusField = new RoundedComboBox<>(new String[]{"Main", "Bustos", "Hagonoy", "Meneses", "Sarmiento", "San Rafael"}, FIELD_RADIUS);
+		campusField.setFont(poppins10);
+		campusField.setBorderColor(FIELD_BORDER);
+		
+		campusField.setPreferredSize(new Dimension(210, 30));
+		collegeField.setPreferredSize(new Dimension(210, 30));
+
+		// ASSIGNMENT CODE ROW
+//		rRow++;
+//		assignmentCodeRow = new JPanel(new GridLayout(1, 2, 10, 0));
+//		assignmentCodeRow.setOpaque(false);
+		 acLbl = new JLabel("Assignment Code:");
+//		acLbl.setFont(poppins16);
+//		acLbl.setForeground(DARK_TEXT);
+//		assignmentCodeRow.add(acLbl);
+//		assignmentCodeRow.add(assignmentCodeField);
+//		r.gridx = 0;
+//		r.gridy = rRow;
+//		r.gridwidth = 2;
+//		right.add(assignmentCodeRow, r);
+		
+		r.gridy++;
+		acLbl.setFont(poppins16);
+		acLbl.setForeground(DARK_TEXT);
+
         r.gridx = 0;
-        JLabel ptLbl = new JLabel("Patron Type:");
-        ptLbl.setFont(poppins16);
-        ptLbl.setForeground(DARK_TEXT);
-        right.add(ptLbl, r);
+        right.add(acLbl, r);
 
         r.gridx = 1;
-        RoundedTextField ptField = new RoundedTextField(19, FIELD_RADIUS);
-        ptField.setFont(poppins10);
-        ptField.setBorderColor(FIELD_BORDER);
-        ptField.setEnabled(false);
-        right.add(ptField, r);
+        right.add(assignmentCodeField, r);
+        
 
-        // Employee Type/s
-        r.gridy++;
+		// ADMIN POSITION ROW
+//		rRow++;
+//		adminPositionRow = new JPanel(new GridLayout(1, 2, 10, 0));
+//		adminPositionRow.setOpaque(false);
+		 apLbl = new JLabel("Admin Position:");
+//		apLbl.setFont(poppins16);
+//		apLbl.setForeground(DARK_TEXT);
+//		adminPositionRow.add(apLbl);
+//		adminPositionRow.add(adminPositionField);
+//		r.gridy = rRow;
+//		right.add(adminPositionRow, r);
+		
+		r.gridy++;
+		apLbl.setFont(poppins16);
+		apLbl.setForeground(DARK_TEXT);
+
         r.gridx = 0;
-        JLabel empLbl = new JLabel("Employee Type/s:");
-        empLbl.setFont(poppins16);
-        empLbl.setForeground(DARK_TEXT);
-        right.add(empLbl, r);
+        right.add(apLbl, r);
 
         r.gridx = 1;
-        JPanel checksPanel = new JPanel();
-        checksPanel.setOpaque(false);
-        checksPanel.setLayout(new BoxLayout(checksPanel, BoxLayout.Y_AXIS));
+        right.add(adminPositionField, r);
 
-        adminCheck = new JCheckBox("Administrator");
-        libraryStaffCheck = new JCheckBox("Library Staff");
-        facultyCheck = new JCheckBox("Faculty");
+		// LIB POSITION ROW
+//		rRow++;
+//		libPositionRow = new JPanel(new GridLayout(1, 2, 10, 0));
+//		libPositionRow.setOpaque(false);
+		 lpLbl = new JLabel("Library Position:");
+//		lpLbl.setFont(poppins16);
+//		lpLbl.setForeground(DARK_TEXT);
+//		libPositionRow.add(lpLbl);
+//		libPositionRow.add(libPositionField);
+//		r.gridy = rRow;
+//		right.add(libPositionRow, r);
 
-        for (JCheckBox cb : new JCheckBox[]{adminCheck, libraryStaffCheck, facultyCheck}) {
-            cb.setFont(poppins10);
-            cb.setForeground(DARK_TEXT);
-            cb.setOpaque(false);
-            checksPanel.add(cb);
+		r.gridy++;
+		lpLbl.setFont(poppins16);
+		lpLbl.setForeground(DARK_TEXT);
+
+        r.gridx = 0;
+        right.add(lpLbl, r);
+
+        r.gridx = 1;
+        right.add(libPositionField, r);
+        
+		// FACULTY RANK ROW
+//		rRow++;
+//		facultyRankRow = new JPanel(new GridLayout(1, 2, 10, 0));
+//		facultyRankRow.setOpaque(false);
+		 frLbl = new JLabel("Faculty Rank:");
+//		frLbl.setFont(poppins16);
+//		frLbl.setForeground(DARK_TEXT);
+//		facultyRankRow.add(frLbl);
+//		facultyRankRow.add(facultyRankField);
+//		r.gridy = rRow;
+//		right.add(facultyRankRow, r);
+
+		r.gridy++;
+		frLbl.setFont(poppins16);
+		frLbl.setForeground(DARK_TEXT);
+
+        r.gridx = 0;
+        right.add(frLbl, r);
+
+        r.gridx = 1;
+        right.add(facultyRankField, r);
+        
+        
+		// COLLEGE ROW
+//		rRow++;
+//		collegeRow = new JPanel(new GridLayout(1, 2, 10, 0));
+//		collegeRow.setOpaque(false);
+		 cLbl = new JLabel("College:");
+//		cLbl.setFont(poppins16);
+//		cLbl.setForeground(DARK_TEXT);
+//		collegeRow.add(cLbl);
+//		collegeRow.add(collegeField);
+//		r.gridy = rRow;
+//		right.add(collegeRow, r);
+
+		r.gridy++;
+		cLbl.setFont(poppins16);
+		cLbl.setForeground(DARK_TEXT);
+
+        r.gridx = 0;
+        right.add(cLbl, r);
+
+        r.gridx = 1;
+        right.add(collegeField, r);
+
+		// CAMPUS ROW
+//		rRow++;
+//		campusRow = new JPanel(new GridLayout(1, 2, 10, 0));
+//		campusRow.setOpaque(false);
+		 ccLbl = new JLabel("Campus:");
+//		ccLbl.setFont(poppins16);
+//		ccLbl.setForeground(DARK_TEXT);
+//		campusRow.add(ccLbl);
+//		campusRow.add(campusField);
+//		r.gridy = rRow;
+//		right.add(campusRow, r);
+		
+		r.gridy++;
+		ccLbl.setFont(poppins16);
+		ccLbl.setForeground(DARK_TEXT);
+
+        r.gridx = 0;
+        right.add(ccLbl, r);
+
+        r.gridx = 1;
+        right.add(campusField, r);
+        
+
+		// HIDE INITIALLY
+		acLbl.setVisible(false);
+		apLbl.setVisible(false);
+		lpLbl.setVisible(false);
+		frLbl.setVisible(false);
+		cLbl.setVisible(false);
+		ccLbl.setVisible(false);
+		
+		assignmentCodeField.setVisible(false);
+		adminPositionField.setVisible(false);
+		libPositionField.setVisible(false);
+		facultyRankField.setVisible(false);
+		collegeField.setVisible(false);
+		campusField.setVisible(false);
+		
+
+		// ADD LISTENERS
+		adminCheck.addActionListener(e -> toggleRows());
+		libraryStaffCheck.addActionListener(e -> toggleRows());
+		facultyCheck.addActionListener(e -> toggleRows());
+
+		content.add(left);
+		content.add(right);
+		body.add(content, BorderLayout.CENTER);
+
+		/* ================= FOOTER ================= */
+		JPanel footer = new JPanel(new GridLayout(1, 3, 10, 0));
+		footer.setPreferredSize(new Dimension(900, 60));
+		footer.setBorder(new EmptyBorder(10, 20, 10, 20));
+		footer.setOpaque(false);
+
+		RoundedButton backBtn = new RoundedButton("< BACK", FIELD_RADIUS);
+		backBtn.setFont(poppins10);
+		backBtn.setForeground(MAROON);
+		backBtn.setBorderColor(MAROON);
+		backBtn.setBorderThickness(1);
+		backBtn.addActionListener(e -> {
+			Window w = SwingUtilities.getWindowAncestor(this);
+			if (w instanceof JDialog)
+				w.dispose();
+		});
+        
+        RoundedButton archiveBtn = new RoundedButton("ARCHIVE PATRON", FIELD_RADIUS);
+        archiveBtn.setFont(poppins10);
+        archiveBtn.setForeground(MAROON);
+        archiveBtn.setBorderColor(MAROON);
+        archiveBtn.setBorderThickness(1);
+        archiveBtn.addActionListener(e -> {
+        	ArchiveController comp = new ArchiveController("Patrons", patronID);
+        	
+        	boolean isSuccessful = comp.setArchived();
+        	if(isSuccessful) {
+        		patTab.reloadData(patTab.searchQuery);
+        		Window w = SwingUtilities.getWindowAncestor(this);
+        		if (w != null) w.dispose();
+        	}
+        });
+
+		RoundedButton submitBtn = new RoundedButton("SAVE DETAILS", FIELD_RADIUS);
+		submitBtn.setFont(poppins10);
+		submitBtn.setBackground(MAROON);
+		submitBtn.setForeground(WHITE);
+		submitBtn.addActionListener(e -> {
+			
+			if (!adminCheck.isSelected() && !libraryStaffCheck.isSelected() && !facultyCheck.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Select at least one role");
+			} else {
+				// Collect the employee details into a String array
+			    String[] employeeDetails = {
+			        pidField.getRealText(),                                   // 0 PatronID
+			        firstNameField.getRealText(),                             // 1 FirstName
+			        middleField.getRealText(),                                // 2 MiddleInitial
+			        lastNameField.getRealText(),                              // 3 LastName
+			        emailField.getRealText(),                                 // 4 EmailAddress
+			        contactField.getRealText(),                               // 5 ContactNumber
+			        addressField.getRealText(),                               // 6 HomeAddress
+			        campusField.getSelectedItem() != null
+			            ? campusField.getSelectedItem().toString()
+			            : null,                                               // 7 CampCode
+
+			        String.valueOf(adminCheck.isSelected()),                 // 8 IsAdmin
+			        String.valueOf(libraryStaffCheck.isSelected()),          // 9 IsLibraryStaff
+			        String.valueOf(facultyCheck.isSelected()),               // 10 IsFaculty
+
+			        adminPositionField.getRealText(),                        // 11 AdminPosition
+			        assignmentCodeField.getRealText(),                       // 12 AssignmentCode
+			        libPositionField.getRealText(),                          // 13 StaffPosition
+
+			        facultyRankField.getRealText(),                          // 14 FacultyRank
+			        collegeField.getSelectedItem() != null
+			            ? collegeField.getSelectedItem().toString()
+			            : null                                               // 15 ColCode
+			    };
+			    
+			    boolean isSuccessful = comp.updatePatronEmployee(employeeDetails);
+				if (isSuccessful) {
+					patTab.reloadData(patTab.searchQuery);
+					Window w = SwingUtilities.getWindowAncestor(this);
+					if (w instanceof JDialog)
+						w.dispose();
+				}
+			}
+		    
+
+		});
+
+		footer.add(backBtn);
+		footer.add(archiveBtn);
+		footer.add(submitBtn);
+
+		comp = new PatronController(this, patronID);
+		
+		toggleRows();
+		
+		campusField.setSelectedIndex(0);
+		
+		comp.reloadCollege(this, campusField.getSelectedItem().toString());
+
+		campusField.addActionListener(e -> {
+			comp.reloadCollege(this, campusField.getSelectedItem().toString());
+		});
+
+		modal.add(header, BorderLayout.NORTH);
+		modal.add(body, BorderLayout.CENTER);
+		modal.add(footer, BorderLayout.SOUTH);
+
+		add(modal, BorderLayout.CENTER);
+	}
+
+
+	private void toggleRows() {
+		boolean a = adminCheck.isSelected();
+		boolean l = libraryStaffCheck.isSelected();
+		boolean f = facultyCheck.isSelected();
+
+		acLbl.setVisible(l);
+		apLbl.setVisible(a);
+		lpLbl.setVisible(l);
+		frLbl.setVisible(f);
+		cLbl.setVisible(f);
+		ccLbl.setVisible(f);
+		
+		assignmentCodeField.setVisible(l);
+		adminPositionField.setVisible(a);
+		libPositionField.setVisible(l);
+		facultyRankField.setVisible(f);
+		collegeField.setVisible(f);
+		campusField.setVisible(f);
+		
+		
+
+		revalidate();
+		repaint();
+	}
+	
+	public void setColleges(String[] colleges) {
+        if (colleges != null) {
+            this.collegeField.setModel(new DefaultComboBoxModel<>(colleges));
+            if (colleges.length > 0) this.collegeField.setSelectedIndex(0);
         }
-
-        right.add(checksPanel, r);
-
-        /* ===== CONDITIONAL ROW PANELS ===== */
-
-        // Assignment Code
-        r.gridy++;
-        r.gridx = 0;
-        r.gridwidth = 2;
-        assignmentCodeRow = new JPanel(new GridLayout(1, 2, 10, 0));
-        assignmentCodeRow.setOpaque(false);
-
-        JLabel acLbl = new JLabel("Assignment Code:");
-        acLbl.setFont(poppins16);
-        acLbl.setForeground(DARK_TEXT);
-
-        RoundedTextField acField = new RoundedTextField(19, FIELD_RADIUS);
-        acField.setFont(poppins10);
-        acField.setBorderColor(FIELD_BORDER);
-
-        assignmentCodeRow.add(acLbl);
-        assignmentCodeRow.add(acField);
-        right.add(assignmentCodeRow, r);
-
-        // Position
-        r.gridy++;
-        positionRow = new JPanel(new GridLayout(1, 2, 10, 0));
-        positionRow.setOpaque(false);
-
-        JLabel posLbl = new JLabel("Position:");
-        posLbl.setFont(poppins16);
-        posLbl.setForeground(DARK_TEXT);
-
-        RoundedTextField posField = new RoundedTextField(19, FIELD_RADIUS);
-        posField.setFont(poppins10);
-        posField.setBorderColor(FIELD_BORDER);
-
-        positionRow.add(posLbl);
-        positionRow.add(posField);
-        right.add(positionRow, r);
-
-        // Faculty Rank
-        r.gridy++;
-        facultyRankRow = new JPanel(new GridLayout(1, 2, 10, 0));
-        facultyRankRow.setOpaque(false);
-
-        JLabel frLbl = new JLabel("Faculty Rank:");
-        frLbl.setFont(poppins16);
-        frLbl.setForeground(DARK_TEXT);
-
-        RoundedTextField frField = new RoundedTextField(19, FIELD_RADIUS);
-        frField.setFont(poppins10);
-        frField.setBorderColor(FIELD_BORDER);
-
-        facultyRankRow.add(frLbl);
-        facultyRankRow.add(frField);
-        right.add(facultyRankRow, r);
-
-        // College
-        r.gridy++;
-        collegeRow = new JPanel(new GridLayout(1, 2, 10, 0));
-        collegeRow.setOpaque(false);
-
-        JLabel collegeLbl = new JLabel("College:");
-        collegeLbl.setFont(poppins16);
-        collegeLbl.setForeground(DARK_TEXT);
-
-        RoundedTextField collegeField = new RoundedTextField(19, FIELD_RADIUS);
-        collegeField.setFont(poppins10);
-        collegeField.setBorderColor(FIELD_BORDER);
-
-        collegeRow.add(collegeLbl);
-        collegeRow.add(collegeField);
-        right.add(collegeRow, r);
-
-        // College Campus
-        r.gridy++;
-        collegeCampusRow = new JPanel(new GridLayout(1, 2, 10, 0));
-        collegeCampusRow.setOpaque(false);
-
-        JLabel ccLbl = new JLabel("College Campus:");
-        ccLbl.setFont(poppins16);
-        ccLbl.setForeground(DARK_TEXT);
-
-        RoundedTextField ccField = new RoundedTextField(19, FIELD_RADIUS);
-        ccField.setFont(poppins10);
-        ccField.setBorderColor(FIELD_BORDER);
-
-        collegeCampusRow.add(ccLbl);
-        collegeCampusRow.add(ccField);
-        right.add(collegeCampusRow, r);
-
-        // Initial hidden state
-        assignmentCodeRow.setVisible(false);
-        positionRow.setVisible(false);
-        facultyRankRow.setVisible(false);
-        collegeRow.setVisible(false);
-        collegeCampusRow.setVisible(false);
-
-        // Toggle wiring
-        adminCheck.addActionListener(e -> toggleRows());
-        libraryStaffCheck.addActionListener(e -> toggleRows());
-        facultyCheck.addActionListener(e -> toggleRows());
-
-        content.add(left);
-        content.add(right);
-        body.add(content, BorderLayout.CENTER);
-
-        /* ================= FOOTER ================= */
-
-        JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
-        footer.setPreferredSize(new Dimension(900, 50));   // ⬅️ taller footer
-        footer.setBorder(new EmptyBorder(10, 20, 10, 20)); // ⬅️ vertical padding
-        footer.setOpaque(false);
-
-        RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
-        cancelBtn.setFont(poppins10);
-        cancelBtn.setForeground(MAROON);
-        cancelBtn.setBorderColor(MAROON);
-        cancelBtn.setBorderThickness(1);
-        cancelBtn.setFocusPainted(false);
-
-        RoundedButton saveBtn = new RoundedButton("SAVE DETAILS", FIELD_RADIUS);
-        saveBtn.setFont(poppins10);
-        saveBtn.setBackground(MAROON);
-        saveBtn.setForeground(Color.WHITE);
-        saveBtn.setFocusPainted(false);
-
-        footer.add(cancelBtn);
-        footer.add(saveBtn);
-
-        /* ================= ASSEMBLY ================= */
-
-        modal.add(header, BorderLayout.NORTH);
-        modal.add(body, BorderLayout.CENTER);
-        modal.add(footer, BorderLayout.SOUTH);
-        add(modal, BorderLayout.CENTER);
-    }
-
-    /* ================= TOGGLE LOGIC ================= */
-
-    private void toggleRows() {
-        boolean a = adminCheck.isSelected();
-        boolean l = libraryStaffCheck.isSelected();
-        boolean f = facultyCheck.isSelected();
-
-        assignmentCodeRow.setVisible(l);
-        positionRow.setVisible(a || l);
-        facultyRankRow.setVisible(f);
-        collegeRow.setVisible(f);
-        collegeCampusRow.setVisible(f);
-
-        revalidate();
-        repaint();
     }
 }

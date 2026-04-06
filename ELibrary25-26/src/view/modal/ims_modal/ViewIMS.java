@@ -2,6 +2,10 @@ package view.modal.ims_modal;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import controller.ArchiveController;
+import controller.IMSController;
+
 import java.awt.*;
 
 import view.RoundedComponents.RoundedButton;
@@ -20,9 +24,15 @@ public class ViewIMS extends JPanel {
 
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
+    
+    public RoundedTextField itemField;
+    public RoundedTextField equipField;
+    public RoundedTextField serialField;
+    
+    IMSController comp;
 
-    public ViewIMS() {
-
+    public ViewIMS(String serialNumber) {
+    	comp = new IMSController(this);
         setOpaque(false);
         setLayout(new BorderLayout());
 
@@ -97,9 +107,9 @@ public class ViewIMS extends JPanel {
         innerBody.add(serialLbl, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField serialField = new RoundedTextField(19, FIELD_RADIUS);
+         serialField = new RoundedTextField(19, FIELD_RADIUS);
+         serialField.setEnabled(false);
         serialField.setFont(poppins10);
-        serialField.setEditable(false);
         serialField.setBorderColor(FIELD_BORDER);
         serialField.setBorderThickness(1);
         innerBody.add(serialField, gbc);
@@ -113,9 +123,8 @@ public class ViewIMS extends JPanel {
         innerBody.add(equipLbl, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField equipField = new RoundedTextField(19, FIELD_RADIUS);
+         equipField = new RoundedTextField(19, FIELD_RADIUS);
         equipField.setFont(poppins10);
-        equipField.setEditable(false);
         equipField.setBorderColor(FIELD_BORDER);
         equipField.setBorderThickness(1);
         innerBody.add(equipField, gbc);
@@ -129,12 +138,11 @@ public class ViewIMS extends JPanel {
         innerBody.add(typeLbl, gbc);
 
         gbc.gridx = 1;
-        RoundedTextField patronField = new RoundedTextField(19, FIELD_RADIUS);
-        patronField.setFont(poppins10);
-        patronField.setEditable(false);
-        patronField.setBorderColor(FIELD_BORDER);
-        patronField.setBorderThickness(1);
-        innerBody.add(patronField, gbc);
+        itemField = new RoundedTextField(19, FIELD_RADIUS);
+        itemField.setFont(poppins10);
+        itemField.setBorderColor(FIELD_BORDER);
+        itemField.setBorderThickness(1);
+        innerBody.add(itemField, gbc);
 
         body.add(innerBody, BorderLayout.CENTER);
 
@@ -148,6 +156,20 @@ public class ViewIMS extends JPanel {
         saveBtn.setFont(poppins12);
         saveBtn.setBackground(MAROON);
         saveBtn.setForeground(WHITE);
+        saveBtn.addActionListener(e -> {
+        	
+        	String[] equipmentInfo = {
+        			serialNumber,
+        			equipField.getRealText().trim(),
+        			itemField.getRealText().trim()
+        	}; 
+        	boolean isSuccessful = comp.updateEquipmentInfo(equipmentInfo);
+        	
+        	if (isSuccessful) {
+        		Window w = SwingUtilities.getWindowAncestor(this);
+                if (w != null) w.dispose();
+        	}
+        });
         footer.add(saveBtn);
 
         RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
@@ -159,9 +181,36 @@ public class ViewIMS extends JPanel {
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w != null) w.dispose();
         });
-        footer.add(cancelBtn);
+        
+        
+        JPanel bottomBtns = new JPanel();
+        bottomBtns.setOpaque(false);
+        bottomBtns.setLayout(new GridLayout(1,2,10,0));
+        
+        RoundedButton archiveBtn = new RoundedButton("ARCHIVE ITEM", FIELD_RADIUS);
+        archiveBtn.setFont(poppins10);
+        archiveBtn.setForeground(MAROON);
+        archiveBtn.setBorderColor(MAROON);
+        archiveBtn.setBorderThickness(1);
+        archiveBtn.addActionListener(e -> {
+        	ArchiveController comp = new ArchiveController("IMS", serialNumber);
+        	
+        	boolean isSuccessful = comp.setArchived();
+        	if(isSuccessful) {
+        		Window w = SwingUtilities.getWindowAncestor(this);
+        		if (w != null) w.dispose();
+        	}
+        });
+        
+        bottomBtns.add(cancelBtn);
+        bottomBtns.add(archiveBtn);
+        
+        footer.add(bottomBtns);
 
         /* ================= ASSEMBLY ================= */
+        
+        comp.getEquipmentInfo(serialNumber);
+        
 
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);

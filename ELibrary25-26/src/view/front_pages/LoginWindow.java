@@ -73,7 +73,7 @@ public class LoginWindow extends JFrame {
 
         // password field
         gbc.gridy++;
-        RoundedTextField password = new RoundedTextField(25, 20);
+        RoundedPasswordField password = new RoundedPasswordField(25, 20);
         password.setPlaceholder("Password");
         loginContainer.add(password, gbc);
 

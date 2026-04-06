@@ -11,10 +11,17 @@ public class Main {
 
     	SwingUtilities.invokeLater(() -> {
     	    try {
-    	        Dashboard dashboard = new Dashboard();
-    	        LoginWindow login = new LoginWindow(dashboard);
-    	        login.setVisible(true);
-    	        dashboard.setVisible(false);
+    	    	// prod block
+//    	        Dashboard dashboard = new Dashboard();
+//    	        LoginWindow login = new LoginWindow(dashboard);
+//    	        login.setVisible(true);
+//    	        dashboard.setVisible(false);
+    	    	
+    	    	// test block
+    	    	
+    	    	Dashboard dashboard = new Dashboard();
+    	        dashboard.setVisible(true);
+    	        
     	    } catch (Throwable t) {
     	        JOptionPane.showMessageDialog(
     	            null,
