@@ -253,6 +253,8 @@ public class AddBook extends JPanel {
 		    String collection = collectionCombo.getSelectedItem() != null ? collectionCombo.getSelectedItem().toString() : null;
 		    String type       = typeCombo.getSelectedItem() != null ? typeCombo.getSelectedItem().toString() : null;
 		    
+		    String[] classArr = classCode.split("-");
+		    
 		    // Series is only required if NON-BORROWABLE
 		    String series = null;
 		    if ("NON-BORROWABLE".equals(type)) {
@@ -287,9 +289,18 @@ public class AddBook extends JPanel {
 			        );
 		    	return;
 		    }
+		    
+		    if (!isValidYear(year)) {
+		    	JOptionPane.showMessageDialog(
+			            this,
+			            "Enter a valid year (e.g. 2026)",
+			            "Format Error",
+			            JOptionPane.WARNING_MESSAGE
+			        );
+		    	return;
+		    }
 
-		    // Optional fields normalized to null if empty
-		    if (series != null && series.isEmpty()) series = null;
+		    
 
 		    // Prepare book details array
 		    String[] bookDetails = {
@@ -299,7 +310,7 @@ public class AddBook extends JPanel {
 		        year,
 		        type,
 		        collection,
-		        classCode,
+		        classArr[0].trim(),
 		        series
 		    };
 
@@ -366,4 +377,26 @@ public class AddBook extends JPanel {
 		innerBody.revalidate();
 		innerBody.repaint();
 	}
+	
+	public static boolean isValidYear(String year)
+	{
+	    if (year == null) {
+	        return false;
+	    }
+
+	    year = year.trim();
+
+	    if (year.length() != 4) {
+	        return false;
+	    }
+
+	    for (int i = 0; i < year.length(); i++) {
+	        if (!Character.isDigit(year.charAt(i))) {
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+	
 }

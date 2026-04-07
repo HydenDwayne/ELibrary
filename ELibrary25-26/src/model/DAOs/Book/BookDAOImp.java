@@ -102,7 +102,7 @@ public class BookDAOImp {
 		}
 
 		String seriesText = "";
-		if (seriesTitle.equals("") || seriesTitle.equals(null)) {
+		if (seriesTitle == null) {
 			seriesText = "";
 		} else {
 			seriesText = seriesTitle;
