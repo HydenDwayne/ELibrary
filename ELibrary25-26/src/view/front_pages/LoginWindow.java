@@ -1,23 +1,22 @@
 package view.front_pages;
 
+import javax.swing.*;
+
 import view.RoundedComponents.*;
+import view.fonts.Fonts;
+
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.*;
-import javax.swing.border.Border;
 
 import controller.LoginController;
-import view.fonts.*;
 import view.front_pages.patron_registration.RegisterPatron;
 
 public class LoginWindow extends JFrame {
 
     public LoginWindow(Dashboard frame) {
-        setTitle("E-Library Management System");
 
-        // Background panel with image
+        int panelRadius = 20;
+
         JPanel panel = new JPanel() {
             Image backgroundImage = new ImageIcon(FilePath.image("blurred_bg.jpg")).getImage();
 
@@ -28,145 +27,234 @@ public class LoginWindow extends JFrame {
             }
         };
         panel.setLayout(new GridBagLayout());
-        setContentPane(panel);
 
-        // red frosty panel
-        RoundedPanel loginContainer = new RoundedPanel(30);
-        loginContainer.setPreferredSize(new Dimension(400, 500));
-        loginContainer.setBackground(new Color(109, 35, 33, 200));
-        Border padding = BorderFactory.createEmptyBorder(20, 0, 10, 0);
-        loginContainer.setBorder(padding);
+        RoundedPanel modal = new RoundedPanel(panelRadius);
+        modal.setLayout(new BorderLayout());
+        modal.setPreferredSize(new Dimension(500, 500));
+        modal.setBackground(Color.decode("#faecee"));
 
-        loginContainer.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 10, 0); // spacing between components
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        // ================= HEADER =================
+        JPanel header = new JPanel();
+        header.setBackground(Color.decode("#842b28"));
+        header.setPreferredSize(new Dimension(500, 100));
+        header.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
 
-        // elib logo
+        JPanel headerWrapper = new JPanel();
+        headerWrapper.setLayout(new BorderLayout());
+        headerWrapper.setPreferredSize(new Dimension(450, 80));
+        headerWrapper.setOpaque(false);
+
         ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
         Image image = icon.getImage();
-        Image scaledImage = image.getScaledInstance(160, 80, Image.SCALE_SMOOTH);
+        Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
         icon = new ImageIcon(scaledImage);
+
         JLabel elibLogo = new JLabel(icon);
         elibLogo.setHorizontalAlignment(SwingConstants.CENTER);
-        loginContainer.add(elibLogo, gbc);
+        headerWrapper.add(elibLogo, BorderLayout.WEST);
 
-        // welcome message
-        gbc.gridy++;
-        JLabel welcomeMsg = new JLabel("<html><div style='text-align:center;'>Welcome to BulSU e-Library <br>Management Tool</div></html>");
+        Fonts introRust36 = new Fonts("IntroRust", 20f);
+        Font introRustStyle26 = introRust36.getAppliedFont();
+
+        JLabel headerLabel = new JLabel("E-Library Management System");
+        headerLabel.setFont(introRustStyle26);
+        headerLabel.setForeground(Color.WHITE);
+
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerWrapper.add(headerLabel, BorderLayout.CENTER);
+        header.add(headerWrapper);
+
+        // ================= BODY =================
+        JPanel body = new JPanel();
+        body.setOpaque(false);
+        body.setLayout(new BorderLayout());
         
-        Fonts aBeeZee = new Fonts("ABeeZee", 18f);
-        Font aBeeZee18Style = aBeeZee.getAppliedFont();
-        welcomeMsg.setFont(aBeeZee18Style);
+        body.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        Fonts introRust = new Fonts("IntroRust", 24f);
+        Font introRustStyle = introRust.getAppliedFont();
+
+        JLabel bodyTitle = new JLabel("LOGIN WINDOW", SwingConstants.CENTER);
+        bodyTitle.setForeground(Color.decode("#6d2321"));
+        bodyTitle.setFont(introRustStyle);
+
+        body.add(bodyTitle, BorderLayout.NORTH);
+
+        JPanel innerBody = new JPanel();
+        innerBody.setOpaque(false);
         
-        welcomeMsg.setForeground(Color.WHITE);
-        welcomeMsg.setHorizontalAlignment(SwingConstants.CENTER);
-        loginContainer.add(welcomeMsg, gbc);
+        innerBody.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
+        innerBody.setLayout(new GridLayout(4,1,0,10));
 
-        // username field
-        gbc.gridy++;
-        RoundedTextField username = new RoundedTextField(25, 20);
-        username.setPlaceholder("Admin username");
-        loginContainer.add(username, gbc);
+//        GridBagConstraints gbc = new GridBagConstraints();
+//        gbc.gridy = 0;
+//        gbc.gridx = 0;
+//        gbc.insets = new Insets(5, 5, 5, 5);
+        
+        
 
-        // password field
-        gbc.gridy++;
-        RoundedPasswordField password = new RoundedPasswordField(25, 20);
-        password.setPlaceholder("Password");
-        loginContainer.add(password, gbc);
 
-        // submit button
-        gbc.gridy++;
-        RoundedButton submitBtn = new RoundedButton("Submit", 20);
-        submitBtn.setBackground(Color.decode("#5d1513"));
+        Fonts poppins16 = new Fonts("Poppins", 16f);
+        Font poppinsStyle16 = poppins16.getAppliedFont();
+
+        Fonts poppins12 = new Fonts("Poppins", 10f);
+        Font poppinsStyle = poppins12.getAppliedFont();
+
+        
+        
+        
+        // USERNAME
+        JPanel userLabelWrapper = new JPanel();
+        userLabelWrapper.setOpaque(false);
+//        userLabelWrapper.setPreferredSize(labelSize);
+        userLabelWrapper.setLayout(new BorderLayout());
+
+        JLabel userLabel = new JLabel("Username", SwingConstants.CENTER);
+        userLabel.setFont(poppinsStyle16);
+        userLabel.setForeground(Color.decode("#842b28"));
+        userLabelWrapper.add(userLabel, BorderLayout.CENTER);
+
+        innerBody.add(userLabelWrapper);
+
+
+        RoundedTextField username = new RoundedTextField(25, 15);
+        username.setPlaceholder("Enter username");
+        username.setFont(poppinsStyle);
+        username.setBorderColor(Color.decode("#924c4a"));
+        username.setBorderThickness(1);
+
+        innerBody.add(username);
+        
+        
+
+        // PASSWORD
+
+
+        JPanel passLabelWrapper = new JPanel();
+        passLabelWrapper.setOpaque(false);
+//        passLabelWrapper.setPreferredSize(labelSize);
+        passLabelWrapper.setLayout(new BorderLayout());
+
+        JLabel passLabel = new JLabel("Password", SwingConstants.CENTER);
+        passLabel.setFont(poppinsStyle16);
+        passLabel.setForeground(Color.decode("#842b28"));
+        passLabelWrapper.add(passLabel, BorderLayout.CENTER);
+
+        innerBody.add(passLabelWrapper);
+
+
+        RoundedPasswordField password = new RoundedPasswordField(25, 15);
+        password.setPlaceholder("Enter password");
+        password.setFont(poppinsStyle);
+        password.setBorderColor(Color.decode("#924c4a"));
+        password.setBorderThickness(1);
+
+        innerBody.add(password);
+
+        body.add(innerBody);
+
+        // ================= FOOTER =================
+        JPanel footer = new JPanel();
+        footer.setPreferredSize(new Dimension(500, 150));
+        footer.setBorder(BorderFactory.createEmptyBorder(0, 35, 10, 35));
+        footer.setLayout(new GridLayout(3,1,10,0));
+
+        Fonts poppins12btn = new Fonts("Poppins", 12f);
+        Font poppinsStyle12 = poppins12btn.getAppliedFont();
+
+        RoundedButton submitBtn = new RoundedButton("LOGIN", 15);
+        submitBtn.setPreferredSize(new Dimension(500, 40));
+        submitBtn.setBackground(Color.decode("#842b28"));
         submitBtn.setForeground(Color.WHITE);
-        submitBtn.setFocusPainted(false);
-        submitBtn.addActionListener((ActionEvent e) -> {
-//            Dashboard dash = new Dashboard();
-//            dash.setVisible(true);
-//            SwingUtilities.getWindowAncestor(submitBtn).setVisible(false);
-        	
-        	LoginController comp = new LoginController(username.getText(), password.getText());
-        	
-        	if (comp.isLoggedIn()) {
-        		frame.setVisible(true);
-        		dispose();
-        	} else {
-        		JOptionPane.showMessageDialog(null, "Invalid login credentials");
-        	}
-        });
-        loginContainer.add(submitBtn, gbc);
+        submitBtn.setFont(poppinsStyle12);
 
-        // facility login button
-        gbc.gridy++;
-        JButton loginFacility = new JButton("Set-up as Facility Login");
-        loginFacility.setBorderPainted(false);
-        loginFacility.setContentAreaFilled(false);
-        loginFacility.setFocusPainted(false);
-        loginFacility.setOpaque(false);
-        loginFacility.setForeground(Color.decode("#f8c169"));
-        loginFacility.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
-        loginFacility.addActionListener(e -> {
-            FacilityLogin fl = new FacilityLogin(frame, this);
-            fl.setVisible(true);
-            setVisible(false);
+        submitBtn.addActionListener(e -> {
+            LoginController comp = new LoginController(username.getText(), password.getText());
+
+            if (comp.isLoggedIn()) {
+            	String[] librarianDetails = comp.getLibrarianDetails();
+            	frame.password = librarianDetails[3];
+            	frame.username = librarianDetails[2];
+            	frame.accountName.setText(librarianDetails[0]);
+            	frame.accountEmail.setText(librarianDetails[1]);
+                frame.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid login credentials");
+            }
         });
-//        loginContainer.add(loginFacility, gbc);
+
+        footer.add(submitBtn);
+        JPanel labelWrapper = new JPanel();
+        labelWrapper.setOpaque(false);
+        labelWrapper.setLayout(new GridBagLayout());
         
-     // patron registration button
-//        gbc.gridy++;
-        JButton patronRegistration = new JButton("Set-up as Patron Registration");
-        patronRegistration.setBorderPainted(false);
-        patronRegistration.setContentAreaFilled(false);
-        patronRegistration.setFocusPainted(false);
-        patronRegistration.setOpaque(false);
-        patronRegistration.setForeground(Color.decode("#f8c169"));
-        patronRegistration.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        patronRegistration.setFont(patronRegistration.getFont().deriveFont(Font.PLAIN, 14f));
-        patronRegistration.addActionListener(e -> {
-            RegisterPatron rp = new RegisterPatron(frame, this);
-            rp.setVisible(true);
-            setVisible(false);
-        });
-//        loginContainer.add(patronRegistration, gbc);
+        JLabel setupLabel = new JLabel("Setup options");
+        labelWrapper.add(setupLabel);
+        setupLabel.setForeground(Color.decode("#6d2321"));
+        setupLabel.setFont(new Fonts("IntroRust", 14f).getAppliedFont());
+        footer.add(labelWrapper);
         
-     // lost and found button
-//        gbc.gridy++;
-        JButton lnfReport = new JButton("Set-up as Report Lost and Found");
-        lnfReport.setBorderPainted(false);
-        lnfReport.setContentAreaFilled(false);
-        lnfReport.setFocusPainted(false);
-        lnfReport.setOpaque(false);
-        lnfReport.setForeground(Color.decode("#f8c169"));
-        lnfReport.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        lnfReport.setFont(lnfReport.getFont().deriveFont(Font.PLAIN, 14f));
-        lnfReport.addActionListener(e -> {
-            ReportLNF rlnf = new ReportLNF(frame, this);
-            rlnf.setVisible(true);
+        JPanel btnWrapper = new JPanel();
+        btnWrapper.setOpaque(false);
+//        btnWrapper.setBorder(BorderFactory.createEmptyBorder(0, 35, 10, 35));
+        btnWrapper.setLayout(new GridLayout(1,3,10,0));
+        
+        
+        
+        
+
+        RoundedButton reportBtn = new RoundedButton("Lost and Found", 15);
+        reportBtn.setForeground(Color.decode("#842b28"));
+        reportBtn.setBorderColor(Color.decode("#842b28"));
+        reportBtn.setBorderThickness(1);
+        reportBtn.setPreferredSize(new Dimension(500, 40));
+        reportBtn.setFont(poppinsStyle12);
+
+        reportBtn.addActionListener(e -> {
+            new ReportLNF(frame, this).setVisible(true);
             setVisible(false);
         });
         
-        
-        JPanel setupBtns = new JPanel();
-        setupBtns.setOpaque(false);
-        setupBtns.setLayout(new GridLayout(3,1));
-        
-        setupBtns.add(loginFacility);
-        setupBtns.add(patronRegistration);
-        setupBtns.add(lnfReport);
-        
-        loginContainer.add(setupBtns, gbc);
-        
-//        loginContainer.add(lnfReport, gbc);
+        RoundedButton facilityBtn = new RoundedButton("Facility Login", 15);
+        facilityBtn.setForeground(Color.decode("#842b28"));
+        facilityBtn.setBorderColor(Color.decode("#842b28"));
+        facilityBtn.setBorderThickness(1);
+        facilityBtn.setPreferredSize(new Dimension(500, 40));
+        facilityBtn.setFont(poppinsStyle12);
 
-        // Add loginContainer to panel
-        panel.add(loginContainer);
+        facilityBtn.addActionListener(e -> {
+            new FacilityLogin(frame, this).setVisible(true);
+            setVisible(false);
+        });
+        
+        RoundedButton patronBtn = new RoundedButton("Register Patron", 15);
+        patronBtn.setForeground(Color.decode("#842b28"));
+        patronBtn.setBorderColor(Color.decode("#842b28"));
+        patronBtn.setBorderThickness(1);
+        patronBtn.setPreferredSize(new Dimension(500, 40));
+        patronBtn.setFont(poppinsStyle12);
 
-        // JFrame final setup
+        patronBtn.addActionListener(e -> {
+            new RegisterPatron(frame, this).setVisible(true);
+            setVisible(false);
+        });
+        
+        btnWrapper.add(reportBtn);
+        btnWrapper.add(facilityBtn);
+        btnWrapper.add(patronBtn);
 
+        footer.add(btnWrapper, BorderLayout.SOUTH);
+
+        // ================= ADD =================
+        modal.add(header, BorderLayout.NORTH);
+        modal.add(body, BorderLayout.CENTER);
+        modal.add(footer, BorderLayout.SOUTH);
+
+        panel.add(modal);
+        add(panel);
+
+        // FRAME SETTINGS
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -177,24 +265,22 @@ public class LoginWindow extends JFrame {
         addWindowFocusListener(new WindowAdapter() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-                // Request focus on something else, or a panel
-                panel.requestFocusInWindow();
+                modal.requestFocusInWindow();
             }
         });
 
+        setTitle("E-Library Management System");
         setContentPane(panel);
         pack();
-
 
         if (getWidth() < 1120 || getHeight() < 600) {
             setSize(1120, 600);
         }
 
         setMinimumSize(new Dimension(1120, 600));
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-        setVisible(true);
+        setVisible(false);
     }
 }

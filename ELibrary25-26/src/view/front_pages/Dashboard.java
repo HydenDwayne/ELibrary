@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import view.fonts.Fonts;
 import view.front_pages.FilePath;
+import view.modal.librarian_profile.ViewUserProfileModal;
 
 public class Dashboard extends JFrame {
 	
@@ -20,6 +21,11 @@ public class Dashboard extends JFrame {
     LNFTab lnfTab;
     PatronsTab patTab;
     IMSTab imsTab;
+    
+    public JLabel accountEmail;
+    public JLabel accountName;
+    public String username = "";
+    public String password = "";
 
     public Dashboard() {
 
@@ -78,6 +84,59 @@ public class Dashboard extends JFrame {
         profileLogo.setBorderPainted(false);
         profileLogo.setFocusPainted(false);
         profileLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        
+     // Create a panel for dropdown content
+        JPanel dropdownPanel = new JPanel();
+        dropdownPanel.setLayout(new BoxLayout(dropdownPanel, BoxLayout.Y_AXIS));
+        dropdownPanel.setBackground(Color.LIGHT_GRAY);
+        
+        Dimension btnSize = new Dimension(120, 30); 
+        
+        JButton profileBtn = new JButton("See details");
+        profileBtn.setPreferredSize(btnSize);
+        profileBtn.setMaximumSize(btnSize);
+        profileBtn.setMinimumSize(btnSize);
+        profileBtn.setFocusPainted(false);
+        profileBtn.setContentAreaFilled(false);
+        profileBtn.setBorderPainted(false);
+        profileBtn.setOpaque(false);
+        profileBtn.addActionListener(e -> {
+        	Window parent = SwingUtilities.getWindowAncestor(this);
+	        new ViewUserProfileModal(parent, username, password, this);
+        });
+        dropdownPanel.add(profileBtn);
+        
+        
+        JButton logoutBtn = new JButton("Logout");
+        logoutBtn.setPreferredSize(btnSize);
+        logoutBtn.setMaximumSize(btnSize);
+        logoutBtn.setMinimumSize(btnSize);
+        logoutBtn.setFocusPainted(false);
+        logoutBtn.setContentAreaFilled(false);
+        logoutBtn.setBorderPainted(false);
+        logoutBtn.setOpaque(false);
+        logoutBtn.addActionListener(e -> {
+        	LoginWindow login = new LoginWindow(this);
+        	login.setVisible(true);
+        	setVisible(false);
+        });
+        dropdownPanel.add(logoutBtn);
+        
+        
+//        dropdownPanel.add(new JLabel("Settings"));
+//        dropdownPanel.add(new JLabel("Logout"));
+
+        // Wrap in a JPopupMenu
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.setLayout(new BorderLayout());
+        popupMenu.add(dropdownPanel, BorderLayout.CENTER);
+
+        // Show dropdown below profile button when clicked
+        profileLogo.addActionListener(e -> {
+            popupMenu.show(profileLogo, 0, profileLogo.getHeight());
+        });
+        
+        
 
         account.add(profileLogo, BorderLayout.EAST);
 
@@ -88,8 +147,8 @@ public class Dashboard extends JFrame {
         Font poppinStyle10 = poppins.getAppliedFont();
 
 
-        JLabel accountName = new JLabel("Hyden Dwayne C. Sapasap");
-        JLabel accountEmail = new JLabel("2024105301@ms.bulsu.edu.ph");
+        accountName = new JLabel("");
+        accountEmail = new JLabel("");
         accountName.setFont(poppinStyle10);
         accountEmail.setFont(poppinStyle10);
         accountName.setForeground(Color.WHITE);
@@ -170,7 +229,7 @@ public class Dashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-        setVisible(true);
+//        setVisible(true);
 
     }
 
