@@ -25,7 +25,7 @@ public class LNFController {
 		}
 	}
 	
-	public LNFController(AddLostAndFound lnf, String[] reportDetails) {
+	public LNFController(String[] reportDetails) {
 		boolean isSuccessful = daoLNF.addReport(reportDetails);
 		if (!isSuccessful) {
 			JOptionPane.showMessageDialog(null, "Error. Nothing is updated");

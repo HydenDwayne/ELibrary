@@ -448,6 +448,48 @@ public class StudentModal extends JPanel implements ActionListener {
 		modal.add(body, BorderLayout.CENTER);
 		modal.add(footer, BorderLayout.SOUTH);
 
+		/* ================= FONT APPLICATION ================= */
+
+		// ── Label fonts ───────────────────────────────────────
+		Fonts poppins16 = new Fonts("Poppins", 16f);
+		Font poppinsStyle16 = poppins16.getAppliedFont();
+
+		row2Label.setFont(poppinsStyle16);
+		row3Label.setFont(poppinsStyle16);
+		row4Label.setFont(poppinsStyle16);
+		row5Label.setFont(poppinsStyle16);
+		row6Label.setFont(poppinsStyle16);
+		row7Label.setFont(poppinsStyle16);
+		row8Label.setFont(poppinsStyle16);
+		row9Label.setFont(poppinsStyle16);
+		row10Label.setFont(poppinsStyle16);
+
+		// Label colors (same as EmployeeModal)
+		row2Label.setForeground(Color.decode("#842b28"));
+		row3Label.setForeground(Color.decode("#842b28"));
+		row4Label.setForeground(Color.decode("#842b28"));
+		row5Label.setForeground(Color.decode("#842b28"));
+		row6Label.setForeground(Color.decode("#842b28"));
+		row7Label.setForeground(Color.decode("#842b28"));
+		row8Label.setForeground(Color.decode("#842b28"));
+		row9Label.setForeground(Color.decode("#842b28"));
+		row10Label.setForeground(Color.decode("#842b28"));
+
+
+		// ── Field fonts ───────────────────────────────────────
+		Fonts poppins12 = new Fonts("Poppins", 10f);
+		Font poppinsFieldStyle = poppins12.getAppliedFont();
+
+		row2Field.setFont(poppinsFieldStyle);
+		row3Field.setFont(poppinsFieldStyle);
+		row4Field.setFont(poppinsFieldStyle);
+		row5Field.setFont(poppinsFieldStyle);
+		row6Field.setFont(poppinsFieldStyle);
+		row7Field.setFont(poppinsFieldStyle);
+		row8Field.setFont(poppinsFieldStyle);
+		row9Field.setFont(poppinsFieldStyle);
+		row10Field.setFont(poppinsFieldStyle);
+		
 		add(modal);
 	}
 

@@ -230,6 +230,7 @@ public class Dashboard extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 //        setVisible(true);
+        setResizable(false);
 
     }
 

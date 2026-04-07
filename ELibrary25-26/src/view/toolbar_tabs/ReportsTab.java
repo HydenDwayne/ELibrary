@@ -1,8 +1,6 @@
 package view.toolbar_tabs;
 
 import view.RoundedComponents.*;
-//import view.book_panels.*;
-//import view.facility_panels.*;
 import view.fonts.Fonts;
 import view.modal.archive_modal.ArchivedModal;
 
@@ -65,14 +63,12 @@ public class ReportsTab extends JPanel implements ActionListener {
         gbc.gridheight = 1;
         gbc.insets = new Insets(40, 10, 10, 10);
 
-        // container of the entire center widget
         RoundedPanel facContainer = new RoundedPanel(panelRadius);
         facContainer.setPreferredSize(new Dimension(1280, 560));
         facContainer.setLayout(new BorderLayout());
         facContainer.setBackground(Color.WHITE);
 
         setBackground(Color.decode("#c4c4c4"));
-        // red part
         RoundedPanel slctReports = new RoundedPanel(panelRadius);
         slctReports.setLayout(new GridBagLayout());
         GridBagConstraints gbcRed = new GridBagConstraints();
@@ -91,7 +87,6 @@ public class ReportsTab extends JPanel implements ActionListener {
 
         slctReports.add(selectReports, gbcRed);
 
-        // combobox
         JPanel cmbbxPanel = new JPanel();
         cmbbxPanel.setOpaque(false);
         
@@ -147,13 +142,10 @@ public class ReportsTab extends JPanel implements ActionListener {
         cmbbxPanel.add(dropdownFacility);
         slctReports.add(cmbbxPanel, gbcRed);
 
-        // container of the red part
         JPanel topWrapper = new JPanel(new BorderLayout());
         topWrapper.setOpaque(false);
         topWrapper.add(slctReports, BorderLayout.WEST);
 
-        // no red part
-//        tabLabel.setText("Amphitheather Schedule");
         tabLabel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         tabLabel.setForeground(Color.decode("#6d2321"));
 
@@ -163,7 +155,6 @@ public class ReportsTab extends JPanel implements ActionListener {
 
         topWrapper.add(tabLabel, BorderLayout.CENTER);
 
-        // see archive button on the right
         RoundedButton seeArchiveBtn = new RoundedButton("See Archived Records", panelRadius);
         seeArchiveBtn.setPreferredSize(new Dimension(200, 40));
         seeArchiveBtn.setBackground(Color.decode("#842b28"));
@@ -182,7 +173,6 @@ public class ReportsTab extends JPanel implements ActionListener {
         closeBtn.setBorderColor(Color.decode("#842b28"));
         closeBtn.setBorderThickness(1);
         
-//        closeBtn.setBackground(Color.decode("#842b28"));
         closeBtn.setForeground(Color.decode("#842b28"));
         closeBtn.setFont(introRustStyle);
         closeBtn.addActionListener(e -> {
@@ -208,10 +198,8 @@ public class ReportsTab extends JPanel implements ActionListener {
 
         facContainer.add(topWrapper, BorderLayout.NORTH);
 
-        // selected facility items
         JPanel slctdPadding = new JPanel();
         slctdPadding.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
-        // slctdPadding.setOpaque(false);
         slctdFaciCont = new JPanel();
         slctdFaciCont.setPreferredSize(new Dimension(1200, 400));
         slctdFaciCont.setOpaque(false);
@@ -569,7 +557,6 @@ public class ReportsTab extends JPanel implements ActionListener {
         ob.setVisible(false);
         bb.setVisible(false);
 
-        // Revalidate and repaint all reports
         JComponent[] reports = {
             amp, dr1, dr2, li, isr, ia, ls, pwd, mh1, mh2, rr, sdz,
             slr1, slr2, tcr, bl, rb, b, ims, lims, p, ob, bb

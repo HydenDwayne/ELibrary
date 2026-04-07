@@ -260,7 +260,7 @@ public class AddLostAndFound extends JPanel {
 		    };
 		    
 		    // Pass to controller and close modal
-		    new LNFController(this, reportDetails);
+		    new LNFController(reportDetails);
 		    Window w = SwingUtilities.getWindowAncestor(this);
 		    if (w instanceof JDialog) w.dispose();
 		});

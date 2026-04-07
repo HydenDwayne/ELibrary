@@ -2,13 +2,24 @@ package view.front_pages;
 
 import javax.swing.*;
 
+import controller.LNFController;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
+
+import controller.LNFController;
+
 
 import java.awt.*;
 import java.awt.event.*;
 
 public class ReportLNF extends JFrame{
+	
+	RoundedTextField itemField;
+	RoundedTextField nameField;
+	RoundedTextArea descriptionField;
+	RoundedComboBox<String> floorField;
+	RoundedComboBox<String> statusField;
+	RoundedTextField lastSeenField;
 	
 	
 	public ReportLNF(Dashboard frame, LoginWindow lw) {
@@ -99,7 +110,7 @@ public class ReportLNF extends JFrame{
 		innerBody.add(itemLabelWrapper, gbc);
 		
 		gbc.gridx = 1;
-		RoundedTextField itemField = new RoundedTextField(19, 15);
+		itemField = new RoundedTextField(19, 15);
 		itemField.setPlaceholder("Enter Lost Item Name");
 		itemField.setBorderColor(Color.decode("#924c4a"));
 		itemField.setBorderThickness(1);
@@ -120,7 +131,7 @@ public class ReportLNF extends JFrame{
 		innerBody.add(nameLabelWrapper, gbc);
 		
 		gbc.gridx = 1;
-		RoundedTextField nameField = new RoundedTextField(19, 15);
+		nameField = new RoundedTextField(19, 15);
 		nameField.setPlaceholder("(Optional)");
 		nameField.setBorderColor(Color.decode("#924c4a"));
 		nameField.setBorderThickness(1);
@@ -141,7 +152,7 @@ public class ReportLNF extends JFrame{
 		innerBody.add(descriptionLabelWrapper, gbc);
 		
 		gbc.gridx = 1;
-		RoundedTextArea descriptionField = new RoundedTextArea(3, 19, 15);
+		descriptionField = new RoundedTextArea(3, 19, 15);
 		descriptionField.setPlaceholder("Enter Item Description");
 		descriptionField.setBorderColor(Color.decode("#924c4a"));
 		descriptionField.setBorderThickness(1);
@@ -171,7 +182,7 @@ public class ReportLNF extends JFrame{
 		};
 		
 		gbc.gridx = 1;
-		RoundedComboBox<String> floorField = new RoundedComboBox<String>(floorLevels, 15);
+		 floorField = new RoundedComboBox<String>(floorLevels, 15);
 		floorField.setPreferredSize(new Dimension(210, 30));
 		floorField.setBorderColor(Color.decode("#924c4a"));
 		floorField.setBorderThickness(1);
@@ -191,9 +202,13 @@ public class ReportLNF extends JFrame{
 		
 		innerBody.add(statusLabelWrapper, gbc);
 		
+		String[] statuses = {
+				"Missing",
+				"Surrendered"
+		};
 		gbc.gridx = 1;
-		RoundedTextField statusField = new RoundedTextField(19, 15);
-		statusField.setPlaceholder("Surrendered");
+		 statusField = new RoundedComboBox<String>(statuses, 15);
+		statusField.setPreferredSize(new Dimension(210, 30));
 		statusField.setBorderColor(Color.decode("#924c4a"));
 		statusField.setBorderThickness(1);
 		innerBody.add(statusField, gbc);
@@ -213,7 +228,7 @@ public class ReportLNF extends JFrame{
 		innerBody.add(lastSeenLabelWrapper, gbc);
 		
 		gbc.gridx = 1;
-		RoundedTextField lastSeenField = new RoundedTextField(19, 15);
+		 lastSeenField = new RoundedTextField(19, 15);
 		lastSeenField.setPlaceholder("yyyy-mm-dd");
 		lastSeenField.setBorderColor(Color.decode("#924c4a"));
 		lastSeenField.setBorderThickness(1);
@@ -265,6 +280,62 @@ public class ReportLNF extends JFrame{
 		submitBtn.setBackground(Color.decode("#842b28"));
 		submitBtn.setForeground(Color.WHITE);
 		submitBtn.setFont(poppinsStyle12);
+		submitBtn.addActionListener(e -> {
+		    // Get all field values
+		    String item = itemField.getRealText().trim();
+		    String owner = nameField.getRealText().trim();
+		    String desc = descriptionField.getRealText().trim();
+		    String floorTxt = floorField.getSelectedItem().toString();
+		    String statusTxt = statusField.getSelectedItem().toString();
+		    String date = lastSeenField.getRealText().trim();
+
+		    // Validate required fields
+		    System.out.println(item);
+		    if (item.isEmpty() || date.isEmpty()) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "Please fill in Item and Date fields.",
+		            "Missing Information",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
+
+		    // Normalize/validate date
+		    String normalizedDate = validateAndNormalizeDate(date);
+		    if (normalizedDate == null) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "Please fill in the date field with a valid yyyy-mm-dd format.",
+		            "Incorrect/Invalid Date Format",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
+
+		    if (owner.isEmpty()) owner = null;
+		    if (desc.isEmpty()) desc = null;
+
+		    // Prepare report details
+		    String[] reportDetails = {
+		        item,
+		        owner,
+		        desc,
+		        floorTxt,
+		        statusTxt,
+		        normalizedDate
+		    };
+		    
+		    new LNFController(reportDetails);
+		    Window w = SwingUtilities.getWindowAncestor(this);
+		    if (w instanceof JDialog) {
+		    	w.dispose();
+		    	new PopUpMessageModal(w, "Report filed!");
+		    	clearFields();
+		    }
+		    
+		});
+
 		footer.add(submitBtn, BorderLayout.NORTH);
 		
 		RoundedButton clearBtn = new RoundedButton("CLEAR", 15);
@@ -274,26 +345,9 @@ public class ReportLNF extends JFrame{
 		clearBtn.setPreferredSize(new Dimension(500, 40));
 		clearBtn.setFont(poppinsStyle12);
 		clearBtn.addActionListener(e -> {
-			
-			if (itemField.getText().equals("exit")) {
-	            lw.setVisible(true);
-				dispose();
-			} else {
-				itemField.setText("");
-				nameField.setText("");
-				descriptionField.setText("");
-				floorField.setSelectedIndex(0);
-				statusField.setText("");
-				lastSeenField.setText("");
-				
-				itemField.setPlaceholder("Enter Lost Item Name");
-				nameField.setPlaceholder("(Optional)");
-				descriptionField.setPlaceholder("Enter Item Description");
-				statusField.setPlaceholder("Surrendered");
-				lastSeenField.setPlaceholder("yyyy-mm-dd");
-			}
-            
-        });
+		    clearFields();
+		});
+
 		footer.add(clearBtn, BorderLayout.SOUTH);
 		
 		
@@ -340,5 +394,85 @@ public class ReportLNF extends JFrame{
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		setResizable(false);
+	}
+	
+	public void clearFields() {
+		// Reset text fields
+	    itemField.setText("");
+	    nameField.setText("");
+	    descriptionField.setText("");
+	    lastSeenField.setText("");
+
+	    // Reset placeholders
+	    itemField.setPlaceholder("Enter Lost Item Name");
+	    nameField.setPlaceholder("(Optional)");
+	    descriptionField.setPlaceholder("Enter Item Description");
+	    lastSeenField.setPlaceholder("yyyy-mm-dd");
+
+	    // Reset combo boxes
+	    floorField.setSelectedIndex(0);
+	    statusField.setSelectedIndex(0); // Default to "Missing" or first option
+	}
+	
+	public static String validateAndNormalizeDate(String date) {
+	    if (date == null) {
+	        return null;
+	    }
+
+	    date = date.trim();
+	    String[] parts = date.split("-");
+
+	    // Must be year-month-day
+	    if (parts.length != 3) {
+	        return null;
+	    }
+
+	    String yearPart  = parts[0];
+	    String monthPart = parts[1];
+	    String dayPart   = parts[2];
+
+	    // Year must be exactly 4 digits
+	    if (!yearPart.matches("\\d{4}")) {
+	        return null;
+	    }
+
+	    // Month and day: 1 or 2 digits only
+	    if (!monthPart.matches("\\d{1,2}") || !dayPart.matches("\\d{1,2}")) {
+	        return null;
+	    }
+
+	    int year  = Integer.parseInt(yearPart);
+	    int month = Integer.parseInt(monthPart);
+	    int day   = Integer.parseInt(dayPart);
+
+	    // Month range
+	    if (month < 1 || month > 12) {
+	        return null;
+	    }
+
+	    int[] daysInMonth = {
+	        31, 28, 31, 30, 31, 30,
+	        31, 31, 30, 31, 30, 31
+	    };
+
+	    // Leap year adjustment
+	    boolean isLeapYear =
+	        (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+
+	    if (month == 2 && isLeapYear) {
+	        daysInMonth[1] = 29;
+	    }
+
+	    // Day range
+	    if (day < 1 || day > daysInMonth[month - 1]) {
+	        return null;
+	    }
+
+	    // ✅ Normalize to YYYY-MM-DD
+	    String normalizedMonth = (month < 10 ? "0" : "") + month;
+	    String normalizedDay   = (day   < 10 ? "0" : "") + day;
+
+	    return year + "-" + normalizedMonth + "-" + normalizedDay;
 	}
 }

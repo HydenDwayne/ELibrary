@@ -37,7 +37,6 @@ public class PatronsTab extends JPanel {
 		this.types = types;
 	}
 
-	// Campus filters
 	private boolean filterMain;
 	private boolean filterHagonoy;
 	private boolean filterSanRafael;
@@ -61,10 +60,9 @@ public class PatronsTab extends JPanel {
 		this.filterEmployee = employee;
 		this.filterStudent = student;
 
-		reloadData(searchQuery); // apply filters to table
+		reloadData(searchQuery);
 	}
 
-	// --- getters ---
 	public boolean isFilterMain() {
 		return filterMain;
 	}
@@ -112,7 +110,6 @@ public class PatronsTab extends JPanel {
 		patronContainer.setLayout(new BorderLayout());
 		patronContainer.setBackground(Color.WHITE);
 
-		// no red part
 		JLabel tabLabel = new JLabel("PATRONS");
 		tabLabel.setForeground(Color.decode("#6d2321"));
 
@@ -120,12 +117,10 @@ public class PatronsTab extends JPanel {
 		Font introRust22Style = introRust22.getAppliedFont();
 		tabLabel.setFont(introRust22Style);
 
-		// search + filter container
 		JPanel searchFilter = new JPanel();
 		searchFilter.setLayout(new BorderLayout());
 		searchFilter.setPreferredSize(new Dimension(375, 30));
 		searchFilter.setOpaque(false);
-		// search item
 		JPanel searchContainer = new JPanel();
 		searchContainer.setOpaque(false);
 		searchContainer.setPreferredSize(new Dimension(275, 20));
@@ -150,7 +145,6 @@ public class PatronsTab extends JPanel {
 
 		searchContainer.add(searchItem);
 
-		// sort by
 		ImageIcon sortByIcon = new ImageIcon(FilePath.image("sort_by_icon.png"));
 		Image sortByImage = sortByIcon.getImage();
 		Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
@@ -206,7 +200,6 @@ public class PatronsTab extends JPanel {
 		iconsPanel.add(archiveLogo);
 		iconsPanel.add(reloadLogo);
 
-		// add book button
 		JPanel outerBtnCont = new JPanel();
 		outerBtnCont.setLayout(new BorderLayout());
 		outerBtnCont.setOpaque(false);
@@ -232,7 +225,6 @@ public class PatronsTab extends JPanel {
 		outerBtnCont.add(addPatron, BorderLayout.EAST);
 		outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
-		// right side of the top wrapper
 		JPanel topRight = new JPanel();
 		topRight.setOpaque(false);
 		topRight.setPreferredSize(new Dimension(390, 50));
@@ -243,7 +235,6 @@ public class PatronsTab extends JPanel {
 		searchFilter.add(searchContainer, BorderLayout.WEST);
 		searchFilter.add(iconsPanel, BorderLayout.EAST);
 
-		// container of the red part
 		JPanel topWrapper = new JPanel();
 		topWrapper.setLayout(new BorderLayout());
 		topWrapper.setPreferredSize(new Dimension(1280, 90));
@@ -268,11 +259,9 @@ public class PatronsTab extends JPanel {
 
 		patronContainer.add(topWrapper, BorderLayout.NORTH);
 
-		// selected patrons items
 		JPanel slctdPatrons = new JPanel();
 		slctdPatrons.setOpaque(false);
 
-// Create labels
 		JPanel tableHeader = new JPanel();
 		slctdPatrons.setLayout(new BorderLayout());
 		tableHeader.setLayout(new GridBagLayout());
@@ -377,7 +366,6 @@ public class PatronsTab extends JPanel {
 
 		slctdPatrons.add(tableHeader, BorderLayout.NORTH);
 
-		// actual table data ============================
 		tableData = new JPanel();
 		tableData.setOpaque(false);
 
@@ -398,7 +386,6 @@ public class PatronsTab extends JPanel {
 
 		patronContainer.add(slctdPatrons, BorderLayout.CENTER);
 
-		// ==============================================
 		patronsTab.add(patronContainer, gbc);
 		setBackground(Color.decode("#c4c4c4"));
 		add(patronsTab);
@@ -452,13 +439,6 @@ public class PatronsTab extends JPanel {
 		} catch (Exception e) {
 			return;
 		}
-
-//		if (filterStudent) {
-//			campuses += ",M";
-//		}
-//		if (filterEmployee) {
-//			campuses += ",M";
-//		}
 	}
 
 	public void concatTypes() {

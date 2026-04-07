@@ -456,6 +456,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		setResizable(false);
 	}
 
 	public void checkPatronID() {

@@ -10,6 +10,7 @@ import controller.ArchiveController;
 import java.awt.*;
 
 import view.RoundedComponents.*;
+import view.fonts.Fonts;
 
 public class ArchivedOverdueBooks extends JPanel {
 
@@ -30,6 +31,11 @@ public class ArchivedOverdueBooks extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
+        /* ================= FONTS ================= */
+        Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
+        Font introRust24 = new Fonts("IntroRust", 20f).getAppliedFont();
+        Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
+
         /* ================= MODAL ================= */
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
@@ -42,15 +48,10 @@ public class ArchivedOverdueBooks extends JPanel {
         header.setPreferredSize(new Dimension(500, 100));
         header.setBorder(new EmptyBorder(10, 20, 10, 20));
 
-        JLabel logo = new JLabel("📚");
-        logo.setFont(new Font("Arial", Font.PLAIN, 40));
-        logo.setForeground(WHITE);
-
         JLabel title = new JLabel("ARCHIVES", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 36));
+        title.setFont(introRust26);
         title.setForeground(WHITE);
 
-        header.add(logo, BorderLayout.WEST);
         header.add(title, BorderLayout.CENTER);
 
         /* ================= BODY ================= */
@@ -62,7 +63,7 @@ public class ArchivedOverdueBooks extends JPanel {
                 "ALL ARCHIVED RECORDS OF OVERDUE BOOKS",
                 SwingConstants.CENTER
         );
-        bodyTitle.setFont(new Font("Arial", Font.BOLD, 20));
+        bodyTitle.setFont(introRust24);
         bodyTitle.setForeground(DARK_TEXT);
 
         body.add(bodyTitle, BorderLayout.NORTH);
@@ -88,7 +89,7 @@ public class ArchivedOverdueBooks extends JPanel {
 
         table = new JTable(model);
         table.setRowHeight(25);
-        table.setFont(new Font("Arial", Font.PLAIN, 12));
+        table.setFont(poppins12);
         table.setGridColor(FIELD_BORDER);
         table.setShowGrid(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -96,7 +97,7 @@ public class ArchivedOverdueBooks extends JPanel {
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(MAROON);
         tableHeader.setForeground(WHITE);
-        tableHeader.setFont(new Font("Arial", Font.BOLD, 12));
+        tableHeader.setFont(poppins12);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(new EmptyBorder(10, 0, 10, 0));
@@ -115,36 +116,34 @@ public class ArchivedOverdueBooks extends JPanel {
         footer.setOpaque(false);
 
         RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
-        cancelBtn.setFont(new Font("Arial", Font.BOLD, 12));
+        cancelBtn.setFont(poppins12);
         cancelBtn.setForeground(MAROON);
         cancelBtn.setBorderColor(MAROON);
         cancelBtn.setBorderThickness(1);
-        cancelBtn.setBackground(LIGHT_PINK);
         cancelBtn.addActionListener(e -> {
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w instanceof JDialog) w.dispose();
         });
 
         RoundedButton unarchiveBtn = new RoundedButton("UNARCHIVE", FIELD_RADIUS);
-        unarchiveBtn.setFont(new Font("Arial", Font.BOLD, 12));
+        unarchiveBtn.setFont(poppins12);
         unarchiveBtn.setBackground(MAROON);
         unarchiveBtn.setForeground(WHITE);
 
         unarchiveBtn.addActionListener(e -> {
-        	int selectedRow = table.getSelectedRow();
-        	if (selectedRow != -1) {
-        	    Object value = table.getValueAt(selectedRow, 0); // column 0 = first column
-        	    String firstColumnValue = value.toString();
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                Object value = table.getValueAt(selectedRow, 0);
+                String firstColumnValue = value.toString();
 
-        	    ArchiveController ac = new ArchiveController("Books_Loan", firstColumnValue);
-            	
-            	boolean isSuccessful = ac.setUnarchived();
-            	if(isSuccessful) {
-            		Window w = SwingUtilities.getWindowAncestor(this);
-            		if (w != null) w.dispose();
-            	}
-        	}
-        	
+                ArchiveController ac = new ArchiveController("Books_Loan", firstColumnValue);
+
+                boolean isSuccessful = ac.setUnarchived();
+                if (isSuccessful) {
+                    Window w = SwingUtilities.getWindowAncestor(this);
+                    if (w != null) w.dispose();
+                }
+            }
         });
 
         footer.add(cancelBtn);

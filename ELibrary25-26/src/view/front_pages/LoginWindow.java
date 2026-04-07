@@ -282,5 +282,6 @@ public class LoginWindow extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setVisible(false);
+        setResizable(false);
     }
 }

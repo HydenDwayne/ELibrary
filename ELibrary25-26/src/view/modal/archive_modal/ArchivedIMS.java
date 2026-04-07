@@ -47,15 +47,10 @@ public class ArchivedIMS extends JPanel {
         header.setPreferredSize(new Dimension(700, 100));
         header.setBorder(new EmptyBorder(10, 20, 10, 20));
 
-        JLabel logo = new JLabel("📚");
-        logo.setFont(new Font("Arial", Font.PLAIN, 40));
-        logo.setForeground(WHITE);
-
         JLabel title = new JLabel("ARCHIVES", SwingConstants.CENTER);
         title.setFont(introRust26);
         title.setForeground(WHITE);
 
-        header.add(logo, BorderLayout.WEST);
         header.add(title, BorderLayout.CENTER);
 
         /* ================= BODY ================= */
