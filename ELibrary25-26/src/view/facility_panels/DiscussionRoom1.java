@@ -91,7 +91,7 @@ public class DiscussionRoom1 extends JPanel {
         });
     }
 
-    private void generateCalendar() {
+    public void generateCalendar() {
 
         calendarGrid.removeAll();
 
