@@ -1,6 +1,7 @@
 package model.DAOs.Overview;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,27 +14,74 @@ public class OverviewDAOImp {
     private final String PASSWORD = "passwordPia";
 
 
-    public List<DAOOverview> getAllOverview() {
+	public List<DAOOverview> getAllOverview() {
 
-        List<DAOOverview> ims = new ArrayList<>();
+		List<DAOOverview> ims = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement stmt = conn.prepareStatement("SELECT * FROM getOverviewData")) {
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement stmt = conn.prepareStatement("SELECT * FROM getOverviewData")) {
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				ims.add(new DAOOverview(rs.getInt("NoOfBooks"), rs.getInt("NoOfBorrowedBooks"),
+						rs.getInt("NoOfOverdueBooks"), rs.getInt("NoOfPatron")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return ims;
+	}
+	
+	public List<DAOPatronFootTraffic> getTraffic() {
+		String sql = "SELECT * FROM showPatronFootTraffic";
+
+		
+		
+
+        List<DAOPatronFootTraffic> analytics = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
+        		PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                ims.add(new DAOOverview(
-                        rs.getInt("NoOfBooks"),
-                        rs.getInt("NoOfBorrowedBooks"),
-                        rs.getInt("NoOfOverdueBooks"),
-                        rs.getInt("NoOfPatron")
-                ));
+                	analytics.add(new DAOPatronFootTraffic(
+                            rs.getTimestamp("HourStart"),
+                            rs.getInt("PatronCount")
+                    ));
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return analytics;
+    }
+	
+	public List<DAOBookTraffic> getBookTraffic() {
+        String sql = "SELECT * FROM showBookTraffic";
+
+        List<DAOBookTraffic> analytics = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String dayName = rs.getString(2);
+                int count = rs.getInt(3);
+
+                analytics.add(new DAOBookTraffic(dayName, count));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return ims;
+        return analytics;
     }
     
     

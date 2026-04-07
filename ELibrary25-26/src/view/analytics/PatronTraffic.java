@@ -5,11 +5,16 @@ import java.awt.*;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import model.DAOs.Overview.DAOPatronFootTraffic;
+import model.DAOs.Overview.OverviewDAOImp;
+
 import org.jfree.chart.plot.CategoryPlot;
 import java.awt.geom.Ellipse2D;
-import java.util.Random;
+import java.util.List;
 import view.fonts.Fonts;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import java.text.SimpleDateFormat;
 
 public class PatronTraffic extends JPanel {
 
@@ -19,15 +24,24 @@ public class PatronTraffic extends JPanel {
 		
 		int width = 700;
 		int height = 280;
-		String[] time = { "7:00AM", "8:00", "9:00", "10:00", "11:00", "12:00", 
-				"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00PM" };
+//		String[] time = { "7:00AM", "8:00", "9:00", "10:00", "11:00", "12:00", 
+//				"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00PM" };
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		
-		for (String hour: time) {
-			
-			Random rand = new Random();
-			int randomInt = rand.nextInt((1600 - 500) + 1) + 500;
-			dataset.addValue(randomInt, "", hour);
+
+		OverviewDAOImp dao = new OverviewDAOImp();
+		List<DAOPatronFootTraffic> trafficData = dao.getTraffic();
+
+		SimpleDateFormat timeFormat = new SimpleDateFormat("h:mma");
+
+		for (DAOPatronFootTraffic data : trafficData) {
+
+		    String formattedTime = timeFormat.format(data.getTime()); // ✅ format timestamp
+
+		    dataset.addValue(
+		        data.getCount(),   // Y-axis
+		        "",                      // series
+		        formattedTime            // X-axis (7:00AM, etc.)
+		    );
 		}
 		JFreeChart chart = ChartFactory.createLineChart("", "", "", dataset);
 		chart.removeLegend();

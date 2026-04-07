@@ -133,7 +133,7 @@ public class ArchivedBookLoan extends JPanel {
         	    Object value = table.getValueAt(selectedRow, 0); // column 0 = first column
         	    String firstColumnValue = value.toString();
 
-        	    ArchiveController ac = new ArchiveController("BookLoan", firstColumnValue);
+        	    ArchiveController ac = new ArchiveController("Books_Loan", firstColumnValue);
             	
             	boolean isSuccessful = ac.setUnarchived();
             	if(isSuccessful) {
