@@ -49,8 +49,8 @@ public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
                           || facilityCode.equals("LOGIN"));
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement stmt =
-                 conn.prepareStatement("EXEC checkPatronTimeIn_Out ?, ?, ?")) {
+             CallableStatement stmt =
+                 conn.prepareCall("{CALL checkPatronTimeIn_Out(?, ?, ?)}")) {
 
             stmt.setString(1, facilityCode);
             stmt.setString(2, patronID);
@@ -81,20 +81,31 @@ public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
     	
     	DateTimeFormatter timeFormatter =
     	        DateTimeFormatter.ofPattern("hh:mm:ss a");
+    	String sql= "";
     	
+    	if (cardNo == null) {
+    		sql = "{CALL getPatronLoginInfoNoCard(?,?)}";
+    	} else {
+    		sql = "{CALL getPatronLoginInfo(?,?,?)}";
+    	}
     	
     	List<String> list = new ArrayList<>();
     	
-    	if (cardNo != null) {
     		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-					PreparedStatement stmt = conn.prepareStatement("exec getPatronLoginInfo ?, ?, ?")) {
-	
+					CallableStatement stmt = conn.prepareCall(sql)) {
+    			
+    			
 	    		stmt.setString(1, patronID);
 				stmt.setString(2, facilityCode);
-				stmt.setString(3, cardNo);
+				if (cardNo != null) {
+					stmt.setString(3, cardNo);
+		    	}
+				
 	
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
+
+					
 					list.add(rs.getString("PatronID"));
 					list.add(rs.getString("Full Name"));
 					list.add(rs.getString("CampColl"));
@@ -112,35 +123,6 @@ public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
 			} catch (SQLException e) {
 				return null;
 			}
-    	} else {
-    		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-    				PreparedStatement stmt = conn.prepareStatement("exec getPatronLoginInfoNoCard ?, ?")) {
-
-        		stmt.setString(1, patronID);
-    			stmt.setString(2, facilityCode);
-
-    			ResultSet rs = stmt.executeQuery();
-    			while (rs.next()) {
-    				list.add(rs.getString("PatronID"));
-    				list.add(rs.getString("Full Name"));
-    				list.add(rs.getString("CampColl"));
-    				list.add(rs.getString("PatronType"));
-    				Timestamp timeIn = rs.getTimestamp("PatronTimeIn");
-    				list.add(timeIn == null
-    				        ? "--"
-    				        : timeIn.toLocalDateTime().format(timeFormatter));
-    				Timestamp timeOut = rs.getTimestamp("PatronTimeOut");
-    				list.add(timeOut == null
-    				        ? "--"
-    				        : timeOut.toLocalDateTime().format(timeFormatter));
-    			}
-
-    		} catch (SQLException e) {
-    			return null;
-    		}
-    	}
-    	
-    	
 
     	if (list.isEmpty()) {
     	    return null;
