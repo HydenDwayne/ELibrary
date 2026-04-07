@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import view.front_pages.Dashboard;
+import view.front_pages.LoadingPanel;
 import view.front_pages.LoginWindow;
 import view.RoundedComponents.RoundedDialog;
 
@@ -15,14 +16,16 @@ public class Main {
             loadingDialog.setLayout(new BorderLayout());
             loadingDialog.setUndecorated(true);
 
-            // Content panel (since dialog is transparent)
-            JPanel panel = new JPanel();
-            panel.setBackground(Color.WHITE);
-            panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-            panel.setLayout(new BorderLayout());
-
-            JLabel label = new JLabel("Loading, please wait...", SwingConstants.CENTER);
-            panel.add(label, BorderLayout.CENTER);
+//            // Content panel (since dialog is transparent)
+//            JPanel panel = new JPanel();
+//            panel.setBackground(Color.WHITE);
+//            panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+//            panel.setLayout(new BorderLayout());
+//
+//            JLabel label = new JLabel("Loading, please wait...", SwingConstants.CENTER);
+//            panel.add(label, BorderLayout.CENTER);
+            
+            LoadingPanel panel = new LoadingPanel();
 
             loadingDialog.add(panel);
             loadingDialog.pack();
