@@ -28,7 +28,7 @@ public class IMSDAOImp {
 
             while (rs.next()) {
                 ims.add(new DAOIMS(
-                        rs.getString("FacilityCode"),
+                        rs.getString("ItemType"),
                         rs.getString("SerialNumber"),
                         rs.getString("EquipmentName")
                 ));

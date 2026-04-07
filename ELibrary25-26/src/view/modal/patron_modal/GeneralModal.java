@@ -2,6 +2,7 @@ package view.modal.patron_modal;
 
 import javax.swing.*;
 
+import controller.PatronController;
 import view.RoundedComponents.*;
 import view.fonts.Fonts;
 import view.front_pages.*;
@@ -456,6 +457,16 @@ public class GeneralModal extends JPanel implements ActionListener {
 
 				JOptionPane.showMessageDialog(null, "Fill in the required fields!");
 			} else {
+				PatronController comp = new PatronController(row1Field.getRealText());
+				if (comp.checkPatronExists()) {
+					JOptionPane.showMessageDialog(
+				            this,
+				            "Patron ID already registered.",
+				            "Existance error",
+				            JOptionPane.WARNING_MESSAGE
+				        );
+					return;
+				}
 
 				if (studentBtn.isSelected()) {
 				    campusCode = campuses[row8Field.getSelectedIndex()];

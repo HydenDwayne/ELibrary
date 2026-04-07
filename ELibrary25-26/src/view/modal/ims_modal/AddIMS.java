@@ -166,20 +166,40 @@ public class AddIMS extends JPanel {
         confirmBtn.setBackground(MAROON);
         confirmBtn.setForeground(WHITE);
         confirmBtn.addActionListener(e -> {
-        	
-        	if (
-    			serialField == null || serialField.getRealText().isBlank() || 
-				equipmentField == null || equipmentField.getRealText().isBlank() ||
-				itemTypeField == null || itemTypeField.getRealText().isBlank()) {
-        		JOptionPane.showMessageDialog(null, "Fill all fields");
-        	} else {
-        		IMSController comp = new IMSController(this);
-            	comp.addNewEquipment(new String[] {serialField.getRealText(),equipmentField.getRealText(),itemTypeField.getRealText()});
-            	Window w = SwingUtilities.getWindowAncestor(this);
-    			if (w instanceof JDialog)
-    				w.dispose();
-        	}
-        	
+
+            // ================= GET VALUES =================
+            String serial = serialField.getRealText().trim();
+            String equipment = equipmentField.getRealText().trim();
+            String itemType = itemTypeField.getRealText().trim();
+
+            // ================= REQUIRED VALIDATION =================
+            if (serial.isEmpty() || equipment.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Serial Number and Equipment Name are required.",
+                    "Missing Information",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+
+            // ================= OPTIONAL → NULL =================
+            if (itemType.isEmpty()) itemType = null;
+
+            // ================= BUILD ARRAY =================
+            String[] details = {
+                serial,
+                equipment,
+                itemType
+            };
+
+            // ================= SAVE =================
+            IMSController comp = new IMSController(this);
+            comp.addNewEquipment(details);
+
+            // ================= CLOSE MODAL =================
+            Window w = SwingUtilities.getWindowAncestor(this);
+            if (w instanceof JDialog) w.dispose();
         });
         footer.add(confirmBtn);
 

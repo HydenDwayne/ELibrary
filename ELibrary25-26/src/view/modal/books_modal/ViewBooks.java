@@ -293,7 +293,7 @@ public class ViewBooks extends JPanel {
                 // Show only Available and Archived
                 String[] options = {"Available", "Archived"};
                 availCombo.setModel(new DefaultComboBoxModel<>(options));
-                availCombo.setEnabled(true);
+                availCombo.setEnabled(false);
             }
         });
         
@@ -340,26 +340,50 @@ public class ViewBooks extends JPanel {
         saveBtn.setBackground(MAROON);
         saveBtn.setForeground(WHITE);
         saveBtn.addActionListener(e -> {
+            // Gather all fields
+            String callNumberTxt = callNumberField.getRealText().trim();
+            String bookTitle  = bookTitleField.getRealText().trim();
+            String author     = authorField.getRealText().trim();
+            String year       = yearField.getRealText().trim();
+            String type       = typeCombo.getSelectedItem() != null ? typeCombo.getSelectedItem().toString() : "";
+            String collection = collectionCombo.getSelectedItem() != null ? collectionCombo.getSelectedItem().toString() : "";
+            String classification = classField.getRealText().trim();
+            String availability   = availCombo.getSelectedItem() != null ? availCombo.getSelectedItem().toString() : "";
+            String seriesTitle    = seriesField.getRealText().trim();
 
-            String[] bookDetails = new String[9];
+            // Validate all required fields
+            if (callNumberTxt.isEmpty() || bookTitle.isEmpty() || author.isEmpty() ||
+                year.isEmpty() || type.isEmpty() || collection.isEmpty() ||
+                classification.isEmpty() || availability.isEmpty() || seriesTitle.isEmpty()) {
 
-            bookDetails[0] = callNumberField.getRealText(); // Call Number
-            bookDetails[1] = bookTitleField.getRealText();  // Title
-            bookDetails[2] = authorField.getRealText();     // Author
-            bookDetails[3] = yearField.getRealText();       // Publication Year
-            bookDetails[4] = typeCombo.getSelectedItem() != null 
-                          ? typeCombo.getSelectedItem().toString() : ""; // Book Type
-            bookDetails[5] = collectionCombo.getSelectedItem() != null 
-                          ? collectionCombo.getSelectedItem().toString() : ""; // Collection Code
-            bookDetails[6] = classField.getRealText();     // Classification Code
-            bookDetails[7] = availCombo.getSelectedItem() != null 
-                          ? availCombo.getSelectedItem().toString() : ""; // Availability Status
-            bookDetails[8] = seriesField.getRealText();    // Series Title
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill in all book details before saving.",
+                    "Missing Information",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
 
+            // Prepare book details array
+            String[] bookDetails = {
+            		callNumberTxt,
+                bookTitle,
+                author,
+                year,
+                type,
+                collection,
+                classification,
+                availability,
+                seriesTitle
+            };
+
+            // Pass to controller
             new BookController(this, bookDetails);
-            
+
+            // Close modal
             Window w = SwingUtilities.getWindowAncestor(this);
-            if (w != null) w.dispose();
+            if (w instanceof JDialog) w.dispose();
         });
         footer.add(saveBtn);
         

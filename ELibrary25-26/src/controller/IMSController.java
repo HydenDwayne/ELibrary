@@ -25,6 +25,7 @@ public class IMSController {
 	AddIMS add;
 	AddRequestItem req;
 	PatronDAOImp daoPatron = new PatronDAOImp();
+	String serial; 
 	
 	public IMSController(ViewIMS view) {
 		this.view = view;
@@ -32,6 +33,7 @@ public class IMSController {
 	
 	public void getEquipmentInfo(String serialNumber) {
 		String[] equipmentInfo = daoIMS.getEquipmentInfo(serialNumber);
+		System.out.println(equipmentInfo[1]);
 		view.itemField.setText(equipmentInfo[1]);
 		view.equipField.setText(equipmentInfo[0]);
 		view.serialField.setText(serialNumber);
@@ -133,5 +135,15 @@ public class IMSController {
 			}
 		}
 		return isSuccessful;
+	}
+	
+	public boolean serialExists() {
+		boolean serialExists = daoCard.checkEquipmentExists(serial);
+		return serialExists;
+	}
+	
+	public IMSController(String serial) {
+		this.serial = serial;
+	
 	}
 }

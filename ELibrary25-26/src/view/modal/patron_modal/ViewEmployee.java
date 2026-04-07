@@ -479,47 +479,99 @@ public class ViewEmployee extends JPanel {
 		submitBtn.setBackground(MAROON);
 		submitBtn.setForeground(WHITE);
 		submitBtn.addActionListener(e -> {
-			
-			if (!adminCheck.isSelected() && !libraryStaffCheck.isSelected() && !facultyCheck.isSelected()) {
-				JOptionPane.showMessageDialog(null, "Select at least one role");
-			} else {
-				// Collect the employee details into a String array
-			    String[] employeeDetails = {
-			        pidField.getRealText(),                                   // 0 PatronID
-			        firstNameField.getRealText(),                             // 1 FirstName
-			        middleField.getRealText(),                                // 2 MiddleInitial
-			        lastNameField.getRealText(),                              // 3 LastName
-			        emailField.getRealText(),                                 // 4 EmailAddress
-			        contactField.getRealText(),                               // 5 ContactNumber
-			        addressField.getRealText(),                               // 6 HomeAddress
-			        campusField.getSelectedItem() != null
-			            ? campusField.getSelectedItem().toString()
-			            : null,                                               // 7 CampCode
 
-			        String.valueOf(adminCheck.isSelected()),                 // 8 IsAdmin
-			        String.valueOf(libraryStaffCheck.isSelected()),          // 9 IsLibraryStaff
-			        String.valueOf(facultyCheck.isSelected()),               // 10 IsFaculty
+		    // Get values
+		    String firstName = firstNameField.getRealText().trim();
+		    String lastName = lastNameField.getRealText().trim();
 
-			        adminPositionField.getRealText(),                        // 11 AdminPosition
-			        assignmentCodeField.getRealText(),                       // 12 AssignmentCode
-			        libPositionField.getRealText(),                          // 13 StaffPosition
+		    // ✅ Validate required fields FIRST
+		    if (firstName.isEmpty() || lastName.isEmpty()) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "First Name and Last Name are required.",
+		            "Missing Information",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
 
-			        facultyRankField.getRealText(),                          // 14 FacultyRank
-			        collegeField.getSelectedItem() != null
-			            ? collegeField.getSelectedItem().toString()
-			            : null                                               // 15 ColCode
-			    };
-			    
-			    boolean isSuccessful = comp.updatePatronEmployee(employeeDetails);
-				if (isSuccessful) {
-					patTab.reloadData(patTab.searchQuery);
-					Window w = SwingUtilities.getWindowAncestor(this);
-					if (w instanceof JDialog)
-						w.dispose();
-				}
-			}
-		    
+		    // ✅ Validate role selection
+		    if (!adminCheck.isSelected() && !libraryStaffCheck.isSelected() && !facultyCheck.isSelected()) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "Select at least one role.",
+		            "Missing Role",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
 
+		    // Optional fields → convert empty to null
+		    String middle = middleField.getRealText().trim();
+		    if (middle.isEmpty()) middle = null;
+
+		    String email = emailField.getRealText().trim();
+		    if (email.isEmpty()) email = null;
+
+		    String contact = contactField.getRealText().trim();
+		    if (contact.isEmpty()) contact = null;
+
+		    String address = addressField.getRealText().trim();
+		    if (address.isEmpty()) address = null;
+
+		    String adminPos = adminPositionField.getRealText().trim();
+		    if (adminPos.isEmpty()) adminPos = null;
+
+		    String assignment = assignmentCodeField.getRealText().trim();
+		    if (assignment.isEmpty()) assignment = null;
+
+		    String libPos = libPositionField.getRealText().trim();
+		    if (libPos.isEmpty()) libPos = null;
+
+		    String facultyRank = facultyRankField.getRealText().trim();
+		    if (facultyRank.isEmpty()) facultyRank = null;
+
+		    // Prepare array
+		    String[] employeeDetails = {
+		        pidField.getRealText(),                        // 0 PatronID
+		        firstName,                                     // 1 FirstName (REQUIRED)
+		        middle,                                        // 2 MiddleInitial (nullable)
+		        lastName,                                      // 3 LastName (REQUIRED)
+		        email,                                         // 4 EmailAddress (nullable)
+		        contact,                                       // 5 ContactNumber (nullable)
+		        address,                                       // 6 HomeAddress (nullable)
+		        campusField.getSelectedItem() != null
+		            ? campusField.getSelectedItem().toString()
+		            : null,                                    // 7 CampCode
+
+		        String.valueOf(adminCheck.isSelected()),       // 8
+		        String.valueOf(libraryStaffCheck.isSelected()),// 9
+		        String.valueOf(facultyCheck.isSelected()),     // 10
+
+		        adminPos,                                      // 11
+		        assignment,                                    // 12
+		        libPos,                                        // 13
+		        facultyRank,                                   // 14
+		        collegeField.getSelectedItem() != null
+		            ? collegeField.getSelectedItem().toString()
+		            : null                                     // 15
+		    };
+
+		    // Save
+		    boolean isSuccessful = comp.updatePatronEmployee(employeeDetails);
+
+		    if (isSuccessful) {
+		        patTab.reloadData(patTab.searchQuery);
+		        Window w = SwingUtilities.getWindowAncestor(this);
+		        if (w instanceof JDialog) w.dispose();
+		    } else {
+		    	JOptionPane.showMessageDialog(
+			            this,
+			            "Please fill in all fields for roles.",
+			            "Missing Information",
+			            JOptionPane.WARNING_MESSAGE
+			        );
+		    }
 		});
 
 		footer.add(backBtn);

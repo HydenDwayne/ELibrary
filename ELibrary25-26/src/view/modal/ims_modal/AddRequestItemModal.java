@@ -1,6 +1,5 @@
 package view.modal.ims_modal;
 
-
 import view.RoundedComponents.RoundedDialog;
 import view.modal.ModalUtils;
 

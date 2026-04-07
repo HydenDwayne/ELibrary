@@ -629,9 +629,31 @@ public class PatronController {
 	public boolean updatePatronEmployee(String[] patronDetails) {
 		boolean isSuccessful = daoPatron.updatePatronEmployee(patronDetails);
 		
-		if (!isSuccessful) {
-			JOptionPane.showMessageDialog(null, "Error. No record updated");
-		}
+//		if (!isSuccessful) {
+//			JOptionPane.showMessageDialog(null, "Error. No record updated");
+//		}
 		return isSuccessful;
+	}
+	
+	public boolean checkPatronExists() {
+		boolean exists = daoPatron.checkPatronExists(patronID);
+		
+		if (exists) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkLibrarianExists(String libID) {
+		boolean exists = daoPatron.checkLibrarianExists(libID);
+		
+		if (exists) {
+			return true;
+		}
+		return false;
+	}
+	
+	public PatronController(String patronID) {
+		this.patronID = patronID;
 	}
 }

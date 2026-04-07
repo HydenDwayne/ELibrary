@@ -290,7 +290,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		Fonts poppins12btn = new Fonts("Poppins", 12f);
      		Font poppinsStyle12 = poppins12btn.getAppliedFont();
 
-     		RoundedButton submitBtn = new RoundedButton("SUBMIT", 15);
+     		RoundedButton submitBtn = new RoundedButton("REGISTER", 15);
      		submitBtn.setPreferredSize(new Dimension(500, 40));
      		submitBtn.setBackground(Color.decode("#842b28"));
      		submitBtn.setForeground(Color.WHITE);
@@ -478,16 +478,23 @@ public class EmployeeModal extends JPanel implements ActionListener {
         }
     }
     
-    private boolean isValidYear(String text) {
-	    if (text == null || text.length() != 4) return false;
-
-	    for (int i = 0; i < text.length(); i++) {
-	        if (!Character.isDigit(text.charAt(i))) return false;
+    public static boolean isValidYear(String year)
+	{
+	    if (year == null) {
+	        return false;
 	    }
 
-	    int year = Integer.parseInt(text);
+	    year = year.trim();
 
-	    if (year < 1904 || year > 2026) return false;
+	    if (year.length() != 4) {
+	        return false;
+	    }
+
+	    for (int i = 0; i < year.length(); i++) {
+	        if (!Character.isDigit(year.charAt(i))) {
+	            return false;
+	        }
+	    }
 
 	    return true;
 	}
@@ -497,7 +504,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		switch (e.getActionCommand()) {
-		case "SUBMIT":
+		case "REGISTER":
 			
 			
 			boolean isValidYearEnrolled = isValidYear(row2Field.getText());
@@ -518,7 +525,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
 			    } else {
 			        JOptionPane.showMessageDialog(
 			            this,
-			            "Failed to save employee record.",
+			            "Fill in all fields.",
 			            "Error",
 			            JOptionPane.ERROR_MESSAGE
 			        );

@@ -214,27 +214,55 @@ public class AddLostAndFound extends JPanel {
 		confirmBtn.setBackground(MAROON);
 		confirmBtn.setForeground(WHITE);
 		confirmBtn.addActionListener(e -> {
-			
-			String item = itemField.getRealText().trim();
+		    // Get all field values
+		    String item = itemField.getRealText().trim();
 		    String owner = ownerField.getRealText().trim();
 		    String desc = descField.getRealText().trim();
 		    String floorTxt = floorField.getSelectedItem().toString();
 		    String statusTxt = statusField.getSelectedItem().toString();
 		    String date = dateField.getRealText().trim();
-		    
+
+		    // Validate required fields
+		    if (item.isEmpty() || date.isEmpty()) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "Please fill in Item and Date fields.",
+		            "Missing Information",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
+
+		    // Normalize/validate date
+		    String normalizedDate = validateAndNormalizeDate(date);
+		    if (normalizedDate == null) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "Please fill in the date field with a valid yyyy-mm-dd date format.",
+		            "Incorrect/Invalid Date Format",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
+
+		    // Optional fields: store as null if empty
+		    if (owner.isEmpty()) owner = null;
+		    if (desc.isEmpty()) desc = null;
+
+		    // Prepare report details
 		    String[] reportDetails = {
-		            item,
-		            owner,
-		            desc,
-		            floorTxt,
-		            statusTxt,
-		            date
-		        };
-			new LNFController(this, reportDetails);
-			
-			Window w = SwingUtilities.getWindowAncestor(this);
-			if (w instanceof JDialog)
-				w.dispose();
+		        item,
+		        owner,
+		        desc,
+		        floorTxt,
+		        statusTxt,
+		        normalizedDate
+		    };
+		    
+		    // Pass to controller and close modal
+		    new LNFController(this, reportDetails);
+		    Window w = SwingUtilities.getWindowAncestor(this);
+		    if (w instanceof JDialog) w.dispose();
 		});
 		footer.add(confirmBtn);
 
@@ -257,5 +285,66 @@ public class AddLostAndFound extends JPanel {
 		modal.add(footer, BorderLayout.SOUTH);
 
 		add(modal, BorderLayout.CENTER);
+	}
+	
+	public static String validateAndNormalizeDate(String date) {
+	    if (date == null) {
+	        return null;
+	    }
+
+	    date = date.trim();
+	    String[] parts = date.split("-");
+
+	    // Must be year-month-day
+	    if (parts.length != 3) {
+	        return null;
+	    }
+
+	    String yearPart  = parts[0];
+	    String monthPart = parts[1];
+	    String dayPart   = parts[2];
+
+	    // Year must be exactly 4 digits
+	    if (!yearPart.matches("\\d{4}")) {
+	        return null;
+	    }
+
+	    // Month and day: 1 or 2 digits only
+	    if (!monthPart.matches("\\d{1,2}") || !dayPart.matches("\\d{1,2}")) {
+	        return null;
+	    }
+
+	    int year  = Integer.parseInt(yearPart);
+	    int month = Integer.parseInt(monthPart);
+	    int day   = Integer.parseInt(dayPart);
+
+	    // Month range
+	    if (month < 1 || month > 12) {
+	        return null;
+	    }
+
+	    int[] daysInMonth = {
+	        31, 28, 31, 30, 31, 30,
+	        31, 31, 30, 31, 30, 31
+	    };
+
+	    // Leap year adjustment
+	    boolean isLeapYear =
+	        (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+
+	    if (month == 2 && isLeapYear) {
+	        daysInMonth[1] = 29;
+	    }
+
+	    // Day range
+	    if (day < 1 || day > daysInMonth[month - 1]) {
+	        return null;
+	    }
+
+	    // ✅ Normalize to YYYY-MM-DD
+	    String normalizedMonth = (month < 10 ? "0" : "") + month;
+	    String normalizedDay   = (day   < 10 ? "0" : "") + day;
+
+	    return year + "-" + normalizedMonth + "-" + normalizedDay;
 	}
 }

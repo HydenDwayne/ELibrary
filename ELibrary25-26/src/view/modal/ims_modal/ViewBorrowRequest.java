@@ -220,7 +220,7 @@ public class ViewBorrowRequest extends JPanel {
         innerBody.add(labelWrap, gbc);
 
         gbc.gridx = 1;
-        String[] statuses = { "Pending", "Approved", "Borrowed", "Returned", "Archive"};
+        String[] statuses = { "Pending", "Approved", "Borrowed", "Returned"};
         statusCombo = new RoundedComboBox<>(statuses, FIELD_RADIUS);
         statusCombo.setFont(poppins10);
         statusCombo.setBorderColor(FIELD_BORDER);
@@ -294,5 +294,6 @@ public class ViewBorrowRequest extends JPanel {
         modal.add(footer, BorderLayout.SOUTH);
         add(modal, BorderLayout.CENTER);
     }
+    
 }
 

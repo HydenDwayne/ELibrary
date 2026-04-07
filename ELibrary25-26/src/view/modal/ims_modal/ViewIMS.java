@@ -157,18 +157,33 @@ public class ViewIMS extends JPanel {
         saveBtn.setBackground(MAROON);
         saveBtn.setForeground(WHITE);
         saveBtn.addActionListener(e -> {
-        	
-        	String[] equipmentInfo = {
-        			serialNumber,
-        			equipField.getRealText().trim(),
-        			itemField.getRealText().trim()
-        	}; 
-        	boolean isSuccessful = comp.updateEquipmentInfo(equipmentInfo);
-        	
-        	if (isSuccessful) {
-        		Window w = SwingUtilities.getWindowAncestor(this);
+
+            String equipTxt = equipField.getRealText() != null 
+                                ? equipField.getRealText().trim() 
+                                : "";
+
+            String itemTxt = itemField.getRealText() != null 
+                                ? itemField.getRealText().trim() 
+                                : "";
+
+            // VALIDATION (only required field)
+            if (equipTxt.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Equipment name cannot be empty");
+                return;
+            }
+
+            String[] equipmentInfo = {
+                serialNumber,
+                equipTxt,
+                itemTxt // optional
+            };
+
+            boolean isSuccessful = comp.updateEquipmentInfo(equipmentInfo);
+
+            if (isSuccessful) {
+                Window w = SwingUtilities.getWindowAncestor(this);
                 if (w != null) w.dispose();
-        	}
+            }
         });
         footer.add(saveBtn);
 

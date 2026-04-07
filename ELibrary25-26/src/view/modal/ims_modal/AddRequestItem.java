@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.IMSController;
+import controller.PatronController;
 
 import java.awt.*;
 
@@ -190,30 +191,59 @@ public class AddRequestItem extends JPanel {
         confirmBtn.setForeground(WHITE);
         confirmBtn.addActionListener(e -> {
 
-            String serial = serialField != null ? serialField.getRealText() : "";
-            String patron = patronField != null ? patronField.getRealText() : "";
-            String venue = venueField != null ? venueField.getRealText() : "";
-            String borrowDate = borrowDateField != null ? borrowDateField.getRealText().trim() : "";
+            String serial = serialField.getRealText() != null
+                                ? serialField.getRealText().trim()
+                                : "";
 
-            if (!serial.isBlank() && !patron.isBlank() && !venue.isBlank() && !borrowDate.isBlank()) {
+            String patron = patronField.getRealText() != null
+                                ? patronField.getRealText().trim()
+                                : "";
 
-                String[] requestData = new String[] {
-                    serial,
-                    patron,
-                    venue,
-                    borrowDate
-                };
-                
-                IMSController comp = new IMSController(this);
-                boolean isSuccessful = comp.addNewRequest(requestData);
-                
-                if (isSuccessful) {
-                	Window w = SwingUtilities.getWindowAncestor(this);
-                    if (w instanceof JDialog) w.dispose();
-                }
+            String venue = venueField.getRealText() != null
+                                ? venueField.getRealText().trim()
+                                : "";
 
-            } else {
+            String borrowDate = borrowDateField.getRealText() != null
+                                ? borrowDateField.getRealText().trim()
+                                : "";
+
+            // VALIDATION
+            if (serial.isEmpty() || patron.isEmpty() || venue.isEmpty() || borrowDate.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Fill all fields");
+                return;
+            }
+            
+            if (validateAndNormalizeDate(borrowDate) == null) {
+            	JOptionPane.showMessageDialog(null, "Input a valid year (e.g. 2026)");
+            	return;
+            } else {
+            	borrowDate = validateAndNormalizeDate(borrowDate);
+            }
+            PatronController patComp = new PatronController(patron);
+            boolean validPatronID = patComp.checkPatronExists();
+            if (!validPatronID) {
+            	JOptionPane.showMessageDialog(null, "Patron ID does not match any record");
+            	return;
+            }
+            boolean serialExists = new IMSController(serial).serialExists();
+            if (!serialExists) {
+            	JOptionPane.showMessageDialog(null, "Serial Number does not match any record");
+            	return;
+            }
+
+            String[] requestData = {
+                serial,
+                patron,
+                venue,
+                borrowDate
+            };
+
+            IMSController comp = new IMSController(this);
+            boolean isSuccessful = comp.addNewRequest(requestData);
+
+            if (isSuccessful) {
+                Window w = SwingUtilities.getWindowAncestor(this);
+                if (w instanceof JDialog) w.dispose();
             }
         });
 
@@ -238,4 +268,65 @@ public class AddRequestItem extends JPanel {
 
         add(modal, BorderLayout.CENTER);
     }
+    
+    public static String validateAndNormalizeDate(String date) {
+	    if (date == null) {
+	        return null;
+	    }
+
+	    date = date.trim();
+	    String[] parts = date.split("-");
+
+	    // Must be year-month-day
+	    if (parts.length != 3) {
+	        return null;
+	    }
+
+	    String yearPart  = parts[0];
+	    String monthPart = parts[1];
+	    String dayPart   = parts[2];
+
+	    // Year must be exactly 4 digits
+	    if (!yearPart.matches("\\d{4}")) {
+	        return null;
+	    }
+
+	    // Month and day: 1 or 2 digits only
+	    if (!monthPart.matches("\\d{1,2}") || !dayPart.matches("\\d{1,2}")) {
+	        return null;
+	    }
+
+	    int year  = Integer.parseInt(yearPart);
+	    int month = Integer.parseInt(monthPart);
+	    int day   = Integer.parseInt(dayPart);
+
+	    // Month range
+	    if (month < 1 || month > 12) {
+	        return null;
+	    }
+
+	    int[] daysInMonth = {
+	        31, 28, 31, 30, 31, 30,
+	        31, 31, 30, 31, 30, 31
+	    };
+
+	    // Leap year adjustment
+	    boolean isLeapYear =
+	        (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
+
+	    if (month == 2 && isLeapYear) {
+	        daysInMonth[1] = 29;
+	    }
+
+	    // Day range
+	    if (day < 1 || day > daysInMonth[month - 1]) {
+	        return null;
+	    }
+
+	    // ✅ Normalize to YYYY-MM-DD
+	    String normalizedMonth = (month < 10 ? "0" : "") + month;
+	    String normalizedDay   = (day   < 10 ? "0" : "") + day;
+
+	    return year + "-" + normalizedMonth + "-" + normalizedDay;
+	}
 }

@@ -358,60 +358,96 @@ public class ViewStudent extends JPanel {
 		submitBtn.setBackground(MAROON);
 		submitBtn.setForeground(WHITE);
 		submitBtn.addActionListener(e -> {
-			String[] patronDetails = {
-				    pidField.getRealText(),                               // 0 PatronID
-				    firstNameField.getRealText(),                         // 1 FirstName
-				    middleField.getRealText(),                            // 2 MiddleInitial
-				    lastNameField.getRealText(),                          // 3 LastName
-				    emailField.getRealText(),                             // 4 EmailAddress
-				    contactField.getRealText(),                           // 5 ContactNumber
-				    addressField.getRealText(),                           // 6 HomeAddress
 
-				    campusField.getSelectedItem() != null
-				        ? campusField.getSelectedItem().toString()
-				        : null,                                           // 7 CampCode
+		    // ================= GET VALUES =================
+		    String firstName = firstNameField.getRealText().trim();
+		    String lastName  = lastNameField.getRealText().trim();
 
-				    null,                                                 // 8 YearEnrolled (INTENTIONALLY NULL)
+		    // ================= REQUIRED VALIDATION =================
+		    if (firstName.isEmpty() || lastName.isEmpty()) {
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "First Name and Last Name are required.",
+		            "Missing Information",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
 
-				    studentTypeField.getSelectedItem() != null
-				        ? studentTypeField.getSelectedItem().toString()
-				        : null,                                           // 9 StudentType
+		    // ================= OPTIONAL → NULL =================
+		    String middle = middleField.getRealText().trim();
+		    if (middle.isEmpty()) middle = null;
 
-				    levelField.getSelectedItem() != null
-				        ? levelField.getSelectedItem().toString()
-				        : null,                                           // 10 YearLevel
+		    String email = emailField.getRealText().trim();
+		    if (email.isEmpty()) email = null;
 
-				    collegeField.getSelectedItem() != null
-				        ? collegeField.getSelectedItem().toString()
-				        : null,                                           // 11 ColCode
+		    String contact = contactField.getRealText().trim();
+		    if (contact.isEmpty()) contact = null;
 
-				    programField.getSelectedItem() != null
-				        ? programField.getSelectedItem().toString()
-				        : null,                                           // 12 ProgramCode
+		    String address = addressField.getRealText().trim();
+		    if (address.isEmpty()) address = null;
 
-				    campusField.getSelectedItem() != null
-				        ? campusField.getSelectedItem().toString()
-				        : null,                                           // 13 CampusCode
+		    String thesis = thesisField.getRealText().trim();
+		    if (thesis.isEmpty()) thesis = null;
 
-				    thesisField.getRealText(),                            // 14 ThesisTitle
-				    gradYearField.getRealText(),                          // 15 YearGraduated
+		    String gradYear = gradYearField.getRealText().trim();
+		    if (gradYear.isEmpty()) gradYear = null;
 
-				    degreeField.getSelectedItem() != null
-				        ? degreeField.getSelectedItem().toString()
-				        : null,                                           // 16 Degree
+		    // ================= COMBO VALUES =================
+		    String campus = (campusField.getSelectedItem() != null)
+		            ? campusField.getSelectedItem().toString()
+		            : null;
 
-				    levelField.getSelectedItem() != null
-				        ? levelField.getSelectedItem().toString()
-				        : null                                            // 17 GradeLevel (LABHIGH)
-				};
-		
-		boolean isSuccessful = comp.updatePatronStudent(patronDetails);
-		if (isSuccessful) {
-			patTab.reloadData(patTab.searchQuery);
-			Window w = SwingUtilities.getWindowAncestor(this);
-			if (w instanceof JDialog)
-				w.dispose();
-		}
+		    String studentType = (studentTypeField.getSelectedItem() != null)
+		            ? studentTypeField.getSelectedItem().toString()
+		            : null;
+
+		    String level = (levelField.getSelectedItem() != null)
+		            ? levelField.getSelectedItem().toString()
+		            : null;
+
+		    String college = (collegeField.getSelectedItem() != null)
+		            ? collegeField.getSelectedItem().toString()
+		            : null;
+
+		    String program = (programField.getSelectedItem() != null)
+		            ? programField.getSelectedItem().toString()
+		            : null;
+
+		    String degree = (degreeField.getSelectedItem() != null)
+		            ? degreeField.getSelectedItem().toString()
+		            : null;
+
+		    // ================= BUILD ARRAY =================
+		    String[] patronDetails = {
+		        pidField.getRealText(),   // 0
+		        firstName,                // 1 ✅ REQUIRED
+		        middle,                   // 2 nullable
+		        lastName,                 // 3 ✅ REQUIRED
+		        email,                    // 4 nullable
+		        contact,                  // 5 nullable
+		        address,                  // 6 nullable
+		        campus,                   // 7
+		        null,                     // 8 YearEnrolled
+		        studentType,              // 9
+		        level,                    // 10
+		        college,                  // 11
+		        program,                  // 12
+		        campus,                   // 13
+		        thesis,                   // 14 nullable
+		        gradYear,                 // 15 nullable
+		        degree,                   // 16
+		        level                     // 17 (LABHIGH)
+		    };
+
+		    // ================= SAVE =================
+		    boolean isSuccessful = comp.updatePatronStudent(patronDetails);
+
+		    if (isSuccessful) {
+		        patTab.reloadData(patTab.searchQuery);
+		        Window w = SwingUtilities.getWindowAncestor(this);
+		        if (w instanceof JDialog) w.dispose();
+		    }
 		});
 		
 		footer.add(backBtn);

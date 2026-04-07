@@ -26,6 +26,8 @@ public class BookController {
 
 	BookDAOImp daoBook = new BookDAOImp();
 	PatronDAOImp daoPatron = new PatronDAOImp();
+	
+	String callNumber;
 
 	public BookController(ViewBooks vb, String callNumber) {
 		String[] bookDetails = daoBook.getBookDetails(callNumber);
@@ -36,32 +38,8 @@ public class BookController {
 		vb.classField.setText(bookDetails[6]);
 		vb.callNumberField.setText(callNumber);
 		
-		switch (bookDetails[5]) {
-		case "Bulacaniana Collection":
-			vb.collectionCombo.setSelectedIndex(0);
-			break;
-		case "General Circulation Section":
-			vb.collectionCombo.setSelectedIndex(1);
-			break;
-		case "Fiction Collection":
-			vb.collectionCombo.setSelectedIndex(2);
-			break;
-		case "Filipiniana Collection":
-			vb.collectionCombo.setSelectedIndex(3);
-			break;
-		case "Reference Collection":
-			vb.collectionCombo.setSelectedIndex(4);
-			break;
-		case "Reserve Collection":
-			vb.collectionCombo.setSelectedIndex(5);
-			break;
-		case "Theses and Dissertations":
-			vb.collectionCombo.setSelectedIndex(6);
-			break;
-			
-		default:
-			break;
-		}
+		
+		
 		
 		if (bookDetails[4].equals("BB")) {
 			
@@ -85,6 +63,33 @@ public class BookController {
 			
 			vb.availCombo.setEnabled(false);
 		}	
+		
+		switch (bookDetails[5]) {
+		case "Bulacaniana Collection":
+			vb.collectionCombo.setSelectedIndex(0);
+			break;
+		case "General Circulation Section":
+			vb.collectionCombo.setSelectedIndex(1);
+			break;
+		case "Fiction Collection":
+			vb.collectionCombo.setSelectedIndex(2);
+			break;
+		case "Filipiniana Collection":
+			vb.collectionCombo.setSelectedIndex(3);
+			break;
+		case "Reference Collection":
+			vb.collectionCombo.setSelectedIndex(0);
+			break;
+		case "Reserve Collection":
+			vb.collectionCombo.setSelectedIndex(1);
+			break;
+		case "Theses and Dissertations":
+			vb.collectionCombo.setSelectedIndex(2);
+			break;
+			
+		default:
+			break;
+		}
 	}
 	
 	public BookController(AddBook ab, GridBagConstraints gbc, Font poppins10, JPanel innerBody, int FIELD_RADIUS, Color FIELD_BORDER) {
@@ -211,6 +216,17 @@ public class BookController {
     	if(!isSuccessful) {
 			JOptionPane.showMessageDialog(null, "Error. No details updated");
 		}
+    }
+    
+    public BookController(String callNumber) {
+    	this.callNumber = callNumber;
+    }
+    
+    public boolean checkIfExists() {
+    	boolean exists = daoBook.checkBookExists(callNumber);
+    	
+    	
+    	return exists;
     }
 }
 	

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.FunctionHallController;
+import controller.PatronController;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -255,33 +256,63 @@ public class ReserveFunctionHall extends JPanel {
         confirmBtn.setBackground(MAROON);
         confirmBtn.setForeground(WHITE);
         confirmBtn.addActionListener(e -> {
-        	if (approvedField.getRealText().isEmpty() ||
-            		reservedField.getRealText().isEmpty() ||
-            		eventField.getRealText().isEmpty() ||
-            		startField.getValue().toString().isEmpty() ||
-            		endField.getValue().toString().isEmpty()) {
-            	JOptionPane.showMessageDialog(null, "Fill in all necessary details");
-            } else {
-            	String[]reservationDetails = {
-            			this.hallCode,
-                		approvedField.getRealText(),
-                		reservedField.getRealText(),
-                		eventField.getRealText(),
-                		dateSelected,
-                		startField.getValue().toString(),
-                		endField.getValue().toString(),
-                		};
-                setReservationDetails(reservationDetails);
-                
-                
-                
-                FunctionHallController comp = new FunctionHallController(reservationDetails);
-                
-                Window w = SwingUtilities.getWindowAncestor(this);
-                if (w instanceof JDialog) {
-                    w.dispose();
-                }
+            // Get required field values
+            String eventName  = eventField.getRealText().trim();
+            String reservedBy = reservedField.getRealText().trim();
+            String approvedBy = approvedField.getRealText().trim();
+
+            // Validate required fields
+            if (eventName.isEmpty() || reservedBy.isEmpty() || approvedBy.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Please fill in Event Name, Reserved By, and Approved By fields.",
+                    "Missing Information",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                return;
             }
+            PatronController comp = new PatronController(reservedBy);
+            if (!comp.checkPatronExists()) {
+            	JOptionPane.showMessageDialog(
+                        this,
+                        "Patron ID inputted does not match any record",
+                        "Missing Information",
+                        JOptionPane.WARNING_MESSAGE
+                    );
+                    return;
+            }
+            if (!comp.checkLibrarianExists(approvedBy)) {
+            	JOptionPane.showMessageDialog(
+                        this,
+                        "Librarian ID inputted does not match any record",
+                        "Missing Information",
+                        JOptionPane.WARNING_MESSAGE
+                    );
+                    return;
+            }
+
+            // Optional fields (normalize to null if empty)
+            if (eventName.isEmpty()) eventName = null;
+            if (reservedBy.isEmpty()) reservedBy = null;
+            if (approvedBy.isEmpty()) approvedBy = null;
+
+            // Prepare reservation details
+            String[] reservationDetails = {
+                this.hallCode,
+                approvedBy,
+                reservedBy,
+                eventName,
+                dateSelected,
+                startField.getValue().toString(),
+                endField.getValue().toString()
+            };
+
+            // Send to controller
+            new FunctionHallController(reservationDetails);
+
+            // Close modal
+            Window w = SwingUtilities.getWindowAncestor(this);
+            if (w instanceof JDialog) w.dispose();
         });
 
         footer.add(cancelBtn);

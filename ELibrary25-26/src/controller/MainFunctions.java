@@ -352,9 +352,15 @@ public class MainFunctions extends JPanel {
             	col2 = new JLabel(item.getNameOfOwner());
             }
             
+            if (item.getItemDescription() == null) {
+            	col3.setText("--");
+            } else {
+            	col3 = new JLabel(item.getItemDescription());
+            }
             
             
-            col3 = new JLabel(item.getItemDescription());
+            
+            
             col4 = new JLabel(item.getLostOnFloor());
             col5 = new JLabel(item.getStatus());
             col6 = new JLabel(item.getLastSeen());
@@ -395,9 +401,11 @@ public class MainFunctions extends JPanel {
                 roundedStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
                 
                 col7.addActionListener(e -> {
-                	lnfTab.reloadData(lnfTab.searchQuery);
+                	
                 	Window parent = SwingUtilities.getWindowAncestor(this);
                 	new MarkAsFoundModal(parent, item.getItemNum());
+                	lnfTab.reloadData(lnfTab.searchQuery);
+        			
                 });
 
                 col5.setText("Missing");
@@ -436,9 +444,10 @@ public class MainFunctions extends JPanel {
                 roundedStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
                 
                 col7.addActionListener(e -> {
-                	lnfTab.reloadData(lnfTab.searchQuery);
+                	
                 	Window parent = SwingUtilities.getWindowAncestor(this);
                 	new MarkAsFoundModal(parent, item.getItemNum());
+                	lnfTab.reloadData(lnfTab.searchQuery);
                 });
 
                 col5.setText("Surrendered");
@@ -548,10 +557,11 @@ public class MainFunctions extends JPanel {
             col4.setForeground(Color.WHITE);
             col4.setFont(poppins10Style);
             col4.addActionListener(e -> {
-            	imsTab.reloadCards();
-            	imsTab.reloadData(imsTab.searchQuery);
+            	
             	Window parent = SwingUtilities.getWindowAncestor(this);
             	new ViewIMSModal(parent, col1.getText());
+            	imsTab.reloadCards();
+            	imsTab.reloadData(imsTab.searchQuery);
             	
             });
 

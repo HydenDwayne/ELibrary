@@ -360,6 +360,27 @@ public class PatronDAOImp {
 
 		return false;
 	}
+	
+	public boolean checkLibrarianExists(String patronID) {
+		String sql = "SELECT COUNT(*) FROM LIBRARY_STAFF WHERE EmployeeID = ?";
+
+		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, patronID);
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt(1) > 0; // If count > 0, record exists
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
 
 	public boolean checkPatronBorrowLimit(String patronID) {
 

@@ -244,45 +244,71 @@ public class AddBook extends JPanel {
 		confirmBtn.setBackground(MAROON);
 		confirmBtn.setForeground(Color.WHITE);
 		confirmBtn.addActionListener(e -> {
+		    // Get all field values
+		    String callNumber = callNumberField.getRealText().trim();
+		    String title      = titleField.getRealText().trim();
+		    String author     = authorField.getRealText().trim();
+		    String year       = yearCombo.getSelectedItem() != null ? yearCombo.getSelectedItem().toString() : null;
+		    String classCode  = classCombo.getSelectedItem() != null ? classCombo.getSelectedItem().toString() : null;
+		    String collection = collectionCombo.getSelectedItem() != null ? collectionCombo.getSelectedItem().toString() : null;
+		    String type       = typeCombo.getSelectedItem() != null ? typeCombo.getSelectedItem().toString() : null;
+		    
+		    // Series is only required if NON-BORROWABLE
+		    String series = null;
+		    if ("NON-BORROWABLE".equals(type)) {
+		        if (seriesField != null) {
+		            series = seriesField.getRealText().trim();
+		        }
+		    }
+		    
+		    
 
-			String callnumberTxt = callNumberField.getRealText().trim();
-			String titleTxt = titleField.getRealText().trim();
-			String authorTxt = authorField.getRealText().trim();
-			String yearTxt = yearCombo.getSelectedItem().toString();
-			
-			String seriesTxt = "";
-			
-			if (seriesField == null) {
-				seriesTxt = "";
-			} else {
-				seriesTxt = seriesField.getRealText().trim();
-			}
-			
-			
-			String classTxt = classCombo.getSelectedItem().toString();
-			String collectionTxt = collectionCombo.getSelectedItem().toString();
-			String typeTxt = typeCombo.getSelectedItem().toString();
+		    // Validate required fields
+		    if (callNumber.isEmpty() || title.isEmpty() || author.isEmpty() || year == null ||
+		        classCode == null || collection == null || type == null ||
+		        ("NON-BORROWABLE".equals(type) && (series == null || series.isEmpty()))) {
+		        
+		        JOptionPane.showMessageDialog(
+		            this,
+		            "Please fill in all required fields.",
+		            "Missing Information",
+		            JOptionPane.WARNING_MESSAGE
+		        );
+		        return;
+		    }
+		    
+		    BookController comp = new BookController(callNumber);
+		    if (comp.checkIfExists()) {
+		    	JOptionPane.showMessageDialog(
+			            this,
+			            "Book with that call number already exists.",
+			            "Existence error",
+			            JOptionPane.WARNING_MESSAGE
+			        );
+		    	return;
+		    }
 
-			if ((callnumberTxt == null || titleTxt == null || authorTxt == null || yearTxt == null || classTxt == null
-					|| collectionTxt == null || typeTxt == null) || (typeTxt.equals("NON-BORROWABLE") && seriesTxt == null)) {
-				JOptionPane.showMessageDialog(null, "Fill in all the fields");
-			} else {
-				String[] bookDetails = { 
-						callnumberTxt, 
-						titleTxt, 
-						authorTxt, 
-						yearTxt, 
-						typeTxt, 
-						collectionTxt, 
-						classTxt, 
-						seriesTxt };
+		    // Optional fields normalized to null if empty
+		    if (series != null && series.isEmpty()) series = null;
 
-				new BookController(bookDetails);
-				Window w = SwingUtilities.getWindowAncestor(this);
-				if (w instanceof JDialog)
-					w.dispose();
-			}
+		    // Prepare book details array
+		    String[] bookDetails = {
+		        callNumber,
+		        title,
+		        author,
+		        year,
+		        type,
+		        collection,
+		        classCode,
+		        series
+		    };
 
+		    // Send to controller
+		    new BookController(bookDetails);
+
+		    // Close modal
+		    Window w = SwingUtilities.getWindowAncestor(this);
+		    if (w instanceof JDialog) w.dispose();
 		});
 		footer.add(confirmBtn);
 
