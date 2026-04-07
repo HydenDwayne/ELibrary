@@ -194,4 +194,48 @@ public class ReportsController {
 		return data;
 	}
 	
+	public Object[][] getBorrowedBooksData() {
+		List<DAOBorrowedBooks> records = daoReport.getBorrowedBookReports();
+
+		return convertToTableDataBB(records);
+	}
+
+	public static Object[][] convertToTableDataBB(List<DAOBorrowedBooks> transactions) {
+		Object[][] data = new Object[transactions.size()][6]; // 6 columns
+
+		for (int i = 0; i < transactions.size(); i++) {
+			DAOBorrowedBooks t = transactions.get(i);
+			data[i][0] = t.getTransactionID();
+			data[i][1] = t.getCallNumber();
+			data[i][2] = t.getBorrowDate();
+			data[i][3] = t.getDueDate();
+			data[i][4] = t.getPatronID();
+			data[i][5] = t.getCirculationCode();
+		}
+
+		return data;
+	}
+	
+	public Object[][] getOverdueBooksData() {
+		List<DAOOverdueBooks> records = daoReport.getOverdueBookReports();
+
+		return convertToTableDataOB(records);
+	}
+
+	public static Object[][] convertToTableDataOB(List<DAOOverdueBooks> transactions) {
+		Object[][] data = new Object[transactions.size()][6]; // 6 columns
+
+		for (int i = 0; i < transactions.size(); i++) {
+			DAOOverdueBooks t = transactions.get(i);
+			data[i][0] = t.getTransactionID();
+			data[i][1] = t.getCallNumber();
+			data[i][2] = t.getBorrowDate();
+			data[i][3] = t.getDueDate();
+			data[i][4] = t.getPatronID();
+			data[i][5] = t.getCirculationCode();
+		}
+
+		return data;
+	}
+	
 }

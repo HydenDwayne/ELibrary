@@ -236,4 +236,47 @@ public class ArchiveController {
 		
 		return isSuccessful;
 	}
+	
+	
+	public Object[][] getBorrowedBookData() {
+		List<DAOArchivedBorrowedBook> records = daoArchives.getBorrowedBookArchives();
+
+		return convertToTableDataBB(records);
+	}
+
+	public static Object[][] convertToTableDataBB(List<DAOArchivedBorrowedBook> transactions) {
+		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+
+		for (int i = 0; i < transactions.size(); i++) {
+			DAOArchivedBorrowedBook t = transactions.get(i);
+			data[i][0] = t.getTransactionID();
+			data[i][1] = t.getCallNumber();
+			data[i][2] = t.getBorrowDate();
+			data[i][3] = t.getPatronID();
+			data[i][4] = "Archived";
+		}
+
+		return data;
+	}
+	
+	public Object[][] getOverdueBookData() {
+		List<DAOArchivedOverdueBook> records = daoArchives.getOverdueBookArchives();
+
+		return convertToTableDataOB(records);
+	}
+
+	public static Object[][] convertToTableDataOB(List<DAOArchivedOverdueBook> transactions) {
+		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+
+		for (int i = 0; i < transactions.size(); i++) {
+			DAOArchivedOverdueBook t = transactions.get(i);
+			data[i][0] = t.getTransactionID();
+			data[i][1] = t.getCallNumber();
+			data[i][2] = t.getBorrowDate();
+			data[i][3] = t.getPatronID();
+			data[i][4] = "Archived";
+		}
+
+		return data;
+	}
 }

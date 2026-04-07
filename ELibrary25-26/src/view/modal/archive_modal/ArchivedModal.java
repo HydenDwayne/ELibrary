@@ -77,6 +77,12 @@ public class ArchivedModal extends RoundedDialog{
         case "EL":
         	setContentPane(new ArchivedEquipmentLoan());
             break;
+        case "BB":
+        	setContentPane(new ArchivedBorrowedBooks());
+            break;
+        case "OB":
+        	setContentPane(new ArchivedOverdueBooks());
+            break;
         default:
             throw new AssertionError("Unknown report page: " + reportPage);
     }

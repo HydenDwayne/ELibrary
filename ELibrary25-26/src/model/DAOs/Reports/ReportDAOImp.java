@@ -241,4 +241,62 @@ public class ReportDAOImp {
         return reports;
     }
     
+    public List<DAOBorrowedBooks> getBorrowedBookReports() {
+
+        List<DAOBorrowedBooks> reports = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("select * from viewReports_BorrowedBooks")) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                // Map the correct columns from the stored procedure to the DAO
+            	reports.add(new DAOBorrowedBooks(
+            			rs.getString("TransactionID"),
+                        rs.getString("CallNumber"),
+                        rs.getString("BorrowDate"),
+                        rs.getString("DueDate"),
+                        rs.getString("PatronID"),
+                        rs.getString("CirculationCode")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reports;
+    }
+    
+    public List<DAOOverdueBooks> getOverdueBookReports() {
+
+        List<DAOOverdueBooks> reports = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("select * from viewReports_Overduebooks")) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                // Map the correct columns from the stored procedure to the DAO
+            	reports.add(new DAOOverdueBooks(
+            			rs.getString("TransactionID"),
+                        rs.getString("CallNumber"),
+                        rs.getString("BorrowDate"),
+                        rs.getString("DueDate"),
+                        rs.getString("PatronID"),
+                        rs.getString("CirculationCode")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reports;
+    }
+    
+    
+    
 }

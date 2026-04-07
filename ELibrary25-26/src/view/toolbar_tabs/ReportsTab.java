@@ -20,27 +20,29 @@ public class ReportsTab extends JPanel implements ActionListener {
     RoundedComboBox<String> dropdownFacility;
     JPanel slctdFaciCont;
 
-    ReportLibAmphi amp = new ReportLibAmphi();
-    ReportsDiscRoom1 dr1 = new ReportsDiscRoom1();
-    ReportsDiscRoom2 dr2 = new ReportsDiscRoom2();
-    ReportsLogin li = new ReportsLogin();
-    ReportsISR isr = new ReportsISR();
-    ReportsIPadArea ia = new ReportsIPadArea();
-    ReportsLSect ls = new ReportsLSect();
-    ReportsPWD pwd = new ReportsPWD();
-    ReportsMH1 mh1 = new ReportsMH1();
-    ReportsMH2 mh2 = new ReportsMH2();
-    ReportsRelaxRoom rr = new ReportsRelaxRoom();
-    ReportsSDZ sdz = new ReportsSDZ();
-    ReportsSLR1 slr1 = new ReportsSLR1();
-    ReportsSLR2 slr2 = new ReportsSLR2();
-    ReportsTeleconRoom tcr = new ReportsTeleconRoom();
-    ReportsBookLoan bl = new ReportsBookLoan();
-    ReportsReturnBook rb = new ReportsReturnBook();
-    ReportsBook b = new ReportsBook();
-    ReportsIMS ims = new ReportsIMS();
-    ReportsLoanIMS lims = new ReportsLoanIMS();
-    ReportsPatrons p = new ReportsPatrons();
+    private ReportLibAmphi amp;
+    private ReportsDiscRoom1 dr1;
+    private ReportsDiscRoom2 dr2;
+    private ReportsLogin li;
+    private ReportsISR isr;
+    private ReportsIPadArea ia;
+    private ReportsLSect ls;
+    private ReportsPWD pwd;
+    private ReportsMH1 mh1;
+    private ReportsMH2 mh2;
+    private ReportsRelaxRoom rr;
+    private ReportsSDZ sdz;
+    private ReportsSLR1 slr1;
+    private ReportsSLR2 slr2;
+    private ReportsTeleconRoom tcr;
+    private ReportsBookLoan bl;
+    private ReportsReturnBook rb;
+    private ReportsBook b;
+    private ReportsIMS ims;
+    private ReportsLoanIMS lims;
+    private ReportsPatrons p;
+    private ReportsOverdueBooks ob;
+    private ReportsBorrowedBooks bb;
     
     JLabel tabLabel = new JLabel("");
     
@@ -122,6 +124,8 @@ public class ReportsTab extends JPanel implements ActionListener {
                     "Book Loans",
                     "Book Returns",
                     "Books",
+                    "Overdue Books",
+                    "Borrowed Books"
                 };
         	dropdownFacility = new RoundedComboBox<>(facilityItems, panelRadius);
         } else if (tab.equals("ims")) {
@@ -168,6 +172,9 @@ public class ReportsTab extends JPanel implements ActionListener {
         seeArchiveBtn.addActionListener(e -> {
         	Window parent = SwingUtilities.getWindowAncestor(this);
 			new ArchivedModal(parent, reportPage);
+			int selectedIdx = dropdownFacility.getSelectedIndex();
+    		reloadData();
+    		dropdownFacility.setSelectedIndex(selectedIdx);
         });
         
         RoundedButton closeBtn = new RoundedButton("X", panelRadius);
@@ -212,6 +219,8 @@ public class ReportsTab extends JPanel implements ActionListener {
 
         slctdPadding.add(slctdFaciCont, BorderLayout.CENTER);
         facContainer.add(slctdPadding, BorderLayout.CENTER);
+        
+        reloadData();
 
         amp.setVisible(false);
         slctdFaciCont.add(amp);
@@ -273,6 +282,12 @@ public class ReportsTab extends JPanel implements ActionListener {
         lims.setVisible(false);
         slctdFaciCont.add(lims);
         
+        ob.setVisible(false);
+        slctdFaciCont.add(ob);
+        
+        bb.setVisible(false);
+        slctdFaciCont.add(bb);
+        
         p.setVisible(false);
         slctdFaciCont.add(p);
         
@@ -299,8 +314,9 @@ public class ReportsTab extends JPanel implements ActionListener {
             	
             	boolean isSuccessful = ac.setArchived();
             	if(isSuccessful) {
-            		Window w = SwingUtilities.getWindowAncestor(this);
-            		if (w != null) w.dispose();
+            		int selectedIdx = dropdownFacility.getSelectedIndex();
+            		reloadData();
+            		dropdownFacility.setSelectedIndex(selectedIdx);
             	}
     	    } else {
     	    	JOptionPane.showMessageDialog(null, "Select a row first!");
@@ -318,12 +334,19 @@ public class ReportsTab extends JPanel implements ActionListener {
     
     public String getSelectedRow(JTable table) {
     	int selectedRow = table.getSelectedRow();
-    	if (selectedRow != -1) {
-    	    Object value = table.getValueAt(selectedRow, 1); // column 0 = first column
-    	    String firstColumnValue = value.toString();
-    	    
-    	    return firstColumnValue;
-    	}
+    	if (tableName.equals("Books_Loan")) {
+    		if (selectedRow != -1) {
+        	    Object value = table.getValueAt(selectedRow, 0); 
+        	    String firstColumnValue = value.toString();
+        	    return firstColumnValue;
+        	}
+    	} else {
+    		if (selectedRow != -1) {
+        	    Object value = table.getValueAt(selectedRow, 1); 
+        	    String firstColumnValue = value.toString();
+        	    return firstColumnValue;
+        	}
+		}
     	return null;
     }
 
@@ -334,32 +357,12 @@ public class ReportsTab extends JPanel implements ActionListener {
     }
     
     public void loadSelection() {
-    	amp.setVisible(false);
-        dr1.setVisible(false);
-        dr2.setVisible(false);
-        isr.setVisible(false);
-        ia.setVisible(false);
-        li.setVisible(false);
-        ls.setVisible(false);
-        pwd.setVisible(false);
-        mh1.setVisible(false);
-        mh2.setVisible(false);
-        rr.setVisible(false);
-        sdz.setVisible(false);
-        slr1.setVisible(false);
-        slr2.setVisible(false);
-        tcr.setVisible(false);
-        bl.setVisible(false);
-        rb.setVisible(false);
-        b.setVisible(false);
-        ims.setVisible(false);
-        lims.setVisible(false);
-        p.setVisible(false);
-        southPanel.setVisible(false);
-
-
+    	
+    	
+    	reloadData();
         String selectedFac = (String) dropdownFacility.getSelectedItem();
 
+        
         switch (selectedFac) {
             case "Amphitheater":
                 tabLabel.setText("Amphitheater Reports");
@@ -459,7 +462,7 @@ public class ReportsTab extends JPanel implements ActionListener {
                 break;
             case "Book Loans":
                 tabLabel.setText("Book Loans Reports");
-                tableName = "FacilityLogin";
+                tableName = "Books_Loan";
                 table = bl.table;
                 southPanel.setVisible(true);
                 reportPage = "BookLoan";
@@ -488,6 +491,22 @@ public class ReportsTab extends JPanel implements ActionListener {
                 reportPage = "EL";
                 lims.setVisible(true);
                 break;
+            case "Overdue Books":
+                tabLabel.setText("Overdue Books Reports");
+                tableName = "Books_Loan";
+                table = ob.table;
+                southPanel.setVisible(true);
+                reportPage = "OB";
+                ob.setVisible(true);
+                break;
+            case "Borrowed Books":
+                tabLabel.setText("Borrowed Books Reports");
+                tableName = "Books_Loan";
+                table = bb.table;
+                southPanel.setVisible(true);
+                reportPage = "BB";
+                bb.setVisible(true);
+                break;
             case "Patrons":
                 tabLabel.setText("Patrons Reports");
                 reportPage = "Patrons";
@@ -498,6 +517,70 @@ public class ReportsTab extends JPanel implements ActionListener {
         }
     }
 
+    public void reloadData() {
+    	slctdFaciCont.removeAll();
+    	
+        amp = new ReportLibAmphi();
+        dr1 = new ReportsDiscRoom1();
+        dr2 = new ReportsDiscRoom2();
+        li = new ReportsLogin();
+        isr = new ReportsISR();
+        ia = new ReportsIPadArea();
+        ls = new ReportsLSect();
+        pwd = new ReportsPWD();
+        mh1 = new ReportsMH1();
+        mh2 = new ReportsMH2();
+        rr = new ReportsRelaxRoom();
+        sdz = new ReportsSDZ();
+        slr1 = new ReportsSLR1();
+        slr2 = new ReportsSLR2();
+        tcr = new ReportsTeleconRoom();
+        bl = new ReportsBookLoan();
+        rb = new ReportsReturnBook();
+        b = new ReportsBook();
+        ims = new ReportsIMS();
+        lims = new ReportsLoanIMS();
+        p = new ReportsPatrons();
+        ob = new ReportsOverdueBooks();
+        bb = new ReportsBorrowedBooks();
+        
+        amp.setVisible(false);
+        dr1.setVisible(false);
+        dr2.setVisible(false);
+        isr.setVisible(false);
+        ia.setVisible(false);
+        li.setVisible(false);
+        ls.setVisible(false);
+        pwd.setVisible(false);
+        mh1.setVisible(false);
+        mh2.setVisible(false);
+        rr.setVisible(false);
+        sdz.setVisible(false);
+        slr1.setVisible(false);
+        slr2.setVisible(false);
+        tcr.setVisible(false);
+        bl.setVisible(false);
+        rb.setVisible(false);
+        b.setVisible(false);
+        ims.setVisible(false);
+        lims.setVisible(false);
+        p.setVisible(false);
+        
+        ob.setVisible(false);
+        bb.setVisible(false);
 
+        // Revalidate and repaint all reports
+        JComponent[] reports = {
+            amp, dr1, dr2, li, isr, ia, ls, pwd, mh1, mh2, rr, sdz,
+            slr1, slr2, tcr, bl, rb, b, ims, lims, p, ob, bb
+        };
+
+        for (JComponent report : reports) {
+        	report.setVisible(false);
+            slctdFaciCont.add(report);
+            report.revalidate();
+            report.repaint();
+        }
+    }
     
 }

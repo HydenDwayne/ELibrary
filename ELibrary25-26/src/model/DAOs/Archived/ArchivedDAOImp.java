@@ -8,10 +8,12 @@ import java.util.List;
 import model.DAOs.ActiveRequest.DAOActiveRequest;
 import model.DAOs.Reports.DAOBook;
 import model.DAOs.Reports.DAOBookLoan;
+import model.DAOs.Reports.DAOBorrowedBooks;
 import model.DAOs.Reports.DAOEquipmentLoan;
 import model.DAOs.Reports.DAOFunctionHall;
 import model.DAOs.Reports.DAOIMS;
 import model.DAOs.Reports.DAOLoginFacility;
+import model.DAOs.Reports.DAOOverdueBooks;
 import model.DAOs.Reports.DAOPatron;
 import model.DAOs.Reports.DAOReturnBook;
 
@@ -276,6 +278,64 @@ public class ArchivedDAOImp {
         return reports;
     }
     
+    public List<DAOArchivedBorrowedBook> getBorrowedBookArchives() {
+
+        List<DAOArchivedBorrowedBook> reports = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT * from viewArchived_BorrowedBooks")) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                // Map the correct columns from the stored procedure to the DAO
+            	reports.add(new DAOArchivedBorrowedBook(
+            			rs.getString("TransactionID"),
+                        rs.getString("CallNumber"),
+                        rs.getString("BorrowDate"),
+                        rs.getString("DueDate"),
+                        rs.getString("PatronID"),
+                        rs.getString("CirculationCode")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reports;
+    }
+    
+    public List<DAOArchivedOverdueBook> getOverdueBookArchives() {
+
+        List<DAOArchivedOverdueBook> reports = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("SELECT * from viewArchived_OverdueBooks")) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                // Map the correct columns from the stored procedure to the DAO
+            	reports.add(new DAOArchivedOverdueBook(
+            			rs.getString("TransactionID"),
+                        rs.getString("CallNumber"),
+                        rs.getString("BorrowDate"),
+                        rs.getString("DueDate"),
+                        rs.getString("PatronID"),
+                        rs.getString("CirculationCode")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reports;
+    }
+    
+    
+    
     public boolean setArchived(String tableName, String pk) {
     	
     	String sql = "{CALL archive"+ tableName +"(?)}";
@@ -316,17 +376,11 @@ public class ArchivedDAOImp {
 				stmt.setString(1, pk);
 			}
 
-            boolean hasResult = stmt.execute();
-
-            if (hasResult) { // there is a result set
-                try (ResultSet rs = stmt.getResultSet()) {
-                    if (rs.next()) {
-                        int status = rs.getInt("Status");
-                        System.out.println(status);
-                        return status == 1;
-                    }
-                }
-            }
+        	int success = stmt.executeUpdate();
+			
+			if (success > 0) {
+				return true;
+			}
 
         } catch (SQLException e) {
             e.printStackTrace();
