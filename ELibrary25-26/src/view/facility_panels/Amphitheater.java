@@ -20,7 +20,7 @@ public class Amphitheater extends JPanel {
 	JButton dateCont = new JButton();
 
 	public Amphitheater() {
-		Timer timer = new Timer(15000, e -> generateCalendar());
+		Timer timer = new Timer(1000, e -> generateCalendar());
 		timer.start();
 		setOpaque(false);
 
