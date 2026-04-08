@@ -106,7 +106,6 @@ public class AddBook extends JPanel {
 
 		/* ================= STATIC FIELDS ================= */
 
-		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel callNumberLabel = new JLabel("Call Number:");
@@ -122,7 +121,6 @@ public class AddBook extends JPanel {
 		callNumberField.setBorderThickness(1);
 		innerBody.add(callNumberField, gbc);
 
-		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel titleLabel = new JLabel("Title:");
@@ -138,7 +136,6 @@ public class AddBook extends JPanel {
 		titleField.setBorderThickness(1);
 		innerBody.add(titleField, gbc);
 
-		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel authorLabel = new JLabel("Author:");
@@ -154,7 +151,6 @@ public class AddBook extends JPanel {
 		authorField.setBorderThickness(1);
 		innerBody.add(authorField, gbc);
 
-		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel yearLabel = new JLabel("Publication Year:");
@@ -165,12 +161,10 @@ public class AddBook extends JPanel {
 		int startYear = 1980;
 		int endYear = 2026;
 
-		
 		String[] years = new String[endYear - startYear + 1];
 
-		
 		for (int i = 0; i < years.length; i++) {
-		    years[i] = String.valueOf(endYear - i);
+			years[i] = String.valueOf(endYear - i);
 		}
 
 		gbc.gridx = 1;
@@ -182,7 +176,6 @@ public class AddBook extends JPanel {
 		yearCombo.setPreferredSize(new Dimension(200, 30));
 		innerBody.add(yearCombo, gbc);
 
-		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel classLabel = new JLabel("Classification Code:");
@@ -192,7 +185,6 @@ public class AddBook extends JPanel {
 
 		new BookController(this, gbc, poppins10, innerBody, FIELD_RADIUS, FIELD_BORDER);
 
-		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel collectionLabel = new JLabel("Collection Code:");
@@ -200,10 +192,11 @@ public class AddBook extends JPanel {
 		collectionLabel.setForeground(DARK_TEXT);
 		innerBody.add(collectionLabel, gbc);
 
+		String[] initial = { "Bulacaniana Collection", "General Circulation Collection", "Fiction Collection",
+				"Filipiniana Collection", "Reference Collection", "Reserve Collection", "Theses and Dissertations" };
+
 		gbc.gridx = 1;
-		collectionCombo = new RoundedComboBox<>(
-				new String[] { "Bulacaniana Collection", "General Circulation Collection", "Fiction Collection", "Filipiniana Collection", "Reference Collection", "Reserve Collection", "Theses and Dissertations" },
-				FIELD_RADIUS);
+		collectionCombo = new RoundedComboBox<>(initial, FIELD_RADIUS);
 		collectionCombo.setFont(poppins10);
 		collectionCombo.setPlaceholder("Select");
 		collectionCombo.setBorderColor(FIELD_BORDER);
@@ -211,7 +204,6 @@ public class AddBook extends JPanel {
 		collectionCombo.setPreferredSize(new Dimension(200, 30));
 		innerBody.add(collectionCombo, gbc);
 
-		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel typeLabel = new JLabel("Book Type:");
@@ -226,11 +218,14 @@ public class AddBook extends JPanel {
 		typeCombo.setBorderColor(FIELD_BORDER);
 		typeCombo.setBorderThickness(1);
 		typeCombo.setPreferredSize(new Dimension(200, 30));
+		typeCombo.addActionListener(e -> {
+			reloadCollection();
+		});
 		innerBody.add(typeCombo, gbc);
-
+		reloadCollection();
 		seriesRowIndex = gbc.gridy + 1;
 		typeCombo.addActionListener(e -> updateSeriesRow());
-
+		reloadCollection();
 		body.add(innerBody, BorderLayout.CENTER);
 
 		/* ================= FOOTER ================= */
@@ -244,82 +239,54 @@ public class AddBook extends JPanel {
 		confirmBtn.setBackground(MAROON);
 		confirmBtn.setForeground(Color.WHITE);
 		confirmBtn.addActionListener(e -> {
-		    
-		    String callNumber = callNumberField.getRealText().trim();
-		    String title      = titleField.getRealText().trim();
-		    String author     = authorField.getRealText().trim();
-		    String year       = yearCombo.getSelectedItem() != null ? yearCombo.getSelectedItem().toString() : null;
-		    String classCode  = classCombo.getSelectedItem() != null ? classCombo.getSelectedItem().toString() : null;
-		    String collection = collectionCombo.getSelectedItem() != null ? collectionCombo.getSelectedItem().toString() : null;
-		    String type       = typeCombo.getSelectedItem() != null ? typeCombo.getSelectedItem().toString() : null;
-		    
-		    String[] classArr = classCode.split("-");
-		    
-		    
-		    String series = null;
-		    if ("NON-BORROWABLE".equals(type)) {
-		        if (seriesField != null) {
-		            series = seriesField.getRealText().trim();
-		        }
-		    }
-		    
-		    
 
-		    
-		    if (callNumber.isEmpty() || title.isEmpty() || author.isEmpty() || year == null ||
-		        classCode == null || collection == null || type == null ||
-		        ("NON-BORROWABLE".equals(type) && (series == null || series.isEmpty()))) {
-		        
-		        JOptionPane.showMessageDialog(
-		            this,
-		            "Please fill in all required fields.",
-		            "Missing Information",
-		            JOptionPane.WARNING_MESSAGE
-		        );
-		        return;
-		    }
-		    
-		    BookController comp = new BookController(callNumber);
-		    if (comp.checkIfExists()) {
-		    	JOptionPane.showMessageDialog(
-			            this,
-			            "Book with that call number already exists.",
-			            "Existence error",
-			            JOptionPane.WARNING_MESSAGE
-			        );
-		    	return;
-		    }
-		    
-		    if (!isValidYear(year)) {
-		    	JOptionPane.showMessageDialog(
-			            this,
-			            "Enter a valid year (e.g. 2026)",
-			            "Format Error",
-			            JOptionPane.WARNING_MESSAGE
-			        );
-		    	return;
-		    }
+			String callNumber = callNumberField.getRealText().trim();
+			String title = titleField.getRealText().trim();
+			String author = authorField.getRealText().trim();
+			String year = yearCombo.getSelectedItem() != null ? yearCombo.getSelectedItem().toString() : null;
+			String classCode = classCombo.getSelectedItem() != null ? classCombo.getSelectedItem().toString() : null;
+			String collection = collectionCombo.getSelectedItem() != null ? collectionCombo.getSelectedItem().toString()
+					: null;
+			String type = typeCombo.getSelectedItem() != null ? typeCombo.getSelectedItem().toString() : null;
 
-		    
+			String[] classArr = classCode.split("-");
 
-		    
-		    String[] bookDetails = {
-		        callNumber,
-		        title,
-		        author,
-		        year,
-		        type,
-		        collection,
-		        classArr[0].trim(),
-		        series
-		    };
+			String series = null;
+			if ("NON-BORROWABLE".equals(type)) {
+				if (seriesField != null) {
+					series = seriesField.getRealText().trim();
+				}
+			}
 
-		    
-		    new BookController(bookDetails);
+			if (callNumber.isEmpty() || title.isEmpty() || author.isEmpty() || year == null || classCode == null
+					|| collection == null || type == null
+					|| ("NON-BORROWABLE".equals(type) && (series == null || series.isEmpty()))) {
 
-		    
-		    Window w = SwingUtilities.getWindowAncestor(this);
-		    if (w instanceof JDialog) w.dispose();
+				JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Missing Information",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			BookController comp = new BookController(callNumber);
+			if (comp.checkIfExists()) {
+				JOptionPane.showMessageDialog(this, "Book with that call number already exists.", "Existence error",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			if (!isValidYear(year)) {
+				JOptionPane.showMessageDialog(this, "Enter a valid year (e.g. 2026)", "Format Error",
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			String[] bookDetails = { callNumber, title, author, year, type, collection, classArr[0].trim(), series };
+
+			new BookController(bookDetails);
+
+			Window w = SwingUtilities.getWindowAncestor(this);
+			if (w instanceof JDialog)
+				w.dispose();
 		});
 		footer.add(confirmBtn);
 
@@ -340,13 +307,24 @@ public class AddBook extends JPanel {
 		modal.add(footer, BorderLayout.SOUTH);
 
 		add(modal, BorderLayout.CENTER);
+		reloadCollection();
+	}
+	
+	public void reloadCollection() {
+		if (typeCombo.getSelectedIndex() == 1) {
+			String[] NBB = { "Reference Collection", "Reserve Collection", "Theses and Dissertations" };
+			collectionCombo.setModel(new DefaultComboBoxModel<>(NBB));
+		} else {
+			String[] BB = { "Bulacaniana Collection", "General Circulation Collection", "Fiction Collection",
+			"Filipiniana Collection" };
+			collectionCombo.setModel(new DefaultComboBoxModel<>(BB));
+		}
 	}
 
 	/* ================= DYNAMIC SERIES ROW ================= */
 
 	private void updateSeriesRow() {
 
-		
 		for (Component c : dynamicComponents) {
 			innerBody.remove(c);
 		}
@@ -377,26 +355,25 @@ public class AddBook extends JPanel {
 		innerBody.revalidate();
 		innerBody.repaint();
 	}
-	
-	public static boolean isValidYear(String year)
-	{
-	    if (year == null) {
-	        return false;
-	    }
 
-	    year = year.trim();
+	public static boolean isValidYear(String year) {
+		if (year == null) {
+			return false;
+		}
 
-	    if (year.length() != 4) {
-	        return false;
-	    }
+		year = year.trim();
 
-	    for (int i = 0; i < year.length(); i++) {
-	        if (!Character.isDigit(year.charAt(i))) {
-	            return false;
-	        }
-	    }
+		if (year.length() != 4) {
+			return false;
+		}
 
-	    return true;
+		for (int i = 0; i < year.length(); i++) {
+			if (!Character.isDigit(year.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
 	}
-	
+
 }
