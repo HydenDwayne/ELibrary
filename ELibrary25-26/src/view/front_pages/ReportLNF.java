@@ -290,7 +290,7 @@ public class ReportLNF extends JFrame{
 		    String date = lastSeenField.getRealText().trim();
 
 		    
-		    System.out.println(item);
+		    
 		    if (item.isEmpty() || date.isEmpty()) {
 		        JOptionPane.showMessageDialog(
 		            this,
@@ -345,7 +345,14 @@ public class ReportLNF extends JFrame{
 		clearBtn.setPreferredSize(new Dimension(500, 40));
 		clearBtn.setFont(poppinsStyle12);
 		clearBtn.addActionListener(e -> {
-		    clearFields();
+			if (itemField.getRealText().trim().equals("exit")) {
+		    	lw.setVisible(true);
+		    	dispose();
+		    } else {
+		    	
+		    	clearFields();
+			}
+		    
 		});
 
 		footer.add(clearBtn, BorderLayout.SOUTH);

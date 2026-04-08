@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.BookController;
+import controller.PatronController;
 
 import java.awt.*;
 
@@ -315,6 +316,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         footer.setOpaque(false);
 
         RoundedButton submitBtn = new RoundedButton("SUBMIT BORROW REQUEST", FIELD_RADIUS);
+        
         submitBtn.setFont(poppins12);
         submitBtn.setBackground(MAROON);
         submitBtn.setForeground(WHITE);

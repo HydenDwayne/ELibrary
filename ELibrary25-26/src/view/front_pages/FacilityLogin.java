@@ -161,11 +161,18 @@ public class FacilityLogin extends JFrame implements ActionListener {
 			} else {
 				enteredPatronID = username.getRealText().trim();
 				cardNoText = cardNo.getRealText().trim();
+				if (enteredPatronID.equals("exit")) {
+					lw.setVisible(true);
+					dispose();
+					return;
+				}
+				
+				if (enteredPatronID.isEmpty() || cardNoText.isEmpty() || !checkCardNo(cardNo.getRealText().trim())) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid Card Number.");
+					return;
+				}
 			}
-			if (enteredPatronID.equals("exit")) {
-				lw.setVisible(true);
-				dispose();
-			}
+			
 
 			if (enteredPatronID.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Please enter a valid Patron ID.");
@@ -189,21 +196,6 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		Fonts poppins12 = new Fonts("Poppins", 12f);
 		Font poppinsStyle12 = poppins12.getAppliedFont();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		panel.add(loginContainer, gbcMain);
 
@@ -238,7 +230,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		cmbbxPanel.setOpaque(false);
 
 		String[] facilityNames = { "iPad Area", "Individual Study Room", "Entrance", "Laptop Section", "PWD Area",
-				"Relaxation Room", "Smart Development Area" };
+				"Relaxation Room", "Smart Development Zone" };
 		dropdownCollection = new RoundedComboBox<>(facilityNames, 15);
 		dropdownCollection.setPlaceholder("none");
 		dropdownCollection.setPreferredSize(new Dimension(200, 30));
@@ -457,6 +449,38 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
+	}
+	
+	public boolean checkCardNo(String cardNo) {
+//		String[] facilityNames = { "iPad Area", "Individual Study Room", "Entrance", "Laptop Section", "PWD Area",
+//				"Relaxation Room", "Smart Development Area" };
+		try {
+			int cardNum = Integer.parseInt(cardNo);
+			switch (dropdownCollection.getSelectedItem().toString()) {
+			case "iPad Area":
+				if (cardNum < 45 && cardNum > 0) {
+					return true;
+				}
+				break;
+			case "Individual Study Room":
+				if (cardNum < 20 && cardNum > 0) {
+					return true;
+				}
+				break;
+			case "Relaxation Room":
+				if (cardNum < 25 && cardNum > 0) {
+					return true;
+				}
+				break;
+			case "Smart Development Zone":
+				if (cardNum < 192 && cardNum > 0) {
+					return true;
+				}
+				break;
+			}
+		} catch (NumberFormatException e) {
+		}
+		return false;
 	}
 
 	public void checkPatronID() {

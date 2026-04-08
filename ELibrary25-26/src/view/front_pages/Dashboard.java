@@ -28,7 +28,7 @@ public class Dashboard extends JFrame {
     public String password = "";
 
     public Dashboard() {
-
+    	setUndecorated(true);
         
         setLayout(new BorderLayout());
 
@@ -231,6 +231,7 @@ public class Dashboard extends JFrame {
         setLocationRelativeTo(null);
 
         setResizable(false);
+        
 
     }
 

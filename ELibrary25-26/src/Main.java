@@ -10,20 +10,10 @@ public class Main {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
-
             
             RoundedDialog loadingDialog = new RoundedDialog(null, 30);
             loadingDialog.setLayout(new BorderLayout());
             loadingDialog.setUndecorated(true);
-
-
-
-
-
-
-
-
-
             
             LoadingPanel panel = new LoadingPanel();
 
@@ -44,6 +34,7 @@ public class Main {
                 @Override
                 protected Void doInBackground() {
                 	dashboard = new Dashboard();
+                	
                     login = new LoginWindow(dashboard);
                     
                     return null;

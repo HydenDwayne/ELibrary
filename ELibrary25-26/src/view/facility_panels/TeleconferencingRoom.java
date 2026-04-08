@@ -20,7 +20,7 @@ public class TeleconferencingRoom extends JPanel {
     JButton dateCont = new JButton();
 
     public TeleconferencingRoom() {
-    	Timer timer = new Timer(15000, e -> generateCalendar());
+    	Timer timer = new Timer(1000, e -> generateCalendar());
 		timer.start();
         setOpaque(false);
 

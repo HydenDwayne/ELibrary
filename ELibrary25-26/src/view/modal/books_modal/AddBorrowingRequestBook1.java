@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import controller.BookController;
+import controller.PatronController;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -190,6 +191,20 @@ public class AddBorrowingRequestBook1 extends JPanel {
 			if (callNumField.getRealText() == null || patronField.getRealText() == null || callNumField.getRealText().isBlank() || patronField.getRealText().isBlank()) {
 				JOptionPane.showMessageDialog(null, "Fill all fields");
 			} else {
+				boolean validPatron = new PatronController(patronField.getRealText()).checkPatronExists();
+	        	
+	        	if (!validPatron) {
+	        		JOptionPane.showMessageDialog(null, "Patron ID did not match any records");
+	        		return;
+	        	}
+	        	
+	        	boolean validCallNumber = new BookController(callNumField.getRealText()).checkIfExists();
+	        	
+	        	if (!validPatron) {
+	        		JOptionPane.showMessageDialog(null, "Patron ID did not match any records");
+	        		return;
+	        	}
+	        	
 				new BookController(this, callNumField.getRealText(), patronField.getRealText());
 				if (isFound) {
 					dialog.setStep2(callNumField.getRealText(), patronField.getRealText());
