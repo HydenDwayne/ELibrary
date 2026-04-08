@@ -2,7 +2,7 @@ package model.DAOs.ActiveRequest;
 
 public class DAOActiveRequest {
 
-	// book columns
+	
 
 	private String loanID;
 	private String serialNumber;

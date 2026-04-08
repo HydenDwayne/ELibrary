@@ -2,7 +2,7 @@ package model.DAOs.Book;
 
 public class DAOBook {
 
-	// book columns
+	
 
     private String callNumber;
     private String title;

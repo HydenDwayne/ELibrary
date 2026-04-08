@@ -4,12 +4,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+
 
 public class LNFDAOImp {
 
-    private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
     public List<DAOLNF> getAllItems(String searchQuery) {
 
@@ -69,12 +72,12 @@ public class LNFDAOImp {
     
     public boolean addReport(String[] reportDetails) {
     	
-//    	@ItemLost VARCHAR(100),
-//        @NameOfOwner VARCHAR(100),
-//        @ItemDescription VARCHAR(255),
-//        @FloorLevel VARCHAR(3),
-//        @Status VARCHAR(15),
-//        @LastSeen DATE
+
+
+
+
+
+
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); 
         		CallableStatement stmt = conn.prepareCall("{CALL addNewRecord_LostAndFound(?,?,?,?,?,?)}")) {

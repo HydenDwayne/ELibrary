@@ -36,7 +36,7 @@ public class ViewEmployee extends JPanel {
 	
 	PatronController comp;
 
-	// LEFT PANEL FIELDS
+	
 	public RoundedTextField pidField = new RoundedTextField(19, FIELD_RADIUS);
 	public RoundedTextField firstNameField = new RoundedTextField(19, FIELD_RADIUS);
 	public RoundedTextField middleField = new RoundedTextField(5, FIELD_RADIUS);
@@ -45,7 +45,7 @@ public class ViewEmployee extends JPanel {
 	public RoundedTextField contactField = new RoundedTextField(19, FIELD_RADIUS);
 	public RoundedTextField addressField = new RoundedTextField(19, FIELD_RADIUS);
 
-	// CONDITIONAL FIELDS
+	
 	public RoundedTextField assignmentCodeField;
 	public RoundedTextField adminPositionField;
 	public RoundedTextField libPositionField;
@@ -68,7 +68,7 @@ public class ViewEmployee extends JPanel {
 
 		Dimension fieldDim = new Dimension(pidField.getPreferredSize());
 
-		// MANUAL FONT AND BORDER SETTING FOR LEFT PANEL FIELDS
+		
 		pidField.setFont(poppins10);
 		pidField.setBorderColor(FIELD_BORDER);
 		pidField.setPreferredSize(fieldDim);
@@ -235,7 +235,7 @@ public class ViewEmployee extends JPanel {
 		checkPanel.setOpaque(false);
 		checkPanel.setLayout(new BoxLayout(checkPanel, BoxLayout.Y_AXIS));
 
-		// MANUAL CHECKBOXES
+		
 		adminCheck = new JCheckBox("Administrator");
 		adminCheck.setFont(poppins10);
 		adminCheck.setForeground(DARK_TEXT);
@@ -256,7 +256,7 @@ public class ViewEmployee extends JPanel {
 
 		right.add(checkPanel, r);
 
-		// CONDITIONAL FIELDS
+		
 		assignmentCodeField = new RoundedTextField(19, FIELD_RADIUS);
 		assignmentCodeField.setFont(poppins10);
 		assignmentCodeField.setBorderColor(FIELD_BORDER);
@@ -279,19 +279,19 @@ public class ViewEmployee extends JPanel {
 		campusField.setPreferredSize(new Dimension(210, 30));
 		collegeField.setPreferredSize(new Dimension(210, 30));
 
-		// ASSIGNMENT CODE ROW
-//		rRow++;
-//		assignmentCodeRow = new JPanel(new GridLayout(1, 2, 10, 0));
-//		assignmentCodeRow.setOpaque(false);
+		
+
+
+
 		 acLbl = new JLabel("Assignment Code:");
-//		acLbl.setFont(poppins16);
-//		acLbl.setForeground(DARK_TEXT);
-//		assignmentCodeRow.add(acLbl);
-//		assignmentCodeRow.add(assignmentCodeField);
-//		r.gridx = 0;
-//		r.gridy = rRow;
-//		r.gridwidth = 2;
-//		right.add(assignmentCodeRow, r);
+
+
+
+
+
+
+
+
 		
 		r.gridy++;
 		acLbl.setFont(poppins16);
@@ -304,17 +304,17 @@ public class ViewEmployee extends JPanel {
         right.add(assignmentCodeField, r);
         
 
-		// ADMIN POSITION ROW
-//		rRow++;
-//		adminPositionRow = new JPanel(new GridLayout(1, 2, 10, 0));
-//		adminPositionRow.setOpaque(false);
+		
+
+
+
 		 apLbl = new JLabel("Admin Position:");
-//		apLbl.setFont(poppins16);
-//		apLbl.setForeground(DARK_TEXT);
-//		adminPositionRow.add(apLbl);
-//		adminPositionRow.add(adminPositionField);
-//		r.gridy = rRow;
-//		right.add(adminPositionRow, r);
+
+
+
+
+
+
 		
 		r.gridy++;
 		apLbl.setFont(poppins16);
@@ -326,17 +326,17 @@ public class ViewEmployee extends JPanel {
         r.gridx = 1;
         right.add(adminPositionField, r);
 
-		// LIB POSITION ROW
-//		rRow++;
-//		libPositionRow = new JPanel(new GridLayout(1, 2, 10, 0));
-//		libPositionRow.setOpaque(false);
+		
+
+
+
 		 lpLbl = new JLabel("Library Position:");
-//		lpLbl.setFont(poppins16);
-//		lpLbl.setForeground(DARK_TEXT);
-//		libPositionRow.add(lpLbl);
-//		libPositionRow.add(libPositionField);
-//		r.gridy = rRow;
-//		right.add(libPositionRow, r);
+
+
+
+
+
+
 
 		r.gridy++;
 		lpLbl.setFont(poppins16);
@@ -348,17 +348,17 @@ public class ViewEmployee extends JPanel {
         r.gridx = 1;
         right.add(libPositionField, r);
         
-		// FACULTY RANK ROW
-//		rRow++;
-//		facultyRankRow = new JPanel(new GridLayout(1, 2, 10, 0));
-//		facultyRankRow.setOpaque(false);
+		
+
+
+
 		 frLbl = new JLabel("Faculty Rank:");
-//		frLbl.setFont(poppins16);
-//		frLbl.setForeground(DARK_TEXT);
-//		facultyRankRow.add(frLbl);
-//		facultyRankRow.add(facultyRankField);
-//		r.gridy = rRow;
-//		right.add(facultyRankRow, r);
+
+
+
+
+
+
 
 		r.gridy++;
 		frLbl.setFont(poppins16);
@@ -371,17 +371,17 @@ public class ViewEmployee extends JPanel {
         right.add(facultyRankField, r);
         
         
-		// COLLEGE ROW
-//		rRow++;
-//		collegeRow = new JPanel(new GridLayout(1, 2, 10, 0));
-//		collegeRow.setOpaque(false);
+		
+
+
+
 		 cLbl = new JLabel("College:");
-//		cLbl.setFont(poppins16);
-//		cLbl.setForeground(DARK_TEXT);
-//		collegeRow.add(cLbl);
-//		collegeRow.add(collegeField);
-//		r.gridy = rRow;
-//		right.add(collegeRow, r);
+
+
+
+
+
+
 
 		r.gridy++;
 		cLbl.setFont(poppins16);
@@ -393,17 +393,17 @@ public class ViewEmployee extends JPanel {
         r.gridx = 1;
         right.add(collegeField, r);
 
-		// CAMPUS ROW
-//		rRow++;
-//		campusRow = new JPanel(new GridLayout(1, 2, 10, 0));
-//		campusRow.setOpaque(false);
+		
+
+
+
 		 ccLbl = new JLabel("Campus:");
-//		ccLbl.setFont(poppins16);
-//		ccLbl.setForeground(DARK_TEXT);
-//		campusRow.add(ccLbl);
-//		campusRow.add(campusField);
-//		r.gridy = rRow;
-//		right.add(campusRow, r);
+
+
+
+
+
+
 		
 		r.gridy++;
 		ccLbl.setFont(poppins16);
@@ -416,7 +416,7 @@ public class ViewEmployee extends JPanel {
         right.add(campusField, r);
         
 
-		// HIDE INITIALLY
+		
 		acLbl.setVisible(false);
 		apLbl.setVisible(false);
 		lpLbl.setVisible(false);
@@ -432,7 +432,7 @@ public class ViewEmployee extends JPanel {
 		campusField.setVisible(false);
 		
 
-		// ADD LISTENERS
+		
 		adminCheck.addActionListener(e -> toggleRows());
 		libraryStaffCheck.addActionListener(e -> toggleRows());
 		facultyCheck.addActionListener(e -> toggleRows());
@@ -480,11 +480,11 @@ public class ViewEmployee extends JPanel {
 		submitBtn.setForeground(WHITE);
 		submitBtn.addActionListener(e -> {
 
-		    // Get values
+		    
 		    String firstName = firstNameField.getRealText().trim();
 		    String lastName = lastNameField.getRealText().trim();
 
-		    // ✅ Validate required fields FIRST
+		    
 		    if (firstName.isEmpty() || lastName.isEmpty()) {
 		        JOptionPane.showMessageDialog(
 		            this,
@@ -495,7 +495,7 @@ public class ViewEmployee extends JPanel {
 		        return;
 		    }
 
-		    // ✅ Validate role selection
+		    
 		    if (!adminCheck.isSelected() && !libraryStaffCheck.isSelected() && !facultyCheck.isSelected()) {
 		        JOptionPane.showMessageDialog(
 		            this,
@@ -506,7 +506,7 @@ public class ViewEmployee extends JPanel {
 		        return;
 		    }
 
-		    // Optional fields → convert empty to null
+		    
 		    String middle = middleField.getRealText().trim();
 		    if (middle.isEmpty()) middle = null;
 
@@ -531,33 +531,33 @@ public class ViewEmployee extends JPanel {
 		    String facultyRank = facultyRankField.getRealText().trim();
 		    if (facultyRank.isEmpty()) facultyRank = null;
 
-		    // Prepare array
+		    
 		    String[] employeeDetails = {
-		        pidField.getRealText(),                        // 0 PatronID
-		        firstName,                                     // 1 FirstName (REQUIRED)
-		        middle,                                        // 2 MiddleInitial (nullable)
-		        lastName,                                      // 3 LastName (REQUIRED)
-		        email,                                         // 4 EmailAddress (nullable)
-		        contact,                                       // 5 ContactNumber (nullable)
-		        address,                                       // 6 HomeAddress (nullable)
+		        pidField.getRealText(),                        
+		        firstName,                                     
+		        middle,                                        
+		        lastName,                                      
+		        email,                                         
+		        contact,                                       
+		        address,                                       
 		        campusField.getSelectedItem() != null
 		            ? campusField.getSelectedItem().toString()
-		            : null,                                    // 7 CampCode
+		            : null,                                    
 
-		        String.valueOf(adminCheck.isSelected()),       // 8
-		        String.valueOf(libraryStaffCheck.isSelected()),// 9
-		        String.valueOf(facultyCheck.isSelected()),     // 10
+		        String.valueOf(adminCheck.isSelected()),       
+		        String.valueOf(libraryStaffCheck.isSelected()),
+		        String.valueOf(facultyCheck.isSelected()),     
 
-		        adminPos,                                      // 11
-		        assignment,                                    // 12
-		        libPos,                                        // 13
-		        facultyRank,                                   // 14
+		        adminPos,                                      
+		        assignment,                                    
+		        libPos,                                        
+		        facultyRank,                                   
 		        collegeField.getSelectedItem() != null
 		            ? collegeField.getSelectedItem().toString()
-		            : null                                     // 15
+		            : null                                     
 		    };
 
-		    // Save
+		    
 		    boolean isSuccessful = comp.updatePatronEmployee(employeeDetails);
 
 		    if (isSuccessful) {

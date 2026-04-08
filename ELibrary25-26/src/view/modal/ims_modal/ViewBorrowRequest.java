@@ -98,17 +98,17 @@ public class ViewBorrowRequest extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Reference height for equal ComboBox/TextField height
+        
         RoundedTextField heightRef = new RoundedTextField(19, FIELD_RADIUS);
         int fieldHeight = heightRef.getPreferredSize().height;
 
         /* ================= ROWS ================= */
 
-        // Utility pattern: label wrapper
+        
         JPanel labelWrap;
         JLabel lbl;
 
-        // Loan ID
+        
         gbc.gridy++; gbc.gridx = 0; gbc.weightx = 0.5;
         labelWrap = new JPanel(new BorderLayout());
         labelWrap.setPreferredSize(new Dimension(200, 30));
@@ -128,7 +128,7 @@ public class ViewBorrowRequest extends JPanel {
         loanIdField.setBorderThickness(1);
         innerBody.add(loanIdField, gbc);
 
-        // Serial Number
+        
         gbc.gridy++; gbc.gridx = 0;
         labelWrap = new JPanel(new BorderLayout());
         labelWrap.setPreferredSize(new Dimension(200, 30));
@@ -148,7 +148,7 @@ public class ViewBorrowRequest extends JPanel {
         serialField.setBorderThickness(1);
         innerBody.add(serialField, gbc);
 
-        // Patron ID
+        
         gbc.gridy++; gbc.gridx = 0;
         labelWrap = new JPanel(new BorderLayout());
         labelWrap.setPreferredSize(new Dimension(200, 30));
@@ -168,7 +168,7 @@ public class ViewBorrowRequest extends JPanel {
         patronField.setBorderThickness(1);
         innerBody.add(patronField, gbc);
 
-        // Venue
+        
         gbc.gridy++; gbc.gridx = 0;
         labelWrap = new JPanel(new BorderLayout());
         labelWrap.setPreferredSize(new Dimension(200, 30));
@@ -188,7 +188,7 @@ public class ViewBorrowRequest extends JPanel {
         venueField.setBorderThickness(1);
         innerBody.add(venueField, gbc);
 
-        // Borrow Date
+        
         gbc.gridy++; gbc.gridx = 0;
         labelWrap = new JPanel(new BorderLayout());
         labelWrap.setPreferredSize(new Dimension(200, 30));
@@ -208,7 +208,7 @@ public class ViewBorrowRequest extends JPanel {
         dateField.setBorderThickness(1);
         innerBody.add(dateField, gbc);
 
-        // Loan Status (ONLY editable)
+        
         gbc.gridy++; gbc.gridx = 0;
         labelWrap = new JPanel(new BorderLayout());
         labelWrap.setPreferredSize(new Dimension(200, 30));

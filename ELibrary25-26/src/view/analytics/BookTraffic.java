@@ -33,25 +33,25 @@ public class BookTraffic extends JPanel {
         OverviewDAOImp dao = new OverviewDAOImp();
         List<DAOBookTraffic> trafficData = dao.getBookTraffic();
 
-        // Define all weekdays for X-axis
+        
         String[] allDays = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
-        // Initialize dataset with null values so all days appear
+        
         for (String day : allDays) {
             dataset.addValue(null, "", day);
         }
 
-        // Determine today (e.g., Calendar.MONDAY=2, ... Calendar.SUNDAY=1)
+        
         Calendar cal = Calendar.getInstance();
-        int today = cal.get(Calendar.DAY_OF_WEEK); // Sunday=1, Monday=2, ..., Saturday=7
+        int today = cal.get(Calendar.DAY_OF_WEEK); 
 
-        // Map Calendar day to string day
+        
         String[] calendarToDay = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
         for (DAOBookTraffic data : trafficData) {
             String dayName = data.getDayName();
 
-            // Only show data if the day is on or before today
+            
             boolean showData = false;
             for (int i = 0; i < calendarToDay.length; i++) {
                 if (calendarToDay[i].equals(dayName) && i <= today - 1) {
@@ -75,7 +75,7 @@ public class BookTraffic extends JPanel {
         
         NumberAxis range = (NumberAxis) plot.getRangeAxis();
 
-     // Force integers only
+     
         range.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();

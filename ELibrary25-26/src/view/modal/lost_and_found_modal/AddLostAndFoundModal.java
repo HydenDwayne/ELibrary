@@ -10,13 +10,13 @@ public class AddLostAndFoundModal extends RoundedDialog {
     private final Window parent;
 
     public AddLostAndFoundModal(Window parent) {
-        super(parent, 20); // same radius as other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // dim background
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // set panel content
+        
         setContentPane(new AddLostAndFound());
         pack();
         setLocationRelativeTo(parent);

@@ -53,17 +53,15 @@ public class IMSTab extends JPanel {
         imsContainer.setLayout(new BorderLayout());
         imsContainer.setBackground(Color.WHITE);
 
-        // no red part
         JLabel imsLabel = new JLabel("Instructional Media Services");
         imsLabel.setForeground(Color.decode("#6d2321"));
 
         imsLabel.setFont(introRustStyle);
-     // search + filter container
         JPanel searchFilter = new JPanel();
         searchFilter.setLayout(new BorderLayout());
         searchFilter.setPreferredSize(new Dimension(375, 30));
         searchFilter.setOpaque(false);
-        // search item
+        
         JPanel searchContainer = new JPanel();
         searchContainer.setOpaque(false);
         searchContainer.setPreferredSize(new Dimension(275, 20));
@@ -128,7 +126,6 @@ public class IMSTab extends JPanel {
         iconsPanel.add(archiveLogo);
         iconsPanel.add(reloadLogo);
         
-        // add book button
         JPanel outerBtnCont = new JPanel();
         outerBtnCont.setLayout(new BorderLayout());
         outerBtnCont.setOpaque(false);
@@ -150,7 +147,6 @@ public class IMSTab extends JPanel {
         outerBtnCont.add(addLostItem, BorderLayout.EAST);
         outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
-        // right side of the top wrapper
         JPanel topRight = new JPanel();
         topRight.setOpaque(false);
         topRight.setPreferredSize(new Dimension(390, 50));
@@ -161,11 +157,6 @@ public class IMSTab extends JPanel {
         searchFilter.add(searchContainer, BorderLayout.WEST);
         searchFilter.add(iconsPanel, BorderLayout.EAST);
         
-//        searchFilter.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40));
-        
-//        topRight.add(searchFilter, BorderLayout.NORTH);
-//        topRight.add(outerBtnCont, BorderLayout.SOUTH);
-        // container of the red part
         JPanel topWrapper = new JPanel();
         topWrapper.setLayout(new BorderLayout());
         topWrapper.setPreferredSize(new Dimension(1280, 90));
@@ -190,11 +181,9 @@ public class IMSTab extends JPanel {
 
         imsContainer.add(topWrapper, BorderLayout.NORTH);
 
-        // selected patrons items
         JPanel slctdPatrons = new JPanel();
         slctdPatrons.setOpaque(false);
 
-// Create labels
         JPanel tableHeader = new JPanel();
         slctdPatrons.setLayout(new BorderLayout());
         tableHeader.setLayout(new GridBagLayout());
@@ -256,7 +245,6 @@ public class IMSTab extends JPanel {
 
         slctdPatrons.add(tableHeader, BorderLayout.NORTH);
 
-        // actual table data ============================
         tableData = new JPanel();
         tableData.setOpaque(false);
         tableData.setLayout(new BorderLayout());
@@ -277,12 +265,11 @@ public class IMSTab extends JPanel {
 
         patronsTab.add(imsContainer, gbc);
 
-        //card container ===========================================================
         cardContainer = new RoundedPanel(panelRadius);
     	cardContainer.setPreferredSize(new Dimension(417, 560));
     	cardContainer.setLayout(new BorderLayout());
 
-        // label
+
         JLabel requestLabel = new JLabel("Active Request");
         requestLabel.setForeground(Color.decode("#6d2321"));
 
@@ -297,8 +284,6 @@ public class IMSTab extends JPanel {
         cardComp = new MainFunctions(this, "cards", null);
         cardComp.setOpaque(false);
         
-        
-     // actual table cards  ============================
         cardData = new JPanel();
         cardData.setOpaque(false);
         cardData.setLayout(new BorderLayout());
@@ -308,7 +293,7 @@ public class IMSTab extends JPanel {
         
         
         
-     // card panel
+
         JScrollPane cardScrollbar = new JScrollPane(cardData);
         cardScrollbar.setOpaque(false);
         cardScrollbar.getViewport().setOpaque(false);
@@ -324,7 +309,7 @@ public class IMSTab extends JPanel {
         
         
 
-        // add request card button
+
         RoundedButton addCard = new RoundedButton("Request Item", panelRadius);
         addCard.setBackground(Color.decode("#5d1513"));
         addCard.setForeground(Color.WHITE);
@@ -353,7 +338,6 @@ public class IMSTab extends JPanel {
         gbc.gridx = 2;
         patronsTab.add(cardContainer, gbc);
 
-        //============================================== 
         setBackground(Color.decode("#c4c4c4"));
         add(patronsTab);
 

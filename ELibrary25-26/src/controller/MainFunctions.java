@@ -35,39 +35,39 @@ import javax.swing.*;
 
 public class MainFunctions extends JPanel {
 
-    private PatronDAOImp daoPatron = new PatronDAOImp();        //model
-    private IMSDAOImp daoIMS = new IMSDAOImp();        //model
+    private PatronDAOImp daoPatron = new PatronDAOImp();        
+    private IMSDAOImp daoIMS = new IMSDAOImp();        
     private ActiveRequestDAOImp daoAR = new ActiveRequestDAOImp();
-    private BookDAOImp daoBook = new BookDAOImp();        //model
-    private OverviewDAOImp daoOverview = new OverviewDAOImp();        //model
-    private PatronsTab patTab;                            //view
-    private IMSTab imsTab;                            //view
-    private Bulacaniana bulacanianaTab;                            //view
-    private Fiction fictionTab;                            //view
-    private Filipiniana filipinianaTab;                            //view
-    private GeneralCirculation genSecTab;                            //view
-    private Reference referenceTab;                            //view
-    private Reserve reserveTab;                            //view
-    private ThesesAndDissertations TaDTab;                            //view
-    private OverviewTab ovTab;                            //view
+    private BookDAOImp daoBook = new BookDAOImp();        
+    private OverviewDAOImp daoOverview = new OverviewDAOImp();        
+    private PatronsTab patTab;                            
+    private IMSTab imsTab;                            
+    private Bulacaniana bulacanianaTab;                            
+    private Fiction fictionTab;                            
+    private Filipiniana filipinianaTab;                            
+    private GeneralCirculation genSecTab;                            
+    private Reference referenceTab;                            
+    private Reserve reserveTab;                            
+    private ThesesAndDissertations TaDTab;                            
+    private OverviewTab ovTab;                            
     private LNFTab lnfTab;
     private LNFDAOImp daoLNF = new LNFDAOImp();
     private AddBookModal addBookModal;
-//    private ViewPatronModal viewPatronModal;
+
     
     String callNumber;
     
     
-//    public MainFunctions(ViewPatronModal viewPatronModal) {
-//    	this.viewPatronModal = viewPatronModal;
-//    	showPatronDetails();
-//    }
-//    
-//    public MainFunctions(AddBookModal addBookModal) {
-//    	this.addBookModal = addBookModal;
-//    	
-//    	insertOneToBook();
-//    }
+
+
+
+
+
+
+
+
+
+
  
     public MainFunctions(OverviewTab ovTab) {
         this.ovTab = ovTab;
@@ -132,37 +132,37 @@ public class MainFunctions extends JPanel {
         showThesisAndDissertationBooks(searchQuery, filters);
     }
     
-//    public void showPatronDetails() {
-//    	String callNumber = addBookModal.getCallNumberStr();
-//    	String title = addBookModal.getTitleStr();
-//    	String author = addBookModal.getAuthorStr();
-//    	String year = addBookModal.getYearStr();
-//    	String bookType = addBookModal.getBookTypeStr();
-//    	String collection = addBookModal.getCollectionStr();
-//    	String classification = addBookModal.getClassificationStr().substring(0,1);
-//    	
-//    	
-//    	
-//    	
-//    	
-//    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
-//    }
-//    
-//    public void insertOneToBook() {
-//    	String callNumber = addBookModal.getCallNumberStr();
-//    	String title = addBookModal.getTitleStr();
-//    	String author = addBookModal.getAuthorStr();
-//    	String year = addBookModal.getYearStr();
-//    	String bookType = addBookModal.getBookTypeStr();
-//    	String collection = addBookModal.getCollectionStr();
-//    	String classification = addBookModal.getClassificationStr().substring(0,1);
-//    	
-//    	
-//    	
-//    	
-//    	
-//    	daoBook.insertOne(callNumber,title, author, year, bookType, collection, classification);
-//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 
     public void showOverviewData() {
@@ -180,11 +180,11 @@ public class MainFunctions extends JPanel {
     public void showPatrons(String searchQuery, String campuses, String type) {
         List<DAOPatron> patrons = daoPatron.getAllUsers(searchQuery, campuses, type);
 
-        // loadPatrons();
+        
         int minColumnHeight = patTab.getMinColumnHeight();
         int minColumnWidth = patTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -322,7 +322,7 @@ public class MainFunctions extends JPanel {
     	Fonts poppins12 = new Fonts("Poppins", 10f);
         Font poppins12Style = poppins12.getAppliedFont();
         
-        // loadPatrons();
+        
         int minColumnHeight = lnfTab.getMinColumnHeight();
         int minColumnWidth = lnfTab.getMinColumnWidth();
         
@@ -364,7 +364,7 @@ public class MainFunctions extends JPanel {
             col4 = new JLabel(item.getLostOnFloor());
             col5 = new JLabel(item.getStatus());
             col6 = new JLabel(item.getLastSeen());
-            //     JLabel col7 = new JLabel(row1[6]);
+            
 
             Font poppins = getFont();
             Font smallerPoppins = getFont();
@@ -464,7 +464,7 @@ public class MainFunctions extends JPanel {
             col2Panel.add(col2);
             col3Panel.add(col3);
             col4Panel.add(col4);
-            //     col5Panel.add(col5);
+            
             col6Panel.add(col6);
             col7Panel.add(col7);
 
@@ -513,11 +513,11 @@ public class MainFunctions extends JPanel {
     public void showIMS(String searchQuery) {
         List<DAOIMS> ims = daoIMS.getAllItems(searchQuery);
         
-        // loadPatrons();
+        
         int minColumnHeight = imsTab.getMinColumnHeight();
         int minColumnWidth = imsTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -600,7 +600,7 @@ public class MainFunctions extends JPanel {
     public void showActiveRequest() {
     	List<DAOActiveRequest> ar = daoAR.getAllRequests();
     	
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -621,7 +621,7 @@ public class MainFunctions extends JPanel {
 
         
 
-        // card
+        
         for (DAOActiveRequest item: ar) {
         	JLabel loanID = new JLabel(item.getLoanID());
             RoundedPanel card = new RoundedPanel(20);
@@ -630,12 +630,12 @@ public class MainFunctions extends JPanel {
             card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             card.setLayout(new BorderLayout());
 
-            //left part of card
+            
             JPanel leftPartCard = new JPanel();
             leftPartCard.setOpaque(false);
             leftPartCard.setLayout(new BorderLayout());
 
-            // left upper part
+            
             JPanel northLPCard = new JPanel();
             northLPCard.setOpaque(false);
             northLPCard.setLayout(new BorderLayout());
@@ -652,12 +652,12 @@ public class MainFunctions extends JPanel {
 
             leftPartCard.add(northLPCard, BorderLayout.NORTH);
 
-            // center container
+            
             JPanel centerContainer = new JPanel();
             centerContainer.setOpaque(false);
             centerContainer.setLayout(new BorderLayout());
 
-            // center upper part
+            
             JPanel centerLPCard = new JPanel();
             centerLPCard.setOpaque(false);
             centerLPCard.setLayout(new BorderLayout());
@@ -674,7 +674,7 @@ public class MainFunctions extends JPanel {
 
             centerContainer.add(centerLPCard, BorderLayout.NORTH);
 
-            // center lower part
+            
             JPanel lowerLPCard = new JPanel();
             lowerLPCard.setOpaque(false);
             lowerLPCard.setLayout(new BorderLayout());
@@ -701,12 +701,12 @@ public class MainFunctions extends JPanel {
 
             leftPartCard.add(centerContainer, BorderLayout.CENTER);
 
-            //right part of card
+            
             JPanel rightPartCard = new JPanel();
             rightPartCard.setOpaque(false);
             rightPartCard.setLayout(new BorderLayout());
 
-            // right upper part
+            
             JPanel northRPCard = new JPanel();
             northRPCard.setOpaque(false);
             northRPCard.setLayout(new BorderLayout());
@@ -723,7 +723,7 @@ public class MainFunctions extends JPanel {
 
             rightPartCard.add(northRPCard, BorderLayout.NORTH);
 
-            // button to view Details
+            
             RoundedButton viewBtn = new RoundedButton("View Details", 20);
             viewBtn.setPreferredSize(new Dimension(100, 30));
             viewBtn.setBackground(Color.decode("#5d1513"));
@@ -736,7 +736,7 @@ public class MainFunctions extends JPanel {
 
             rightPartCard.add(viewBtn, BorderLayout.SOUTH);
 
-            // add
+            
             card.add(leftPartCard, BorderLayout.WEST);
             card.add(rightPartCard, BorderLayout.EAST);
             add(card, gbcCard);
@@ -749,11 +749,11 @@ public class MainFunctions extends JPanel {
     public void showBulacanianaBooks(String searchQuery, String[] filters) {
         List<DAOBook> books = daoBook.getAllBooks("BulColl",searchQuery, filters[0], filters[1], filters[2]);
 
-        // loadPatrons();
+        
         int minColumnHeight = bulacanianaTab.getMinColumnHeight();
         int minColumnWidth = bulacanianaTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -888,11 +888,11 @@ public class MainFunctions extends JPanel {
     public void showFictionBooks(String searchQuery, String[] filters) {
         List<DAOBook> books = daoBook.getAllBooks("FictColl",searchQuery, filters[0], filters[1], filters[2]);
 
-        // loadPatrons();
+        
         int minColumnHeight = fictionTab.getMinColumnHeight();
         int minColumnWidth = fictionTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -1026,11 +1026,11 @@ public class MainFunctions extends JPanel {
     public void showFilipinianaBooks(String searchQuery, String[] filters) {
         List<DAOBook> books = daoBook.getAllBooks("FiliColl", searchQuery, filters[0], filters[1], filters[2]);
 
-        // loadPatrons();
+        
         int minColumnHeight = filipinianaTab.getMinColumnHeight();
         int minColumnWidth = filipinianaTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -1164,11 +1164,11 @@ public class MainFunctions extends JPanel {
     public void showGenSecBooks(String searchQuery, String[] filters) {
         List<DAOBook> books = daoBook.getAllBooks("CircColl", searchQuery, filters[0], filters[1], filters[2]);
 
-        // loadPatrons();
+        
         int minColumnHeight = genSecTab.getMinColumnHeight();
         int minColumnWidth = genSecTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -1302,11 +1302,11 @@ public class MainFunctions extends JPanel {
     public void showReferenceBooks(String searchQuery, String[] filters) {
         List<DAOBook> books = daoBook.getAllBooks("RefColl", searchQuery, filters[0], filters[1], filters[2]);
 
-        // loadPatrons();
+        
         int minColumnHeight = referenceTab.getMinColumnHeight();
         int minColumnWidth = referenceTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -1440,11 +1440,11 @@ public class MainFunctions extends JPanel {
     public void showReserveBooks(String searchQuery, String[] filters) {
         List<DAOBook> books = daoBook.getAllBooks("ResColl", searchQuery, filters[0], filters[1], filters[2]);
 
-        // loadPatrons();
+        
         int minColumnHeight = reserveTab.getMinColumnHeight();
         int minColumnWidth = reserveTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -1578,11 +1578,11 @@ public class MainFunctions extends JPanel {
     public void showThesisAndDissertationBooks(String searchQuery, String[] filters) {
         List<DAOBook> books = daoBook.getAllBooks("T&D", searchQuery, filters[0], filters[1], filters[2]);
 
-        // loadPatrons();
+        
         int minColumnHeight = TaDTab.getMinColumnHeight();
         int minColumnWidth = TaDTab.getMinColumnWidth();
 
-        // int columnCount = patTab.getColumnCount();
+        
         setOpaque(false);
         setLayout(new GridBagLayout());
 

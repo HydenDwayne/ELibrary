@@ -8,8 +8,8 @@ public class RoundedTextField extends JTextField {
     private String placeholder = "";
     private Color placeholderColor = Color.GRAY;
     private Color normalColor = Color.BLACK;
-    private Color borderColor = null; // no border by default
-    private int borderThickness = 1;        // default thickness
+    private Color borderColor = null;
+    private int borderThickness = 1;
 
     public RoundedTextField(int columns, int radius) {
         super(columns);
@@ -77,13 +77,12 @@ public class RoundedTextField extends JTextField {
         g2.setColor(borderColor);
         g2.setStroke(new BasicStroke(borderThickness));
 
-        // Use ceil so thick strokes don't bleed outside bounds
         int inset = (int) Math.ceil(borderThickness / 2.0);
         g2.drawRoundRect(
             inset,
             inset,
-            getWidth() - 2 * inset,   // was: getWidth() - borderThickness
-            getHeight() - 2 * inset,  // was: getHeight() - borderThickness
+            getWidth() - 2 * inset,
+            getHeight() - 2 * inset,
             cornerRadius,
             cornerRadius
         );
@@ -94,10 +93,10 @@ public class RoundedTextField extends JTextField {
     public Insets getInsets() {
         int pad = (int) Math.ceil(borderThickness / 2.0);
         return new Insets(
-            5 + pad,   // top
-            10 + pad,  // left
-            5 + pad,   // bottom
-            10 + pad   // right
+            5 + pad,
+            10 + pad,
+            5 + pad,
+            10 + pad
         );
     }
 }

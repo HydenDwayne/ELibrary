@@ -109,7 +109,7 @@ public class ViewBooks extends JPanel {
 
         /* ================= FIELDS ================= */
         
-     // ---- Book Title ----
+     
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel callNumberLbl = new JLabel("Call Number:");
@@ -125,7 +125,7 @@ public class ViewBooks extends JPanel {
         callNumberField.setBorderThickness(1);
         innerBody.add(callNumberField, gbc);
 
-        // ---- Book Title ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel bookTitleLbl = new JLabel("Book Title:");
@@ -142,7 +142,7 @@ public class ViewBooks extends JPanel {
         
         Dimension fieldSize = new Dimension(200, bookTitleField.getPreferredSize().height);
 
-        // ---- Author ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel authorLbl = new JLabel("Author:");
@@ -157,7 +157,7 @@ public class ViewBooks extends JPanel {
         authorField.setBorderThickness(1);
         innerBody.add(authorField, gbc);
 
-        // ---- Publication Year (2000–2016) ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel yearLbl = new JLabel("Publication Year:");
@@ -177,7 +177,7 @@ public class ViewBooks extends JPanel {
         yearField.setEnabled(false);
         innerBody.add(yearField, gbc);
 
-        // ---- Book Type ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel typeLbl = new JLabel("Book Type:");
@@ -195,18 +195,18 @@ public class ViewBooks extends JPanel {
             String selectedType = (String) typeCombo.getSelectedItem();
 
             if ("NBB".equals(selectedType)) {
-                // Only allow reference, reserve, theses, and dissertation
+                
                 String[] nbbCollections = {
                     "Reference Collection",
                     "Reserve Collection",
                     "Theses and Dissertations"
                 };
                 collectionCombo.setModel(new DefaultComboBoxModel<>(nbbCollections));
-                collectionCombo.setEnabled(true); // editable if you want
+                collectionCombo.setEnabled(true); 
                 availCombo.setEnabled(false);
                 seriesField.setEnabled(true);
             } else if ("BB".equals(selectedType)) {
-                // Restore all other collections
+                
                 String[] bbCollections = {
                     "Bulacaniana Collection", 
                     "General Circulation Section", 
@@ -223,7 +223,7 @@ public class ViewBooks extends JPanel {
         
         innerBody.add(typeCombo, gbc);
 
-        // ---- Collection Code ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel collectionLbl = new JLabel("Collection Code:");
@@ -249,7 +249,7 @@ public class ViewBooks extends JPanel {
         collectionCombo.setBorderThickness(1);
         innerBody.add(collectionCombo, gbc);
 
-        // ---- Classification Code (DAO‑populated) ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel classLbl = new JLabel("Classification Code:");
@@ -266,7 +266,7 @@ public class ViewBooks extends JPanel {
         classField.setEnabled(false);
         innerBody.add(classField, gbc);
 
-        // ---- Availability Status ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel availLbl = new JLabel("Availability Status:");
@@ -290,7 +290,7 @@ public class ViewBooks extends JPanel {
             if ("Borrowed".equals(selected)) {
                 availCombo.setEnabled(false);
             } else {
-                // Show only Available and Archived
+                
                 String[] options = {"Available", "Archived"};
                 availCombo.setModel(new DefaultComboBoxModel<>(options));
                 availCombo.setEnabled(false);
@@ -300,7 +300,7 @@ public class ViewBooks extends JPanel {
         
         innerBody.add(availCombo, gbc);
 
-        // ---- Series Title ----
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel seriesLbl = new JLabel("Series Title:");
@@ -317,7 +317,7 @@ public class ViewBooks extends JPanel {
 
         /* ================= CONTROLLER ================= */
 
-        new BookController(this, callNumber); // loads data + classification codes
+        new BookController(this, callNumber); 
 
         if ("Borrowed".equals(availCombo.getSelectedItem())) {
             availCombo.setEnabled(false);
@@ -340,7 +340,7 @@ public class ViewBooks extends JPanel {
         saveBtn.setBackground(MAROON);
         saveBtn.setForeground(WHITE);
         saveBtn.addActionListener(e -> {
-            // Gather all fields
+            
             String callNumberTxt = callNumberField.getRealText().trim();
             String bookTitle  = bookTitleField.getRealText().trim();
             String author     = authorField.getRealText().trim();
@@ -351,7 +351,7 @@ public class ViewBooks extends JPanel {
             String availability   = availCombo.getSelectedItem() != null ? availCombo.getSelectedItem().toString() : "";
             String seriesTitle    = seriesField.getRealText().trim();
 
-            // Validate all required fields
+            
             if (callNumberTxt.isEmpty() || bookTitle.isEmpty() || author.isEmpty() ||
                 year.isEmpty() || type.isEmpty() || collection.isEmpty() ||
                 classification.isEmpty() || availability.isEmpty() || seriesTitle.isEmpty()) {
@@ -365,7 +365,7 @@ public class ViewBooks extends JPanel {
                 return;
             }
 
-            // Prepare book details array
+            
             String[] bookDetails = {
             		callNumberTxt,
                 bookTitle,
@@ -378,10 +378,10 @@ public class ViewBooks extends JPanel {
                 seriesTitle
             };
 
-            // Pass to controller
+            
             new BookController(this, bookDetails);
 
-            // Close modal
+            
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w instanceof JDialog) w.dispose();
         });

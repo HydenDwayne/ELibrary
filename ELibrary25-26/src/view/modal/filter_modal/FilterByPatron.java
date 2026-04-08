@@ -148,7 +148,7 @@ public class FilterByPatron extends JPanel {
 
 		body.add(innerBody, BorderLayout.CENTER);
 
-		// ===== RESTORE CAMPUS FILTER STATE =====
+		
 		main.setSelected(pt.isFilterMain());
 		hagonoy.setSelected(pt.isFilterHagonoy());
 		sanRafael.setSelected(pt.isFilterSanRafael());
@@ -156,7 +156,7 @@ public class FilterByPatron extends JPanel {
 		meneses.setSelected(pt.isFilterMeneses());
 		sarmiento.setSelected(pt.isFilterSarmiento());
 
-		// ===== RESTORE PATRON TYPE FILTER STATE =====
+		
 		employee.setSelected(pt.isFilterEmployee());
 		student.setSelected(pt.isFilterStudent());
 

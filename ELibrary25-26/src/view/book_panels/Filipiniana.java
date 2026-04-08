@@ -52,11 +52,11 @@ public class Filipiniana extends JPanel {
         bookContainer.setLayout(new BorderLayout());
         bookContainer.setBackground(Color.WHITE);
 
-        // selected book items
+        
         JPanel slctdBooks = new JPanel();
         slctdBooks.setOpaque(false);
 
-// Create labels
+
         JPanel tableHeader = new JPanel();
         slctdBooks.setLayout(new BorderLayout());
         tableHeader.setLayout(new GridBagLayout());
@@ -151,7 +151,7 @@ public class Filipiniana extends JPanel {
 
         slctdBooks.add(tableHeader, BorderLayout.NORTH);
 
-        // actual table data ============================
+        
         tableData = new JPanel();
         tableData.setOpaque(false);
 
@@ -173,7 +173,7 @@ public class Filipiniana extends JPanel {
 
         setBackground(Color.BLUE);
 
-        //============================================== 
+        
         add(bookContainer, gbc);
         setBackground(Color.decode("#ffffff"));
 

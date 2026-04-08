@@ -26,7 +26,7 @@ public class AddRequestItem extends JPanel {
 
     
 
-    // Fields
+    
     RoundedTextField serialField;
     RoundedTextField patronField;
     RoundedTextField venueField;
@@ -102,7 +102,7 @@ public class AddRequestItem extends JPanel {
 
         /* ================= FORM ROWS ================= */
 
-        // Serial Number
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel serialLbl = new JLabel("Serial Number:");
@@ -118,7 +118,7 @@ public class AddRequestItem extends JPanel {
         serialField.setBorderThickness(1);
         innerBody.add(serialField, gbc);
 
-        // Patron ID
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JPanel patronLblWrap = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -144,7 +144,7 @@ public class AddRequestItem extends JPanel {
         patronField.setBorderThickness(1);
         innerBody.add(patronField, gbc);
 
-        // Venue
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel venueLbl = new JLabel("Venue:");
@@ -160,7 +160,7 @@ public class AddRequestItem extends JPanel {
         venueField.setBorderThickness(1);
         innerBody.add(venueField, gbc);
 
-        // ✅ Borrow Date (NEW)
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel dateLbl = new JLabel("Borrow Date:");
@@ -207,7 +207,7 @@ public class AddRequestItem extends JPanel {
                                 ? borrowDateField.getRealText().trim()
                                 : "";
 
-            // VALIDATION
+            
             if (serial.isEmpty() || patron.isEmpty() || venue.isEmpty() || borrowDate.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Fill all fields");
                 return;
@@ -277,7 +277,7 @@ public class AddRequestItem extends JPanel {
 	    date = date.trim();
 	    String[] parts = date.split("-");
 
-	    // Must be year-month-day
+	    
 	    if (parts.length != 3) {
 	        return null;
 	    }
@@ -286,12 +286,12 @@ public class AddRequestItem extends JPanel {
 	    String monthPart = parts[1];
 	    String dayPart   = parts[2];
 
-	    // Year must be exactly 4 digits
+	    
 	    if (!yearPart.matches("\\d{4}")) {
 	        return null;
 	    }
 
-	    // Month and day: 1 or 2 digits only
+	    
 	    if (!monthPart.matches("\\d{1,2}") || !dayPart.matches("\\d{1,2}")) {
 	        return null;
 	    }
@@ -300,7 +300,7 @@ public class AddRequestItem extends JPanel {
 	    int month = Integer.parseInt(monthPart);
 	    int day   = Integer.parseInt(dayPart);
 
-	    // Month range
+	    
 	    if (month < 1 || month > 12) {
 	        return null;
 	    }
@@ -310,7 +310,7 @@ public class AddRequestItem extends JPanel {
 	        31, 31, 30, 31, 30, 31
 	    };
 
-	    // Leap year adjustment
+	    
 	    boolean isLeapYear =
 	        (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
 
@@ -318,12 +318,12 @@ public class AddRequestItem extends JPanel {
 	        daysInMonth[1] = 29;
 	    }
 
-	    // Day range
+	    
 	    if (day < 1 || day > daysInMonth[month - 1]) {
 	        return null;
 	    }
 
-	    // ✅ Normalize to YYYY-MM-DD
+	    
 	    String normalizedMonth = (month < 10 ? "0" : "") + month;
 	    String normalizedDay   = (day   < 10 ? "0" : "") + day;
 

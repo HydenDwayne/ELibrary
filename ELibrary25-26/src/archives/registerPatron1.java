@@ -27,7 +27,7 @@ public class registerPatron1 extends JFrame {
         registerPanel.setBorder(BorderFactory.createEtchedBorder());
         registerPanel.setLayout(new BorderLayout());
 
-        // Logo banner 
+        
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(MAROON);
         logoPanel.setPreferredSize(new Dimension(400, 45));
@@ -37,13 +37,13 @@ public class registerPatron1 extends JFrame {
         logoPanel.add(logoLabel);
         registerPanel.add(logoPanel, BorderLayout.NORTH);
 
-        // Body 
+        
         JPanel bodyPanel = new JPanel();
         bodyPanel.setBackground(LIGHT_PINK);
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
         bodyPanel.setBorder(new EmptyBorder(14, 16, 14, 16));
 
-        // Title
+        
         JPanel parentPanel = new JPanel(new GridLayout(2, 1,5,10));
         parentPanel.setPreferredSize(new Dimension(399, 50));
         parentPanel.setBackground(LIGHT_PINK);
@@ -58,7 +58,7 @@ public class registerPatron1 extends JFrame {
         parentPanel.add(titlePanelChild);
        
        
-        // Step
+        
         JPanel stepPanelChild = new JPanel(new BorderLayout());
         stepPanelChild.setPreferredSize(new Dimension(397, 21));
         stepPanelChild.setBackground(LIGHT_PINK);
@@ -108,7 +108,7 @@ public class registerPatron1 extends JFrame {
         bodyPanel.add(separator());
         bodyPanel.add(Box.createVerticalGlue());
         
-        // Radio buttons
+        
         JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         radioPanel.setBackground(LIGHT_PINK);
         radioPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
@@ -130,7 +130,7 @@ public class registerPatron1 extends JFrame {
         bodyPanel.add(separator());
         bodyPanel.add(Box.createVerticalGlue());
 
-        // Buttons
+        
         JPanel btnPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         btnPanel.setBackground(LIGHT_PINK);
         btnPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
@@ -155,7 +155,7 @@ public class registerPatron1 extends JFrame {
 
         registerPanel.add(bodyPanel, BorderLayout.CENTER);
 
-        // Wrapper
+        
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setBackground(new Color(210, 180, 180));
         wrapper.add(registerPanel);

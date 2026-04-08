@@ -50,7 +50,7 @@ public class OverviewTab extends JPanel {
 		int smallWidgetWidth = 250;
 		int smallWidgetHeight = 130;
 
-		// available books
+		
 		RoundedPanel availableBooks = new RoundedPanel(panelRadius);
 		JLabel availableBooksLabel = new JLabel("Available Books");
 		availableBooks.setPreferredSize(new Dimension(smallWidgetWidth, smallWidgetHeight));
@@ -58,7 +58,7 @@ public class OverviewTab extends JPanel {
 		availableBooks.setLayout(new BoxLayout(availableBooks, BoxLayout.Y_AXIS));
 		availableBooks.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-		// borrowed books
+		
 		RoundedPanel borrowedBooks = new RoundedPanel(panelRadius);
 		JLabel borrowedBooksLabel = new JLabel("Borrowed Books");
 
@@ -67,7 +67,7 @@ public class OverviewTab extends JPanel {
 		borrowedBooks.setLayout(new BoxLayout(borrowedBooks, BoxLayout.Y_AXIS));
 		borrowedBooks.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-		// overdue books
+		
 		RoundedPanel overdueBooks = new RoundedPanel(panelRadius);
 		JLabel overdueBooksLabel = new JLabel("Overdue Books");
 
@@ -76,7 +76,7 @@ public class OverviewTab extends JPanel {
 		overdueBooks.setLayout(new BoxLayout(overdueBooks, BoxLayout.Y_AXIS));
 		overdueBooks.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-		// active patrons
+		
 		RoundedPanel activePatrons = new RoundedPanel(panelRadius);
 		JLabel activePatronsLabel = new JLabel("Active Patrons");
 
@@ -85,7 +85,7 @@ public class OverviewTab extends JPanel {
 		activePatrons.setLayout(new BoxLayout(activePatrons, BoxLayout.Y_AXIS));
 		activePatrons.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-		// content of the widgets
+		
 		availableBooksLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		activeBooksData.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -130,7 +130,7 @@ public class OverviewTab extends JPanel {
 		activePatrons.add(Box.createVerticalStrut(8));
 		activePatrons.add(activePatronsData);
 
-		// colors
+		
 		availableBooksLabel.setForeground(Color.decode("#6d2321"));
 		borrowedBooksLabel.setForeground(Color.decode("#6d2321"));
 		overdueBooksLabel.setForeground(Color.decode("#6d2321"));
@@ -141,7 +141,7 @@ public class OverviewTab extends JPanel {
 		overdueBooksData.setForeground(Color.decode("#b83d3d"));
 		activePatronsData.setForeground(Color.decode("#164f9b"));
 
-		// add to container
+		
 		gbcContainer.gridy++;
 		overviewTab.add(availableBooks, gbcContainer);
 		gbcContainer.gridy++;
@@ -150,14 +150,14 @@ public class OverviewTab extends JPanel {
 		overviewTab.add(overdueBooks, gbcContainer);
 		gbcContainer.gridy++;
 		overviewTab.add(activePatrons, gbcContainer);
-		// analytics
+		
 		gbcContainer.gridx++;
 		gbcContainer.gridheight = 2;
 
 		int analyticsWidth = 700;
 		int analyticsHeight = (smallWidgetHeight * 2) + 20;
 
-		// upper analytics panel -------------------------------------------------
+		
 		RoundedPanel analyticsTop = new RoundedPanel(panelRadius);
 		analyticsTop.setLayout(new GridBagLayout());
 		GridBagConstraints gbcAT = new GridBagConstraints();
@@ -168,7 +168,7 @@ public class OverviewTab extends JPanel {
 		gbcAT.gridy = 1;
 		analyticsTop.add(analyticsOne, gbcAT);
 
-		// actual bounds of the analytics
+		
 		BookTraffic bookTraffic = new BookTraffic();
 		bookTraffic.setPreferredSize(new Dimension(analyticsWidth - 40, analyticsHeight - 60));
 
@@ -182,7 +182,7 @@ public class OverviewTab extends JPanel {
 		overviewTab.add(analyticsTop, gbcContainer);
 		gbcContainer.gridheight = 2;
 
-		// bottom analytics panel
+		
 		RoundedPanel analyticsBottom = new RoundedPanel(panelRadius);
 		analyticsBottom.setLayout(new GridBagLayout());
 		GridBagConstraints gbcAB = new GridBagConstraints();
@@ -193,7 +193,7 @@ public class OverviewTab extends JPanel {
 		gbcAB.gridy = 1;
 		analyticsBottom.add(analyticsTwo, gbcAB);
 
-		// actual bounds of the analytics
+		
 
 		PatronTraffic patTraffic = new PatronTraffic();
 		patTraffic.setPreferredSize(new Dimension(analyticsWidth - 40, analyticsHeight - 60));
@@ -215,7 +215,7 @@ public class OverviewTab extends JPanel {
 		analyticsOne.setForeground(Color.decode("#6d2321"));
 		analyticsTwo.setForeground(Color.decode("#6d2321"));
 
-		// other widgets
+		
 		gbcContainer.gridx++;
 
 		RoundedPanel quickActions = new RoundedPanel(panelRadius);
@@ -268,7 +268,7 @@ public class OverviewTab extends JPanel {
 
 		overviewTab.add(quickActions, gbcContainer);
 
-		// calendar
+		
 		RoundedPanel calendar = new RoundedPanel(panelRadius);
 		calendar.setPreferredSize(new Dimension(300, (smallWidgetHeight * 3) + 40));
 		calendar.setLayout(new BorderLayout());
@@ -319,7 +319,7 @@ public class OverviewTab extends JPanel {
 
 		String[] weekLabel = { "Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat" };
 
-		// header
+		
 		for (String label : weekLabel) {
 			JPanel labelRow = new JPanel();
 			labelRow.setLayout(new GridBagLayout());
@@ -346,17 +346,17 @@ public class OverviewTab extends JPanel {
 
 		int startColumn = firstDay.getDayOfWeek().getValue() % 7;
 
-		// start days buffer
+		
 		for (int i = 0; i < startColumn; i++) {
 			calendarGrid.add(new JLabel(""));
 		}
 
-		// days
+		
 		FunctionHallController comp = new FunctionHallController(this, calendarGrid);
 
 		int cellsFilled = startColumn + daysInMonth;
 
-		// end days buffer
+		
 		for (int i = cellsFilled; i < 42; i++) {
 			calendarGrid.add(new JLabel(""));
 		}

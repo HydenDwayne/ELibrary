@@ -26,7 +26,7 @@ public class Toolbar extends JPanel implements ActionListener {
     public Toolbar(Dashboard dashboard) {
         int panelRadius = 20;
         this.dashboard = dashboard;
-        // ---- Toolbar ----
+        
         RoundedPanel toolbar = new RoundedPanel(50);
         toolbar.setPreferredSize(new Dimension(800, 100));
         toolbar.setBackground(Color.decode("#842b28"));

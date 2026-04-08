@@ -86,7 +86,7 @@ public class ArchivedFunctionHall extends JPanel {
         DefaultTableModel model = new DefaultTableModel(data, columnHeader) {
         	@Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make every cell non-editable
+                return false; 
             }
         };
         
@@ -139,7 +139,7 @@ public class ArchivedFunctionHall extends JPanel {
         unarchiveBtn.addActionListener(e -> {
         	int selectedRow = table.getSelectedRow();
         	if (selectedRow != -1) {
-        	    Object value = table.getValueAt(selectedRow, 0); // column 0 = first column
+        	    Object value = table.getValueAt(selectedRow, 0); 
         	    String firstColumnValue = value.toString();
 
         	    ArchiveController ac = new ArchiveController("HallReservation", firstColumnValue);

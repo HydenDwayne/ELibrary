@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
 import model.DAOs.ActiveRequest.DAOActiveRequest;
 import model.DAOs.Reports.DAOBook;
 import model.DAOs.Reports.DAOBookLoan;
@@ -18,9 +19,10 @@ import model.DAOs.Reports.DAOPatron;
 import model.DAOs.Reports.DAOReturnBook;
 
 public class ArchivedDAOImp {
-	private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
     public List<DAOArchivedBook> getBooksArchives() {
 
@@ -32,7 +34,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	archives.add(new DAOArchivedBook(
             			rs.getString("CallNumber"), 
             			rs.getString("Title"),
@@ -61,7 +63,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedBookLoan(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),
@@ -89,7 +91,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedEquipmentLoan(
             			 rs.getString("LoanID"),
                          rs.getString("FacilityCode"),
@@ -120,7 +122,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
                 reports.add(new DAOArchivedFunctionHall(
                         rs.getString("FunctionHallCode"),
                         rs.getString("HallReservationNumber"),
@@ -150,7 +152,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedIMS(
             			rs.getString("SerialNumber"),
                         rs.getString("EquipmentName"),
@@ -177,7 +179,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedLoginFacility(
                         rs.getString("FacilityCode"),
                         rs.getString("LogID"),
@@ -205,7 +207,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedPatron(
             			rs.getString("PatronID"),
             			rs.getString("FirstName"),
@@ -236,7 +238,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedReturnBook(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),
@@ -261,7 +263,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedLostAndFound(
             			 rs.getString("Lost_ItemNum"),
                          rs.getString("ItemLost"),
@@ -288,7 +290,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedBorrowedBook(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),
@@ -316,7 +318,7 @@ public class ArchivedDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOArchivedOverdueBook(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),
@@ -364,7 +366,7 @@ public class ArchivedDAOImp {
     
     public boolean setUnarchived(String tableName, String pk) {
 
-        // WARNING: Prefer whitelisting table names to avoid SQL injection
+        
         String sql = "{CALL unarchive" + tableName + "(?)}";
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -386,6 +388,6 @@ public class ArchivedDAOImp {
             e.printStackTrace();
         }
 
-        return false; // default if no result or error
+        return false; 
     }
 }

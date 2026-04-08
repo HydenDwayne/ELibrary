@@ -11,13 +11,13 @@ public class AddBookModal extends RoundedDialog {
     private final Window parent;
 
     public AddBookModal(Window parent) {
-        super(parent, 20); // same radius as other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // Dim the background
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // Set content
+        
         setContentPane(new AddBook());
         pack();
         setLocationRelativeTo(parent);

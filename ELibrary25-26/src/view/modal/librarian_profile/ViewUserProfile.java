@@ -225,12 +225,12 @@ public class ViewUserProfile extends JPanel {
             String newPass = new String(newPasswordField.getPassword());
             String confirm = new String(confirmPasswordField.getPassword());
 
-            // Check if username, fullName, email are non-whitespace
+            
             if (!username.isEmpty() && !email.isEmpty() && !fullName.isEmpty()) {
 
                 String[] userData;
 
-                // Case 1: new password fields are empty or null
+                
                 if ((newPass == null || newPass.isEmpty()) && (confirm == null || confirm.isEmpty())) {
                     userData = new String[]{user, username, fullName, email, password,"","", "false"};
                     boolean isSuccessful = comp.updateLibrarianDetails(userData);
@@ -248,7 +248,7 @@ public class ViewUserProfile extends JPanel {
                         }
                     }
                 } 
-                // Case 2: new password fields both have values
+                
                 else if (!newPass.isEmpty() && !confirm.isEmpty()) {
                     if (!newPass.equals(confirm)) {
                         JOptionPane.showMessageDialog(this, "New passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -275,7 +275,7 @@ public class ViewUserProfile extends JPanel {
                     return;
                 }
 
-//                JOptionPane.showMessageDialog(this, "Data validated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
             } else {
                 JOptionPane.showMessageDialog(this, "Username, Full Name, and Email cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
             }

@@ -9,11 +9,11 @@ import javax.swing.table.DefaultTableModel;
 import controller.ReportsController;
 
 public class ReportsIPadArea extends JPanel {
-	 static final Color MAROON       = new Color(132, 43, 40);      // #842b28
-	    static final Color LIGHT_PINK   = new Color(250, 236, 238);  // #faecee
+	 static final Color MAROON       = new Color(132, 43, 40);      
+	    static final Color LIGHT_PINK   = new Color(250, 236, 238);  
 	    static final Color WHITE        = Color.WHITE;
-	    static final Color DARK_TEXT    = new Color(109, 35, 33);      // #6d2321
-	    static final Color FIELD_BORDER = new Color(146, 76, 74);    // #924c4a
+	    static final Color DARK_TEXT    = new Color(109, 35, 33);      
+	    static final Color FIELD_BORDER = new Color(146, 76, 74);    
 
 	    static final int PANEL_RADIUS = 20;
 	    static final int FIELD_RADIUS = 15;
@@ -22,24 +22,24 @@ public class ReportsIPadArea extends JPanel {
     public ReportsIPadArea() {
         setLayout(new BorderLayout());
 
-        // Column names (excluding isArchived)
+        
         String[] columnNames = {
             "Facility Code", "Log ID", "Patron Time In", "Patron Time Out", "Patron ID", "Card No"
         };
 
-        // Dummy data rows
+        
         ReportsController comp = new ReportsController("iPAD");
         Object[][] data = comp.getTableDataFL();
 
-        // Table model
+        
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
         	@Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make every cell non-editable
+                return false; 
             }
         };
 
-        // JTable
+        
          table = new JTable(model);
         table.setFillsViewportHeight(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -52,8 +52,8 @@ public class ReportsIPadArea extends JPanel {
 	    Font introRustStyle = introRust.getAppliedFont();
         table.setFont(poppinsStyle);
         table.getTableHeader().setFont(introRustStyle);
-        table.getTableHeader().setBackground(MAROON); // maroon header
-        table.getTableHeader().setForeground(WHITE);            // white text
+        table.getTableHeader().setBackground(MAROON); 
+        table.getTableHeader().setForeground(WHITE);            
         table.setGridColor(FIELD_BORDER);
         table.setShowGrid(false);
 
@@ -67,11 +67,11 @@ public class ReportsIPadArea extends JPanel {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        // Scroll pane with preferred size
+        
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(1180, 400)); // fits under 1280x560
+        scrollPane.setPreferredSize(new Dimension(1180, 400)); 
 
-        // Add to panel
+        
         add(scrollPane, BorderLayout.CENTER);
     }
 

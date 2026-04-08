@@ -16,13 +16,13 @@ import view.front_pages.LoginWindow;
 
 public class FacilityLogin extends JFrame implements ActionListener {
 
-	// NEW: wrapper
+	
 	private JPanel patronStateWrapper;
 
-	// reference to normal state
+	
 	private JPanel patronInfoPanel;
 
-	// reference to error state
+	
 	private RoundedPanel patronErrorPanel;
 
 	RoundedComboBox<String> dropdownCollection;
@@ -73,7 +73,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		GridBagConstraints gbcMain = new GridBagConstraints();
 		gbcMain.gridx = 0;
 		gbcMain.gridy = 0;
-		gbcMain.insets = new Insets(0, 100, 0, 75); // spacing between components
+		gbcMain.insets = new Insets(0, 100, 0, 75); 
 
 		RoundedPanel loginContainer = new RoundedPanel(30);
 		loginContainer.setPreferredSize(new Dimension(350, 400));
@@ -85,9 +85,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.insets = new Insets(10, 0, 10, 0); // spacing between components
+		gbc.insets = new Insets(10, 0, 10, 0); 
 
-		// elib logo
+		
 		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
 		Image image = icon.getImage();
 		Image scaledImage = image.getScaledInstance(160, 80, Image.SCALE_SMOOTH);
@@ -96,7 +96,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		elibLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		loginContainer.add(elibLogo, gbc);
 
-		// welcome message
+		
 		gbc.gridy++;
 		JLabel welcomeMsg = new JLabel("Enter ID Number to Login");
 
@@ -108,7 +108,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		welcomeMsg.setHorizontalAlignment(SwingConstants.CENTER);
 		loginContainer.add(welcomeMsg, gbc);
 
-		// username field
+		
 		gbc.gridy++;
 
 		JPanel inputWrapper = new JPanel();
@@ -190,20 +190,20 @@ public class FacilityLogin extends JFrame implements ActionListener {
 		Fonts poppins12 = new Fonts("Poppins", 12f);
 		Font poppinsStyle12 = poppins12.getAppliedFont();
 
-//        JButton loginFacility = new JButton("Register here");
-//        loginFacility.setFont(poppinsStyle12);
-//        loginFacility.setBorderPainted(false);
-//        loginFacility.setContentAreaFilled(false);
-//        loginFacility.setFocusPainted(false);
-//        loginFacility.setOpaque(false);
-//        loginFacility.setForeground(Color.decode("#f8c169"));
-//        loginFacility.setFont(loginFacility.getFont().deriveFont(Font.PLAIN, 14f));
-//        loginFacility.addActionListener(e -> {
-//            RegisterPatron rp = new RegisterPatron(frame);
-//            rp.setVisible(true);
-//            dispose();
-//        });
-//        loginContainer.add(loginFacility, gbc);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		panel.add(loginContainer, gbcMain);
 
@@ -233,7 +233,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		facilitySelector.add(selectPanel, BorderLayout.WEST);
 
-		// combobox
+		
 		JPanel cmbbxPanel = new JPanel();
 		cmbbxPanel.setOpaque(false);
 
@@ -291,7 +291,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		patronInfoPanel.add(patronIDPanel, gbcPatInfo);
 
-//        start
+
 		gbcPatInfo.gridx = 1;
 
 		RoundedPanel fullNamePanel = new RoundedPanel(panelRadius);
@@ -318,9 +318,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		patronInfoPanel.add(fullNamePanel, gbcPatInfo);
 
-//        end
 
-//      start
+
+
 		gbcPatInfo.gridx = 0;
 		gbcPatInfo.gridy++;
 
@@ -348,9 +348,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		patronInfoPanel.add(college_campusPanel, gbcPatInfo);
 
-//      end
 
-//      start
+
+
 		gbcPatInfo.gridx = 1;
 
 		RoundedPanel patronTypePanel = new RoundedPanel(panelRadius);
@@ -374,9 +374,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		patronInfoPanel.add(patronTypePanel, gbcPatInfo);
 
-//      end
 
-//      start
+
+
 		gbcPatInfo.gridx = 0;
 		gbcPatInfo.gridy++;
 
@@ -396,9 +396,9 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		patronInfoPanel.add(timeInPanel, gbcPatInfo);
 
-//      end
 
-//      start
+
+
 		gbcPatInfo.gridx = 1;
 
 		RoundedPanel timeOutPanel = new RoundedPanel(panelRadius);
@@ -417,7 +417,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		patronInfoPanel.add(timeOutPanel, gbcPatInfo);
 
-//      end
+
 
 		patronStateWrapper.add(patronInfoPanel, "NORMAL");
 		patronStateWrapper.add(patronErrorPanel, "ERROR");
@@ -437,7 +437,7 @@ public class FacilityLogin extends JFrame implements ActionListener {
 
 		addWindowFocusListener(new WindowAdapter() {
 			public void windowGainedFocus(WindowEvent e) {
-				// Request focus on something else, or a panel
+				
 				panel.requestFocusInWindow();
 			}
 		});

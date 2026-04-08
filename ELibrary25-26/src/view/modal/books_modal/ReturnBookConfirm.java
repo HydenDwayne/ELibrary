@@ -231,11 +231,11 @@ public class ReturnBookConfirm extends JPanel {
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);
         
-//        public RoundedTextField statusField;
-//        public RoundedTextField dueField;
-//        public RoundedTextField patronField;
-//        public RoundedTextField callField;
-//        public RoundedTextField txnField;
+
+
+
+
+
         
         dueField.setText(borrowDetails[3]);
         patronField.setText(borrowDetails[4]);
@@ -245,17 +245,17 @@ public class ReturnBookConfirm extends JPanel {
 
         String dateStr = borrowDetails[2];
 
-        // convert String → LocalDate
-     // remove time → keep only yyyy-MM-dd
+        
+     
         dateStr = dateStr.substring(0, 10);
 
-        // convert String → LocalDate
+        
         LocalDate inputDate = LocalDate.parse(dateStr);
 
-        // get current date
+        
         LocalDate today = LocalDate.now();
 
-        // compare
+        
         if (!inputDate.isBefore(today)) {
             statusField.setText("ON TIME");
         } else {

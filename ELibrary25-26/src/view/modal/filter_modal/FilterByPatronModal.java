@@ -15,11 +15,11 @@ public class FilterByPatronModal extends RoundedDialog {
         super(parent, 20);
         this.parent = parent;
 
-        // ✅ Dim parent window
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // ✅ Set content panel
-        setContentPane(new FilterByPatron(pt)); // pass tab/controller
+        
+        setContentPane(new FilterByPatron(pt)); 
         pack();
         setLocationRelativeTo(parent);
         setVisible(true);
@@ -27,7 +27,7 @@ public class FilterByPatronModal extends RoundedDialog {
 
     @Override
     public void dispose() {
-        // ✅ Remove dim when closing
+        
         ModalUtils.hideDim(parent);
         super.dispose();
     }

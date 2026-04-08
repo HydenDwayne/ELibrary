@@ -27,7 +27,7 @@ public class DAOFunctionHall {
 		this.endTime = endTime;
 	}
 
-	// Getters and Setters
+	
 	public String getFunctionHallCode() {
 		return functionHallCode;
 	}

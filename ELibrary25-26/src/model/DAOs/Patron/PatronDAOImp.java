@@ -4,11 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+
 public class PatronDAOImp {
 
-	private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-	private final String USER = "Pia";
-	private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
 	public List<DAOPatron> getAllUsers(String searchQuery, String campuses, String types) {
 
@@ -51,7 +54,7 @@ public class PatronDAOImp {
 	}
 
 	public List<DAOPatron> getUserDetail() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -61,7 +64,7 @@ public class PatronDAOImp {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement stmt = conn.prepareStatement("SELECT CollegeCode FROM COLLEGE WHERE CampCode = ?")) {
 
-			stmt.setString(1, campusCode); // DB code
+			stmt.setString(1, campusCode); 
 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -83,7 +86,7 @@ public class PatronDAOImp {
 						.prepareStatement("SELECT ProgramCode FROM PROGRAM WHERE CollCode = ? AND CampusCode = ?")) {
 
 			stmt.setString(1, collegeCode);
-			stmt.setString(2, campusCode); // ← already DB code
+			stmt.setString(2, campusCode); 
 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -104,7 +107,7 @@ public class PatronDAOImp {
 				PreparedStatement stmt = conn
 						.prepareStatement("SELECT ProgramCode FROM PROGRAM WHERE CampusCode = ?")) {
 
-			// Convert user campus to DB code
+			
 			switch (campusCode.toLowerCase()) {
 			case "main":
 				stmt.setString(1, "M");
@@ -175,7 +178,7 @@ public class PatronDAOImp {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 				CallableStatement cs = conn.prepareCall(sql)) {
 
-			// ── Patron
+			
 			cs.setString(1, patronID);
 			cs.setString(2, firstName);
 			cs.setString(3, middleInitial);
@@ -207,11 +210,11 @@ public class PatronDAOImp {
 				cs.setString(8, campCode);
 			}
 
-			// ── Student
+			
 			cs.setDate(9, yearEnrolled);
 			cs.setString(10, studentType);
 
-			// ── Undergraduate
+			
 			if (yearLevel != null)
 				cs.setString(11, yearLevel);
 			else
@@ -232,7 +235,7 @@ public class PatronDAOImp {
 			else
 				cs.setNull(14, Types.VARCHAR);
 
-			// ── Graduate / Alumni
+			
 			if (thesisTitle != null)
 				cs.setString(15, thesisTitle);
 			else
@@ -248,13 +251,13 @@ public class PatronDAOImp {
 			else
 				cs.setNull(17, Types.VARCHAR);
 
-			// ── LabHigh
+			
 			if (gradeLevel != null)
 				cs.setInt(18, gradeLevel);
 			else
 				cs.setNull(18, Types.INTEGER);
 
-			// SQL Server may return update count AFTER execute
+			
 			cs.execute();
 
 			while (cs.getMoreResults() || cs.getUpdateCount() != -1) {
@@ -266,7 +269,7 @@ public class PatronDAOImp {
 			return false;
 
 		} catch (SQLException e) {
-//			e.printStackTrace();
+
 			return false;
 		}
 	}
@@ -285,7 +288,7 @@ public class PatronDAOImp {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 				CallableStatement cs = conn.prepareCall(sql)) {
 
-			// ── Patron
+			
 			cs.setString(1, patronID);
 			cs.setString(2, firstName);
 			cs.setString(3, middleInitial);
@@ -293,21 +296,21 @@ public class PatronDAOImp {
 			cs.setString(5, emailAddress);
 			cs.setString(6, contactNumber);
 			cs.setString(7, homeAddress);
-			cs.setString(8, campCode); // ✅ already normalized
+			cs.setString(8, campCode); 
 
-			// ── Employee flags
+			
 			cs.setBoolean(9, administrator);
 			cs.setBoolean(10, libraryStaff);
 			cs.setBoolean(11, faculty);
 			cs.setDate(12, dateHired);
 
-			// ── Administrator
+			
 			if (adminPosition != null)
 				cs.setString(13, adminPosition);
 			else
 				cs.setNull(13, Types.VARCHAR);
 
-			// ── Library Staff
+			
 			if (assignmentCode != null)
 				cs.setString(14, assignmentCode);
 			else
@@ -318,7 +321,7 @@ public class PatronDAOImp {
 			else
 				cs.setNull(15, Types.VARCHAR);
 
-			// ── Faculty
+			
 			if (facultyRank != null)
 				cs.setString(16, facultyRank);
 			else
@@ -329,7 +332,7 @@ public class PatronDAOImp {
 			else
 				cs.setNull(17, Types.VARCHAR);
 
-			// ✅ EXECUTE ONCE
+			
 			cs.execute();
 
 			return true;
@@ -350,7 +353,7 @@ public class PatronDAOImp {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					return rs.getInt(1) > 0; // If count > 0, record exists
+					return rs.getInt(1) > 0; 
 				}
 			}
 
@@ -371,7 +374,7 @@ public class PatronDAOImp {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					return rs.getInt(1) > 0; // If count > 0, record exists
+					return rs.getInt(1) > 0; 
 				}
 			}
 
@@ -391,7 +394,7 @@ public class PatronDAOImp {
 
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-					return rs.getInt(1) > 0; // If count > 0, record exists
+					return rs.getInt(1) > 0; 
 				}
 			}
 
@@ -402,7 +405,7 @@ public class PatronDAOImp {
 		return false;
 	}
 
-	// view patron - student
+	
 	public String[] getStudentDetails(String patronID) {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 				CallableStatement stmt = conn.prepareCall("{CALL GetPatronWithType_IF(?)}")) {
@@ -436,14 +439,14 @@ public class PatronDAOImp {
 
 	private String checkIfColNull(ResultSet rs, String column) {
 		try {
-			rs.findColumn(column); // check if column exists
+			rs.findColumn(column); 
 			String val = rs.getString(column);
 			if (val == null) {
 				val = "";
 			}
 			return val;
 		} catch (SQLException e) {
-			return ""; // column doesn't exist
+			return ""; 
 		}
 	}
 
@@ -512,7 +515,7 @@ public class PatronDAOImp {
 		return list.toArray(new String[0]);
 	}
 
-	// view patron - employee
+	
 	public String[] getEmployeeDetails(String patronID) {
 		try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 				CallableStatement stmt = conn.prepareCall("{CALL GetPatronEmployeeDetails(?)}")) {
@@ -552,78 +555,78 @@ public class PatronDAOImp {
 	                 "{call updateRecord_Patron_Student(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"
 	             )) {
 
-	        // 1 PatronID (REQUIRED)
+	        
 	        stmt.setString(1, values[0]);
 
-	        // 2 FirstName (REQUIRED)
+	        
 	        stmt.setString(2, values[1]);
 
-	        // 3 MiddleInitial (OPTIONAL)
+	        
 	        if (isBlank(values[2]))
 	            stmt.setNull(3, Types.VARCHAR);
 	        else
 	            stmt.setString(3, values[2]);
 
-	        // 4 LastName (REQUIRED)
+	        
 	        stmt.setString(4, values[3]);
 
-	        // 5 EmailAddress (OPTIONAL)
+	        
 	        if (isBlank(values[4]))
 	            stmt.setNull(5, Types.VARCHAR);
 	        else
 	            stmt.setString(5, values[4]);
 
-	        // 6 ContactNumber (OPTIONAL)
+	        
 	        if (isBlank(values[5]))
 	            stmt.setNull(6, Types.VARCHAR);
 	        else
 	            stmt.setString(6, values[5]);
 
-	        // 7 HomeAddress (OPTIONAL)
+	        
 	        if (isBlank(values[6]))
 	            stmt.setNull(7, Types.VARCHAR);
 	        else
 	            stmt.setString(7, values[6]);
 
-	        // 8 CampCode (REQUIRED)
+	        
 	        stmt.setString(8, normalizeCampus(values[7]));
 
-	        stmt.setNull(9, Types.DATE); // YearEnrolled will not be updated by SP
+	        stmt.setNull(9, Types.DATE); 
 
-	        // 10 StudentType (REQUIRED; validated in SP)
+	        
 	        stmt.setString(10, values[9]);
 
-	        // 11 YearLevel (OPTIONAL)
+	        
 	        if (isBlank(values[10]))
 	            stmt.setNull(11, Types.VARCHAR);
 	        else
 	            stmt.setString(11, values[10]);
 
-	        // 12 ColCode (OPTIONAL)
+	        
 	        if (isBlank(values[11]))
 	            stmt.setNull(12, Types.VARCHAR);
 	        else
 	            stmt.setString(12, values[11]);
 
-	        // 13 ProgramCode (OPTIONAL)
+	        
 	        if (isBlank(values[12]))
 	            stmt.setNull(13, Types.VARCHAR);
 	        else
 	            stmt.setString(13, values[12]);
 
-	        // 14 CampusCode (OPTIONAL)
+	        
 	        if (isBlank(values[13]))
 	            stmt.setNull(14, Types.VARCHAR);
 	        else
 	            stmt.setString(14, normalizeCampus(values[13]));
 
-	        // 15 ThesisTitle (OPTIONAL)
+	        
 	        if (isBlank(values[14]))
 	            stmt.setNull(15, Types.VARCHAR);
 	        else
 	            stmt.setString(15, values[14]);
 
-	     // 16 YearGraduated (OPTIONAL, SAFE)
+	     
 	        java.sql.Date yearGraduated = parseYearOrNull(values[15]);
 
 	        if (yearGraduated != null)
@@ -632,13 +635,13 @@ public class PatronDAOImp {
 	            stmt.setNull(16, Types.DATE);
 	        
 
-	        // 17 Degree (OPTIONAL, VARCHAR(20))
+	        
 	        if (isBlank(values[16]))
 	            stmt.setNull(17, Types.VARCHAR);
 	        else
 	            stmt.setString(17, values[16]);
 
-	        // 18 GradeLevel (OPTIONAL)
+	        
 	        if (isBlank(values[17]))
 	            stmt.setNull(18, Types.VARCHAR);
 	        else
@@ -663,7 +666,7 @@ public class PatronDAOImp {
 
 	    year = year.trim();
 
-	    // STRICT: must be exactly 4 digits
+	    
 	    if (!year.matches("\\d{4}")) return null;
 
 	    return java.sql.Date.valueOf(year + "-01-01");
@@ -709,16 +712,16 @@ public class PatronDAOImp {
    	         CallableStatement stmt = conn.prepareCall("{CALL updateRecord_Patron_Employee(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {
 
 
-        	// Patron core
-        	stmt.setString(1, patronDetails[0]); // PatronID
-        	stmt.setString(2, patronDetails[1]); // FirstName
+        	
+        	stmt.setString(1, patronDetails[0]); 
+        	stmt.setString(2, patronDetails[1]); 
 
         	if (isBlank(patronDetails[2]))
         	    stmt.setNull(3, Types.VARCHAR);
         	else
         	    stmt.setString(3, patronDetails[2]);
 
-        	stmt.setString(4, patronDetails[3]); // LastName
+        	stmt.setString(4, patronDetails[3]); 
 
         	if (isBlank(patronDetails[4]))
         	    stmt.setNull(5, Types.VARCHAR);

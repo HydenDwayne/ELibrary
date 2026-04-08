@@ -98,7 +98,7 @@ public class AddIMS extends JPanel {
 
         /* ================= FORM ROWS ================= */
 
-        // Serial Number
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel serialLbl = new JLabel("Serial Number:");
@@ -114,7 +114,7 @@ public class AddIMS extends JPanel {
         serialField.setBorderThickness(1);
         innerBody.add(serialField, gbc);
 
-        // Equipment Name
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel equipLbl = new JLabel("Equipment Name:");
@@ -130,7 +130,7 @@ public class AddIMS extends JPanel {
         equipmentField.setBorderThickness(1);
         innerBody.add(equipmentField, gbc);
 
-        // Item Type (optional)
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JPanel typeLblWrap = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -167,12 +167,12 @@ public class AddIMS extends JPanel {
         confirmBtn.setForeground(WHITE);
         confirmBtn.addActionListener(e -> {
 
-            // ================= GET VALUES =================
+            
             String serial = serialField.getRealText().trim();
             String equipment = equipmentField.getRealText().trim();
             String itemType = itemTypeField.getRealText().trim();
 
-            // ================= REQUIRED VALIDATION =================
+            
             if (serial.isEmpty() || equipment.isEmpty()) {
                 JOptionPane.showMessageDialog(
                     this,
@@ -183,21 +183,21 @@ public class AddIMS extends JPanel {
                 return;
             }
 
-            // ================= OPTIONAL → NULL =================
+            
             if (itemType.isEmpty()) itemType = null;
 
-            // ================= BUILD ARRAY =================
+            
             String[] details = {
                 serial,
                 equipment,
                 itemType
             };
 
-            // ================= SAVE =================
+            
             IMSController comp = new IMSController(this);
             comp.addNewEquipment(details);
 
-            // ================= CLOSE MODAL =================
+            
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w instanceof JDialog) w.dispose();
         });

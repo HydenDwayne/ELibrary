@@ -20,7 +20,7 @@ public class RegisterPatron extends JFrame {
 
     GeneralModal genModal;
     StudentModal studModal;
-    EmployeeModal empModal;   // ✅ ADD THIS
+    EmployeeModal empModal;   
 
     private String campus;
 
@@ -47,11 +47,11 @@ public class RegisterPatron extends JFrame {
 
         genModal  = new GeneralModal(lw, this);
         studModal = new StudentModal(this, genModal);
-        empModal  = new EmployeeModal(this, genModal);   // ✅ CREATE EMPLOYEE MODAL
+        empModal  = new EmployeeModal(this, genModal);   
 
         cardPanel.add(wrap(genModal), "general");
         cardPanel.add(wrap(studModal), "student");
-        cardPanel.add(wrap(empModal), "employee"); // ✅ ADD CARD
+        cardPanel.add(wrap(empModal), "employee"); 
 
         bgPanel.setLayout(new BorderLayout());
         bgPanel.add(cardPanel, BorderLayout.CENTER);

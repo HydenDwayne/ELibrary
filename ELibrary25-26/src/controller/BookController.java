@@ -96,7 +96,7 @@ public class BookController {
 	    gbc.gridx = 1;
 	    String[] classCodes = daoBook.getAllClassification();
 	    
-	    ab.classCombo = new RoundedComboBox<>(classCodes, FIELD_RADIUS); // assign to AddBook instance
+	    ab.classCombo = new RoundedComboBox<>(classCodes, FIELD_RADIUS); 
 	    ab.classCombo.setFont(poppins10);
 	    ab.classCombo.setPlaceholder("Select");
 	    ab.classCombo.setBorderColor(FIELD_BORDER);
@@ -105,7 +105,7 @@ public class BookController {
 	    innerBody.add(ab.classCombo, gbc);
 	}
 	
-	// add book
+	
 	public BookController(String[] bookDetails) {
 		boolean isSuccessful = daoBook.insertOne(
 				bookDetails[0],
@@ -123,7 +123,7 @@ public class BookController {
 		}
 	}
 	
-	// borrow
+	
 	public BookController(AddBorrowingRequestBook1 step1, String callNumber, String patronID) {
 		boolean doesExistBook = daoBook.checkBookExists(callNumber);
 		boolean doesExistPatron = daoPatron.checkPatronExists(patronID);

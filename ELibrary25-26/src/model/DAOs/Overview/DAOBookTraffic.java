@@ -2,7 +2,7 @@ package model.DAOs.Overview;
 
 public class DAOBookTraffic {
 
-    private String dayName; // Monday, Tuesday, ...
+    private String dayName; 
     private int count;
 
     public DAOBookTraffic(String dayName, int count) {

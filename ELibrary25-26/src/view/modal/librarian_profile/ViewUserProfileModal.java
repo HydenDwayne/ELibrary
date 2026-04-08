@@ -13,13 +13,13 @@ public class ViewUserProfileModal extends RoundedDialog {
     private final Window parent;
 
     public ViewUserProfileModal(Window parent, String username, String password, Dashboard frame) {
-        super(parent, 20); // same radius as all other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // Dim background
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // Set content panel
+        
         setContentPane(new ViewUserProfile(username, password, frame));
         pack();
         setLocationRelativeTo(parent);

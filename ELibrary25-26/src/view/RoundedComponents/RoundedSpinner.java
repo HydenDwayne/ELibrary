@@ -22,7 +22,6 @@ public class RoundedSpinner extends JSpinner {
         setOpaque(false);
         setBorder(BorderFactory.createEmptyBorder());
 
-        // ✅ Match RoundedTextField height exactly
         RoundedTextField ref = new RoundedTextField(19, radius);
         fieldSize = ref.getPreferredSize();
 
@@ -30,7 +29,6 @@ public class RoundedSpinner extends JSpinner {
         setMinimumSize(fieldSize);
         setMaximumSize(new Dimension(Integer.MAX_VALUE, fieldSize.height));
 
-        // ✅ Style editor like RoundedTextField
         if (getEditor() instanceof DefaultEditor editor) {
             JTextField tf = editor.getTextField();
             tf.setOpaque(false);
@@ -41,11 +39,11 @@ public class RoundedSpinner extends JSpinner {
             tf.setMinimumSize(fieldSize);
         }
 
-        // ✅ Keep arrow buttons inside bounds
+
         styleSpinnerButtons();
     }
 
-    /* ================= BUTTON STYLING ================= */
+
 
     private void styleSpinnerButtons() {
         for (Component c : getComponents()) {
@@ -63,7 +61,6 @@ public class RoundedSpinner extends JSpinner {
         }
     }
 
-    /* ================= SHAPE ================= */
 
     private Shape getRoundedShape() {
         return new RoundRectangle2D.Float(
@@ -73,7 +70,6 @@ public class RoundedSpinner extends JSpinner {
         );
     }
 
-    /* ================= PAINT ================= */
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -81,7 +77,7 @@ public class RoundedSpinner extends JSpinner {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // ✅ Clip background
+
         g2.clip(getRoundedShape());
         g2.setColor(getBackground());
         g2.fillRoundRect(
@@ -100,7 +96,7 @@ public class RoundedSpinner extends JSpinner {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // ✅ Clip CHILDREN (arrow buttons)
+
         g2.clip(getRoundedShape());
         super.paintChildren(g2);
         g2.dispose();
@@ -130,7 +126,7 @@ public class RoundedSpinner extends JSpinner {
         g2.dispose();
     }
 
-    /* ================= PUBLIC API ================= */
+
 
     public void setBorderColor(Color color) {
         this.borderColor = color;
@@ -142,7 +138,6 @@ public class RoundedSpinner extends JSpinner {
         repaint();
     }
 
-    /* ================= INSETS ================= */
 
     @Override
     public Insets getInsets() {

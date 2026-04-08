@@ -4,12 +4,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+
 
 public class IMSDAOImp {
 
-    private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
     public List<DAOIMS> getAllItems(String searchQuery) {
 
@@ -96,7 +99,7 @@ public class IMSDAOImp {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					return rs.getInt(1) > 0; // If count > 0, record exists
+					return rs.getInt(1) > 0; 
 				}
 			}
 

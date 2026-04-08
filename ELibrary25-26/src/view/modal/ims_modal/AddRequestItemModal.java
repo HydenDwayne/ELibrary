@@ -10,13 +10,13 @@ public class AddRequestItemModal extends RoundedDialog {
     private final Window parent;
 
     public AddRequestItemModal(Window parent) {
-        super(parent, 20); // same radius as all other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // Dim background
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // Set content panel
+        
         setContentPane(new AddRequestItem());
         pack();
         setLocationRelativeTo(parent);

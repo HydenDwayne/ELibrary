@@ -24,7 +24,7 @@ public class ViewStudent extends JPanel {
 	static final int PANEL_RADIUS = 20;
 	static final int FIELD_RADIUS = 15;
 
-	// ==================== PUBLIC LABELS ====================
+	
 	public JLabel studTypeLbl = new JLabel("Student Type:");
 	public JLabel levelLbl = new JLabel("Grade / Year Level:");
 	public JLabel collegeLbl = new JLabel("College:");
@@ -34,7 +34,7 @@ public class ViewStudent extends JPanel {
 	public JLabel gradYearLbl = new JLabel("Year Graduated:");
 	public JLabel campusLbl = new JLabel("Campus:");
 
-	// ==================== PUBLIC FIELDS ====================
+	
 	public RoundedTextField thesisField = new RoundedTextField(19, FIELD_RADIUS);
 	public RoundedTextField gradYearField = new RoundedTextField(19, FIELD_RADIUS);
 
@@ -49,7 +49,7 @@ public class ViewStudent extends JPanel {
 	public RoundedComboBox<String> campusField = new RoundedComboBox<>(
 			new String[] { "Main", "Bustos", "Hagonoy", "Meneses", "Sarmiento", "San Rafael" }, FIELD_RADIUS);
 
-	// Left panel fields
+	
 	public RoundedTextField pidField = new RoundedTextField(19, FIELD_RADIUS);
 	public RoundedTextField firstNameField = new RoundedTextField(19, FIELD_RADIUS);
 	public RoundedTextField middleField = new RoundedTextField(5, FIELD_RADIUS);
@@ -58,7 +58,7 @@ public class ViewStudent extends JPanel {
 	public RoundedTextField contactField = new RoundedTextField(19, FIELD_RADIUS);
 	public RoundedTextField addressField = new RoundedTextField(19, FIELD_RADIUS);
 
-	// ==================== OTHER CLASS VARIABLES ====================
+	
 	String[] colleges = { "" };
 	String[] programs = { "" };
 	String[] yearLevel = { "" };
@@ -80,7 +80,7 @@ public class ViewStudent extends JPanel {
 		Font poppins16 = new Fonts("Poppins", 16f).getAppliedFont();
 		Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-		// ================= COMBOBOX INIT =================
+		
 		levelField = new RoundedComboBox<>(yearLevel, FIELD_RADIUS);
 		collegeField = new RoundedComboBox<>(colleges, FIELD_RADIUS);
 		programField = new RoundedComboBox<>(programs, FIELD_RADIUS);
@@ -104,13 +104,13 @@ public class ViewStudent extends JPanel {
 
 		pidField.setEnabled(false);
 
-		// ================= MODAL =================
+		
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
 		modal.setPreferredSize(new Dimension(900, 560));
 		modal.setBackground(LIGHT_PINK);
 
-		// ================= HEADER =================
+		
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(MAROON);
 		header.setPreferredSize(new Dimension(900, 100));
@@ -127,7 +127,7 @@ public class ViewStudent extends JPanel {
 		header.add(logo, BorderLayout.WEST);
 		header.add(headerLabel, BorderLayout.CENTER);
 
-		// ================= BODY =================
+		
 		JPanel body = new JPanel(new BorderLayout());
 		body.setOpaque(false);
 		body.setBorder(new EmptyBorder(10, 15, 10, 15));
@@ -141,7 +141,7 @@ public class ViewStudent extends JPanel {
 		content.setOpaque(false);
 		content.setBorder(new EmptyBorder(15, 5, 5, 5));
 
-		// ================= LEFT PANEL =================
+		
 		RoundedPanel left = new RoundedPanel(12);
 		left.setLayout(new GridBagLayout());
 		left.setBackground(WHITE);
@@ -153,7 +153,7 @@ public class ViewStudent extends JPanel {
 		l.fill = GridBagConstraints.HORIZONTAL;
 		l.weightx = 0.5;
 
-		// Left fields
+		
 		String[] leftLabels = { "Patron ID:", "First Name:", "Middle Initial:", "Last Name:", "Email Address:",
 				"Contact Number:", "Home Address:" };
 		RoundedTextField[] leftFields = { pidField, firstNameField, middleField, lastNameField, emailField,
@@ -169,13 +169,13 @@ public class ViewStudent extends JPanel {
 			l.gridy++;
 		}
 
-//        // ================= RIGHT PANEL (REVISED BOXLAYOUT) =================
-//        RoundedPanel right = new RoundedPanel(12);
-//        right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
-//        right.setBackground(WHITE);
-//        right.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-		// ================= RIGHT PANEL (GridBagLayout – MANUAL ROWS) =================
+
+
+
+
+
+		
 		RoundedPanel right = new RoundedPanel(12);
 		right.setLayout(new GridBagLayout());
 		right.setBackground(WHITE);
@@ -187,7 +187,7 @@ public class ViewStudent extends JPanel {
 		r.weightx = 0.5;
 		r.gridy = 0;
 
-		// ===== ROW 1: STUDENT TYPE =====
+		
 		studTypeLbl.setFont(poppins16);
 		studTypeLbl.setForeground(DARK_TEXT);
 
@@ -197,7 +197,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(studentTypeField, r);
 
-		// ===== ROW 2: CAMPUS =====
+		
 		r.gridy++;
 		campusLbl.setFont(poppins16);
 		campusLbl.setForeground(DARK_TEXT);
@@ -208,7 +208,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(campusField, r);
 
-		// ===== ROW 3: LEVEL =====
+		
 		r.gridy++;
 		levelLbl.setFont(poppins16);
 		levelLbl.setForeground(DARK_TEXT);
@@ -219,7 +219,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(levelField, r);
 
-		// ===== ROW 4: COLLEGE =====
+		
 		r.gridy++;
 		collegeLbl.setFont(poppins16);
 		collegeLbl.setForeground(DARK_TEXT);
@@ -230,7 +230,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(collegeField, r);
 
-		// ===== ROW 5: PROGRAM =====
+		
 		r.gridy++;
 		programLbl.setFont(poppins16);
 		programLbl.setForeground(DARK_TEXT);
@@ -241,7 +241,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(programField, r);
 
-		// ===== ROW 6: THESIS =====
+		
 		r.gridy++;
 		thesisLbl.setFont(poppins16);
 		thesisLbl.setForeground(DARK_TEXT);
@@ -252,7 +252,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(thesisField, r);
 
-		// ===== ROW 7: DEGREE =====
+		
 		r.gridy++;
 		degreeLbl.setFont(poppins16);
 		degreeLbl.setForeground(DARK_TEXT);
@@ -263,7 +263,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(degreeField, r);
 
-		// ===== ROW 8: YEAR GRADUATED =====
+		
 		r.gridy++;
 		gradYearLbl.setFont(poppins16);
 		gradYearLbl.setForeground(DARK_TEXT);
@@ -274,7 +274,7 @@ public class ViewStudent extends JPanel {
 		r.gridx = 1;
 		right.add(gradYearField, r);
 
-		// Initial visibility
+		
 		levelLbl.setVisible(false);
 		levelField.setVisible(false);
 		collegeLbl.setVisible(false);
@@ -288,7 +288,7 @@ public class ViewStudent extends JPanel {
 		gradYearLbl.setVisible(false);
 		gradYearField.setVisible(false);
 
-		// Initial visibility
+		
 		levelLbl.setVisible(false);
 		levelField.setVisible(false);
 		collegeLbl.setVisible(false);
@@ -302,7 +302,7 @@ public class ViewStudent extends JPanel {
 		gradYearLbl.setVisible(false);
 		gradYearField.setVisible(false);
 
-		// Initial visibility
+		
 		levelLbl.setVisible(false);
 		levelField.setVisible(false);
 		collegeLbl.setVisible(false);
@@ -359,11 +359,11 @@ public class ViewStudent extends JPanel {
 		submitBtn.setForeground(WHITE);
 		submitBtn.addActionListener(e -> {
 
-		    // ================= GET VALUES =================
+		    
 		    String firstName = firstNameField.getRealText().trim();
 		    String lastName  = lastNameField.getRealText().trim();
 
-		    // ================= REQUIRED VALIDATION =================
+		    
 		    if (firstName.isEmpty() || lastName.isEmpty()) {
 		        JOptionPane.showMessageDialog(
 		            this,
@@ -374,7 +374,7 @@ public class ViewStudent extends JPanel {
 		        return;
 		    }
 
-		    // ================= OPTIONAL → NULL =================
+		    
 		    String middle = middleField.getRealText().trim();
 		    if (middle.isEmpty()) middle = null;
 
@@ -393,7 +393,7 @@ public class ViewStudent extends JPanel {
 		    String gradYear = gradYearField.getRealText().trim();
 		    if (gradYear.isEmpty()) gradYear = null;
 
-		    // ================= COMBO VALUES =================
+		    
 		    String campus = (campusField.getSelectedItem() != null)
 		            ? campusField.getSelectedItem().toString()
 		            : null;
@@ -418,29 +418,29 @@ public class ViewStudent extends JPanel {
 		            ? degreeField.getSelectedItem().toString()
 		            : null;
 
-		    // ================= BUILD ARRAY =================
+		    
 		    String[] patronDetails = {
-		        pidField.getRealText(),   // 0
-		        firstName,                // 1 ✅ REQUIRED
-		        middle,                   // 2 nullable
-		        lastName,                 // 3 ✅ REQUIRED
-		        email,                    // 4 nullable
-		        contact,                  // 5 nullable
-		        address,                  // 6 nullable
-		        campus,                   // 7
-		        null,                     // 8 YearEnrolled
-		        studentType,              // 9
-		        level,                    // 10
-		        college,                  // 11
-		        program,                  // 12
-		        campus,                   // 13
-		        thesis,                   // 14 nullable
-		        gradYear,                 // 15 nullable
-		        degree,                   // 16
-		        level                     // 17 (LABHIGH)
+		        pidField.getRealText(),   
+		        firstName,                
+		        middle,                   
+		        lastName,                 
+		        email,                    
+		        contact,                  
+		        address,                  
+		        campus,                   
+		        null,                     
+		        studentType,              
+		        level,                    
+		        college,                  
+		        program,                  
+		        campus,                   
+		        thesis,                   
+		        gradYear,                 
+		        degree,                   
+		        level                     
 		    };
 
-		    // ================= SAVE =================
+		    
 		    boolean isSuccessful = comp.updatePatronStudent(patronDetails);
 
 		    if (isSuccessful) {
@@ -461,7 +461,7 @@ public class ViewStudent extends JPanel {
 		comp = new PatronController(this, patronID);
 		comp.getPatronDetails();
 
-		// ================= EVENT HANDLERS =================
+		
 		studentTypeField.addActionListener(e -> setStudentType(studentTypeField.getSelectedIndex()));
 		setStudentType(studentTypeField.getSelectedIndex());
 
@@ -495,7 +495,7 @@ public class ViewStudent extends JPanel {
 		}
 
 		
-//		comp.getPatronDetails();
+
 		
 		add(modal, BorderLayout.CENTER);
 	}
@@ -521,7 +521,7 @@ public class ViewStudent extends JPanel {
 	}
 
 	public void setStudentType(int type) {
-		// Hide all
+		
 		Component[] rightComponents = { levelLbl, levelField, collegeLbl, collegeField, programLbl, programField,
 				thesisLbl, thesisField, degreeLbl, degreeField, gradYearLbl, gradYearField };
 		for (Component c : rightComponents)
@@ -530,7 +530,7 @@ public class ViewStudent extends JPanel {
 		campusField.setVisible(true);
 
 		switch (type) {
-		case 0 -> { // UNDERGRADUATE
+		case 0 -> { 
 			setYearLevels(new String[] { "1st", "2nd", "3rd", "4th", "5th" });
 			levelLbl.setVisible(true);
 			levelField.setVisible(true);
@@ -549,7 +549,7 @@ public class ViewStudent extends JPanel {
 			programField.setVisible(true);
 			comp.isGraduateSelected(this, false, campusField.getSelectedItem().toString());
 		}
-		case 1 -> { // GRADUATE
+		case 1 -> { 
 			collegeLbl.setVisible(true);
 			collegeField.setVisible(true);
 			programLbl.setVisible(true);
@@ -564,14 +564,14 @@ public class ViewStudent extends JPanel {
 			campusField.setVisible(false);
 			comp.isGraduateSelected(this, true, campusField.getSelectedItem().toString());
 		}
-		case 2 -> { // LABHIGH
+		case 2 -> { 
 			setYearLevels(new String[] { "7", "8", "9", "10" });
 			levelLbl.setVisible(true);
 			levelField.setVisible(true);
 			campusLbl.setVisible(false);
 			campusField.setVisible(false);
 		}
-		case 3 -> { // ALUMNI
+		case 3 -> { 
 			gradYearLbl.setVisible(true);
 			gradYearField.setVisible(true);
 		}

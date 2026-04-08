@@ -9,8 +9,8 @@ public class RoundedComboBox<E> extends JComboBox<E> {
 
     private int cornerRadius = 15;
     private String placeholder = "";
-    private Color borderColor = null; // no border by default
-    private int borderThickness = 1;  // default thickness
+    private Color borderColor = null;
+    private int borderThickness = 1;
 
     public RoundedComboBox(E[] items, int radius) {
         super(items);
@@ -89,7 +89,7 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         );
     }
 
-    // --------------------- Rounded ComboBox UI ---------------------
+
     private class RoundedComboBoxUI extends BasicComboBoxUI {
 
         @Override
@@ -109,7 +109,7 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         public void paintCurrentValueBackground(Graphics g,
                                                 Rectangle bounds,
                                                 boolean hasFocus) {
-            // Do nothing (removes default highlight)
+
         }
 
         @Override
@@ -123,10 +123,8 @@ public class RoundedComboBox<E> extends JComboBox<E> {
             	    scrollPane.setOpaque(false);
             	    scrollPane.getViewport().setOpaque(false);
 
-            	    // ✅ REMOVE horizontal scroll
             	    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-            	    // keep vertical scroll
             	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
             	    JScrollBar vertical = scrollPane.getVerticalScrollBar();
@@ -143,20 +141,15 @@ public class RoundedComboBox<E> extends JComboBox<E> {
             	    list.setSelectionBackground(new Color(200, 220, 255));
             	    list.setBackground(Color.WHITE);
 
-            	    // ✅ allow dynamic height (CRITICAL)
             	    list.setFixedCellHeight(-1);
 
-            	    // ✅ limit rows (prevents fullscreen)
             	    list.setVisibleRowCount(5);
 
-            	    // ✅ force popup width = combo width
             	    int width = comboBox.getWidth() + 10;
 
-            	    // ✅ calculate proper height
             	    int rowHeight = list.getCellBounds(0, 0).height;
             	    int height = rowHeight * list.getVisibleRowCount();
 
-            	    // fallback in case renderer hasn't calculated yet
             	    if (rowHeight <= 0) {
             	        rowHeight = 40;
             	        height = rowHeight * list.getVisibleRowCount();
@@ -175,7 +168,6 @@ public class RoundedComboBox<E> extends JComboBox<E> {
 
     
 
-    // --------------------- Rounded ScrollBar UI ---------------------
     private static class RoundedScrollBarUI extends BasicScrollBarUI {
 
         private final int THUMB_RADIUS = 10;
@@ -234,19 +226,17 @@ public class RoundedComboBox<E> extends JComboBox<E> {
         }
     }
 
-    // --------------------- Placeholder Renderer ---------------------
     private class PlaceholderRenderer implements ListCellRenderer<Object> {
 
         private final JTextArea area;
 
         public PlaceholderRenderer() {
             area = new JTextArea();
-            area.setLineWrap(true);          // ✅ wrap text
+            area.setLineWrap(true);
             area.setWrapStyleWord(true);
             area.setOpaque(true);
             area.setFont(getFont());
 
-            // ✅ increase height (padding)
             area.setBorder(new EmptyBorder(2, 10, 2, 10));
         }
 
@@ -270,7 +260,6 @@ public class RoundedComboBox<E> extends JComboBox<E> {
 
             area.setFont(list.getFont());
 
-            // ✅ FIX wrapping + alignment
             area.setSize(list.getWidth(), Short.MAX_VALUE);
 
             if (isSelected) {

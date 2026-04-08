@@ -11,13 +11,13 @@ public class ViewIMSModal extends RoundedDialog {
     private final Window parent;
 
     public ViewIMSModal(Window parent,String serialNumber) {
-        super(parent, 20); // same radius as other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // Dim background (same behavior as other modals)
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // Set panel content
+        
         setContentPane(new ViewIMS(serialNumber));
         pack();
         setLocationRelativeTo(parent);

@@ -8,21 +8,18 @@ public class RoundedButton extends JButton {
     private Color borderColor = null;
     private int borderThickness = 1;
 
-    // Text constructor
     public RoundedButton(String text, int radius) {
         super(text);
         this.cornerRadius = radius;
         init();
     }
 
-    // Icon constructor
     public RoundedButton(Icon icon, int radius) {
         super(icon);
         this.cornerRadius = radius;
         init();
     }
 
-    // Text + Icon constructor
     public RoundedButton(String text, Icon icon, int radius) {
         super(text, icon);
         this.cornerRadius = radius;
@@ -35,12 +32,10 @@ public class RoundedButton extends JButton {
         setBorderPainted(false);
         setOpaque(false);
 
-        // Optional: center icon & text
         setHorizontalAlignment(SwingConstants.CENTER);
         setVerticalAlignment(SwingConstants.CENTER);
         setHorizontalTextPosition(SwingConstants.CENTER);
         setVerticalTextPosition(SwingConstants.BOTTOM);
-        // Change depending on layout preference
     }
 
     public void setBorderColor(Color color) {
@@ -59,14 +54,12 @@ public class RoundedButton extends JButton {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Fill rounded background
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(),
                 cornerRadius, cornerRadius);
 
         g2.dispose();
 
-        // Let JButton handle icon + text painting
         super.paintComponent(g);
     }
 

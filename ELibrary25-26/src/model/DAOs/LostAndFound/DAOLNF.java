@@ -2,7 +2,7 @@ package model.DAOs.LostAndFound;
 
 public class DAOLNF {
 
-	// LNF columns
+	
     private String itemLost;
     public String getItemLost() {
 		return itemLost;

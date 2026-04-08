@@ -89,13 +89,13 @@ public class AddLostAndFound extends JPanel {
 		gbc.insets = new Insets(5, 5, 5, 5);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		// Reference height (for combo sizing)
+		
 		RoundedTextField heightRef = new RoundedTextField(19, FIELD_RADIUS);
 		int fieldHeight = heightRef.getPreferredSize().height;
 
 		/* ================= FORM ROWS ================= */
 
-		// Missing Item
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel itemLbl = new JLabel("Missing Item:");
@@ -111,7 +111,7 @@ public class AddLostAndFound extends JPanel {
 		itemField.setBorderThickness(1);
 		innerBody.add(itemField, gbc);
 
-		// Owner Name (optional)
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel ownerLblWrap = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -134,7 +134,7 @@ public class AddLostAndFound extends JPanel {
 		ownerField.setBorderThickness(1);
 		innerBody.add(ownerField, gbc);
 
-		// Description
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel descLbl = new JLabel("Item Description:");
@@ -150,7 +150,7 @@ public class AddLostAndFound extends JPanel {
 		descField.setBorderThickness(1);
 		innerBody.add(descField, gbc);
 
-		// Floor
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel floorLbl = new JLabel("Lost on Floor:");
@@ -168,7 +168,7 @@ public class AddLostAndFound extends JPanel {
 		floorField.setPreferredSize(new Dimension(200, fieldHeight));
 		innerBody.add(floorField, gbc);
 
-		// Status
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel statusLbl = new JLabel("Item Status:");
@@ -185,7 +185,7 @@ public class AddLostAndFound extends JPanel {
 		statusField.setPreferredSize(new Dimension(200, fieldHeight));
 		innerBody.add(statusField, gbc);
 
-		// Last Seen Date
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel dateLbl = new JLabel("Last Seen:");
@@ -214,7 +214,7 @@ public class AddLostAndFound extends JPanel {
 		confirmBtn.setBackground(MAROON);
 		confirmBtn.setForeground(WHITE);
 		confirmBtn.addActionListener(e -> {
-		    // Get all field values
+		    
 		    String item = itemField.getRealText().trim();
 		    String owner = ownerField.getRealText().trim();
 		    String desc = descField.getRealText().trim();
@@ -222,7 +222,7 @@ public class AddLostAndFound extends JPanel {
 		    String statusTxt = statusField.getSelectedItem().toString();
 		    String date = dateField.getRealText().trim();
 
-		    // Validate required fields
+		    
 		    if (item.isEmpty() || date.isEmpty()) {
 		        JOptionPane.showMessageDialog(
 		            this,
@@ -233,7 +233,7 @@ public class AddLostAndFound extends JPanel {
 		        return;
 		    }
 
-		    // Normalize/validate date
+		    
 		    String normalizedDate = validateAndNormalizeDate(date);
 		    if (normalizedDate == null) {
 		        JOptionPane.showMessageDialog(
@@ -245,11 +245,11 @@ public class AddLostAndFound extends JPanel {
 		        return;
 		    }
 
-		    // Optional fields: store as null if empty
+		    
 		    if (owner.isEmpty()) owner = null;
 		    if (desc.isEmpty()) desc = null;
 
-		    // Prepare report details
+		    
 		    String[] reportDetails = {
 		        item,
 		        owner,
@@ -259,7 +259,7 @@ public class AddLostAndFound extends JPanel {
 		        normalizedDate
 		    };
 		    
-		    // Pass to controller and close modal
+		    
 		    new LNFController(reportDetails);
 		    Window w = SwingUtilities.getWindowAncestor(this);
 		    if (w instanceof JDialog) w.dispose();
@@ -295,7 +295,7 @@ public class AddLostAndFound extends JPanel {
 	    date = date.trim();
 	    String[] parts = date.split("-");
 
-	    // Must be year-month-day
+	    
 	    if (parts.length != 3) {
 	        return null;
 	    }
@@ -304,12 +304,12 @@ public class AddLostAndFound extends JPanel {
 	    String monthPart = parts[1];
 	    String dayPart   = parts[2];
 
-	    // Year must be exactly 4 digits
+	    
 	    if (!yearPart.matches("\\d{4}")) {
 	        return null;
 	    }
 
-	    // Month and day: 1 or 2 digits only
+	    
 	    if (!monthPart.matches("\\d{1,2}") || !dayPart.matches("\\d{1,2}")) {
 	        return null;
 	    }
@@ -318,7 +318,7 @@ public class AddLostAndFound extends JPanel {
 	    int month = Integer.parseInt(monthPart);
 	    int day   = Integer.parseInt(dayPart);
 
-	    // Month range
+	    
 	    if (month < 1 || month > 12) {
 	        return null;
 	    }
@@ -328,7 +328,7 @@ public class AddLostAndFound extends JPanel {
 	        31, 31, 30, 31, 30, 31
 	    };
 
-	    // Leap year adjustment
+	    
 	    boolean isLeapYear =
 	        (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
 
@@ -336,12 +336,12 @@ public class AddLostAndFound extends JPanel {
 	        daysInMonth[1] = 29;
 	    }
 
-	    // Day range
+	    
 	    if (day < 1 || day > daysInMonth[month - 1]) {
 	        return null;
 	    }
 
-	    // ✅ Normalize to YYYY-MM-DD
+	    
 	    String normalizedMonth = (month < 10 ? "0" : "") + month;
 	    String normalizedDay   = (day   < 10 ? "0" : "") + day;
 

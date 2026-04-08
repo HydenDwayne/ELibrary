@@ -67,7 +67,7 @@ public class MultipurposeHall2 extends JPanel {
         monthCtrl.add(monthTextCont, BorderLayout.CENTER);
         monthPanel.add(monthCtrl);
 
-        // calendar grid
+        
         calendarGrid = new JPanel(new GridLayout(7, 7));
         calendarGrid.setBackground(Color.decode("#e4e4e4"));
 
@@ -76,10 +76,10 @@ public class MultipurposeHall2 extends JPanel {
 
         add(calendarCont, BorderLayout.CENTER);
 
-        // generate initial calendar
+        
         generateCalendar();
 
-        // month navigation
+        
         leftBtn.addActionListener(e -> {
             currentMonth = currentMonth.minusMonths(1);
             generateCalendar();
@@ -100,7 +100,7 @@ public class MultipurposeHall2 extends JPanel {
             "Wednesday", "Thursday", "Friday", "Saturday"
         };
 
-        // header
+        
         for (String label : weekLabel) {
             JPanel labelRow = new JPanel();
             labelRow.setLayout(new GridBagLayout());
@@ -127,17 +127,17 @@ public class MultipurposeHall2 extends JPanel {
 
         int startColumn = firstDay.getDayOfWeek().getValue() % 7;
 
-        // start days buffer
+        
         for (int i = 0; i < startColumn; i++) {
             calendarGrid.add(new JLabel(""));
         }
 
-        // days 
+        
         FunctionHallController comp = new FunctionHallController(this, calendarGrid);
         
         int cellsFilled = startColumn + daysInMonth;
 
-        // end days buffer
+        
         for (int i = cellsFilled; i < 42; i++) {
             calendarGrid.add(new JLabel(""));
         }

@@ -16,8 +16,8 @@ public class StudentModal extends JPanel implements ActionListener {
 	JRadioButton studentBtn;
 	JRadioButton employeeBtn;
 
-	// Labels for each row
-//	JLabel row1Label;
+	
+
 	JLabel row2Label;
 	JLabel row3Label;
 	JLabel row4Label;
@@ -29,8 +29,8 @@ public class StudentModal extends JPanel implements ActionListener {
 	JLabel row10Label;
 	JLabel row11Label;
 
-	// Input fields for each row
-//	RoundedTextField row1Field;
+	
+
 	public RoundedTextField row2Field;
 	public RoundedComboBox<String> row3Field;
 	public RoundedComboBox<String> row4Field;
@@ -42,7 +42,7 @@ public class StudentModal extends JPanel implements ActionListener {
 	public RoundedTextField row10Field;
 	public RoundedTextField row11Field;
 
-	// Label wrapper panels — stored as fields so updateVisibility() can toggle them
+	
 	JPanel row4LabelWrapper;
 	JPanel row5LabelWrapper;
 	JPanel row6LabelWrapper;
@@ -112,7 +112,7 @@ public class StudentModal extends JPanel implements ActionListener {
 	}
 	
 	private void resetStudentType() {
-	    // Add a placeholder option at the top
+	    
 	    String[] options;
 	    if (campus != null && campus.equalsIgnoreCase("Main")) {
 	        options = new String[] { "UNDERGRADUATE", "GRADUATE", "LABHIGH", "ALUMNI" };
@@ -120,12 +120,12 @@ public class StudentModal extends JPanel implements ActionListener {
 	        options = new String[] { "UNDERGRADUATE", "ALUMNI" };
 	    }
 	    row3Field.setModel(new DefaultComboBoxModel<>(options));
-	    row3Field.setSelectedIndex(0); // Select the empty placeholder
+	    row3Field.setSelectedIndex(0); 
 	}
 
 	
 
-	// The modal panel itself — stored as a field so resizeModal() can update its height
+	
 	RoundedPanel modal;
 
 	ButtonGroup bg;
@@ -144,7 +144,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		modal.setPreferredSize(new Dimension(500, 550));
 		modal.setBackground(Color.decode("#faecee"));
 
-		// Header
+		
 		JPanel header = new JPanel();
 		header.setBackground(Color.decode("#842b28"));
 		header.setPreferredSize(new Dimension(500, 100));
@@ -159,7 +159,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		elibLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(elibLogo, BorderLayout.CENTER);
 
-		// ── Body ────────────────────────────────────────────────────────────────
+		
 		JPanel body = new JPanel();
 		body.setOpaque(false);
 		body.setLayout(new BorderLayout());
@@ -173,7 +173,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		bodyTitle.setFont(introRustStyle);
 		body.add(bodyTitle, BorderLayout.NORTH);
 
-		// ── Inner body (form rows) ───────────────────────────────────────────────
+		
 		JPanel innerBody = new JPanel();
 		innerBody.setOpaque(false);
 		innerBody.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -187,7 +187,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		Fonts stepPoppins = new Fonts("PoppinsBold", 16f);
 		Font stepPoppinsStyle = stepPoppins.getAppliedFont();
 
-		// Step header
+		
 		JLabel step = new JLabel("Step 2: Student Information");
 		step.setFont(stepPoppinsStyle);
 		step.setForeground(Color.decode("#842b28"));
@@ -199,7 +199,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		gbc.gridy++;
 		innerBody.add(stepWrapper, gbc);
 
-		// Separator under step header
+		
 		gbc.gridy++;
 		JSeparator sep1 = new JSeparator();
 		sep1.setPreferredSize(new Dimension(1, 1));
@@ -209,24 +209,24 @@ public class StudentModal extends JPanel implements ActionListener {
 
 		gbc.gridwidth = 1;
 
-//		// ── Row 1: Student ID ────────────────────────────────────────────────────
-//		gbc.gridy++;
-//		gbc.gridx = 0;
-//		JPanel row1LabelWrapper = new JPanel(new BorderLayout());
-//		row1LabelWrapper.setOpaque(false);
-//		row1LabelWrapper.setPreferredSize(new Dimension(210, 30));
-//		row1Label = new JLabel("Student ID");
-//		row1LabelWrapper.add(row1Label, BorderLayout.WEST);
-//		innerBody.add(row1LabelWrapper, gbc);
-//
-//		gbc.gridx = 1;
-//		row1Field = new RoundedTextField(19, 15);
-//		row1Field.setPlaceholder("Enter Student ID");
-//		row1Field.setBorderColor(Color.decode("#924c4a"));
-//		row1Field.setBorderThickness(1);
-//		innerBody.add(row1Field, gbc);
 
-		// ── Row 2: Year Enrolled ─────────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row2LabelWrapper = new JPanel(new BorderLayout());
@@ -243,7 +243,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		row2Field.setBorderThickness(1);
 		innerBody.add(row2Field, gbc);
 
-		// ── Row 3: Student Type (the trigger for dynamic visibility) ─────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row3LabelWrapper = new JPanel(new BorderLayout());
@@ -262,13 +262,13 @@ public class StudentModal extends JPanel implements ActionListener {
 		row3Field.setBorderThickness(1);
 		innerBody.add(row3Field, gbc);
 
-		// Update visibility and resize the modal whenever the selection changes
+		
 		row3Field.addActionListener(e -> {
 		    updateVisibility();
 		    resizeModal();
 		});
 
-		// ── Row 4: College (visible for UNDERGRAD=0, GRADUATE=1) ─────────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row4LabelWrapper = new JPanel(new BorderLayout());
@@ -287,7 +287,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		row4Field.setBorderThickness(1);
 		innerBody.add(row4Field, gbc);
 
-		// ── Row 5: Program (visible for UNDERGRAD=0, GRADUATE=1) ─────────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row5LabelWrapper = new JPanel(new BorderLayout());
@@ -306,7 +306,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		row5Field.setBorderThickness(1);
 		innerBody.add(row5Field, gbc);
 
-		// ── Row 6: Year Level (visible for UNDERGRAD=0 only) ─────────────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row6LabelWrapper = new JPanel(new BorderLayout());
@@ -325,7 +325,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		row6Field.setBorderThickness(1);
 		innerBody.add(row6Field, gbc);
 
-		// ── Row 7: Degree (visible for GRADUATE=1 only) ───────────────────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row7LabelWrapper = new JPanel(new BorderLayout());
@@ -344,7 +344,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		row7Field.setBorderThickness(1);
 		innerBody.add(row7Field, gbc);
 
-		// ── Row 8: Thesis Title (visible for GRADUATE=1, ALUMNI=3) ───────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row8LabelWrapper = new JPanel(new BorderLayout());
@@ -361,7 +361,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		row8Field.setBorderThickness(1);
 		innerBody.add(row8Field, gbc);
 
-		// ── Row 9: Grade Level (visible for LABHIGH=2 only) ──────────────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row9LabelWrapper = new JPanel(new BorderLayout());
@@ -380,7 +380,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		row9Field.setBorderThickness(1);
 		innerBody.add(row9Field, gbc);
 
-		// ── Row 10: Year Graduated (visible for GRADUATE=1, ALUMNI=3) ────────────
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row10LabelWrapper = new JPanel(new BorderLayout());
@@ -401,7 +401,7 @@ public class StudentModal extends JPanel implements ActionListener {
 
 		body.add(innerBody);
 
-		// Footer 
+		
 		JPanel footer = new JPanel();
 		footer.setPreferredSize(new Dimension(500, 100));
 		footer.setBorder(BorderFactory.createEmptyBorder(0, 35, 10, 35));
@@ -486,29 +486,29 @@ public class StudentModal extends JPanel implements ActionListener {
 	    row10Field.setVisible(showYearGrad);
 	    
 	    
-//	    int idx = row3Field.getSelectedIndex();
-//	    boolean isPlaceholder = row3Field.getSelectedIndex() == 0; // first option is placeholder
-//
-//	    row4LabelWrapper.setVisible(!isPlaceholder && showCollege);
-//	    row4Field.setVisible(!isPlaceholder && showCollege);
-//
-//	    row5LabelWrapper.setVisible(!isPlaceholder && showProgram);
-//	    row5Field.setVisible(!isPlaceholder && showProgram);
-//
-//	    row6LabelWrapper.setVisible(!isPlaceholder && showYearLevel);
-//	    row6Field.setVisible(!isPlaceholder && showYearLevel);
-//
-//	    row7LabelWrapper.setVisible(!isPlaceholder && showDegree);
-//	    row7Field.setVisible(!isPlaceholder && showDegree);
-//
-//	    row8LabelWrapper.setVisible(!isPlaceholder && showThesis);
-//	    row8Field.setVisible(!isPlaceholder && showThesis);
-//
-//	    row9LabelWrapper.setVisible(!isPlaceholder && showGradeLevel);
-//	    row9Field.setVisible(!isPlaceholder && showGradeLevel);
-//
-//	    row10LabelWrapper.setVisible(!isPlaceholder && showYearGrad);
-//	    row10Field.setVisible(!isPlaceholder && showYearGrad);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	    revalidate();
 	    repaint();
@@ -567,11 +567,11 @@ public class StudentModal extends JPanel implements ActionListener {
 				        JOptionPane.INFORMATION_MESSAGE
 				    );
 
-				    // ✅ CLEAR FORMS
+				    
 				    genModal.clearFields();
 				    clearFields();
 
-				    // ✅ GO BACK TO STEP 1
+				    
 				    rp.showCard("general");
 				} else {
 			        JOptionPane.showMessageDialog(
@@ -607,7 +607,7 @@ public class StudentModal extends JPanel implements ActionListener {
 	
 	public void clearFields() {
 
-	    // Text fields
+	    
 	    row2Field.setText("");
 	    row2Field.setPlaceholder("e.g. 2026");
 
@@ -617,7 +617,7 @@ public class StudentModal extends JPanel implements ActionListener {
 	    row10Field.setText("");
 	    row10Field.setPlaceholder("e.g. 2026");
 
-	    // Combo boxes
+	    
 	    row3Field.setSelectedIndex(0);
 	    row4Field.setSelectedIndex(0);
 	    row5Field.setSelectedIndex(0);

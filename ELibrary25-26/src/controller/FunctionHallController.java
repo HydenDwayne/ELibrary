@@ -86,7 +86,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -94,22 +94,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -117,7 +117,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(amphi);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -151,7 +151,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -161,7 +161,7 @@ public class FunctionHallController {
         }
     }
 	
-	// delete/archive reservation
+	
 	
 	public FunctionHallController(String reservationNumber) {
 		boolean isSuccessful = daoFuncHall.archiveReservation(reservationNumber);
@@ -172,7 +172,7 @@ public class FunctionHallController {
 		
 	}
 	
-//	add new reservation
+
 	public FunctionHallController(String[] reservationDetails) {
 		boolean isSuccessful = daoFuncHall.addNewReservation(reservationDetails);
 		
@@ -193,7 +193,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -201,22 +201,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -224,7 +224,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(disc1);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -258,7 +258,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -280,7 +280,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -288,22 +288,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -311,7 +311,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(disc2);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -345,7 +345,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -366,7 +366,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -374,22 +374,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -397,7 +397,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(multi1);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -431,7 +431,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -453,7 +453,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -461,22 +461,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -484,7 +484,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(multi2);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -518,7 +518,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -540,7 +540,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -548,22 +548,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -571,7 +571,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(slr1);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -605,7 +605,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -627,7 +627,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -635,22 +635,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -658,7 +658,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(slr2);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -692,7 +692,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -714,7 +714,7 @@ public class FunctionHallController {
             JPanel cell = new JPanel(new BorderLayout());
             cell.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-            // Format date properly
+            
             String calendarDay = (day < 10) ? "0" + day : String.valueOf(day);
             String calendarMonth = (currentMonth.getMonthValue() < 10)
                     ? "0" + currentMonth.getMonthValue()
@@ -722,22 +722,22 @@ public class FunctionHallController {
 
             String calendarDate = currentMonth.getYear() + "-" + calendarMonth + "-" + calendarDay;
 
-            // Find matching event (ONLY ONE)
+            
             DAOFuncHall matchedEvent = null;
 
             for (DAOFuncHall event : events) {
                 if (calendarDate.equals(event.getDateOfEvent())) {
                     cell.setBackground(Color.decode("#9f4542"));
                     matchedEvent = event;
-                    break; // ✅ stop once found
+                    break; 
                 }
             }
 
-         // FINAL reference for lambda
+         
             String finalCalendarDate = calendarDate;
             DAOFuncHall finalEvent = matchedEvent;
 
-            // Add ONLY ONE listener per cell
+            
             cell.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -745,7 +745,7 @@ public class FunctionHallController {
                         Window parent = SwingUtilities.getWindowAncestor(tele);
 
                         if (finalEvent != null) {
-                            // HAS EVENT → View modal
+                            
                             String startTimeRaw = finalEvent.getStartTime();
                             String endTimeRaw = finalEvent.getEndTime();
 
@@ -779,7 +779,7 @@ public class FunctionHallController {
                 }
             });
 
-            // Add day label
+            
             JLabel dateLabel = new JLabel(String.valueOf(day));
             dateLabel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
             dateLabel.setHorizontalAlignment(SwingConstants.RIGHT);

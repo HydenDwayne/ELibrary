@@ -1,7 +1,7 @@
 package model.DAOs.Archived;
 
 public class DAOArchivedLostAndFound {
-	// lost and found columns
+	
 	private String lostItemNumber;
 	private String itemLost;
 	private String nameOfOwner;

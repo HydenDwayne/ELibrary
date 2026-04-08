@@ -29,26 +29,26 @@ public class Dashboard extends JFrame {
 
     public Dashboard() {
 
-        // Use BorderLayout for the frame
+        
         setLayout(new BorderLayout());
 
-        // Main content panel (center)
+        
         JPanel container = new JPanel();
         container.setBackground(Color.decode("#c4c4c4"));
 
         add(container, BorderLayout.CENTER);
 
-        // toolbar
+        
         Toolbar tb = new Toolbar(this);
         add(tb, BorderLayout.SOUTH);
 
-        // start of header
+        
         JPanel header = new JPanel();
         header.setPreferredSize(new Dimension(getWidth(), 60));
         header.setBackground(Color.decode("#5d1513"));
         header.setLayout(new BorderLayout(0, 10));
 
-        // left side of the header
+        
         JPanel leftHeader = new JPanel();
 
         leftHeader.setLayout(new BorderLayout());
@@ -64,7 +64,7 @@ public class Dashboard extends JFrame {
 
         header.add(leftHeader, BorderLayout.WEST);
 
-        // right side of the header
+        
         JPanel rightHeader = new JPanel();
         rightHeader.setPreferredSize(new Dimension(280, 60));
         rightHeader.setLayout(new BorderLayout());
@@ -85,7 +85,7 @@ public class Dashboard extends JFrame {
         profileLogo.setFocusPainted(false);
         profileLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-     // Create a panel for dropdown content
+     
         JPanel dropdownPanel = new JPanel();
         dropdownPanel.setLayout(new BoxLayout(dropdownPanel, BoxLayout.Y_AXIS));
         dropdownPanel.setBackground(Color.LIGHT_GRAY);
@@ -123,15 +123,15 @@ public class Dashboard extends JFrame {
         dropdownPanel.add(logoutBtn);
         
         
-//        dropdownPanel.add(new JLabel("Settings"));
-//        dropdownPanel.add(new JLabel("Logout"));
 
-        // Wrap in a JPopupMenu
+
+
+        
         JPopupMenu popupMenu = new JPopupMenu();
         popupMenu.setLayout(new BorderLayout());
         popupMenu.add(dropdownPanel, BorderLayout.CENTER);
 
-        // Show dropdown below profile button when clicked
+        
         profileLogo.addActionListener(e -> {
             popupMenu.show(profileLogo, 0, profileLogo.getHeight());
         });
@@ -140,7 +140,7 @@ public class Dashboard extends JFrame {
 
         account.add(profileLogo, BorderLayout.EAST);
 
-        // account name info thing
+        
         JPanel accountInfo = new JPanel();
 
         Fonts poppins = new Fonts("Poppins", 10f);
@@ -171,7 +171,7 @@ public class Dashboard extends JFrame {
 
         add(header, BorderLayout.NORTH);
 
-        //------------------------------- container/actual info thing ---------------------------------------------
+        
         mainContent = new JPanel();
         mainContent.setBackground(Color.decode("#c4c4c4"));
 
@@ -201,8 +201,8 @@ public class Dashboard extends JFrame {
 
         add(mainContent, BorderLayout.CENTER);
 
-        //------------------------------- container/actual info thing ---------------------------------------------
-        // Frame settings
+        
+        
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -213,7 +213,7 @@ public class Dashboard extends JFrame {
         addWindowFocusListener(new WindowAdapter() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-                // Request focus on something else, or a panel
+                
                 container.requestFocusInWindow();
             }
         });
@@ -229,7 +229,7 @@ public class Dashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-//        setVisible(true);
+
         setResizable(false);
 
     }

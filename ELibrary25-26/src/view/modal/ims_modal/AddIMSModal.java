@@ -10,13 +10,13 @@ public class AddIMSModal extends RoundedDialog {
     private final Window parent;
 
     public AddIMSModal(Window parent) {
-        super(parent, 20); // same radius as other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // Dim the background
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // Set panel content
+        
         setContentPane(new AddIMS());
         pack();
         setLocationRelativeTo(parent);

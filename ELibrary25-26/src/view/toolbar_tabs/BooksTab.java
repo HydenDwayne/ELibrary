@@ -72,7 +72,6 @@ public class BooksTab extends JPanel implements ActionListener {
         bookContainer.setLayout(new BorderLayout());
         bookContainer.setBackground(Color.WHITE);
 
-        // red part
         RoundedPanel slctBooks = new RoundedPanel(panelRadius);
         slctBooks.setLayout(new GridBagLayout());
         GridBagConstraints gbcRed = new GridBagConstraints();
@@ -91,7 +90,7 @@ public class BooksTab extends JPanel implements ActionListener {
         selectCollection.setFont(introRustStyle);
         slctBooks.add(selectCollection, gbcRed);
 
-        // combobox
+
         JPanel cmbbxPanel = new JPanel();
         cmbbxPanel.setOpaque(false);
 
@@ -114,13 +113,11 @@ public class BooksTab extends JPanel implements ActionListener {
         cmbbxPanel.add(dropdownCollection);
         slctBooks.add(cmbbxPanel, gbcRed);
 
-        // container of the red part
         JPanel topWrapper = new JPanel();
         topWrapper.setLayout(new BorderLayout());
         topWrapper.setOpaque(false);
         topWrapper.add(slctBooks, BorderLayout.WEST);
 
-        // no red part
         tabLabel.setText("4th | Bulacaniana");
         tabLabel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         tabLabel.setForeground(Color.decode("#6d2321"));
@@ -129,13 +126,11 @@ public class BooksTab extends JPanel implements ActionListener {
         Font introRust20Style = introRust20.getAppliedFont();
         tabLabel.setFont(introRust20Style);
 
-        
-        // search + filter container
         JPanel searchFilter = new JPanel();
         searchFilter.setLayout(new BorderLayout());
         searchFilter.setPreferredSize(new Dimension(275, 30));
         searchFilter.setOpaque(false);
-        // search item
+
         JPanel searchContainer = new JPanel();
         searchContainer.setOpaque(false);
         searchContainer.setPreferredSize(new Dimension(275, 20));
@@ -161,7 +156,6 @@ public class BooksTab extends JPanel implements ActionListener {
 
         searchContainer.add(searchItem);
 
-        // sort by
         ImageIcon sortByIcon = new ImageIcon(FilePath.image("sort_by_icon.png"));
         Image sortByImage = sortByIcon.getImage();
         Image scaledImageSortBy = sortByImage.getScaledInstance(30, 15, Image.SCALE_SMOOTH);
@@ -217,7 +211,6 @@ public class BooksTab extends JPanel implements ActionListener {
         iconsPanel.add(archiveLogo);
         iconsPanel.add(reloadLogo);
         
-        // add book button
         JPanel outerBtnCont = new JPanel();
         outerBtnCont.setLayout(new FlowLayout());
         outerBtnCont.setOpaque(false);
@@ -282,7 +275,6 @@ public class BooksTab extends JPanel implements ActionListener {
         
         outerBtnCont.add(innerBtn3Cont);
 
-        // right side of the top wrapper
         JPanel topRight = new JPanel();
         topRight.setOpaque(false);
         topRight.setPreferredSize(new Dimension(390, 50));
@@ -297,7 +289,6 @@ public class BooksTab extends JPanel implements ActionListener {
         topRight.add(searchFilter, BorderLayout.NORTH);
         topRight.add(outerBtnCont, BorderLayout.SOUTH);
 
-        // container of the thing sa right side
         JPanel rightWrapper = new JPanel();
         rightWrapper.setLayout(new BorderLayout());
         rightWrapper.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 40));
@@ -311,7 +302,6 @@ public class BooksTab extends JPanel implements ActionListener {
 
         bookContainer.add(topWrapper, BorderLayout.NORTH);
 
-        // selected book collection items
         JPanel slctdPadding = new JPanel();
         slctdPadding.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
         slctdPadding.setOpaque(false);
@@ -340,10 +330,6 @@ public class BooksTab extends JPanel implements ActionListener {
         reserve.setVisible(false);
         tad.setVisible(false);
         
-        
-        
-
-        //============================================== 
         slctdBookCol.setOpaque(false);
         booksTab.add(bookContainer, gbc);
         setBackground(Color.decode("#c4c4c4"));

@@ -42,7 +42,7 @@ public class MarkAsFound extends JPanel {
 
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
-		modal.setPreferredSize(new Dimension(520, 250)); // smaller height
+		modal.setPreferredSize(new Dimension(520, 250)); 
 		modal.setBackground(LIGHT_PINK);
 
 		/* ================= HEADER ================= */
@@ -82,17 +82,17 @@ public class MarkAsFound extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridy = 0;
 		gbc.insets = new Insets(6, 6, 6, 6);
-//		gbc.fill = GridBagConstraints.HORIZONTAL;
-//		gbc.weightx = 0.5;
+
+
 
 		Dimension labelSize = new Dimension(220, 40);
 
 		/* ================= SINGLE ROW ================= */
 
-		// Wrap label in a panel to match field width
+		
 		JPanel labelWrapper = new JPanel(new BorderLayout());
 		labelWrapper.setOpaque(false);
-		labelWrapper.setPreferredSize(new Dimension(250, 30)); // same width as the field
+		labelWrapper.setPreferredSize(new Dimension(250, 30)); 
 		JLabel patronLbl = new JLabel("Claimed by Patron Number:");
 		patronLbl.setFont(poppins16);
 		patronLbl.setForeground(DARK_TEXT);

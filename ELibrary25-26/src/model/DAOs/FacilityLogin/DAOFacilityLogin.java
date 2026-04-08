@@ -2,7 +2,7 @@ package model.DAOs.FacilityLogin;
 
 public class DAOFacilityLogin {
 
-	// book columns
+	
 
 	
 	public String getFacilityCode() {

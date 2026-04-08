@@ -11,7 +11,7 @@ public class RoundedPanel extends JPanel {
     public RoundedPanel(int radius) {
         super();
         this.cornerRadius = radius;
-        setOpaque(false); // important for rounded corners
+        setOpaque(false);
     }
 
     private Shape getRoundedShape() {
