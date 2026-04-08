@@ -5,12 +5,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-// Utility class (optional, can hold shared methods if needed)
+
 public class RoundedComponent {
-    // Empty for now; components are implemented as separate classes below
+    
 }
 
-// -------- Rounded Panel --------
+
 class RoundedPanel extends JPanel {
 
     private int cornerRadius = 20;
@@ -18,7 +18,7 @@ class RoundedPanel extends JPanel {
     public RoundedPanel(int radius) {
         super();
         this.cornerRadius = radius;
-        setOpaque(false); // important for rounded corners
+        setOpaque(false); 
     }
 
     @Override
@@ -35,26 +35,26 @@ class RoundedPanel extends JPanel {
     }
 }
 
-// -------- Rounded Button --------
+
 class RoundedButton extends JButton {
 
     private int cornerRadius = 15;
 
-    // Text constructor
+    
     public RoundedButton(String text, int radius) {
         super(text);
         this.cornerRadius = radius;
         init();
     }
 
-    // Icon constructor
+    
     public RoundedButton(Icon icon, int radius) {
         super(icon);
         this.cornerRadius = radius;
         init();
     }
 
-    // Text + Icon constructor
+    
     public RoundedButton(String text, Icon icon, int radius) {
         super(text, icon);
         this.cornerRadius = radius;
@@ -67,12 +67,12 @@ class RoundedButton extends JButton {
         setBorderPainted(false);
         setOpaque(false);
 
-        // Optional: center icon & text
+        
         setHorizontalAlignment(SwingConstants.CENTER);
         setVerticalAlignment(SwingConstants.CENTER);
         setHorizontalTextPosition(SwingConstants.CENTER);
         setVerticalTextPosition(SwingConstants.BOTTOM); 
-        // Change depending on layout preference
+        
     }
 
     @Override
@@ -81,14 +81,14 @@ class RoundedButton extends JButton {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Fill rounded background
+        
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(),
                 cornerRadius, cornerRadius);
 
         g2.dispose();
 
-        // Let JButton handle icon + text painting
+        
         super.paintComponent(g);
     }
 
@@ -98,7 +98,7 @@ class RoundedButton extends JButton {
     }
 }
 
-// -------- Rounded Text Area (or JTextField) --------
+
 class RoundedTextArea extends JTextArea {
 
     private int cornerRadius = 10;
@@ -106,7 +106,7 @@ class RoundedTextArea extends JTextArea {
     public RoundedTextArea(int rows, int cols, int radius) {
         super(rows, cols);
         this.cornerRadius = radius;
-        setOpaque(false); // necessary to allow rounded corners
+        setOpaque(false); 
     }
 
     @Override
@@ -115,7 +115,7 @@ class RoundedTextArea extends JTextArea {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // fill background with rounded rectangle
+        
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
 
@@ -136,7 +136,7 @@ class RoundedTextArea extends JTextArea {
     }
 }
 
-// -------- Rounded JTextField --------
+
 class RoundedTextField extends JTextField {
 
     private int cornerRadius = 15;
@@ -147,11 +147,11 @@ class RoundedTextField extends JTextField {
     public RoundedTextField(int columns, int radius) {
         super(columns);
         this.cornerRadius = radius;
-        setOpaque(false); // for rounded corners
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // padding
+        setOpaque(false); 
+        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); 
         setForeground(normalColor);
 
-        // Add focus listener for placeholder behavior
+        
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -172,7 +172,7 @@ class RoundedTextField extends JTextField {
         });
     }
 
-    // Setter for placeholder
+    
     public void setPlaceholder(String text) {
         this.placeholder = text;
         if (getText().isEmpty() || getText().equals(placeholder)) {
@@ -181,7 +181,7 @@ class RoundedTextField extends JTextField {
         }
     }
 
-    // Returns the actual user input (ignores placeholder)
+    
     public String getRealText() {
         return getText().equals(placeholder) ? "" : getText();
     }
@@ -192,7 +192,7 @@ class RoundedTextField extends JTextField {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // fill background with rounded rectangle
+        
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
 
@@ -206,7 +206,7 @@ class RoundedTextField extends JTextField {
     }
 }
 
-// -------- Optional Rounded Border for any component --------
+
 class RoundedBorder implements Border {
 
     private int cornerRadius;

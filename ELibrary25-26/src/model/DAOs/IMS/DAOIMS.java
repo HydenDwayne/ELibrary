@@ -2,7 +2,7 @@ package model.DAOs.IMS;
 
 public class DAOIMS {
 
-	// IMS columns
+	
     private String facilityCode;
     private String serialNumber;
     private String equipmentName;

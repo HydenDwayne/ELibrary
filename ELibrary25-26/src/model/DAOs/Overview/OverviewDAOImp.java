@@ -5,13 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
 import model.DAOs.FunctionHall.DAOFuncHall;
 
 public class OverviewDAOImp {
 
-    private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
 
 	public List<DAOOverview> getAllOverview() {

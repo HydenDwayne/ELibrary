@@ -10,13 +10,13 @@ public class ViewBorrowRequestModal extends RoundedDialog {
     private final Window parent;
 
     public ViewBorrowRequestModal(Window parent, String loanID) {
-        super(parent, 20); // same radius as all other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // Dim background
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // Set panel content
+        
         setContentPane(new ViewBorrowRequest(loanID));
         pack();
         setLocationRelativeTo(parent);

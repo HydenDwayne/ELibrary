@@ -11,19 +11,19 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
 
-            // Create your custom rounded dialog
+            
             RoundedDialog loadingDialog = new RoundedDialog(null, 30);
             loadingDialog.setLayout(new BorderLayout());
             loadingDialog.setUndecorated(true);
 
-//            // Content panel (since dialog is transparent)
-//            JPanel panel = new JPanel();
-//            panel.setBackground(Color.WHITE);
-//            panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-//            panel.setLayout(new BorderLayout());
-//
-//            JLabel label = new JLabel("Loading, please wait...", SwingConstants.CENTER);
-//            panel.add(label, BorderLayout.CENTER);
+
+
+
+
+
+
+
+
             
             LoadingPanel panel = new LoadingPanel();
 
@@ -31,11 +31,11 @@ public class Main {
             loadingDialog.pack();
             loadingDialog.setLocationRelativeTo(null);
 
-            // Show dialog FIRST (non-blocking trick below)
+            
             loadingDialog.setModalityType(Dialog.ModalityType.MODELESS);
             loadingDialog.setVisible(true);
 
-            // Background initialization
+            
             new SwingWorker<Void, Void>() {
 
                 private Dashboard dashboard;
@@ -51,13 +51,13 @@ public class Main {
 
                 @Override
                 protected void done() {
-                    // Close loading dialog
+                    
                     loadingDialog.dispose();
 
-                    // Show login window
+                    
                     login.setVisible(true);
 
-                    // Keep dashboard hidden
+                    
                     dashboard.setVisible(false);
                 }
 

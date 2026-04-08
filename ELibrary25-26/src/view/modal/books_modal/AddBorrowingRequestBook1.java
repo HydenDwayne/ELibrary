@@ -19,11 +19,11 @@ import view.fonts.*;
 
 public class AddBorrowingRequestBook1 extends JPanel {
 
-	static final Color MAROON = new Color(132, 43, 40); // #842b28 from sample
-	static final Color LIGHT_PINK = new Color(250, 236, 238); // #faecee from sample
+	static final Color MAROON = new Color(132, 43, 40); 
+	static final Color LIGHT_PINK = new Color(250, 236, 238); 
 	static final Color WHITE = Color.WHITE;
-	static final Color DARK_TEXT = new Color(109, 35, 33); // #6d2321 from sample
-	static final Color FIELD_BORDER = new Color(146, 76, 74); // #924c4a from sample
+	static final Color DARK_TEXT = new Color(109, 35, 33); 
+	static final Color FIELD_BORDER = new Color(146, 76, 74); 
 
 	static final int PANEL_RADIUS = 20;
 	static final int FIELD_RADIUS = 15;
@@ -37,7 +37,7 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		setBackground(Color.LIGHT_GRAY);
 		setOpaque(false);
 
-		// Main modal panel using RoundedPanel
+		
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
 		modal.setPreferredSize(new Dimension(500, 400));
@@ -53,7 +53,7 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		headerWrapper.setPreferredSize(new Dimension(450, 80));
 		headerWrapper.setOpaque(false);
 
-		// elib logo
+		
 		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
 		Image image = icon.getImage();
 		Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
@@ -86,20 +86,20 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		Fonts poppins10 = new Fonts("Poppins", 10f);
 		Font poppinsStyle10 = poppins10.getAppliedFont();
 
-		// Body panel
+		
 		JPanel body = new JPanel();
 		body.setOpaque(false);
 		body.setLayout(new BorderLayout());
 		body.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		// Body title
+		
 		JLabel bodyTitle = new JLabel("BORROWING REQUEST FOR A BOOK", SwingConstants.CENTER);
 		bodyTitle.setForeground(DARK_TEXT);
 		bodyTitle.setFont(introRustStyle24);
 		body.add(bodyTitle, BorderLayout.NORTH);
 
-		// Inner body with form fields using GridBagLayout (following SampleModal
-		// pattern)
+		
+		
 		JPanel innerBody = new JPanel();
 		innerBody.setOpaque(false);
 		innerBody.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -110,7 +110,7 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		gbc.insets = new Insets(5, 5, 5, 5);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		// Book Call Number row
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel callNumLabelWrapper = new JPanel();
@@ -129,7 +129,7 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		callNumField.setBorderThickness(1);
 		innerBody.add(callNumField, gbc);
 
-		// Patron ID row with hint
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel patronLabelWrapper = new JPanel();
@@ -171,14 +171,14 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		callNumField.setFont(poppinsStyle10);
 		patronField.setFont(poppinsStyle10);
 
-		// Footer panel with buttons
+		
 		JPanel footer = new JPanel();
 		footer.setPreferredSize(new Dimension(500, 100));
 		footer.setBorder(BorderFactory.createEmptyBorder(0, 35, 10, 35));
 		footer.setLayout(new GridLayout(2, 1, 0, 10));
 		footer.setOpaque(false);
 
-		// Confirm button (filled style)
+		
 		RoundedButton confirmBtn = new RoundedButton("CONFIRM REQUEST DETAILS", FIELD_RADIUS);
 		confirmBtn.setPreferredSize(new Dimension(500, 40));
 		confirmBtn.setBackground(MAROON);
@@ -198,7 +198,7 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		});
 		footer.add(confirmBtn);
 
-		// Cancel button (outlined style)
+		
 		RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
 		cancelBtn.setForeground(MAROON);
 		cancelBtn.setBorderColor(MAROON);
@@ -218,14 +218,14 @@ public class AddBorrowingRequestBook1 extends JPanel {
 		confirmBtn.setFont(poppinsStyle12);
 		cancelBtn.setFont(poppinsStyle12);
 
-		// Assemble modal
+		
 		modal.add(header, BorderLayout.NORTH);
 		modal.add(body, BorderLayout.CENTER);
 		modal.add(footer, BorderLayout.SOUTH);
 
 		add(modal);
 
-		// Frame settings
+		
 
 		addMouseListener(new MouseAdapter() {
 			@Override

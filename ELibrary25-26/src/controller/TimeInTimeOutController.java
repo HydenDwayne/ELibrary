@@ -34,7 +34,7 @@ public class TimeInTimeOutController {
         fl.timeInValue.setText(patronData[4]);
         fl.timeOutValue.setText(TOValue);
 
-        // ✅ Delay reset by 3 seconds without freezing UI
+        
         Timer timer = new Timer(5000, e -> {
             fl.patronIDValue.setText("--");
             fl.fullNameValue.setText("--");
@@ -44,7 +44,7 @@ public class TimeInTimeOutController {
             fl.timeOutValue.setText("--");
         });
 
-        timer.setRepeats(false); // run only once
+        timer.setRepeats(false); 
         timer.start();
     }
 }

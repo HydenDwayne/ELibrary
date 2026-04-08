@@ -18,7 +18,7 @@ public class DAOLoginFacility {
         this.cardNo = cardNo;
     }
 
-	// Getters
+	
 	public String getFacilityCode() {
 		return facilityCode;
 	}

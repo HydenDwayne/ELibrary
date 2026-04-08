@@ -5,11 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+
 public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
 
-    private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
     @Override
     public List<DAOFacilityLogin> getLoggedIn(String facilityCode) {
@@ -41,7 +44,7 @@ public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
     
     public String[] timeInTimeOutPatron(String patronID, String facilityCode, String cardNo) {
 
-        patronID = patronID.trim();     // ✅ important
+        patronID = patronID.trim();     
         facilityCode = facilityCode.trim();
 
         boolean withCard = !(facilityCode.equals("PWD") 
@@ -61,11 +64,11 @@ public class FacilityLoginDAOImp implements DAOInterfaceFacilityLogin {
                 stmt.setNull(3, java.sql.Types.VARCHAR);
             }
 
-            // ✅ Correct method for INSERT/UPDATE
+            
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-//            e.printStackTrace();
+
             return null;
         }
 

@@ -215,13 +215,13 @@ public class ReportsTab extends JPanel implements ActionListener {
 
         dr1.setVisible(false);
         slctdFaciCont.add(dr1);
-//
+
         dr2.setVisible(false);
         slctdFaciCont.add(dr2);
-//
+
         isr.setVisible(false);
         slctdFaciCont.add(isr);
-//
+
         ia.setVisible(false);
         slctdFaciCont.add(ia);
         
@@ -233,19 +233,19 @@ public class ReportsTab extends JPanel implements ActionListener {
         
         pwd.setVisible(false);
         slctdFaciCont.add(pwd);
-//
+
         mh1.setVisible(false);
         slctdFaciCont.add(mh1);
-//
+
         mh2.setVisible(false);
         slctdFaciCont.add(mh2);
-//
+
         rr.setVisible(false);
         slctdFaciCont.add(rr);
-//
+
         sdz.setVisible(false);
         slctdFaciCont.add(sdz);
-//
+
         slr1.setVisible(false);
         slctdFaciCont.add(slr1);
 
@@ -314,7 +314,7 @@ public class ReportsTab extends JPanel implements ActionListener {
         southPanel.add(archiveBtn, BorderLayout.EAST);
         facContainer.add(southPanel, BorderLayout.SOUTH);
 
-        // =========================
+        
         facilitiesTab.add(facContainer, gbc);
         facilitiesTab.setOpaque(false);
         add(facContainer);

@@ -17,11 +17,11 @@ import view.fonts.Fonts;
 
 public class LoadingPanel extends JPanel {
 
-    static final Color MAROON       = new Color(132, 43, 40);      // #842b28
-    static final Color LIGHT_PINK   = new Color(250, 236, 238);  // #faecee
+    static final Color MAROON       = new Color(132, 43, 40);      
+    static final Color LIGHT_PINK   = new Color(250, 236, 238);  
     static final Color WHITE        = Color.WHITE;
-    static final Color DARK_TEXT    = new Color(109, 35, 33);      // #6d2321
-    static final Color FIELD_BORDER = new Color(146, 76, 74);    // #924c4a
+    static final Color DARK_TEXT    = new Color(109, 35, 33);      
+    static final Color FIELD_BORDER = new Color(146, 76, 74);    
 
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
@@ -32,7 +32,7 @@ public class LoadingPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // draw background image
+        
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 
@@ -42,16 +42,16 @@ public class LoadingPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // 👉 Wider and shorter
+        
         setPreferredSize(new Dimension(700, 300));
 
 
-        // ===== CENTER CONTENT =====
+        
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.setOpaque(false);
         centerPanel.setBorder(BorderFactory.createEmptyBorder(30, 40, 20, 40));
 
-        // LOGO (LEFT-CENTER)
+        
         ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
         Image scaled = icon.getImage().getScaledInstance(240, 120, Image.SCALE_SMOOTH);
         JLabel logoLabel = new JLabel(new ImageIcon(scaled));
@@ -59,7 +59,7 @@ public class LoadingPanel extends JPanel {
 
         centerPanel.add(logoLabel, BorderLayout.WEST);
 
-        // TITLE (RIGHT-CENTER, ONE LINE ONLY)
+        
         JLabel titleLabel = new JLabel("E-Library Management System");
         titleLabel.setFont(new Fonts("IntroRust", 20f).getAppliedFont());
         titleLabel.setForeground(DARK_TEXT);
@@ -68,7 +68,7 @@ public class LoadingPanel extends JPanel {
         centerPanel.add(titleLabel, BorderLayout.CENTER);
 
 
-        // ===== BOTTOM LEFT (Names) =====
+        
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setOpaque(false);
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
@@ -93,7 +93,7 @@ public class LoadingPanel extends JPanel {
 
         bottomPanel.add(loading, BorderLayout.EAST);
 
-        // ===== ADD TO MODAL =====
+        
         add(centerPanel, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
     }

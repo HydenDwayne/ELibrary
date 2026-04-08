@@ -4,11 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+
 public class ActiveRequestDAOImp {
 
-    private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
     public List<DAOActiveRequest> getAllRequests() {
 
@@ -122,7 +125,7 @@ public class ActiveRequestDAOImp {
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
-					return rs.getInt(1) > 0; // If count > 0, record exists
+					return rs.getInt(1) > 0; 
 				}
 			}
 
@@ -141,7 +144,7 @@ public class ActiveRequestDAOImp {
 
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-					return rs.getInt(1) > 0; // If count > 0, record exists
+					return rs.getInt(1) > 0; 
 				}
 			}
 
@@ -163,12 +166,12 @@ public class ActiveRequestDAOImp {
 			if (rs.next()) {
 				loanID = rs.getString("LoanID");
 			} else {
-				loanID = "LN00000000"; // default if table is empty
+				loanID = "LN00000000"; 
 			}
 
-			// Split into prefix and numeric part
+			
 			int splitIndex = 0;
-			// Find where digits start
+			
 			for (int i = 0; i < loanID.length(); i++) {
 				if (Character.isDigit(loanID.charAt(i))) {
 					splitIndex = i;
@@ -178,11 +181,11 @@ public class ActiveRequestDAOImp {
 			String prefix = loanID.substring(0, splitIndex);
 			String numberPart = loanID.substring(splitIndex);
 
-			// Increment numeric part
+			
 			long number = Long.parseLong(numberPart);
 			number += 1;
 
-			// Preserve leading zeros: use the same length as original numeric part
+			
 			String newNumberPart = String.format("%0" + numberPart.length() + "d", number);
 
 			return prefix + newNumberPart;

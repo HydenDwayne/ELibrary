@@ -10,7 +10,7 @@ class BackgroundPanel extends JPanel {
 
     public BackgroundPanel(URL url) {
         backgroundImage = new ImageIcon(url).getImage();
-        setLayout(new BorderLayout()); // important
+        setLayout(new BorderLayout()); 
     }
 
     @Override

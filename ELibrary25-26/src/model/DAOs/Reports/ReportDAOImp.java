@@ -4,13 +4,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+import model.Login;
 import model.DAOs.Reports.DAOPatron;
 
 public class ReportDAOImp {
 
-    private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-    private final String USER = "Pia";
-    private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
     public List<DAOFunctionHall> getFunctionHallReports(String facilityCode) {
 
@@ -24,7 +27,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
                 reports.add(new DAOFunctionHall(
                         rs.getString("FunctionHallCode"),
                         rs.getString("HallReservationNumber"),
@@ -56,7 +59,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOLoginFacility(
                         rs.getString("FacilityCode"),
                         rs.getString("LogID"),
@@ -84,7 +87,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOBookLoan(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),
@@ -112,7 +115,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOReturnBook(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),
@@ -137,7 +140,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOIMS(
             			rs.getString("SerialNumber"),
                         rs.getString("EquipmentName"),
@@ -162,7 +165,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOEquipmentLoan(
             			 rs.getString("LoanID"),
                          rs.getString("FacilityCode"),
@@ -191,7 +194,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOPatron(
             			rs.getString("PatronID"), 
             			rs.getString("LastName"),
@@ -222,7 +225,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOBook(
             			rs.getString("CallNumber"), 
             			rs.getString("Title"),
@@ -251,7 +254,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOBorrowedBooks(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),
@@ -279,7 +282,7 @@ public class ReportDAOImp {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                // Map the correct columns from the stored procedure to the DAO
+                
             	reports.add(new DAOOverdueBooks(
             			rs.getString("TransactionID"),
                         rs.getString("CallNumber"),

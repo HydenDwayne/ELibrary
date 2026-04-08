@@ -4,11 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+
 public class LoginDAOImp implements DAOInterfaceLogin {
 
-	private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-	private final String USER = "Pia";
-	private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
 	@Override
 	public boolean checkCredentials(String username, String password) {
@@ -62,14 +65,14 @@ public class LoginDAOImp implements DAOInterfaceLogin {
 	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 	         PreparedStatement stmt = conn.prepareStatement("{CALL editAdminLogin(?,?,?,?,?,?,?,?)}")) {
 
-	        stmt.setString(1, details[0]); // current username
-	        stmt.setString(2, details[1]); // new username
-	        stmt.setString(3, details[2]); // full name
-	        stmt.setString(4, details[3]); // email
-	        stmt.setString(5, details[4]); // old password
-	        stmt.setString(6, details[5]); // new password
-	        stmt.setString(7, details[6]); // confirm password
-	        stmt.setBoolean(8, Boolean.parseBoolean(details[7])); // updatePassword flag
+	        stmt.setString(1, details[0]); 
+	        stmt.setString(2, details[1]); 
+	        stmt.setString(3, details[2]); 
+	        stmt.setString(4, details[3]); 
+	        stmt.setString(5, details[4]); 
+	        stmt.setString(6, details[5]); 
+	        stmt.setString(7, details[6]); 
+	        stmt.setBoolean(8, Boolean.parseBoolean(details[7])); 
 
 	        boolean hasResults = stmt.execute();
 
@@ -79,7 +82,7 @@ public class LoginDAOImp implements DAOInterfaceLogin {
 
 	                if (rs.next()) {
 	                    int success = rs.getInt("Success");
-	                    // You can show this in UI instead
+	                    
 	                    return success == 1;
 	                }
 	            } else {

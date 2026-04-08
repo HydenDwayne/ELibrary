@@ -91,11 +91,11 @@ public class ReserveFunctionHall extends JPanel {
         /* ✅ Equal width for both columns */
         gbc.weightx = 0.5;
 
-        Dimension labelSize = new Dimension(220, 30); // ✅ forces equal column feel
+        Dimension labelSize = new Dimension(220, 30); 
 
         /* ================= ROWS ================= */
 
-        // Event Name
+        
         gbc.gridx = 0;
         JLabel eventLbl = new JLabel("Event Name:");
         eventLbl.setFont(poppins16);
@@ -123,8 +123,8 @@ public class ReserveFunctionHall extends JPanel {
 
         gbc.gridx = 1;
 
-        // 1️⃣ Create the spinners
-        List<String> timeSlots = generateTimeSlots(); // 07:00 - 17:00
+        
+        List<String> timeSlots = generateTimeSlots(); 
         RoundedSpinner startField = new RoundedSpinner(timeSlots, FIELD_RADIUS);
         startField.setBorderColor(FIELD_BORDER);
         startField.setBorderThickness(1);
@@ -135,7 +135,7 @@ public class ReserveFunctionHall extends JPanel {
         endField.setBorderThickness(1);
         ((JSpinner) endField).setValue("08:00");
 
-        // 3️⃣ Add validation so start <= end
+        
         JSpinner startSpinner = (JSpinner) startField;
         JSpinner endSpinner = (JSpinner) endField;
 
@@ -165,7 +165,7 @@ public class ReserveFunctionHall extends JPanel {
             }
         });
 
-        // 4️⃣ Add them to the panel
+        
         innerBody.add(startSpinner, gbc);
 
         /* ================= ROW 7: End Time ================= */
@@ -181,23 +181,23 @@ public class ReserveFunctionHall extends JPanel {
         gbc.gridx = 1;
         innerBody.add(endSpinner, gbc);
 
-        // Chosen Date
-//        gbc.gridy++; gbc.gridx = 0;
-//        JLabel dateLbl = new JLabel("Chosen Date (YYYY-MM-DD):");
-//        dateLbl.setFont(poppins16);
-//        dateLbl.setForeground(DARK_TEXT);
-//        dateLbl.setPreferredSize(labelSize);
-//        innerBody.add(dateLbl, gbc);
-//
-//        gbc.gridx = 1;
-//        RoundedTextField dateField = new RoundedTextField(19, FIELD_RADIUS);
-//        dateField.setFont(poppins10);
-//        dateField.setPlaceholder("Enter Date");
-//        dateField.setBorderColor(FIELD_BORDER);
-//        dateField.setBorderThickness(1);
-//        innerBody.add(dateField, gbc);
+        
 
-        // Reserved By
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         gbc.gridy++; gbc.gridx = 0;
         JLabel reservedLbl = new JLabel("Reserved By (ID):");
         reservedLbl.setFont(poppins16);
@@ -213,7 +213,7 @@ public class ReserveFunctionHall extends JPanel {
         reservedField.setBorderThickness(1);
         innerBody.add(reservedField, gbc);
 
-        // Approved By
+        
         gbc.gridy++; gbc.gridx = 0;
         JLabel approvedLbl = new JLabel("Approved By (ID):");
         approvedLbl.setFont(poppins16);
@@ -256,12 +256,12 @@ public class ReserveFunctionHall extends JPanel {
         confirmBtn.setBackground(MAROON);
         confirmBtn.setForeground(WHITE);
         confirmBtn.addActionListener(e -> {
-            // Get required field values
+            
             String eventName  = eventField.getRealText().trim();
             String reservedBy = reservedField.getRealText().trim();
             String approvedBy = approvedField.getRealText().trim();
 
-            // Validate required fields
+            
             if (eventName.isEmpty() || reservedBy.isEmpty() || approvedBy.isEmpty()) {
                 JOptionPane.showMessageDialog(
                     this,
@@ -291,12 +291,12 @@ public class ReserveFunctionHall extends JPanel {
                     return;
             }
 
-            // Optional fields (normalize to null if empty)
+            
             if (eventName.isEmpty()) eventName = null;
             if (reservedBy.isEmpty()) reservedBy = null;
             if (approvedBy.isEmpty()) approvedBy = null;
 
-            // Prepare reservation details
+            
             String[] reservationDetails = {
                 this.hallCode,
                 approvedBy,
@@ -307,10 +307,10 @@ public class ReserveFunctionHall extends JPanel {
                 endField.getValue().toString()
             };
 
-            // Send to controller
+            
             new FunctionHallController(reservationDetails);
 
-            // Close modal
+            
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w instanceof JDialog) w.dispose();
         });

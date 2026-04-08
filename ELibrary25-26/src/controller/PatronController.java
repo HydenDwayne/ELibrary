@@ -26,7 +26,7 @@ public class PatronController {
 	    this.studModal = studModal;
 	    this.genModal = genModal;
 
-	    // ✅ normalize ONCE
+	    
 	    this.campusCode = toDbCampusCode(campusCode);
 
 	    hookCollegeSelection();
@@ -35,7 +35,7 @@ public class PatronController {
 	}
 
 
-	// ✅ Employee constructor
+	
 	public PatronController(EmployeeModal empModal, String campusCode, GeneralModal genModal) {
 		this.studModal = null;
 		this.empModal = empModal;
@@ -45,13 +45,13 @@ public class PatronController {
 		loadEmployeeColleges();
 	}
 	
-	// ✅ STUDENT ONLY
+	
 	public void reloadStudentCollegesAndPrograms() {
 	    if (studModal == null) return;
 	    loadCollegesAndPrograms();
 	}
 
-	// ✅ EMPLOYEE ONLY
+	
 	public void reloadEmployeeColleges() {
 	    if (empModal == null) return;
 	    loadEmployeeColleges();
@@ -60,7 +60,7 @@ public class PatronController {
 
 	private void loadEmployeeColleges() {
 
-		// Only Main (Malolos) and Bustos have colleges
+		
 		if (campusCode.equalsIgnoreCase("Main") || campusCode.equalsIgnoreCase("Bustos")
 				|| campusCode.equalsIgnoreCase("Malolos")) {
 
@@ -76,19 +76,19 @@ public class PatronController {
 
 	private void loadCollegesAndPrograms() {
 
-		// First detect if user selected GRADUATE
+		
 		int typeIndex = studModal.row3Field.getSelectedIndex();
 
-		if (typeIndex == 1) { // GRADUATE
-//            removeExistingListeners();
+		if (typeIndex == 1) { 
+
 
 			String[] gradColleges = { "CLAW", "GS" };
 			studModal.setCollege(gradColleges);
 
-			// Force CLAW to be selected
+			
 			studModal.row4Field.setSelectedIndex(0);
 
-			// 🔥 Load programs AFTER UI becomes visible
+			
 			SwingUtilities.invokeLater(() -> {
 				loadGraduateProgramsInitial();
 			});
@@ -96,7 +96,7 @@ public class PatronController {
 			return;
 		}
 
-		// NORMAL BEHAVIOR (Undergrad, LabHigh, Alumni)
+		
 		String[] colleges = daoPatron.getCollegesPerCampus(campusCode);
 		studModal.setCollege(colleges);
 
@@ -125,10 +125,10 @@ public class PatronController {
 		studModal.setPrograms(programs);
 	}
 
-	// ⭐ NEW — Recalculate when switching student type
+	
 	private void hookStudentTypeSelection() {
 		studModal.row3Field.addActionListener(e -> {
-			loadCollegesAndPrograms(); // Refresh colleges based on student type
+			loadCollegesAndPrograms(); 
 		});
 	}
 
@@ -144,9 +144,9 @@ public class PatronController {
 	public boolean saveStudentRecord() {
 
 		try {
-			// ─────────────────────────────────────────────
-			// PATRON DATA (FROM GENERAL MODAL)
-			// ─────────────────────────────────────────────
+			
+			
+			
 			String patronID = normalizeText(genModal.getPatronID(), "Enter Patron ID");
 			String firstName = normalizeText(genModal.getFirstName(), "Enter First Name");
 			String lastName = normalizeText(genModal.getLastName(), "Enter Last Name");
@@ -156,9 +156,9 @@ public class PatronController {
 			String address = normalizeText(genModal.getAddress(), "Enter Home Address");
 			
 
-			// ─────────────────────────────────────────────
-			// STUDENT DATA (FROM STUDENT MODAL)
-			// ─────────────────────────────────────────────
+			
+			
+			
 			String yearText =
 			        normalizeText(studModal.row2Field.getText(), "e.g. 2026");
 
@@ -167,9 +167,9 @@ public class PatronController {
 
 			String studentType = (String) studModal.row3Field.getSelectedItem();
 
-			// ─────────────────────────────────────────────
-			// OPTIONAL FIELDS (NULL BY DEFAULT)
-			// ─────────────────────────────────────────────
+			
+			
+			
 			String yearLevel = null;
 			String colCode = null;
 			String programCode = null;
@@ -190,9 +190,9 @@ public class PatronController {
 			String degree = null;
 			Integer gradeLevel = null;
 
-			// ─────────────────────────────────────────────
-			// STUDENT TYPE-SPECIFIC DATA
-			// ─────────────────────────────────────────────
+			
+			
+			
 			switch (studentType) {
 
 			case "UNDERGRADUATE":
@@ -224,9 +224,9 @@ public class PatronController {
 				break;
 			}
 
-			// ─────────────────────────────────────────────
-			// DAO CALL
-			// ─────────────────────────────────────────────
+			
+			
+			
 			return daoPatron.insertStudentRecord(patronID, firstName, middleInitial, lastName, email, contact, address,
 					campusCode,
 
@@ -281,9 +281,9 @@ public class PatronController {
 	public boolean saveEmployeeRecord() {
 
 	    try {
-	        // ─────────────────────────────────────
-	        // PATRON DATA
-	        // ─────────────────────────────────────
+	        
+	        
+	        
 	        String patronID  = normalizeText(genModal.getPatronID(), "Enter Patron ID");
 	        String firstName = normalizeText(genModal.getFirstName(), "Enter First Name");
 	        String lastName  = normalizeText(genModal.getLastName(), "Enter Last Name");
@@ -296,13 +296,13 @@ public class PatronController {
 	            throw new IllegalArgumentException("Patron ID, First Name, and Last Name are required.");
 	        }
 
-	        // ✅ DB campus code already normalized
+	        
 	        String camp = toDbCampusCode(campusCode);
 	        
 
-	        // ─────────────────────────────────────
-	        // ROLE FLAGS
-	        // ─────────────────────────────────────
+	        
+	        
+	        
 	        boolean admin   = empModal.adminCheck.isSelected();
 	        boolean staff   = empModal.staffCheck.isSelected();
 	        boolean faculty = empModal.facultyCheck.isSelected();
@@ -311,42 +311,42 @@ public class PatronController {
 	            throw new IllegalArgumentException("At least one role must be selected.");
 	        }
 
-	        // ─────────────────────────────────────
-	        // DATE HIRED (REQUIRED)
-	        // ─────────────────────────────────────
+	        
+	        
+	        
 	        String dateText = normalizeText(empModal.row2Field.getText(), "YYYY");
 
 
 	        java.sql.Date dateHired = java.sql.Date.valueOf(dateText + "-01-01");
 
 
-	        // ─────────────────────────────────────
-	        // ROLE-SPECIFIC DATA
-	        // ─────────────────────────────────────
+	        
+	        
+	        
 	        String adminPos  = admin  ? normalizeText(empModal.row5Field.getText(), "") : null;
 	        String assign    = staff  ? normalizeText(empModal.row4Field.getText(), "") : null;
 	        String staffPos  = staff  ? normalizeText(empModal.row5Field.getText(), "") : null;
 	        String facRank   = faculty? normalizeText(empModal.row6Field.getText(), "") : null;
 	        String colCode   = faculty? (String) empModal.row8Field.getSelectedItem() : null;
 
-	        // ✅ CAUSE #1 FIX — Administrator validation
+	        
 	        if (admin && adminPos == null) {
 	            throw new IllegalArgumentException("Administrator position is required.");
 	        }
 
-	        // ✅ CAUSE #2 FIX — Library Staff validation
+	        
 	        if (staff && (assign == null || staffPos == null)) {
 	            throw new IllegalArgumentException("Assignment Code and Staff Position are required.");
 	        }
 
-	        // ✅ CAUSE #3 FIX — Faculty validation
+	        
 	        if (faculty && (facRank == null || colCode == null || colCode.isBlank())) {
 	            throw new IllegalArgumentException("Faculty Rank and College are required.");
 	        }
 
-	        // ─────────────────────────────────────
-	        // DAO CALL (SAFE)
-	        // ─────────────────────────────────────
+	        
+	        
+	        
 	        return daoPatron.insertEmployeeRecord(
 	                patronID, firstName, middle, lastName,
 	                email, contact, address, camp,
@@ -382,7 +382,7 @@ public class PatronController {
 	    }
 	}
 	
-	// view patron - student
+	
 	public PatronController(ViewStudent view, String patronID) {
 		this.view = view;
 		this.patronID = patronID;
@@ -466,7 +466,7 @@ public class PatronController {
 	    
 	    
 	    
-	 // StudentType is at index 7
+	 
 	    SwingUtilities.invokeLater(() -> {
 	    	selectComboItemByText(view.studentTypeField, patronDetails[7]);
 	    	selectComboItemByText(view.levelField, patronDetails[9]);
@@ -595,9 +595,9 @@ public class PatronController {
 	    view.libPositionField.setText(patronDetails[9]);
 	    
 	    view.facultyRankField.setText(patronDetails[10]);
-//	    
-//	    selectComboItemByText(view.collegeField, patronDetails[11]);
-//	    selectComboItemByText(view.campusField, patronDetails[12]);
+
+
+
 
 	    view.adminCheck.setSelected(false);
 	    view.libraryStaffCheck.setSelected(false);
@@ -629,9 +629,9 @@ public class PatronController {
 	public boolean updatePatronEmployee(String[] patronDetails) {
 		boolean isSuccessful = daoPatron.updatePatronEmployee(patronDetails);
 		
-//		if (!isSuccessful) {
-//			JOptionPane.showMessageDialog(null, "Error. No record updated");
-//		}
+
+
+
 		return isSuccessful;
 	}
 	

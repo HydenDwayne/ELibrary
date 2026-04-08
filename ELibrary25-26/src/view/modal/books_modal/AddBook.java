@@ -106,7 +106,7 @@ public class AddBook extends JPanel {
 
 		/* ================= STATIC FIELDS ================= */
 
-		// Call Number
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel callNumberLabel = new JLabel("Call Number:");
@@ -122,7 +122,7 @@ public class AddBook extends JPanel {
 		callNumberField.setBorderThickness(1);
 		innerBody.add(callNumberField, gbc);
 
-		// Title
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel titleLabel = new JLabel("Title:");
@@ -138,7 +138,7 @@ public class AddBook extends JPanel {
 		titleField.setBorderThickness(1);
 		innerBody.add(titleField, gbc);
 
-		// Author
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel authorLabel = new JLabel("Author:");
@@ -154,7 +154,7 @@ public class AddBook extends JPanel {
 		authorField.setBorderThickness(1);
 		innerBody.add(authorField, gbc);
 
-		// Author
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel yearLabel = new JLabel("Publication Year:");
@@ -165,10 +165,10 @@ public class AddBook extends JPanel {
 		int startYear = 1980;
 		int endYear = 2026;
 
-		// Array size must be positive
+		
 		String[] years = new String[endYear - startYear + 1];
 
-		// Fill array from endYear down to startYear
+		
 		for (int i = 0; i < years.length; i++) {
 		    years[i] = String.valueOf(endYear - i);
 		}
@@ -182,7 +182,7 @@ public class AddBook extends JPanel {
 		yearCombo.setPreferredSize(new Dimension(200, 30));
 		innerBody.add(yearCombo, gbc);
 
-		// Classification
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel classLabel = new JLabel("Classification Code:");
@@ -192,7 +192,7 @@ public class AddBook extends JPanel {
 
 		new BookController(this, gbc, poppins10, innerBody, FIELD_RADIUS, FIELD_BORDER);
 
-		// Collection
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel collectionLabel = new JLabel("Collection Code:");
@@ -211,7 +211,7 @@ public class AddBook extends JPanel {
 		collectionCombo.setPreferredSize(new Dimension(200, 30));
 		innerBody.add(collectionCombo, gbc);
 
-		// Book Type
+		
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JLabel typeLabel = new JLabel("Book Type:");
@@ -244,7 +244,7 @@ public class AddBook extends JPanel {
 		confirmBtn.setBackground(MAROON);
 		confirmBtn.setForeground(Color.WHITE);
 		confirmBtn.addActionListener(e -> {
-		    // Get all field values
+		    
 		    String callNumber = callNumberField.getRealText().trim();
 		    String title      = titleField.getRealText().trim();
 		    String author     = authorField.getRealText().trim();
@@ -255,7 +255,7 @@ public class AddBook extends JPanel {
 		    
 		    String[] classArr = classCode.split("-");
 		    
-		    // Series is only required if NON-BORROWABLE
+		    
 		    String series = null;
 		    if ("NON-BORROWABLE".equals(type)) {
 		        if (seriesField != null) {
@@ -265,7 +265,7 @@ public class AddBook extends JPanel {
 		    
 		    
 
-		    // Validate required fields
+		    
 		    if (callNumber.isEmpty() || title.isEmpty() || author.isEmpty() || year == null ||
 		        classCode == null || collection == null || type == null ||
 		        ("NON-BORROWABLE".equals(type) && (series == null || series.isEmpty()))) {
@@ -302,7 +302,7 @@ public class AddBook extends JPanel {
 
 		    
 
-		    // Prepare book details array
+		    
 		    String[] bookDetails = {
 		        callNumber,
 		        title,
@@ -314,10 +314,10 @@ public class AddBook extends JPanel {
 		        series
 		    };
 
-		    // Send to controller
+		    
 		    new BookController(bookDetails);
 
-		    // Close modal
+		    
 		    Window w = SwingUtilities.getWindowAncestor(this);
 		    if (w instanceof JDialog) w.dispose();
 		});
@@ -346,7 +346,7 @@ public class AddBook extends JPanel {
 
 	private void updateSeriesRow() {
 
-		// Remove old dynamic components
+		
 		for (Component c : dynamicComponents) {
 			innerBody.remove(c);
 		}

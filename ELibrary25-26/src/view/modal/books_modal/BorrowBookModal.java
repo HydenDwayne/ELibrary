@@ -14,12 +14,12 @@ public class BorrowBookModal extends RoundedDialog {
         super(parent, 20);
         this.parent = parent;
 
-        // ✅ Dim the parent
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
         setStep1();
 
-        setLocationRelativeTo(parent); // ✅ initial center
+        setLocationRelativeTo(parent); 
         setVisible(true);
     }
 
@@ -41,8 +41,8 @@ public class BorrowBookModal extends RoundedDialog {
     private void refreshAndCenter() {
         revalidate();
         repaint();
-        pack();                       // ✅ resize to new content
-        setLocationRelativeTo(parent); // ✅ RECENTER (THIS WAS MISSING)
+        pack();                       
+        setLocationRelativeTo(parent); 
     }
 
     @Override

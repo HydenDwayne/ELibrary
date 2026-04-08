@@ -43,14 +43,12 @@ public class FacilitiesTab extends JPanel implements ActionListener {
         gbc.gridheight = 1;
         gbc.insets = new Insets(40, 10, 10, 10);
 
-        // container of the entire center widget
         RoundedPanel facContainer = new RoundedPanel(panelRadius);
         facContainer.setPreferredSize(new Dimension(1280, 560));
         facContainer.setLayout(new BorderLayout());
         facContainer.setBackground(Color.WHITE);
 
         setBackground(Color.decode("#c4c4c4"));
-        // red part
         RoundedPanel slctFacility = new RoundedPanel(panelRadius);
         slctFacility.setLayout(new GridBagLayout());
         GridBagConstraints gbcRed = new GridBagConstraints();
@@ -69,11 +67,10 @@ public class FacilitiesTab extends JPanel implements ActionListener {
 
         slctFacility.add(selectFacility, gbcRed);
 
-        // combobox
         JPanel cmbbxPanel = new JPanel();
         cmbbxPanel.setOpaque(false);
 
-        String[] facilityItems = { //unfinished == replace with stored procedure that fills the value of this array with facilities from the DB
+        String[] facilityItems = { 
             "Amphitheater",
             "Discussion Room 1",
             "Discussion Room 2",
@@ -97,14 +94,12 @@ public class FacilitiesTab extends JPanel implements ActionListener {
         cmbbxPanel.add(dropdownFacility);
         slctFacility.add(cmbbxPanel, gbcRed);
 
-        // container of the red part
         JPanel topWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topWrapper.setLayout(new BorderLayout());
         topWrapper.setOpaque(false);
         topWrapper.add(slctFacility);
         topWrapper.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
 
-        // no red part
         tabLabel.setText("7th | Amphitheather");
         tabLabel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
         tabLabel.setForeground(Color.decode("#6d2321"));
@@ -141,34 +136,29 @@ public class FacilitiesTab extends JPanel implements ActionListener {
         reloadLogo.setFocusPainted(false);
         reloadLogo.setHorizontalAlignment(SwingConstants.CENTER);
         
-        reloadLogo.addActionListener(e -> {
-//        	reloadCurrentCollection();
-        });
-        
         JPanel iconsPanel = new JPanel();
         iconsPanel.setOpaque(false);
         iconsPanel.setLayout(new GridLayout(1, 3));
         iconsPanel.setPreferredSize(new Dimension(80,30));
-        
-//        iconsPanel.add(sortByLogo);
+
         iconsPanel.add(archiveLogo);
         iconsPanel.add(reloadLogo);
         
-     // add red facility selector to the left
+
         topWrapper.add(slctFacility, BorderLayout.WEST);
 
-        // add tab label in the center
+
         topWrapper.add(tabLabel, BorderLayout.CENTER);
 
-        // add icons panel to the right
+
         topWrapper.add(iconsPanel, BorderLayout.EAST);
 
         facContainer.add(topWrapper, BorderLayout.NORTH);
 
-        // selected facility items
+
         JPanel slctdPadding = new JPanel();
         slctdPadding.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
-        // slctdPadding.setOpaque(false);
+
         slctdFaciCont = new JPanel();
         slctdFaciCont.setPreferredSize(new Dimension(1200, 400));
         slctdFaciCont.setOpaque(false);
@@ -212,7 +202,7 @@ public class FacilitiesTab extends JPanel implements ActionListener {
         tcr.setVisible(false);
         slctdFaciCont.add(tcr);
 
-        // =========================
+
         facilitiesTab.add(facContainer, gbc);
         facilitiesTab.setOpaque(false);
         add(facilitiesTab);

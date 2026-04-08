@@ -29,10 +29,10 @@ public class RegisterPatron extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-//        BackgroundPanel bgPanel = new BackgroundPanel(
-//                FilePath.getImgFilePath() + "blurred_bg.jpg"
-//        );
-//        bgPanel.setLayout(new BorderLayout());
+
+
+
+
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
@@ -48,7 +48,7 @@ public class RegisterPatron extends JPanel {
 
         cardLayout.show(cardPanel, "general");
 
-//        bgPanel.add(cardPanel, BorderLayout.CENTER);
+
         add(cardPanel, BorderLayout.CENTER);
     }
 

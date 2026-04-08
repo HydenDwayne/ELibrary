@@ -44,7 +44,7 @@ public class PatronsTab extends JPanel {
 	private boolean filterMeneses;
 	private boolean filterSarmiento;
 
-	// Patron type filters
+	
 	private boolean filterEmployee;
 	private boolean filterStudent;
 

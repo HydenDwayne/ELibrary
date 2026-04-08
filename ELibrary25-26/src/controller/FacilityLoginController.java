@@ -68,7 +68,7 @@ public class FacilityLoginController {
 	public void reloadIPAD() {
 	    List<DAOFacilityLogin> cards = daoLogin.getLoggedIn("iPAD");
 
-	    // reset all cards
+	    
 	    for (int i = 1; i <= 45; i++) {
 	        patLabels[i].setText("--");
 	        timerLabels[i].setText("--");
@@ -194,7 +194,7 @@ public class FacilityLoginController {
             card.setPreferredSize(new Dimension(150,80));
             card.setBackground(Color.decode("#842b28"));
 
-            // upper card
+            
             JPanel upperCard = new JPanel();
             upperCard.setOpaque(false);
             upperCard.setLayout(new BorderLayout());
@@ -218,7 +218,7 @@ public class FacilityLoginController {
             upperCard.add(numberCont, BorderLayout.NORTH);
             card.add(upperCard, BorderLayout.NORTH);
 
-            // center card
+            
             JPanel centerCard = new JPanel();
             centerCard.setOpaque(false);
             centerCard.setLayout(new BorderLayout());
@@ -237,7 +237,7 @@ public class FacilityLoginController {
             centerCard.add(patNumberCont, BorderLayout.NORTH);
             card.add(centerCard, BorderLayout.CENTER);
 
-            // bottom
+            
 
             JPanel bottomCard = new JPanel();
             bottomCard.setOpaque(false);
@@ -269,7 +269,7 @@ public class FacilityLoginController {
             bottomCard.add(timerCont, BorderLayout.SOUTH);
             card.add(bottomCard, BorderLayout.SOUTH);
             
-         // ✅ VERY IMPORTANT: store references
+         
             patLabels[i] = patNumber;
             timerLabels[i] = timer;
             statusCircles[i] = statusCircle;
@@ -297,7 +297,7 @@ public class FacilityLoginController {
 			card.setPreferredSize(new Dimension(225, 80));
 			card.setBackground(Color.decode("#842b28"));
 
-			// upper card
+			
 			JPanel upperCard = new JPanel();
 			upperCard.setOpaque(false);
 			upperCard.setLayout(new BorderLayout());
@@ -321,7 +321,7 @@ public class FacilityLoginController {
 			upperCard.add(numberCont, BorderLayout.NORTH);
 			card.add(upperCard, BorderLayout.NORTH);
 
-			// center card
+			
 			JPanel centerCard = new JPanel();
 			centerCard.setOpaque(false);
 			centerCard.setLayout(new BorderLayout());
@@ -340,7 +340,7 @@ public class FacilityLoginController {
 			centerCard.add(patNumberCont, BorderLayout.NORTH);
 			card.add(centerCard, BorderLayout.CENTER);
 
-			// bottom
+			
 
 			JPanel bottomCard = new JPanel();
 			bottomCard.setOpaque(false);
@@ -398,7 +398,7 @@ public class FacilityLoginController {
 			card.setPreferredSize(new Dimension(150, 80));
 			card.setBackground(Color.decode("#842b28"));
 
-			// upper card
+			
 			JPanel upperCard = new JPanel();
 			upperCard.setOpaque(false);
 			upperCard.setLayout(new BorderLayout());
@@ -422,7 +422,7 @@ public class FacilityLoginController {
 			upperCard.add(numberCont, BorderLayout.NORTH);
 			card.add(upperCard, BorderLayout.NORTH);
 
-			// center card
+			
 			JPanel centerCard = new JPanel();
 			centerCard.setOpaque(false);
 			centerCard.setLayout(new BorderLayout());
@@ -441,7 +441,7 @@ public class FacilityLoginController {
 			centerCard.add(patNumberCont, BorderLayout.NORTH);
 			card.add(centerCard, BorderLayout.CENTER);
 
-			// bottom
+			
 
 			JPanel bottomCard = new JPanel();
 			bottomCard.setOpaque(false);
@@ -498,7 +498,7 @@ public class FacilityLoginController {
 			card.setPreferredSize(new Dimension(150, 80));
 			card.setBackground(Color.decode("#842b28"));
 
-			// upper card
+			
 			JPanel upperCard = new JPanel();
 			upperCard.setOpaque(false);
 			upperCard.setLayout(new BorderLayout());
@@ -522,7 +522,7 @@ public class FacilityLoginController {
 			upperCard.add(numberCont, BorderLayout.NORTH);
 			card.add(upperCard, BorderLayout.NORTH);
 
-			// center card
+			
 			JPanel centerCard = new JPanel();
 			centerCard.setOpaque(false);
 			centerCard.setLayout(new BorderLayout());
@@ -541,7 +541,7 @@ public class FacilityLoginController {
 			centerCard.add(patNumberCont, BorderLayout.NORTH);
 			card.add(centerCard, BorderLayout.CENTER);
 
-			// bottom
+			
 
 			JPanel bottomCard = new JPanel();
 			bottomCard.setOpaque(false);

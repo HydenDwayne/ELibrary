@@ -12,10 +12,10 @@ import view.modal.books_modal.ViewBooks;
 
 public class PopUpMessage extends JPanel {
 
-	static final Color MAROON = new Color(132, 43, 40); // #842b28
-	static final Color LIGHT_PINK = new Color(250, 236, 238); // #faecee
+	static final Color MAROON = new Color(132, 43, 40); 
+	static final Color LIGHT_PINK = new Color(250, 236, 238); 
 	static final Color WHITE = Color.WHITE;
-	static final Color DARK_TEXT = new Color(109, 35, 33); // #6d2321
+	static final Color DARK_TEXT = new Color(109, 35, 33); 
 	static final int PANEL_RADIUS = 20;
 	static final int FIELD_RADIUS = 15;
 
@@ -27,13 +27,13 @@ public class PopUpMessage extends JPanel {
 		setPreferredSize(new Dimension(400, 250));
 		setBackground(LIGHT_PINK);
 
-		// Header
+		
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(MAROON);
 		header.setPreferredSize(new Dimension(400, 80));
 		header.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-		// Logo placeholder
+		
 		JPanel logoPanel = new JPanel();
 		logoPanel.setBackground(MAROON);
 		logoPanel.setPreferredSize(new Dimension(80, 80));
@@ -43,13 +43,13 @@ public class PopUpMessage extends JPanel {
 		logoPanel.add(logoPlaceholder);
 		header.add(logoPanel, BorderLayout.WEST);
 
-		// Title
+		
 		JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
 		titleLabel.setForeground(WHITE);
 		titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
 		header.add(titleLabel, BorderLayout.CENTER);
 
-		// Body
+		
 		JPanel body = new JPanel(new GridBagLayout());
 		body.setOpaque(false);
 		body.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
@@ -67,7 +67,7 @@ public class PopUpMessage extends JPanel {
 
 		body.add(message);
 
-		// Footer
+		
 		JPanel footer = new JPanel();
 		footer.setOpaque(false);
 		footer.setPreferredSize(new Dimension(400, 50));
@@ -88,7 +88,7 @@ public class PopUpMessage extends JPanel {
 				w.dispose();
 		});
 
-		// Assemble modal
+		
 		add(header, BorderLayout.NORTH);
 		add(body, BorderLayout.CENTER);
 		add(footer, BorderLayout.SOUTH);

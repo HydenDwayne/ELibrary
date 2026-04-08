@@ -2,7 +2,7 @@ package model.DAOs.Archived;
 
 public class DAOArchivedPatron {
 
-	// patron columns
+	
 	private String patronID;
 	private String firstName;
 	private String middleInitial;

@@ -38,7 +38,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 	LoginWindow lw;
 	RegisterPatron rp;
 	
-	// In RegisterPatron
+	
 	public String getPatronID() {
 	    return row1Field.getText().trim();
 	}
@@ -93,7 +93,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 		header.setPreferredSize(new Dimension(500, 100));
 		header.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10));
 
-		// elib logo -- GAMITIN MO TO IF ELIB LOGO LANG
+		
 		header.setLayout(new BorderLayout());
 
 		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
@@ -105,7 +105,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 
 		header.add(elibLogo, BorderLayout.CENTER);
 
-		// hanggang here
+		
 
 		JPanel body = new JPanel();
 		body.setOpaque(false);
@@ -156,8 +156,8 @@ public class GeneralModal extends JPanel implements ActionListener {
 
 		gbc.gridwidth = 1;
 
-		// from start to end, yan yung per row na label and text field
-//		start
+		
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row1LabelWrapper = new JPanel();
@@ -176,9 +176,9 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row1Field.setBorderColor(Color.decode("#924c4a"));
 		row1Field.setBorderThickness(1);
 		innerBody.add(row1Field, gbc);
-//		end
 
-//		start
+
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row2_1LabelWrapper = new JPanel();
@@ -201,9 +201,9 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row2_2LabelWrapper.add(row2_2Label, BorderLayout.WEST);
 
 		innerBody.add(row2_2LabelWrapper, gbc);
-//		end
 
-//		start
+
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		row3_1Field = new RoundedTextField(19, 15);
@@ -218,9 +218,9 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row3_2Field.setBorderColor(Color.decode("#924c4a"));
 		row3_2Field.setBorderThickness(1);
 		innerBody.add(row3_2Field, gbc);
-//		end
 
-//		start
+
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row4LabelWrapper = new JPanel();
@@ -239,9 +239,9 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row4Field.setBorderColor(Color.decode("#924c4a"));
 		row4Field.setBorderThickness(1);
 		innerBody.add(row4Field, gbc);
-//		end
 
-//		start
+
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row5LabelWrapper = new JPanel();
@@ -260,9 +260,9 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row5Field.setBorderColor(Color.decode("#924c4a"));
 		row5Field.setBorderThickness(1);
 		innerBody.add(row5Field, gbc);
-//		end
 
-//		start
+
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row6LabelWrapper = new JPanel();
@@ -281,9 +281,9 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row6Field.setBorderColor(Color.decode("#924c4a"));
 		row6Field.setBorderThickness(1);
 		innerBody.add(row6Field, gbc);
-//		end
 
-//		start
+
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row7LabelWrapper = new JPanel();
@@ -302,9 +302,9 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row7Field.setBorderColor(Color.decode("#924c4a"));
 		row7Field.setBorderThickness(1);
 		innerBody.add(row7Field, gbc);
-//		end
 
-//		start
+
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel row8LabelWrapper = new JPanel();
@@ -325,7 +325,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 		row8Field.setBorderColor(Color.decode("#924c4a"));
 		row8Field.setBorderThickness(1);
 		innerBody.add(row8Field, gbc);
-//		end
+
 
 		gbc.gridwidth = 2;
 		gbc.gridx = 0;
@@ -460,7 +460,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 				    campusCode = campuses[row8Field.getSelectedIndex()];
 				    rp.setCampus(campusCode);
 
-				    rp.studModal.setCampusCode(campusCode); // ✅ REQUIRED
+				    rp.studModal.setCampusCode(campusCode); 
 				    rp.showCard("student");
 				}
 
@@ -468,7 +468,7 @@ public class GeneralModal extends JPanel implements ActionListener {
 				    campusCode = campuses[row8Field.getSelectedIndex()];
 				    rp.setCampus(campusCode);
 
-				    rp.empModal.setCampusCode(campusCode); // ✅ REQUIRED
+				    rp.empModal.setCampusCode(campusCode); 
 				    rp.showCard("employee");
 				}
 			}

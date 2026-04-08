@@ -31,7 +31,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataFH(List<DAOArchivedFunctionHall> reservations) {
-		Object[][] data = new Object[reservations.size()][4]; // 8 columns
+		Object[][] data = new Object[reservations.size()][4]; 
 
 		for (int i = 0; i < reservations.size(); i++) {
 			DAOArchivedFunctionHall r = reservations.get(i);
@@ -46,7 +46,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataFL(List<DAOArchivedLoginFacility> logs) {
-		Object[][] data = new Object[logs.size()][4]; // 6 columns
+		Object[][] data = new Object[logs.size()][4]; 
 
 		for (int i = 0; i < logs.size(); i++) {
 			DAOArchivedLoginFacility log = logs.get(i);
@@ -66,7 +66,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataBL(List<DAOArchivedBookLoan> transactions) {
-		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+		Object[][] data = new Object[transactions.size()][5]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOArchivedBookLoan t = transactions.get(i);
@@ -87,7 +87,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataRB(List<DAOArchivedReturnBook> transactions) {
-		Object[][] data = new Object[transactions.size()][4]; // 6 columns
+		Object[][] data = new Object[transactions.size()][4]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOArchivedReturnBook t = transactions.get(i);
@@ -107,7 +107,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataIMS(List<DAOArchivedIMS> transactions) {
-		Object[][] data = new Object[transactions.size()][4]; // 6 columns
+		Object[][] data = new Object[transactions.size()][4]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOArchivedIMS t = transactions.get(i);
@@ -127,7 +127,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataEL(List<DAOArchivedEquipmentLoan> transactions) {
-		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+		Object[][] data = new Object[transactions.size()][5]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOArchivedEquipmentLoan t = transactions.get(i);
@@ -148,7 +148,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDatPat(List<DAOArchivedPatron> transactions) {
-		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+		Object[][] data = new Object[transactions.size()][5]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 
@@ -170,7 +170,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDatBook(List<DAOArchivedBook> transactions) {
-		Object[][] data = new Object[transactions.size()][4]; // 6 columns
+		Object[][] data = new Object[transactions.size()][4]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 
@@ -191,7 +191,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDatLNF(List<DAOArchivedLostAndFound> transactions) {
-		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+		Object[][] data = new Object[transactions.size()][5]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 
@@ -245,7 +245,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataBB(List<DAOArchivedBorrowedBook> transactions) {
-		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+		Object[][] data = new Object[transactions.size()][5]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOArchivedBorrowedBook t = transactions.get(i);
@@ -266,7 +266,7 @@ public class ArchiveController {
 	}
 
 	public static Object[][] convertToTableDataOB(List<DAOArchivedOverdueBook> transactions) {
-		Object[][] data = new Object[transactions.size()][5]; // 6 columns
+		Object[][] data = new Object[transactions.size()][5]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOArchivedOverdueBook t = transactions.get(i);

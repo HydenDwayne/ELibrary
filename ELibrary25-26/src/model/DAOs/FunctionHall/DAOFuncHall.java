@@ -2,7 +2,7 @@ package model.DAOs.FunctionHall;
 
 public class DAOFuncHall {
 
-	// hall_reservation columns
+	
 
 	private String functionHallCode;
 	public String getFunctionHallCode() {

@@ -50,7 +50,7 @@ public class ReportLNF extends JFrame{
 		headerWrapper.setPreferredSize(new Dimension(450,80));
 		headerWrapper.setOpaque(false);
 		
-		// elib logo
+		
 		ImageIcon icon = new ImageIcon(FilePath.image("elib_logo.png"));
 		Image image = icon.getImage();
 		Image scaledImage = image.getScaledInstance(110, 50, Image.SCALE_SMOOTH);
@@ -98,7 +98,7 @@ public class ReportLNF extends JFrame{
 		
 		
 		
-//		start
+
 		JPanel itemLabelWrapper = new JPanel();
 		itemLabelWrapper.setOpaque(false);
 		itemLabelWrapper.setPreferredSize(new Dimension(210, 30));
@@ -115,9 +115,9 @@ public class ReportLNF extends JFrame{
 		itemField.setBorderColor(Color.decode("#924c4a"));
 		itemField.setBorderThickness(1);
 		innerBody.add(itemField, gbc);
-//		end
+
 		
-//		start
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel nameLabelWrapper = new JPanel();
@@ -136,9 +136,9 @@ public class ReportLNF extends JFrame{
 		nameField.setBorderColor(Color.decode("#924c4a"));
 		nameField.setBorderThickness(1);
 		innerBody.add(nameField, gbc);
-//		end
+
 		
-//		start
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel descriptionLabelWrapper = new JPanel();
@@ -157,9 +157,9 @@ public class ReportLNF extends JFrame{
 		descriptionField.setBorderColor(Color.decode("#924c4a"));
 		descriptionField.setBorderThickness(1);
 		innerBody.add(descriptionField, gbc);
-//		end
+
 		
-//		start
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel floorLabelWrapper = new JPanel();
@@ -187,9 +187,9 @@ public class ReportLNF extends JFrame{
 		floorField.setBorderColor(Color.decode("#924c4a"));
 		floorField.setBorderThickness(1);
 		innerBody.add(floorField, gbc);
-//		end
+
 		
-//		start
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel statusLabelWrapper = new JPanel();
@@ -212,9 +212,9 @@ public class ReportLNF extends JFrame{
 		statusField.setBorderColor(Color.decode("#924c4a"));
 		statusField.setBorderThickness(1);
 		innerBody.add(statusField, gbc);
-//		end
+
 		
-//		start
+
 		gbc.gridy++;
 		gbc.gridx = 0;
 		JPanel lastSeenLabelWrapper = new JPanel();
@@ -233,7 +233,7 @@ public class ReportLNF extends JFrame{
 		lastSeenField.setBorderColor(Color.decode("#924c4a"));
 		lastSeenField.setBorderThickness(1);
 		innerBody.add(lastSeenField, gbc);
-//		end
+
 		
 		Fonts poppins16 = new Fonts("Poppins", 16f);
 		Font poppinsStyle16 = poppins16.getAppliedFont();
@@ -281,7 +281,7 @@ public class ReportLNF extends JFrame{
 		submitBtn.setForeground(Color.WHITE);
 		submitBtn.setFont(poppinsStyle12);
 		submitBtn.addActionListener(e -> {
-		    // Get all field values
+		    
 		    String item = itemField.getRealText().trim();
 		    String owner = nameField.getRealText().trim();
 		    String desc = descriptionField.getRealText().trim();
@@ -289,7 +289,7 @@ public class ReportLNF extends JFrame{
 		    String statusTxt = statusField.getSelectedItem().toString();
 		    String date = lastSeenField.getRealText().trim();
 
-		    // Validate required fields
+		    
 		    System.out.println(item);
 		    if (item.isEmpty() || date.isEmpty()) {
 		        JOptionPane.showMessageDialog(
@@ -301,7 +301,7 @@ public class ReportLNF extends JFrame{
 		        return;
 		    }
 
-		    // Normalize/validate date
+		    
 		    String normalizedDate = validateAndNormalizeDate(date);
 		    if (normalizedDate == null) {
 		        JOptionPane.showMessageDialog(
@@ -316,7 +316,7 @@ public class ReportLNF extends JFrame{
 		    if (owner.isEmpty()) owner = null;
 		    if (desc.isEmpty()) desc = null;
 
-		    // Prepare report details
+		    
 		    String[] reportDetails = {
 		        item,
 		        owner,
@@ -364,7 +364,7 @@ public class ReportLNF extends JFrame{
 		add(panel);
 		
 		
-		// Frame settings
+		
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -375,7 +375,7 @@ public class ReportLNF extends JFrame{
         addWindowFocusListener(new WindowAdapter() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-                // Request focus on something else, or a panel
+                
                 modal.requestFocusInWindow();
             }
         });
@@ -398,21 +398,21 @@ public class ReportLNF extends JFrame{
 	}
 	
 	public void clearFields() {
-		// Reset text fields
+		
 	    itemField.setText("");
 	    nameField.setText("");
 	    descriptionField.setText("");
 	    lastSeenField.setText("");
 
-	    // Reset placeholders
+	    
 	    itemField.setPlaceholder("Enter Lost Item Name");
 	    nameField.setPlaceholder("(Optional)");
 	    descriptionField.setPlaceholder("Enter Item Description");
 	    lastSeenField.setPlaceholder("yyyy-mm-dd");
 
-	    // Reset combo boxes
+	    
 	    floorField.setSelectedIndex(0);
-	    statusField.setSelectedIndex(0); // Default to "Missing" or first option
+	    statusField.setSelectedIndex(0); 
 	}
 	
 	public static String validateAndNormalizeDate(String date) {
@@ -423,7 +423,7 @@ public class ReportLNF extends JFrame{
 	    date = date.trim();
 	    String[] parts = date.split("-");
 
-	    // Must be year-month-day
+	    
 	    if (parts.length != 3) {
 	        return null;
 	    }
@@ -432,12 +432,12 @@ public class ReportLNF extends JFrame{
 	    String monthPart = parts[1];
 	    String dayPart   = parts[2];
 
-	    // Year must be exactly 4 digits
+	    
 	    if (!yearPart.matches("\\d{4}")) {
 	        return null;
 	    }
 
-	    // Month and day: 1 or 2 digits only
+	    
 	    if (!monthPart.matches("\\d{1,2}") || !dayPart.matches("\\d{1,2}")) {
 	        return null;
 	    }
@@ -446,7 +446,7 @@ public class ReportLNF extends JFrame{
 	    int month = Integer.parseInt(monthPart);
 	    int day   = Integer.parseInt(dayPart);
 
-	    // Month range
+	    
 	    if (month < 1 || month > 12) {
 	        return null;
 	    }
@@ -456,7 +456,7 @@ public class ReportLNF extends JFrame{
 	        31, 31, 30, 31, 30, 31
 	    };
 
-	    // Leap year adjustment
+	    
 	    boolean isLeapYear =
 	        (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
 
@@ -464,12 +464,12 @@ public class ReportLNF extends JFrame{
 	        daysInMonth[1] = 29;
 	    }
 
-	    // Day range
+	    
 	    if (day < 1 || day > daysInMonth[month - 1]) {
 	        return null;
 	    }
 
-	    // ✅ Normalize to YYYY-MM-DD
+	    
 	    String normalizedMonth = (month < 10 ? "0" : "") + month;
 	    String normalizedDay   = (day   < 10 ? "0" : "") + day;
 

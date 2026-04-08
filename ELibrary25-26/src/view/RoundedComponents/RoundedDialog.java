@@ -12,13 +12,10 @@ public class RoundedDialog extends JDialog {
         super(parent, ModalityType.APPLICATION_MODAL);
         this.cornerRadius = cornerRadius;
 
-        // ✅ Remove title bar & borders
         setUndecorated(true);
 
-        // ✅ Allow transparency
         setBackground(new Color(0, 0, 0, 0));
 
-        // ✅ Clean disposal
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 

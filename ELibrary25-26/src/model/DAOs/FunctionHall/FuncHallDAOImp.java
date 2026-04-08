@@ -7,11 +7,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Connect;
+
 public class FuncHallDAOImp {
 
-	private final String URL = "jdbc:sqlserver://26.91.144.197:1433;databaseName=bsu_elibrary;encrypt=true;trustServerCertificate=true";
-	private final String USER = "Pia";
-	private final String PASSWORD = "passwordPia";
+	Connect connect = new Connect();
+    private final String URL = connect.getURL();
+    private final String USER = connect.getUSER();
+    private final String PASSWORD = connect.getPASSWORD();
 
 	public List<DAOFuncHall> checkDayForEvent(String facilityCode) {
 
@@ -108,26 +111,26 @@ public class FuncHallDAOImp {
 
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
 
-	        // Set parameters
-	        stmt.setString(1, reservationDetails[0]);               // FunctionHallCode
-	        stmt.setString(2, reservationNumber);                 // HallReservationNumber
-	        stmt.setString(3, reservationDetails[1]);             // LibrarianID
-	        stmt.setString(4, reservationDetails[2]);             // PatronID
-	        stmt.setString(5, reservationDetails[3]);             // EventName
+	        
+	        stmt.setString(1, reservationDetails[0]);               
+	        stmt.setString(2, reservationNumber);                 
+	        stmt.setString(3, reservationDetails[1]);             
+	        stmt.setString(4, reservationDetails[2]);             
+	        stmt.setString(5, reservationDetails[3]);             
 
-	        // Convert date string to java.sql.Date
+	        
 	        stmt.setDate(6, Date.valueOf(LocalDate.parse(reservationDetails[4])));
 
-	        // Normalize time strings (remove .00 if present)
+	        
 	        String startTimeStr = reservationDetails[5].split("\\.")[0];
 	        String endTimeStr   = reservationDetails[6].split("\\.")[0];
 
-	        // Convert to java.sql.Time
+	        
 	        stmt.setTime(7, Time.valueOf(LocalTime.parse(startTimeStr, formatter)));
 	        stmt.setTime(8, Time.valueOf(LocalTime.parse(endTimeStr, formatter)));
 
-	        // Execute stored procedure
-	        stmt.executeUpdate();  // ✅ only this is needed
+	        
+	        stmt.executeUpdate();  
 
 	        return true;
 
@@ -144,7 +147,7 @@ public class FuncHallDAOImp {
 
 	        stmt.setString(1, reservationNumber);
 
-	        stmt.executeUpdate();  // ✅ only this is needed
+	        stmt.executeUpdate();  
 
 	        return true;
 

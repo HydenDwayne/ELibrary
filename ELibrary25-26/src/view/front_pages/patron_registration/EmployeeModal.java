@@ -13,35 +13,35 @@ import java.awt.event.*;
 
 public class EmployeeModal extends JPanel implements ActionListener {
 
-    // Role checkboxes
+    
 	public JCheckBox adminCheck;
 	public JCheckBox staffCheck;
 	public JCheckBox facultyCheck;
 
-    // Labels
-//    JLabel row1Label; // Employee ID
-    JLabel row2Label; // Date Hired
-    JLabel row3Label; // Roles
-    JLabel row4Label; // Assignment Code
-    JLabel row5Label; // Position
-    JLabel row6Label; // Faculty Rank
-//    JLabel row7Label; // Campus
-    JLabel row8Label; // College
+    
 
-    // Fields
-//    public RoundedTextField row1Field;
+    JLabel row2Label; 
+    JLabel row3Label; 
+    JLabel row4Label; 
+    JLabel row5Label; 
+    JLabel row6Label; 
+
+    JLabel row8Label; 
+
+    
+
     public RoundedTextField row2Field;
     public RoundedTextField row4Field;
     public RoundedTextField row5Field;
     public RoundedTextField row6Field;
-//    RoundedComboBox<String> row7Field;
+
     public RoundedComboBox<String> row8Field;
 
-    // Wrappers (same pattern as StudentModal)
+    
     JPanel row4LabelWrapper;
     JPanel row5LabelWrapper;
     JPanel row6LabelWrapper;
-//    JPanel row7LabelWrapper;
+
     JPanel row8LabelWrapper;
 
     RoundedPanel modal;
@@ -77,7 +77,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         modal.setPreferredSize(new Dimension(500, 600));
         modal.setBackground(Color.decode("#faecee"));
 
-     // Header
+     
      		JPanel header = new JPanel();
      		header.setBackground(Color.decode("#842b28"));
      		header.setPreferredSize(new Dimension(500, 100));
@@ -94,7 +94,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		
      		modal.add(header, BorderLayout.NORTH);
 
-        // ── Body ───────────────────────────────────────────────
+        
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
         body.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -105,7 +105,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         bodyTitle.setForeground(Color.decode("#6d2321"));
         body.add(bodyTitle, BorderLayout.NORTH);
 
-     // ── Inner body (form rows) ───────────────────────────────────────────────
+     
         JPanel innerBody = new JPanel();
         innerBody.setOpaque(false);
         innerBody.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -116,7 +116,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Step header
+        
         Fonts stepPoppins = new Fonts("PoppinsBold", 16f);
         Font stepPoppinsStyle = stepPoppins.getAppliedFont();
 
@@ -133,7 +133,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         gbc.gridy++;
         innerBody.add(stepWrapper, gbc);
 
-        // Separator under step header
+        
         gbc.gridy++;
         JSeparator sep1 = new JSeparator();
         sep1.setPreferredSize(new Dimension(1, 1));
@@ -143,21 +143,21 @@ public class EmployeeModal extends JPanel implements ActionListener {
 
         gbc.gridwidth = 1;
 
-//        // ── Row 1: Employee ID ───────────────────────────────────────────────
-//        gbc.gridy++;
-//        gbc.gridx = 0;
-//        JPanel row1LabelWrapper = new JPanel(new BorderLayout());
-//        row1LabelWrapper.setOpaque(false);
-//        row1LabelWrapper.setPreferredSize(new Dimension(210, 30));
-//        row1Label = new JLabel("Employee ID");
-//        row1LabelWrapper.add(row1Label, BorderLayout.WEST);
-//        innerBody.add(row1LabelWrapper, gbc);
-//
-//        gbc.gridx = 1;
-//        row1Field = new RoundedTextField(20, 15);
-//        innerBody.add(row1Field, gbc);
 
-        // ── Row 2: Date Hired ───────────────────────────────────────────────
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JPanel row2LabelWrapper = new JPanel(new BorderLayout());
@@ -172,7 +172,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         row2Field.setPlaceholder("YYYY");
         innerBody.add(row2Field, gbc);
 
-        // ── Row 3: Roles ─────────────────────────────────────────────────────
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JPanel row3LabelWrapper = new JPanel(new BorderLayout());
@@ -200,9 +200,9 @@ public class EmployeeModal extends JPanel implements ActionListener {
 
         innerBody.add(rolePanel, gbc);
 
-        // ── DYNAMIC ROWS (IDENTICAL STYLE TO STUDENT MODAL) ──────────────────
+        
 
-        // Assignment Code
+        
         gbc.gridy++;
         gbc.gridx = 0;
         row4LabelWrapper = new JPanel(new BorderLayout());
@@ -216,7 +216,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         row4Field = new RoundedTextField(20, 15);
         innerBody.add(row4Field, gbc);
 
-        // Position
+        
         gbc.gridy++;
         gbc.gridx = 0;
         row5LabelWrapper = new JPanel(new BorderLayout());
@@ -230,7 +230,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         row5Field = new RoundedTextField(20, 15);
         innerBody.add(row5Field, gbc);
 
-        // Faculty Rank
+        
         gbc.gridy++;
         gbc.gridx = 0;
         row6LabelWrapper = new JPanel(new BorderLayout());
@@ -244,24 +244,24 @@ public class EmployeeModal extends JPanel implements ActionListener {
         row6Field = new RoundedTextField(20, 15);
         innerBody.add(row6Field, gbc);
 
-//        // Campus
-//        gbc.gridy++;
-//        gbc.gridx = 0;
-//        row7LabelWrapper = new JPanel(new BorderLayout());
-//        row7LabelWrapper.setOpaque(false);
-//        row7LabelWrapper.setPreferredSize(new Dimension(210, 30));
-//        row7Label = new JLabel("Campus");
-//        row7LabelWrapper.add(row7Label, BorderLayout.WEST);
-//        innerBody.add(row7LabelWrapper, gbc);
-//
-//        gbc.gridx = 1;
-//        row7Field = new RoundedComboBox<>(new String[] {
-//                "Main", "Bustos", "Meneses", "San Rafael"
-//        }, 15);
-//        row7Field.setPreferredSize(new Dimension(210, 30));
-//        innerBody.add(row7Field, gbc);
 
-        // College
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         gbc.gridy++;
         gbc.gridx = 0;
         row8LabelWrapper = new JPanel(new BorderLayout());
@@ -279,7 +279,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         body.add(innerBody);
         modal.add(body, BorderLayout.CENTER);
         
-     // Footer 
+     
      		JPanel footer = new JPanel();
      		footer.setPreferredSize(new Dimension(500, 100));
      		footer.setBorder(BorderFactory.createEmptyBorder(0, 35, 10, 35));
@@ -323,43 +323,43 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		
      		modal.add(footer, BorderLayout.SOUTH);
      		
-     	// ── Apply label fonts & colors (same as StudentModal) ─────────────
+     	
      		Fonts poppins16 = new Fonts("Poppins", 16f);
      		Font poppinsStyle16 = poppins16.getAppliedFont();
 
-//     		row1Label.setFont(poppinsStyle16);
+
      		row2Label.setFont(poppinsStyle16);
      		row3Label.setFont(poppinsStyle16);
      		row4Label.setFont(poppinsStyle16);
      		row5Label.setFont(poppinsStyle16);
      		row6Label.setFont(poppinsStyle16);
-//     		row7Label.setFont(poppinsStyle16);
+
      		row8Label.setFont(poppinsStyle16);
 
-//     		row1Label.setForeground(Color.decode("#842b28"));
+
      		row2Label.setForeground(Color.decode("#842b28"));
      		row3Label.setForeground(Color.decode("#842b28"));
      		row4Label.setForeground(Color.decode("#842b28"));
      		row5Label.setForeground(Color.decode("#842b28"));
      		row6Label.setForeground(Color.decode("#842b28"));
-//     		row7Label.setForeground(Color.decode("#842b28"));
+
      		row8Label.setForeground(Color.decode("#842b28"));
      		
-     	// ── Apply field fonts ───────────────────────────────────────────
+     	
      		Fonts poppins12 = new Fonts("Poppins", 10f);
      		Font poppinsFieldStyle = poppins12.getAppliedFont();
 
-//     		row1Field.setFont(poppinsFieldStyle);
+
      		row2Field.setFont(poppinsFieldStyle);
      		row4Field.setFont(poppinsFieldStyle);
      		row5Field.setFont(poppinsFieldStyle);
      		row6Field.setFont(poppinsFieldStyle);
-//     		row7Field.setFont(poppinsFieldStyle);
+
      		row8Field.setFont(poppinsFieldStyle);
 
-     		// ── Apply field borders (same color & thickness as StudentModal) ─
-//     		row1Field.setBorderColor(Color.decode("#924c4a"));
-//     		row1Field.setBorderThickness(1);
+     		
+
+
 
      		row2Field.setBorderColor(Color.decode("#924c4a"));
      		row2Field.setBorderThickness(1);
@@ -373,8 +373,8 @@ public class EmployeeModal extends JPanel implements ActionListener {
      		row6Field.setBorderColor(Color.decode("#924c4a"));
      		row6Field.setBorderThickness(1);
 
-//     		row7Field.setBorderColor(Color.decode("#924c4a"));
-//     		row7Field.setBorderThickness(1);
+
+
 
      		row8Field.setBorderColor(Color.decode("#924c4a"));
      		row8Field.setBorderThickness(1);
@@ -393,7 +393,7 @@ public class EmployeeModal extends JPanel implements ActionListener {
         
         add(modal);
 
-        // Checkbox listeners (EXACT equivalent to row3Field listener)
+        
         ItemListener l = e -> updateVisibility();
         adminCheck.addItemListener(l);
         staffCheck.addItemListener(l);
@@ -413,19 +413,19 @@ public class EmployeeModal extends JPanel implements ActionListener {
                 (campus.equalsIgnoreCase("Main") ||
                  campus.equalsIgnoreCase("Bustos"));
 
-        // Assignment Code → Library Staff
+        
         row4LabelWrapper.setVisible(staff);
         row4Field.setVisible(staff);
 
-        // Position → Admin or Staff
+        
         row5LabelWrapper.setVisible(admin || staff);
         row5Field.setVisible(admin || staff);
 
-        // Faculty Rank → Faculty
+        
         row6LabelWrapper.setVisible(faculty);
         row6Field.setVisible(faculty);
 
-        // College → ONLY Faculty in Malolos or Bustos
+        
         row8LabelWrapper.setVisible(faculty && isMalolosOrBustos);
         row8Field.setVisible(faculty && isMalolosOrBustos);
 
@@ -550,8 +550,8 @@ public class EmployeeModal extends JPanel implements ActionListener {
     
     public void clearFields() {
 
-        // Text fields
-//        row1Field.setText("");
+        
+
         row2Field.setText("");
         row2Field.setPlaceholder("YYYY");
 
@@ -559,10 +559,10 @@ public class EmployeeModal extends JPanel implements ActionListener {
         row5Field.setText("");
         row6Field.setText("");
 
-        // Combo boxes
+        
         row8Field.setSelectedIndex(0);
 
-        // Checkboxes
+        
         adminCheck.setSelected(false);
         staffCheck.setSelected(false);
         facultyCheck.setSelected(false);

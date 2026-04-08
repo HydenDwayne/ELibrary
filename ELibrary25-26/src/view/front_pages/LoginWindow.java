@@ -33,7 +33,7 @@ public class LoginWindow extends JFrame {
         modal.setPreferredSize(new Dimension(500, 500));
         modal.setBackground(Color.decode("#faecee"));
 
-        // ================= HEADER =================
+        
         JPanel header = new JPanel();
         header.setBackground(Color.decode("#842b28"));
         header.setPreferredSize(new Dimension(500, 100));
@@ -64,7 +64,7 @@ public class LoginWindow extends JFrame {
         headerWrapper.add(headerLabel, BorderLayout.CENTER);
         header.add(headerWrapper);
 
-        // ================= BODY =================
+        
         JPanel body = new JPanel();
         body.setOpaque(false);
         body.setLayout(new BorderLayout());
@@ -86,10 +86,10 @@ public class LoginWindow extends JFrame {
         innerBody.setBorder(BorderFactory.createEmptyBorder(20, 100, 20, 100));
         innerBody.setLayout(new GridLayout(4,1,0,10));
 
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.gridy = 0;
-//        gbc.gridx = 0;
-//        gbc.insets = new Insets(5, 5, 5, 5);
+
+
+
+
         
         
 
@@ -103,10 +103,10 @@ public class LoginWindow extends JFrame {
         
         
         
-        // USERNAME
+        
         JPanel userLabelWrapper = new JPanel();
         userLabelWrapper.setOpaque(false);
-//        userLabelWrapper.setPreferredSize(labelSize);
+
         userLabelWrapper.setLayout(new BorderLayout());
 
         JLabel userLabel = new JLabel("Username", SwingConstants.CENTER);
@@ -127,12 +127,12 @@ public class LoginWindow extends JFrame {
         
         
 
-        // PASSWORD
+        
 
 
         JPanel passLabelWrapper = new JPanel();
         passLabelWrapper.setOpaque(false);
-//        passLabelWrapper.setPreferredSize(labelSize);
+
         passLabelWrapper.setLayout(new BorderLayout());
 
         JLabel passLabel = new JLabel("Password", SwingConstants.CENTER);
@@ -153,7 +153,7 @@ public class LoginWindow extends JFrame {
 
         body.add(innerBody);
 
-        // ================= FOOTER =================
+        
         JPanel footer = new JPanel();
         footer.setPreferredSize(new Dimension(500, 150));
         footer.setBorder(BorderFactory.createEmptyBorder(0, 35, 10, 35));
@@ -197,7 +197,7 @@ public class LoginWindow extends JFrame {
         
         JPanel btnWrapper = new JPanel();
         btnWrapper.setOpaque(false);
-//        btnWrapper.setBorder(BorderFactory.createEmptyBorder(0, 35, 10, 35));
+
         btnWrapper.setLayout(new GridLayout(1,3,10,0));
         
         
@@ -246,7 +246,7 @@ public class LoginWindow extends JFrame {
 
         footer.add(btnWrapper, BorderLayout.SOUTH);
 
-        // ================= ADD =================
+        
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);
@@ -254,7 +254,7 @@ public class LoginWindow extends JFrame {
         panel.add(modal);
         add(panel);
 
-        // FRAME SETTINGS
+        
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

@@ -9,7 +9,7 @@ public class DAOOverview {
 
     
 
-    // overview tab
+    
     private int activeBooks;
     private int borrowedBooks;
     private int overdueBooks;
@@ -38,7 +38,7 @@ public class DAOOverview {
         this.activePatrons = activePatrons;
     }
     
-//    overview calendar
+
     private String month;
     private String year;
 }

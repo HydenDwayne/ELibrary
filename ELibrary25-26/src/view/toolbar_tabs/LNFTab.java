@@ -51,7 +51,6 @@ public class LNFTab extends JPanel {
         lnfContainer.setLayout(new BorderLayout());
         lnfContainer.setBackground(Color.WHITE);
 
-        // no red part
         JLabel tabLabel = new JLabel("LOST & FOUND ITEMS");
         tabLabel.setForeground(Color.decode("#6d2321"));
 
@@ -59,12 +58,10 @@ public class LNFTab extends JPanel {
         Font introRust22Style = introRust22.getAppliedFont();
         tabLabel.setFont(introRust22Style);
 
-     // search + filter container
         JPanel searchFilter = new JPanel();
         searchFilter.setLayout(new BorderLayout());
         searchFilter.setPreferredSize(new Dimension(375, 30));
         searchFilter.setOpaque(false);
-        // search item
         JPanel searchContainer = new JPanel();
         searchContainer.setOpaque(false);
         searchContainer.setPreferredSize(new Dimension(275, 20));
@@ -128,7 +125,6 @@ public class LNFTab extends JPanel {
         iconsPanel.add(archiveLogo);
         iconsPanel.add(reloadLogo);
         
-        // add book button
         JPanel outerBtnCont = new JPanel();
         outerBtnCont.setLayout(new BorderLayout());
         outerBtnCont.setOpaque(false);
@@ -150,7 +146,6 @@ public class LNFTab extends JPanel {
         outerBtnCont.add(addLostItem, BorderLayout.EAST);
         outerBtnCont.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
-        // right side of the top wrapper
         JPanel topRight = new JPanel();
         topRight.setOpaque(false);
         topRight.setPreferredSize(new Dimension(390, 50));
@@ -160,12 +155,7 @@ public class LNFTab extends JPanel {
         
         searchFilter.add(searchContainer, BorderLayout.WEST);
         searchFilter.add(iconsPanel, BorderLayout.EAST);
-        
-//        searchFilter.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40));
-        
-//        topRight.add(searchFilter, BorderLayout.NORTH);
-//        topRight.add(outerBtnCont, BorderLayout.SOUTH);
-        // container of the red part
+
         JPanel topWrapper = new JPanel();
         topWrapper.setLayout(new BorderLayout());
         topWrapper.setPreferredSize(new Dimension(1280, 90));
@@ -190,11 +180,9 @@ public class LNFTab extends JPanel {
 
         lnfContainer.add(topWrapper, BorderLayout.NORTH);
 
-        // selected lnf items
         JPanel slctdLNF = new JPanel();
         slctdLNF.setOpaque(false);
 
-// Create labels
         JPanel tableHeader = new JPanel();
         slctdLNF.setLayout(new BorderLayout());
         tableHeader.setLayout(new GridBagLayout());
@@ -291,7 +279,6 @@ public class LNFTab extends JPanel {
 
         slctdLNF.add(tableHeader, BorderLayout.NORTH);
 
-        // actual table data ============================
         tableData = new JPanel();
         tableData.setOpaque(false);
 
@@ -313,7 +300,6 @@ public class LNFTab extends JPanel {
 
         lnfContainer.add(slctdLNF, BorderLayout.CENTER);
 
-        //============================================== 
         lnfTab.add(lnfContainer, gbc);
         setBackground(Color.decode("#c4c4c4"));
         add(lnfTab);

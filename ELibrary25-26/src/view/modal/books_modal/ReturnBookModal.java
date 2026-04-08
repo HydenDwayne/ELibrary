@@ -14,23 +14,23 @@ public class ReturnBookModal extends RoundedDialog {
         super(parent, 20);
         this.parent = parent;
 
-        // ✅ Dim the parent window
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // ✅ Start at STEP 1
+        
         setStep1();
 
         setLocationRelativeTo(parent);
         setVisible(true);
     }
 
-    // ✅ STEP 1 (this was missing)
+    
     public void setStep1() {
         setContentPane(new ReturnBook(this));
         refreshAndCenter();
     }
 
-    // ✅ STEP 2
+    
     public void setStep2(String[] borrowDetails) {
         setContentPane(new ReturnBookConfirm(this, borrowDetails));
         refreshAndCenter();

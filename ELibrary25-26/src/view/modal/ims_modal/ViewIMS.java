@@ -98,7 +98,7 @@ public class ViewIMS extends JPanel {
 
         /* ================= FORM FIELDS ================= */
 
-        // Serial Number
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel serialLbl = new JLabel("Serial Number:");
@@ -114,7 +114,7 @@ public class ViewIMS extends JPanel {
         serialField.setBorderThickness(1);
         innerBody.add(serialField, gbc);
 
-        // Equipment Name
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel equipLbl = new JLabel("Equipment Name:");
@@ -129,7 +129,7 @@ public class ViewIMS extends JPanel {
         equipField.setBorderThickness(1);
         innerBody.add(equipField, gbc);
 
-        // Patron ID
+        
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel typeLbl = new JLabel("Item Type:");
@@ -166,7 +166,7 @@ public class ViewIMS extends JPanel {
                                 ? itemField.getRealText().trim() 
                                 : "";
 
-            // VALIDATION (only required field)
+            
             if (equipTxt.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Equipment name cannot be empty");
                 return;
@@ -175,7 +175,7 @@ public class ViewIMS extends JPanel {
             String[] equipmentInfo = {
                 serialNumber,
                 equipTxt,
-                itemTxt // optional
+                itemTxt 
             };
 
             boolean isSuccessful = comp.updateEquipmentInfo(equipmentInfo);

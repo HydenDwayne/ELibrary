@@ -30,7 +30,7 @@ public class RoundedPasswordField extends JPasswordField {
                 if (isShowingPlaceholder()) {
                     setText("");
                     setForeground(normalColor);
-                    setEchoChar(defaultEchoChar); // restore masking
+                    setEchoChar(defaultEchoChar);
                 }
             }
 
@@ -48,7 +48,7 @@ public class RoundedPasswordField extends JPasswordField {
     }
 
     private void showPlaceholder() {
-        setEchoChar((char) 0); // show text instead of masking
+        setEchoChar((char) 0);
         setText(placeholder);
         setForeground(placeholderColor);
     }

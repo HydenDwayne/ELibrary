@@ -2,7 +2,7 @@ package archives;
 
 import javax.swing.*;
 import javax.swing.border.*;
-//import com.toedter.calendar.JDateChooser;
+
 import java.awt.*;
 
 public class RegisterPatronStu extends JFrame {
@@ -21,15 +21,15 @@ public class RegisterPatronStu extends JFrame {
 
     public RegisterPatronStu() {
         setTitle("Add Patron");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // removed setSize(1920,1080)
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 
         registerPanel = new JPanel();
-        // removed setPreferredSize — pack() will size it
+        
         registerPanel.setBackground(LIGHT_PINK);
         registerPanel.setBorder(BorderFactory.createEtchedBorder());
         registerPanel.setLayout(new BorderLayout());
 
-        // Logo banner
+        
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(MAROON);
         logoPanel.setPreferredSize(new Dimension(400, 45));
@@ -39,13 +39,13 @@ public class RegisterPatronStu extends JFrame {
         logoPanel.add(logoLabel);
         registerPanel.add(logoPanel, BorderLayout.NORTH);
 
-        // Body
+        
         bodyPanel = new JPanel();
         bodyPanel.setBackground(LIGHT_PINK);
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
         bodyPanel.setBorder(new EmptyBorder(14, 16, 14, 16));
 
-        // Title + Step
+        
         JPanel parentPanel = new JPanel(new GridLayout(2, 1, 5, 4));
         parentPanel.setBackground(LIGHT_PINK);
         parentPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -69,7 +69,7 @@ public class RegisterPatronStu extends JFrame {
         bodyPanel.add(separator());
         bodyPanel.add(Box.createVerticalStrut(6));
 
-        // Student ID + Year Enrolled
+        
         JPanel grid = new JPanel(new GridLayout(2, 2, 8, 4));
         grid.setBackground(LIGHT_PINK);
         grid.setAlignmentX(LEFT_ALIGNMENT);
@@ -77,13 +77,13 @@ public class RegisterPatronStu extends JFrame {
         grid.add(darkLabel("Student ID:"));
         grid.add(styledField());
         grid.add(twoPartLabel("Year Enrolled", " (2024-10-27)"));
-//        JDateChooser dateChooser = new JDateChooser();
-//        dateChooser.setDateFormatString("yyyy-MM-dd");
-//        grid.add(dateChooser);
+
+
+
         bodyPanel.add(grid);
         bodyPanel.add(Box.createVerticalStrut(4));
 
-        // Student Type row
+        
         JPanel typeRow = new JPanel(new GridLayout(1, 2, 8, 0));
         typeRow.setBackground(LIGHT_PINK);
         typeRow.setAlignmentX(LEFT_ALIGNMENT);
@@ -96,7 +96,7 @@ public class RegisterPatronStu extends JFrame {
         bodyPanel.add(typeRow);
         bodyPanel.add(Box.createVerticalStrut(6));
 
-        // ── UNDERGRADUATE panel ────────────────────────────────────
+        
         ugGrid = new JPanel(new GridLayout(4, 2, 8, 4));
         ugGrid.setBackground(LIGHT_PINK);
         ugGrid.setAlignmentX(LEFT_ALIGNMENT);
@@ -130,7 +130,7 @@ public class RegisterPatronStu extends JFrame {
         yearLvlCombo.setBackground(WHITE);
         ugGrid.add(yearLvlCombo);
 
-        // ── LABHIGH panel ──────────────────────────────────────────
+        
         lGrid = new JPanel(new GridLayout(1, 2, 8, 4));
         lGrid.setBackground(LIGHT_PINK);
         lGrid.setAlignmentX(LEFT_ALIGNMENT);
@@ -142,7 +142,7 @@ public class RegisterPatronStu extends JFrame {
         grLvlCombo.setBackground(WHITE);
         lGrid.add(grLvlCombo);
 
-        // ── GRADUATE panel ─────────────────────────────────────────
+        
         gGrid = new JPanel(new GridLayout(6, 2, 8, 4));
         gGrid.setBackground(LIGHT_PINK);
         gGrid.setAlignmentX(LEFT_ALIGNMENT);
@@ -176,27 +176,27 @@ public class RegisterPatronStu extends JFrame {
         gGrid.add(degreeCombo);
 
         gGrid.add(twoPartLabel("Year Graduated", " (2024-10-27)"));
-//        JDateChooser gYearGrtd = new JDateChooser();
-//        gYearGrtd.setDateFormatString("yyyy-MM-dd");
-//        gGrid.add(gYearGrtd);
+
+
+
 
         gGrid.add(darkLabel("Thesis Title:"));
         gGrid.add(styledField());
 
-        // ── ALUMNI panel ───────────────────────────────────────────
+        
         aGrid = new JPanel(new GridLayout(2, 2, 8, 4));
         aGrid.setBackground(LIGHT_PINK);
         aGrid.setAlignmentX(LEFT_ALIGNMENT);
 
         aGrid.add(twoPartLabel("Year Graduated", " (2024-10-27)"));
-//        JDateChooser aYearGrtd = new JDateChooser();
-//        aYearGrtd.setDateFormatString("yyyy-MM-dd");
-//        aGrid.add(aYearGrtd);
+
+
+
 
         aGrid.add(darkLabel("Thesis Title:"));
         aGrid.add(styledField());
 
-        // Add all panels; hide all except default
+        
         bodyPanel.add(ugGrid);
         bodyPanel.add(lGrid);
         bodyPanel.add(gGrid);
@@ -210,7 +210,7 @@ public class RegisterPatronStu extends JFrame {
         bodyPanel.add(separator());
         bodyPanel.add(Box.createVerticalStrut(6));
 
-        // Listener
+        
         sTypeCombo.addActionListener(e -> {
             String selected = (String) sTypeCombo.getSelectedItem();
             ugGrid.setVisible("UNDERGRADUATE".equals(selected));
@@ -220,7 +220,7 @@ public class RegisterPatronStu extends JFrame {
             pack();
         });
 
-        // Buttons
+        
         JPanel btnPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         btnPanel.setBackground(LIGHT_PINK);
         btnPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
@@ -245,7 +245,7 @@ public class RegisterPatronStu extends JFrame {
 
         registerPanel.add(bodyPanel, BorderLayout.CENTER);
 
-        // Wrapper
+        
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setBackground(new Color(210, 180, 180));
         wrapper.add(registerPanel);

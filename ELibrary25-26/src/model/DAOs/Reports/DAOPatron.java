@@ -2,7 +2,7 @@ package model.DAOs.Reports;
 
 public class DAOPatron {
 
-	// patron columns
+	
 	private String patronID;
 	private String firstName;
 	private String middleInitial;

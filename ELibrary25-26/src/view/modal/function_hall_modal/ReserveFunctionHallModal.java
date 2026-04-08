@@ -10,13 +10,13 @@ public class ReserveFunctionHallModal extends RoundedDialog {
     private final Window parent;
 
     public ReserveFunctionHallModal(Window parent, String hallCode, String dateSelected) {
-        super(parent, 20); // same radius as all other modals
+        super(parent, 20); 
         this.parent = parent;
 
-        // Dim background
+        
         ModalUtils.showDim(parent, new Color(0, 0, 0, 150));
 
-        // Set content panel
+        
         setContentPane(new ReserveFunctionHall(hallCode, dateSelected));
         pack();
         setLocationRelativeTo(parent);

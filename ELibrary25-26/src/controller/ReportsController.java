@@ -27,7 +27,7 @@ public class ReportsController {
 	}
 
 	public static Object[][] convertToTableDataFH(List<DAOFunctionHall> reservations) {
-		Object[][] data = new Object[reservations.size()][8]; // 8 columns
+		Object[][] data = new Object[reservations.size()][8]; 
 
 		for (int i = 0; i < reservations.size(); i++) {
 			DAOFunctionHall r = reservations.get(i);
@@ -45,7 +45,7 @@ public class ReportsController {
 	}
 
 	public static Object[][] convertToTableDataFL(List<DAOLoginFacility> logs) {
-		Object[][] data = new Object[logs.size()][6]; // 6 columns
+		Object[][] data = new Object[logs.size()][6]; 
 
 		for (int i = 0; i < logs.size(); i++) {
 			DAOLoginFacility log = logs.get(i);
@@ -67,7 +67,7 @@ public class ReportsController {
 	}
 
 	public static Object[][] convertToTableDataBL(List<DAOBookLoan> transactions) {
-		Object[][] data = new Object[transactions.size()][6]; // 6 columns
+		Object[][] data = new Object[transactions.size()][6]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOBookLoan t = transactions.get(i);
@@ -89,7 +89,7 @@ public class ReportsController {
 	}
 	
 	public static Object[][] convertToTableDataRB(List<DAOReturnBook> transactions) {
-		Object[][] data = new Object[transactions.size()][6]; // 6 columns
+		Object[][] data = new Object[transactions.size()][6]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOReturnBook t = transactions.get(i);
@@ -108,7 +108,7 @@ public class ReportsController {
 	}
 	
 	public static Object[][] convertToTableDataIMS(List<DAOIMS> transactions) {
-		Object[][] data = new Object[transactions.size()][3]; // 6 columns
+		Object[][] data = new Object[transactions.size()][3]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOIMS t = transactions.get(i);
@@ -127,7 +127,7 @@ public class ReportsController {
 	}
 	
 	public static Object[][] convertToTableDataEL(List<DAOEquipmentLoan> transactions) {
-		Object[][] data = new Object[transactions.size()][7]; // 6 columns
+		Object[][] data = new Object[transactions.size()][7]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOEquipmentLoan t = transactions.get(i);
@@ -150,7 +150,7 @@ public class ReportsController {
 	}
 	
 	public static Object[][] convertToTableDatPat(List<DAOPatron> transactions) {
-		Object[][] data = new Object[transactions.size()][9]; // 6 columns
+		Object[][] data = new Object[transactions.size()][9]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			
@@ -176,7 +176,7 @@ public class ReportsController {
 	}
 	
 	public static Object[][] convertToTableDatBook(List<DAOBook> transactions) {
-		Object[][] data = new Object[transactions.size()][7]; // 6 columns
+		Object[][] data = new Object[transactions.size()][7]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			
@@ -201,7 +201,7 @@ public class ReportsController {
 	}
 
 	public static Object[][] convertToTableDataBB(List<DAOBorrowedBooks> transactions) {
-		Object[][] data = new Object[transactions.size()][6]; // 6 columns
+		Object[][] data = new Object[transactions.size()][6]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOBorrowedBooks t = transactions.get(i);
@@ -223,7 +223,7 @@ public class ReportsController {
 	}
 
 	public static Object[][] convertToTableDataOB(List<DAOOverdueBooks> transactions) {
-		Object[][] data = new Object[transactions.size()][6]; // 6 columns
+		Object[][] data = new Object[transactions.size()][6]; 
 
 		for (int i = 0; i < transactions.size(); i++) {
 			DAOOverdueBooks t = transactions.get(i);

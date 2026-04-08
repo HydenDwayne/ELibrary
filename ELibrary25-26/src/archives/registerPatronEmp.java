@@ -33,7 +33,7 @@ public class registerPatronEmp extends JFrame {
         registerPanel.setBorder(BorderFactory.createEtchedBorder());
         registerPanel.setLayout(new BorderLayout());
 
-        // Logo banner
+        
         JPanel logoPanel = new JPanel();
         logoPanel.setBackground(MAROON);
         logoPanel.setPreferredSize(new Dimension(400, 45));
@@ -43,13 +43,13 @@ public class registerPatronEmp extends JFrame {
         logoPanel.add(logoLabel);
         registerPanel.add(logoPanel, BorderLayout.NORTH);
 
-        // Body
+        
         bodyPanel = new JPanel();
         bodyPanel.setBackground(LIGHT_PINK);
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
         bodyPanel.setBorder(new EmptyBorder(14, 16, 14, 16));
 
-        // Title + Step
+        
         JPanel parentPanel = new JPanel(new GridLayout(2, 1, 5, 4));
         parentPanel.setBackground(LIGHT_PINK);
         parentPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -73,23 +73,23 @@ public class registerPatronEmp extends JFrame {
         bodyPanel.add(separator());
         bodyPanel.add(Box.createVerticalStrut(6));
 
-        // Employee ID + Date Hired
+        
         JPanel grid = new JPanel(new GridLayout(2, 2, 8, 4));
         grid.setBackground(LIGHT_PINK);
         grid.setAlignmentX(LEFT_ALIGNMENT);
         grid.add(darkLabel("Employee ID:"));
         grid.add(styledField());
         grid.add(twoPartLabel("Date Hired", " (2024-10-27)"));
-//        JDateChooser dateChooser = new JDateChooser();
-//        dateChooser.setDateFormatString("yyyy-MM-dd");
-//        grid.add(dateChooser);
+
+
+
         bodyPanel.add(grid);
 
         bodyPanel.add(Box.createVerticalStrut(6));
         bodyPanel.add(separator());
         bodyPanel.add(Box.createVerticalStrut(6));
 
-        // Role label
+        
         JPanel rolePanel = new JPanel(new BorderLayout());
         rolePanel.setBackground(LIGHT_PINK);
         rolePanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -97,7 +97,7 @@ public class registerPatronEmp extends JFrame {
         bodyPanel.add(rolePanel);
         bodyPanel.add(Box.createVerticalStrut(4));
 
-        // Checkboxes
+        
         JPanel checkBoxPanel = new JPanel(new GridLayout(3, 1, 0, 2));
         checkBoxPanel.setBackground(LIGHT_PINK);
         checkBoxPanel.setAlignmentX(LEFT_ALIGNMENT);
@@ -117,14 +117,14 @@ public class registerPatronEmp extends JFrame {
         bodyPanel.add(Box.createVerticalStrut(6));
         bodyPanel.add(separator());
 
-        // Detail section — starts empty, filled dynamically
+        
         detailSection = new JPanel();
         detailSection.setBackground(LIGHT_PINK);
         detailSection.setLayout(new BoxLayout(detailSection, BoxLayout.Y_AXIS));
         detailSection.setAlignmentX(LEFT_ALIGNMENT);
         bodyPanel.add(detailSection);
 
-        // Buttons
+        
         JPanel btnPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         btnPanel.setBackground(LIGHT_PINK);
         btnPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
@@ -150,7 +150,7 @@ public class registerPatronEmp extends JFrame {
 
         registerPanel.add(bodyPanel, BorderLayout.CENTER);
 
-        // Wrapper
+        
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setBackground(new Color(210, 180, 180));
         wrapper.add(registerPanel);
@@ -172,7 +172,7 @@ public class registerPatronEmp extends JFrame {
         if (a || l || f) {
             detailSection.add(Box.createVerticalStrut(6));
 
-            // Detail title
+            
             StringBuilder titleStr = new StringBuilder();
             if (a) titleStr.append("Administrator");
             if (l) { if (titleStr.length() > 0) titleStr.append(" + "); titleStr.append("Library Staff"); }
@@ -188,11 +188,11 @@ public class registerPatronEmp extends JFrame {
             detailSection.add(detailTitlePanel);
             detailSection.add(Box.createVerticalStrut(6));
 
-            // Count rows
+            
             int rows = 0;
-            if (l)      rows += 1; // Assignment Code
-            if (a || l) rows += 1; // Position
-            if (f)      rows += 3; // Faculty Rank + Campus + College Code
+            if (l)      rows += 1; 
+            if (a || l) rows += 1; 
+            if (f)      rows += 3; 
 
             JPanel detailGrid = new JPanel(new GridLayout(rows, 2, 8, 4));
             detailGrid.setBackground(LIGHT_PINK);

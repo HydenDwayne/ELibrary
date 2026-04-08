@@ -81,7 +81,7 @@ public class FilterBy extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = -1;
 
-        // Reference height (for combo sizing)
+        
         RoundedTextField heightRef = new RoundedTextField(19, FIELD_RADIUS);
         int fieldHeight = heightRef.getPreferredSize().height;
         
@@ -120,9 +120,9 @@ public class FilterBy extends JPanel {
         classSection.add(classGrid, BorderLayout.CENTER);
         innerBody.add(classSection, gbc);
 
-        gbc.gridwidth = 1; // reset
+        gbc.gridwidth = 1; 
         
-     // ===== RESTORE CLASSIFICATION SELECTION =====
+     
         String savedClass = bt.getFilterClass();
         if (savedClass != null && !savedClass.isEmpty()) {
             for (AbstractButton btn :
@@ -159,12 +159,12 @@ public class FilterBy extends JPanel {
         fromYear.setPreferredSize(new Dimension(200, fieldHeight));
         innerBody.add(fromYear, gbc);
         
-     // ===== RESTORE FROM YEAR =====
+     
         String savedStartYear = bt.getFilterStartYear();
         if (savedStartYear != null && !savedStartYear.isEmpty()) {
             fromYear.setSelectedItem(savedStartYear);
         } else {
-            fromYear.setSelectedIndex(0); // "none"
+            fromYear.setSelectedIndex(0); 
         }   
 
         gbc.gridy++;
@@ -183,12 +183,12 @@ public class FilterBy extends JPanel {
         toYear.setPreferredSize(new Dimension(200, fieldHeight));
         innerBody.add(toYear, gbc);
         
-     // ===== RESTORE TO YEAR =====
+     
         String savedEndYear = bt.getFilterEndYear();
         if (savedEndYear != null && !savedEndYear.isEmpty()) {
             toYear.setSelectedItem(savedEndYear);
         } else {
-            toYear.setSelectedIndex(0); // "none"
+            toYear.setSelectedIndex(0); 
         }
 
         body.add(innerBody, BorderLayout.CENTER);
@@ -232,11 +232,11 @@ public class FilterBy extends JPanel {
         });
         footer.add(applyBtn);
 
-        // ===== BOTTOM ROW: CLEAR + CANCEL =====
+        
         JPanel bottomBtns = new JPanel(new GridLayout(1, 2, 10, 0));
         bottomBtns.setOpaque(false);
 
-        // ---- CLEAR ALL ----
+        
         RoundedButton clearBtn = new RoundedButton("CLEAR ALL", FIELD_RADIUS);
         clearBtn.setFont(poppins12);
         clearBtn.setForeground(MAROON);
@@ -244,12 +244,12 @@ public class FilterBy extends JPanel {
         clearBtn.setBorderThickness(1);
         clearBtn.addActionListener(e -> {
             classGroup.clearSelection();
-            fromYear.setSelectedIndex(0); // "none"
-            toYear.setSelectedIndex(0);   // "none"
+            fromYear.setSelectedIndex(0); 
+            toYear.setSelectedIndex(0);   
         });
         bottomBtns.add(clearBtn);
 
-        // ---- CANCEL ----
+        
         RoundedButton cancelBtn = new RoundedButton("CANCEL", FIELD_RADIUS);
         cancelBtn.setFont(poppins12);
         cancelBtn.setForeground(MAROON);
