@@ -33,7 +33,7 @@ public class AddIMS extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
 
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -41,14 +41,14 @@ public class AddIMS extends JPanel {
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
 
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(500, 400));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -73,7 +73,7 @@ public class AddIMS extends JPanel {
 
         header.add(headerWrapper);
 
-        /* ================= BODY ================= */
+        
 
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
@@ -96,7 +96,7 @@ public class AddIMS extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        /* ================= FORM ROWS ================= */
+        
 
         
         gbc.gridy++;
@@ -155,7 +155,7 @@ public class AddIMS extends JPanel {
 
         body.add(innerBody, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
 
         JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
         footer.setBorder(new EmptyBorder(0, 35, 10, 35));
@@ -215,7 +215,7 @@ public class AddIMS extends JPanel {
 		});
         footer.add(cancelBtn);
 
-        /* ================= ASSEMBLY ================= */
+        
 
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);

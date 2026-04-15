@@ -30,7 +30,7 @@ public class MarkAsFound extends JPanel {
 		setOpaque(false);
 		setLayout(new BorderLayout());
 
-		/* ================= FONTS ================= */
+		
 
 		Font introRust36 = new Fonts("IntroRust", 36f).getAppliedFont();
 		Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -38,14 +38,14 @@ public class MarkAsFound extends JPanel {
 		Font poppins12 = new Fonts("Poppins", 12f).getAppliedFont();
 		Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-		/* ================= MODAL ================= */
+		
 
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
 		modal.setPreferredSize(new Dimension(520, 250)); 
 		modal.setBackground(LIGHT_PINK);
 
-		/* ================= HEADER ================= */
+		
 
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(MAROON);
@@ -64,7 +64,7 @@ public class MarkAsFound extends JPanel {
 		header.add(logo, BorderLayout.WEST);
 		header.add(headerLabel, BorderLayout.CENTER);
 
-		/* ================= BODY ================= */
+		
 
 		JPanel body = new JPanel();
 		body.setOpaque(false);
@@ -87,7 +87,7 @@ public class MarkAsFound extends JPanel {
 
 		Dimension labelSize = new Dimension(220, 40);
 
-		/* ================= SINGLE ROW ================= */
+		
 
 		
 		JPanel labelWrapper = new JPanel(new BorderLayout());
@@ -111,7 +111,7 @@ public class MarkAsFound extends JPanel {
 
 		body.add(innerBody);
 
-		/* ================= FOOTER ================= */
+		
 
 		JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
 		footer.setBorder(new EmptyBorder(10, 35, 10, 35));
@@ -152,7 +152,7 @@ public class MarkAsFound extends JPanel {
 		footer.add(cancelBtn);
 		footer.add(confirmBtn);
 
-		/* ================= ASSEMBLY ================= */
+		
 
 		modal.add(header, BorderLayout.NORTH);
 		modal.add(body, BorderLayout.CENTER);

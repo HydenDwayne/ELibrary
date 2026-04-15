@@ -38,7 +38,7 @@ public class Fonts {
         return appliedFont;
     }
 
-    /* ================= JAR-SAFE FONT LOADER ================= */
+    
 
     private static Font loadFont(String fileName, float size) {
 

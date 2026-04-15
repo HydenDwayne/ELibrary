@@ -34,7 +34,7 @@ public class ReserveFunctionHall extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
 
         Font introRust36 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -42,14 +42,14 @@ public class ReserveFunctionHall extends JPanel {
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
 
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(520, 450));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
 
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(MAROON);
@@ -68,7 +68,7 @@ public class ReserveFunctionHall extends JPanel {
         header.add(logo, BorderLayout.WEST);
         header.add(headerLabel, BorderLayout.CENTER);
 
-        /* ================= BODY ================= */
+        
 
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
@@ -88,12 +88,12 @@ public class ReserveFunctionHall extends JPanel {
         gbc.insets = new Insets(6, 6, 6, 6);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        /* ✅ Equal width for both columns */
+        
         gbc.weightx = 0.5;
 
         Dimension labelSize = new Dimension(220, 30); 
 
-        /* ================= ROWS ================= */
+        
 
         
         gbc.gridx = 0;
@@ -111,7 +111,7 @@ public class ReserveFunctionHall extends JPanel {
         eventField.setBorderThickness(1);
         innerBody.add(eventField, gbc);
         
-        /* ================= ROW 6: Start Time ================= */
+        
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -168,7 +168,7 @@ public class ReserveFunctionHall extends JPanel {
         
         innerBody.add(startSpinner, gbc);
 
-        /* ================= ROW 7: End Time ================= */
+        
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -231,7 +231,7 @@ public class ReserveFunctionHall extends JPanel {
 
         body.add(innerBody, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
 
         JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
         footer.setBorder(new EmptyBorder(10, 35, 10, 35));
@@ -243,7 +243,7 @@ public class ReserveFunctionHall extends JPanel {
         cancelBtn.setBorderColor(MAROON);
         cancelBtn.setBorderThickness(1);
 
-        /* ✅ Close modal on cancel */
+        
         cancelBtn.addActionListener(e -> {
             Window w = SwingUtilities.getWindowAncestor(this);
             if (w instanceof JDialog) {
@@ -318,7 +318,7 @@ public class ReserveFunctionHall extends JPanel {
         footer.add(cancelBtn);
         footer.add(confirmBtn);
 
-        /* ================= ASSEMBLY ================= */
+        
 
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);

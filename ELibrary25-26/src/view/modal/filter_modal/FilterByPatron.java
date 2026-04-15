@@ -24,7 +24,7 @@ public class FilterByPatron extends JPanel {
 		setOpaque(false);
 		setLayout(new BorderLayout());
 
-		/* ================= FONTS ================= */
+		
 
 		Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
 		Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -32,14 +32,14 @@ public class FilterByPatron extends JPanel {
 		Font poppins12 = new Fonts("Poppins", 12f).getAppliedFont();
 		Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-		/* ================= MODAL ================= */
+		
 
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
 		modal.setPreferredSize(new Dimension(520, 480));
 		modal.setBackground(LIGHT_PINK);
 
-		/* ================= HEADER ================= */
+		
 
 		JPanel header = new JPanel();
 		header.setBackground(MAROON);
@@ -64,7 +64,7 @@ public class FilterByPatron extends JPanel {
 		headerWrapper.add(headerLabel, BorderLayout.CENTER);
 		header.add(headerWrapper);
 
-		/* ================= BODY ================= */
+		
 
 		JPanel body = new JPanel(new BorderLayout());
 		body.setOpaque(false);
@@ -85,7 +85,7 @@ public class FilterByPatron extends JPanel {
 		gbc.weightx = 1;
 		gbc.gridy = -1;
 
-		/* ================= CAMPUS ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -121,7 +121,7 @@ public class FilterByPatron extends JPanel {
 		campusSection.add(campusGrid, BorderLayout.CENTER);
 		innerBody.add(campusSection, gbc);
 
-		/* ================= PATRON TYPE ================= */
+		
 
 		gbc.gridy++;
 
@@ -160,7 +160,7 @@ public class FilterByPatron extends JPanel {
 		employee.setSelected(pt.isFilterEmployee());
 		student.setSelected(pt.isFilterStudent());
 
-		/* ================= FOOTER ================= */
+		
 
 		JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
 		footer.setPreferredSize(new Dimension(500, 100));
@@ -229,7 +229,7 @@ public class FilterByPatron extends JPanel {
 		bottomBtns.add(cancelBtn);
 		footer.add(bottomBtns);
 
-		/* ================= ASSEMBLY ================= */
+		
 
 		modal.add(header, BorderLayout.NORTH);
 		modal.add(body, BorderLayout.CENTER);

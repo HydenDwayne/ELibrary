@@ -60,7 +60,7 @@ public class ViewEmployee extends JPanel {
 		setOpaque(false);
 		setLayout(new BorderLayout());
 
-		/* ================= FONTS ================= */
+		
 		Font introRust36 = new Fonts("IntroRust", 36f).getAppliedFont();
 		Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
 		Font poppins16 = new Fonts("Poppins", 16f).getAppliedFont();
@@ -92,13 +92,13 @@ public class ViewEmployee extends JPanel {
 		addressField.setBorderColor(FIELD_BORDER);
 		addressField.setPreferredSize(fieldDim);
 
-		/* ================= MODAL ================= */
+		
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
 		modal.setPreferredSize(new Dimension(900, 550));
 		modal.setBackground(LIGHT_PINK);
 
-		/* ================= HEADER ================= */
+		
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(MAROON);
 		header.setPreferredSize(new Dimension(900, 100));
@@ -115,7 +115,7 @@ public class ViewEmployee extends JPanel {
 		header.add(logo, BorderLayout.WEST);
 		header.add(headerLabel, BorderLayout.CENTER);
 
-		/* ================= BODY ================= */
+		
 		JPanel body = new JPanel(new BorderLayout());
 		body.setOpaque(false);
 		body.setBorder(new EmptyBorder(10, 15, 10, 15));
@@ -129,7 +129,7 @@ public class ViewEmployee extends JPanel {
 		content.setOpaque(false);
 		content.setBorder(new EmptyBorder(15, 5, 5, 5));
 
-		/* ================= LEFT PANEL ================= */
+		
 		RoundedPanel left = new RoundedPanel(12);
 		left.setBackground(WHITE);
 		left.setBorder(new EmptyBorder(15, 15, 15, 15));
@@ -210,7 +210,7 @@ public class ViewEmployee extends JPanel {
 		l.gridx = 1;
 		left.add(addressField, l);
 
-		/* ================= RIGHT PANEL ================= */
+		
 		RoundedPanel right = new RoundedPanel(12);
         right.setLayout(new GridBagLayout());
         right.setBackground(WHITE);
@@ -441,7 +441,7 @@ public class ViewEmployee extends JPanel {
 		content.add(right);
 		body.add(content, BorderLayout.CENTER);
 
-		/* ================= FOOTER ================= */
+		
 		JPanel footer = new JPanel(new GridLayout(1, 3, 10, 0));
 		footer.setPreferredSize(new Dimension(900, 60));
 		footer.setBorder(new EmptyBorder(10, 20, 10, 20));

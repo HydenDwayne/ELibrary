@@ -74,7 +74,7 @@ public class ViewStudent extends JPanel {
 		setLayout(new BorderLayout());
 		setOpaque(false);
 
-		/* ================= FONTS ================= */
+		
 		Font introRust36 = new Fonts("IntroRust", 36f).getAppliedFont();
 		Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
 		Font poppins16 = new Fonts("Poppins", 16f).getAppliedFont();
@@ -320,7 +320,7 @@ public class ViewStudent extends JPanel {
 		content.add(right);
 		body.add(content, BorderLayout.CENTER);
 
-		/* ================= FOOTER ================= */
+		
 		JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
 		footer.setPreferredSize(new Dimension(900, 60));
 		footer.setBorder(new EmptyBorder(10, 20, 10, 20));

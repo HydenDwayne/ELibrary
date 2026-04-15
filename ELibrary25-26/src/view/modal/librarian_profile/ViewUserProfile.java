@@ -41,19 +41,19 @@ public class ViewUserProfile extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
         Font poppins16 = new Fonts("Poppins", 16f).getAppliedFont();
         Font poppins12 = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(520, 480));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(MAROON);
         header.setPreferredSize(new Dimension(520, 80));
@@ -65,7 +65,7 @@ public class ViewUserProfile extends JPanel {
 
         header.add(headerLabel, BorderLayout.CENTER);
 
-        /* ================= BODY ================= */
+        
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
         body.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -89,7 +89,7 @@ public class ViewUserProfile extends JPanel {
         
         
 
-        /* ================= ROW 1: Username ================= */
+        
         gbc.gridx = 0;
         usernameLbl = new JLabel("Username:");
         usernameLbl.setFont(poppins16);
@@ -105,7 +105,7 @@ public class ViewUserProfile extends JPanel {
         usernameField.setBorderThickness(1);
         innerBody.add(usernameField, gbc);
 
-        /* ================= ROW 2: Email ================= */
+        
         gbc.gridy++;
         gbc.gridx = 0;
         emailLbl = new JLabel("Email:");
@@ -122,7 +122,7 @@ public class ViewUserProfile extends JPanel {
         emailField.setBorderThickness(1);
         innerBody.add(emailField, gbc);
 
-        /* ================= ROW 3: Full Name ================= */
+        
         gbc.gridy++;
         gbc.gridx = 0;
         fullNameLbl = new JLabel("Full Name:");
@@ -139,7 +139,7 @@ public class ViewUserProfile extends JPanel {
         fullNameField.setBorderThickness(1);
         innerBody.add(fullNameField, gbc);
 
-        /* ================= ROW 4: Previous Password ================= */
+        
         gbc.gridy++;
         gbc.gridx = 0;
         prevPasswordLbl = new JLabel("Previous Password:");
@@ -156,7 +156,7 @@ public class ViewUserProfile extends JPanel {
         prevPasswordField.setEnabled(false);
         innerBody.add(prevPasswordField, gbc);
 
-        /* ================= ROW 5: New Password ================= */
+        
         gbc.gridy++;
         gbc.gridx = 0;
         newPasswordLbl = new JLabel("New Password:");
@@ -171,7 +171,7 @@ public class ViewUserProfile extends JPanel {
         newPasswordField.setBorder(BorderFactory.createLineBorder(FIELD_BORDER, 1, true));
         innerBody.add(newPasswordField, gbc);
 
-        /* ================= ROW 6: Confirm Password ================= */
+        
         gbc.gridy++;
         gbc.gridx = 0;
         confirmPasswordLbl = new JLabel("Confirm Password:");
@@ -197,7 +197,7 @@ public class ViewUserProfile extends JPanel {
 
         body.add(innerBody, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
         JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
         footer.setBorder(new EmptyBorder(10, 35, 10, 35));
         footer.setOpaque(false);
@@ -284,7 +284,7 @@ public class ViewUserProfile extends JPanel {
         footer.add(backBtn);
         footer.add(updateBtn);
 
-        /* ================= ASSEMBLY ================= */
+        
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);

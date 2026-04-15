@@ -30,18 +30,18 @@ public class ArchivedBookLoan extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 20f).getAppliedFont();
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(600, 500));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(MAROON);
         header.setPreferredSize(new Dimension(500, 100));
@@ -53,7 +53,7 @@ public class ArchivedBookLoan extends JPanel {
 
         header.add(title, BorderLayout.CENTER);
 
-        /* ================= BODY ================= */
+        
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
         body.setBorder(new EmptyBorder(10, 15, 10, 15));
@@ -67,7 +67,7 @@ public class ArchivedBookLoan extends JPanel {
 
         body.add(bodyTitle, BorderLayout.NORTH);
 
-        /* ================= TABLE ================= */
+        
         String[] columnHeader = {"Transaction ID", "Call Number", "Borrow Date", "Patron ID", "Status"};
         ArchiveController comp = new ArchiveController(null);
         Object[][] data = comp.getBookLoanData();
@@ -103,7 +103,7 @@ public class ArchivedBookLoan extends JPanel {
 
         body.add(tableWrapper, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
         JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
         footer.setBorder(new EmptyBorder(10, 30, 15, 30));
         footer.setOpaque(false);
@@ -143,7 +143,7 @@ public class ArchivedBookLoan extends JPanel {
         footer.add(cancelBtn);
         footer.add(unarchiveBtn);
 
-        /* ================= ASSEMBLY ================= */
+        
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);

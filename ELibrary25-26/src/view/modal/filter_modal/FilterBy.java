@@ -25,20 +25,20 @@ public class FilterBy extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
         Font poppins16   = new Fonts("Poppins", 16f).getAppliedFont();
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(500, 520));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
         JPanel header = new JPanel();
         header.setBackground(MAROON);
         header.setPreferredSize(new Dimension(500, 100));
@@ -62,7 +62,7 @@ public class FilterBy extends JPanel {
         headerWrapper.add(headerLabel, BorderLayout.CENTER);
         header.add(headerWrapper);
 
-        /* ================= BODY ================= */
+        
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
         body.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -85,7 +85,7 @@ public class FilterBy extends JPanel {
         RoundedTextField heightRef = new RoundedTextField(19, FIELD_RADIUS);
         int fieldHeight = heightRef.getPreferredSize().height;
         
-        /* ================= CLASSIFICATION ================= */
+        
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -136,7 +136,7 @@ public class FilterBy extends JPanel {
         }
         
 
-        /* ================= YEAR RANGE ================= */
+        
 
         String[] years = {
             "none", "2015","2016","2017","2018","2019",
@@ -193,7 +193,7 @@ public class FilterBy extends JPanel {
 
         body.add(innerBody, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
 
         JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
         footer.setPreferredSize(new Dimension(500, 100));
@@ -266,7 +266,7 @@ public class FilterBy extends JPanel {
 
 
 
-        /* ================= ASSEMBLY ================= */
+        
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);
         modal.add(footer, BorderLayout.SOUTH);

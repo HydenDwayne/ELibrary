@@ -14,7 +14,7 @@ import view.fonts.Fonts;
 
 public class ViewBooks extends JPanel {
 
-    /* ================= CONSTANTS ================= */
+    
 
     static final Color MAROON = new Color(132, 43, 40);
     static final Color LIGHT_PINK = new Color(250, 236, 238);
@@ -25,7 +25,7 @@ public class ViewBooks extends JPanel {
     static final int PANEL_RADIUS = 20;
     static final int FIELD_RADIUS = 15;
 
-    /* ================= FIELDS ================= */
+    
 
     public RoundedTextField bookTitleField;
     public RoundedTextField authorField;
@@ -47,7 +47,7 @@ public class ViewBooks extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
 
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -55,14 +55,14 @@ public class ViewBooks extends JPanel {
         Font poppins12 = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
 
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(500, 600));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -87,7 +87,7 @@ public class ViewBooks extends JPanel {
         headerWrapper.add(headerLabel, BorderLayout.CENTER);
         header.add(headerWrapper);
 
-        /* ================= BODY ================= */
+        
 
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
@@ -107,7 +107,7 @@ public class ViewBooks extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = -1;
 
-        /* ================= FIELDS ================= */
+        
         
      
         gbc.gridy++;
@@ -315,7 +315,7 @@ public class ViewBooks extends JPanel {
         seriesField.setBorderThickness(1);
         innerBody.add(seriesField, gbc);
 
-        /* ================= CONTROLLER ================= */
+        
 
         new BookController(this, callNumber); 
 
@@ -329,7 +329,7 @@ public class ViewBooks extends JPanel {
         
         body.add(innerBody, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
 
         JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
         footer.setBorder(new EmptyBorder(10, 35, 10, 35));
@@ -424,7 +424,7 @@ public class ViewBooks extends JPanel {
         
         footer.add(bottomBtns);
 
-        /* ================= ASSEMBLY ================= */
+        
 
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);

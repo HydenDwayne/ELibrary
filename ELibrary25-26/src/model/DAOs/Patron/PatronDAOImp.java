@@ -656,7 +656,7 @@ public class PatronDAOImp {
 	    }
 	}
 
-	/** Treat empty / whitespace as NULL */
+	
 	private boolean isBlank(String s) {
 	    return s == null || s.trim().isEmpty();
 	}
@@ -686,27 +686,7 @@ public class PatronDAOImp {
 	}
 	
 	public boolean updatePatronEmployee(String[] patronDetails) {
-        /*
-        0  = PatronID
-        1  = FirstName
-        2  = MiddleInitial
-        3  = LastName
-        4  = EmailAddress
-        5  = ContactNumber
-        6  = HomeAddress
-        7  = CampCode
-
-        8  = IsAdmin
-        9  = IsLibraryStaff
-        10 = IsFaculty
-
-        11 = AdminPosition
-        12 = AssignmentCode
-        13 = StaffPosition
-
-        14 = FacultyRank
-        15 = ColCode
-        */
+        
 		
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
    	         CallableStatement stmt = conn.prepareCall("{CALL updateRecord_Patron_Employee(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}")) {

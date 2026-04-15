@@ -50,7 +50,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
 
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -58,14 +58,14 @@ public class AddBorrowingRequestBook2 extends JPanel {
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL CONTAINER ================= */
+        
 
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(500, 550));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER (COPIED FROM STEP 1) ================= */
+        
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -90,7 +90,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         headerWrapper.add(headerLabel, BorderLayout.CENTER);
         header.add(headerWrapper);
 
-        /* ================= BODY ================= */
+        
 
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
@@ -139,7 +139,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(bookTitleField, gbc);
 
 
-        /* Author */
+        
         gbc.gridy++;
         gbc.gridx = 0;
 
@@ -166,7 +166,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(authorField, gbc);
 
 
-        /* Collection Code */
+        
         gbc.gridy++;
         gbc.gridx = 0;
 
@@ -193,7 +193,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(collectionField, gbc);
 
 
-        /* Availability Status */
+        
         gbc.gridy++;
         gbc.gridx = 0;
 
@@ -220,9 +220,9 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(statusField, gbc);
 
 
-        /* ================= LOAN DETAILS ================= */
+        
 
-        /* Book Call Number */
+        
         gbc.gridy++;
         gbc.gridx = 0;
 
@@ -249,7 +249,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(callNumField, gbc);
 
 
-        /* Patron ID */
+        
         gbc.gridy++;
         gbc.gridx = 0;
 
@@ -276,7 +276,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         innerBody.add(patronField, gbc);
 
 
-        /* Borrow Due Date */
+        
         gbc.gridy++;
         gbc.gridx = 0;
 
@@ -345,7 +345,7 @@ public class AddBorrowingRequestBook2 extends JPanel {
         footer.add(submitBtn);
         footer.add(backBtn);
 
-        /* ================= ASSEMBLY ================= */
+        
 
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);

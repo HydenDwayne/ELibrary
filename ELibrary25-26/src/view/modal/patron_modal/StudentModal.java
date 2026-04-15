@@ -448,7 +448,7 @@ public class StudentModal extends JPanel implements ActionListener {
 		modal.add(body, BorderLayout.CENTER);
 		modal.add(footer, BorderLayout.SOUTH);
 
-		/* ================= FONT APPLICATION ================= */
+		
 
 		
 		Fonts poppins16 = new Fonts("Poppins", 16f);

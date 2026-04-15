@@ -39,7 +39,7 @@ public class ReturnBookConfirm extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
 
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -47,14 +47,14 @@ public class ReturnBookConfirm extends JPanel {
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
 
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(500, 420));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -79,7 +79,7 @@ public class ReturnBookConfirm extends JPanel {
         headerWrapper.add(headerLabel, BorderLayout.CENTER);
         header.add(headerWrapper);
 
-        /* ================= BODY ================= */
+        
 
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
@@ -99,7 +99,7 @@ public class ReturnBookConfirm extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridy = 0;
 
-        /* ================= TRANSACTION ID ================= */
+        
 
         JLabel txnLabel = new JLabel("Transaction ID:");
         txnLabel.setFont(poppins16);
@@ -118,7 +118,7 @@ public class ReturnBookConfirm extends JPanel {
         gbc.weightx = 1;
         innerBody.add(txnField, gbc);
 
-        /* ================= BOOK CALL NUMBER ================= */
+        
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -138,7 +138,7 @@ public class ReturnBookConfirm extends JPanel {
         gbc.weightx = 1;
         innerBody.add(callField, gbc);
 
-        /* ================= PATRON ID ================= */
+        
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -158,7 +158,7 @@ public class ReturnBookConfirm extends JPanel {
         gbc.weightx = 1;
         innerBody.add(patronField, gbc);
 
-        /* ================= BORROW DUE DATE ================= */
+        
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -178,7 +178,7 @@ public class ReturnBookConfirm extends JPanel {
         gbc.weightx = 1;
         innerBody.add(dueField, gbc);
 
-        /* ================= DUE DATE STATUS ================= */
+        
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -200,7 +200,7 @@ public class ReturnBookConfirm extends JPanel {
 
         body.add(innerBody, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
 
         JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
         footer.setBorder(new EmptyBorder(10, 35, 10, 35));
@@ -225,7 +225,7 @@ public class ReturnBookConfirm extends JPanel {
         footer.add(backBtn);
         footer.add(confirmBtn);
 
-        /* ================= ASSEMBLY ================= */
+        
 
         modal.add(header, BorderLayout.NORTH);
         modal.add(body, BorderLayout.CENTER);

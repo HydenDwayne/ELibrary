@@ -38,7 +38,7 @@ public class ViewBorrowRequest extends JPanel {
         setOpaque(false);
         setLayout(new BorderLayout());
 
-        /* ================= FONTS ================= */
+        
 
         Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
         Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -46,14 +46,14 @@ public class ViewBorrowRequest extends JPanel {
         Font poppins12   = new Fonts("Poppins", 12f).getAppliedFont();
         Font poppins10   = new Fonts("Poppins", 10f).getAppliedFont();
 
-        /* ================= MODAL ================= */
+        
 
         RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
         modal.setLayout(new BorderLayout());
         modal.setPreferredSize(new Dimension(500, 540));
         modal.setBackground(LIGHT_PINK);
 
-        /* ================= HEADER ================= */
+        
 
         JPanel header = new JPanel();
         header.setBackground(MAROON);
@@ -78,7 +78,7 @@ public class ViewBorrowRequest extends JPanel {
 
         header.add(headerWrapper);
 
-        /* ================= BODY ================= */
+        
 
         JPanel body = new JPanel(new BorderLayout());
         body.setOpaque(false);
@@ -102,7 +102,7 @@ public class ViewBorrowRequest extends JPanel {
         RoundedTextField heightRef = new RoundedTextField(19, FIELD_RADIUS);
         int fieldHeight = heightRef.getPreferredSize().height;
 
-        /* ================= ROWS ================= */
+        
 
         
         JPanel labelWrap;
@@ -230,7 +230,7 @@ public class ViewBorrowRequest extends JPanel {
 
         body.add(innerBody, BorderLayout.CENTER);
 
-        /* ================= FOOTER ================= */
+        
 
         JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
         footer.setBorder(new EmptyBorder(0, 35, 10, 35));
@@ -284,7 +284,7 @@ public class ViewBorrowRequest extends JPanel {
         
         footer.add(bottomBtns);
 
-        /* ================= ASSEMBLY ================= */
+        
         
         comp = new IMSController(this);
         comp.getLoanInfo(loanID);

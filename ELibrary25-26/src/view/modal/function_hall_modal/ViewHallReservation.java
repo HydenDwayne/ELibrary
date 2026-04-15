@@ -44,7 +44,7 @@ public class ViewHallReservation extends JPanel {
 		setOpaque(false);
 		setLayout(new BorderLayout());
 
-		/* ================= FONTS ================= */
+		
 
 		Font introRust36 = new Fonts("IntroRust", 36f).getAppliedFont();
 		Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -52,14 +52,14 @@ public class ViewHallReservation extends JPanel {
 		Font poppins12 = new Fonts("Poppins", 12f).getAppliedFont();
 		Font poppins10 = new Fonts("Poppins", 10f).getAppliedFont();
 
-		/* ================= MODAL ================= */
+		
 
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
 		modal.setPreferredSize(new Dimension(520, 560));
 		modal.setBackground(LIGHT_PINK);
 
-		/* ================= HEADER ================= */
+		
 
 		JPanel header = new JPanel(new BorderLayout());
 		header.setBackground(MAROON);
@@ -78,7 +78,7 @@ public class ViewHallReservation extends JPanel {
 		header.add(logo, BorderLayout.WEST);
 		header.add(headerLabel, BorderLayout.CENTER);
 
-		/* ================= BODY ================= */
+		
 
 		JPanel body = new JPanel(new BorderLayout());
 		body.setOpaque(false);
@@ -102,7 +102,7 @@ public class ViewHallReservation extends JPanel {
 
 		Dimension labelSize = new Dimension(220, 30);
 
-		/* ================= ROW 1: Chosen Date ================= */
+		
 
 		gbc.gridx = 0;
 		dateLbl = new JLabel("Chosen Date:");
@@ -120,7 +120,7 @@ public class ViewHallReservation extends JPanel {
 		dateField.setBorderThickness(1);
 		innerBody.add(dateField, gbc);
 
-		/* ================= ROW 2: Reservation No ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -139,7 +139,7 @@ public class ViewHallReservation extends JPanel {
 		resField.setBorderThickness(1);
 		innerBody.add(resField, gbc);
 
-		/* ================= ROW 3: Event ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -158,7 +158,7 @@ public class ViewHallReservation extends JPanel {
 		eventField.setBorderThickness(1);
 		innerBody.add(eventField, gbc);
 
-		/* ================= ROW 4: Reserved By ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -177,7 +177,7 @@ public class ViewHallReservation extends JPanel {
 		reservedField.setBorderThickness(1);
 		innerBody.add(reservedField, gbc);
 
-		/* ================= ROW 5: Approved By ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -196,7 +196,7 @@ public class ViewHallReservation extends JPanel {
 		approvedField.setBorderThickness(1);
 		innerBody.add(approvedField, gbc);
 
-		/* ================= ROW 6: Start Time ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -215,7 +215,7 @@ public class ViewHallReservation extends JPanel {
 		startField.setBorderThickness(1);
 		innerBody.add(startField, gbc);
 
-		/* ================= ROW 7: End Time ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -236,7 +236,7 @@ public class ViewHallReservation extends JPanel {
 
 		body.add(innerBody, BorderLayout.CENTER);
 
-		/* ================= FOOTER ================= */
+		
 
         JPanel footer = new JPanel(new GridLayout(1, 2, 10, 0));
         footer.setBorder(new EmptyBorder(10, 35, 10, 35));
@@ -269,7 +269,7 @@ public class ViewHallReservation extends JPanel {
         footer.add(backBtn);
         footer.add(cancelBtn);
 
-		/* ================= ASSEMBLY ================= */
+		
 
 		modal.add(header, BorderLayout.NORTH);
 		modal.add(body, BorderLayout.CENTER);

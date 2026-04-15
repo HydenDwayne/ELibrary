@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Connect;
-import model.Login;
 import model.DAOs.Reports.DAOPatron;
 
 public class ReportDAOImp {

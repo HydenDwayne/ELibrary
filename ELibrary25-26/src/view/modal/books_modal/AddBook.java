@@ -39,7 +39,7 @@ public class AddBook extends JPanel {
 
 	List<Component> dynamicComponents = new ArrayList<>();
 
-	/* ================= FONTS ================= */
+	
 
 	Font introRust26 = new Fonts("IntroRust", 36f).getAppliedFont();
 	Font introRust24 = new Fonts("IntroRust", 24f).getAppliedFont();
@@ -52,14 +52,14 @@ public class AddBook extends JPanel {
 		setOpaque(false);
 		setLayout(new BorderLayout());
 
-		/* ================= MODAL ================= */
+		
 
 		RoundedPanel modal = new RoundedPanel(PANEL_RADIUS);
 		modal.setLayout(new BorderLayout());
 		modal.setPreferredSize(new Dimension(500, 600));
 		modal.setBackground(LIGHT_PINK);
 
-		/* ================= HEADER ================= */
+		
 
 		JPanel header = new JPanel();
 		header.setBackground(MAROON);
@@ -84,7 +84,7 @@ public class AddBook extends JPanel {
 		headerWrapper.add(headerLabel, BorderLayout.CENTER);
 		header.add(headerWrapper);
 
-		/* ================= BODY ================= */
+		
 
 		JPanel body = new JPanel(new BorderLayout());
 		body.setOpaque(false);
@@ -104,7 +104,7 @@ public class AddBook extends JPanel {
 		gbc.insets = new Insets(5, 5, 5, 5);
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		/* ================= STATIC FIELDS ================= */
+		
 
 		gbc.gridy++;
 		gbc.gridx = 0;
@@ -228,7 +228,7 @@ public class AddBook extends JPanel {
 		reloadCollection();
 		body.add(innerBody, BorderLayout.CENTER);
 
-		/* ================= FOOTER ================= */
+		
 
 		JPanel footer = new JPanel(new GridLayout(2, 1, 0, 10));
 		footer.setBorder(new EmptyBorder(0, 35, 10, 35));
@@ -321,7 +321,7 @@ public class AddBook extends JPanel {
 		}
 	}
 
-	/* ================= DYNAMIC SERIES ROW ================= */
+	
 
 	private void updateSeriesRow() {
 
